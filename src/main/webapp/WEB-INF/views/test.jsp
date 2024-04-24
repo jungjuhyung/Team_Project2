@@ -46,6 +46,28 @@
 			<input type="submit">
 		</fieldset>
 	</form>
+	<form action="recommend_write_go" method="post">
+		<fieldset>
+		<legend>jung, kakaomap</legend>
+			<input type="hidden" name="title" value="카카오">
+			<input type="hidden" name="mapx" value="33.450705">
+			<input type="hidden" name="mapy" value="126.570677">
+			
+			<input type="hidden" name="title" value="생태연못">
+			<input type="hidden" name="mapx" value="33.450936">
+			<input type="hidden" name="mapy" value="126.569477">
+			
+			<input type="hidden" name="title" value="텃밭">
+			<input type="hidden" name="mapx" value="33.450879">
+			<input type="hidden" name="mapy" value="126.569940">
+			
+			<input type="hidden" name="title" value="근린공원">
+			<input type="hidden" name="mapx" value="33.451393">
+			<input type="hidden" name="mapy" value="126.570738">
+			<input type="hidden" name="title">
+			<input type="submit" value="작성하기">
+		</fieldset>
+	</form>
 </div>
 <div id="cho" style="width: 500px; margin: 30px auto 30px; border: 1px solid black;">
 	<form action="">
