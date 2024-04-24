@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="board_t">
+	
+	<select id="boardCount" resultType="int">
+		select count(*) from board_t
+	</select>
+
+	<select id="boardList" parameterType="Map" resultType="boardvo">
+		select * from board_t order by board_idx desc limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="boardlist" resultType="boardvo">
+		select * from board_t order by board_idx
+	</select>
+	
+	<insert id="boardInsert" parameterType="boardvo">
+		insert into board_t (board_title, u_nickname, content, regdate, hit, u_idx)
+		values (#{board_title}, #{u_nickname}, #{content}, sysdate(), #{hit}, #{u_idx})
+	</insert>
+	
+	<select id="boardDetail">
+		select * from board_t where board_idx = #{board_idx}
+	</select>
+	
+	<delete id="boardDelete">
+		delete from board_t where board_idx = #{board_idx}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="boardvo">
+ 		update board_t
+ 		set content=#{content}
+ 		where board_idx = #{board_idx}
+ 	</update>
+	
+	<update id="boardHitUpdate" parameterType="String">
+		update board_t set hit = hit + 1 where board_idx = #{board_idx}
+	</update>
+	
+	<select id="commentList" parameterType="String" resultType="commentvo">
+		select * from comment_t where board_idx = #{board_idx}
+	</select>
+	
+	<insert id="commentInsert" parameterType="commentvo">
+		insert into comment_t (content, write_date, u_nickname)
+		values (#{content}, sysdate(), #{u_nickname})
+	</insert>
+	
+	<delete id="commentDelete" parameterType="String">
+		delete from comment_t where comment_idx = #{comment_idx}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
