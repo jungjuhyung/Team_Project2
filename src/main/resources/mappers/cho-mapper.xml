@@ -17,6 +17,9 @@
 	        <if test="contentType != 999">
 	            AND contenttypeid = #{contentType}
 	        </if>
+	          <if test="title != null">
+	            AND title LIKE CONCAT('%', #{title}, '%')
+	        </if>
         </where>
 	</select>
 	
@@ -32,6 +35,9 @@
 	        </if>
 	        <if test="contentType != 999">
 	            AND contenttypeid = #{contentType}
+	        </if>
+	        <if test="title != null">
+	            AND title LIKE CONCAT('%', #{title}, '%')
 	        </if>
         </where>
         LIMIT #{limit} OFFSET #{offset}

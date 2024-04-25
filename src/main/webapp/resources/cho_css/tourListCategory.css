@@ -4,25 +4,33 @@
 }
 /* 검색 폼 */
 .areaSearchForm{
-	width: 500px;
+	width: 800px;
 	margin: 0 auto;
 } 
 /* 셀렉트 박스들 */
 .searchSelect{
 	width: 100px;
 	height: 35px;
-	border: 2px solid aqua;
+	border: 2px solid black;
 	font-size: 16px;
 	border-radius: 4px;
  	cursor: pointer; /* 커서 모양 설정 */
  	text-align: center;
+}
+.searchTitle{
+	width: 300px;
+	height: 35px;
+	border: 2px solid black;
+	font-size: 16px;
+	border-radius: 4px;
+	
 }
 
 /* 검색버튼 */
 .SearchButton {
     width: 100px;
     height: 35px;
-    border: 2px solid aqua;
+    border: 2px solid black;
     font-size: 16px;
     border-radius: 4px;
     background-color: white; /* 버튼 배경색 */
@@ -56,7 +64,7 @@
 }
 .image-box{
 	width: 220px;
-	height: 300px;
+	height: 280px;
 }
 .image-box img{
 	border-radius: 10px;
@@ -79,5 +87,19 @@
 .pagination{
 	list-style: none;
 	display: flex;
-	margin-left: 0 20px;
+	justify-content: center;
+	padding: 0;
 }
+.pagination li{
+	width: 50px;
+	border: 1px solid black;
+	margin: 5px;
+	text-align: center;
+}
+.pagination li:hover{
+	cursor: pointer;
+}
+.nowPage{
+	background-color: gray;
+}
+

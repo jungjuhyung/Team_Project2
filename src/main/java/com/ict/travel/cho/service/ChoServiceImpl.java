@@ -14,12 +14,12 @@ public class ChoServiceImpl implements ChoService{
 	private ChoDAO choDAO;
 	
 	@Override
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, int offset, int limit) {
-		return choDAO.getChoTourList(areaCode, sigunguCode, contentType, offset, limit);
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, int offset, int limit) {
+		return choDAO.getChoTourList(areaCode, sigunguCode, contentType,title, offset, limit);
 	}
 	
 	@Override
-	public int getTourListCount(String areaCode, String sigunguCode, String contentType) {
-		return choDAO.getTourListCount(areaCode, sigunguCode, contentType);
+	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title) {
+		return choDAO.getTourListCount(areaCode, sigunguCode, contentType, title);
 	}
 }

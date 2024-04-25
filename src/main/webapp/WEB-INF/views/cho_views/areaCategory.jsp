@@ -48,7 +48,7 @@
 		});
 	}
 	// 페이지 번호 클릭 이벤트 처리
-	$(document).on("click", ".pagination li a.page-link", function(e) {
+	$(document).on("click", ".pagination li.page-item", function(e) {
 	    e.preventDefault();
 	    let page = parseInt($(this).attr('data-page'));
 	    search(page); // 해당 페이지 검색 실행
@@ -57,6 +57,7 @@
         let areaCode = $("#areaCodes").val();
         let sigunguCode = $("#sigunguCode").val();
         let contentType = $("#contentTypes").val();
+        let title = $(".searchTitle").val();
         // AJAX 요청 실행
         $.ajax({
             url: "areaSearchTourList",
@@ -66,10 +67,10 @@
                 areaCode: areaCode,
                 sigunguCode: sigunguCode,
                 contentType: contentType,
-                page: page
+                page: page,
+                title: title
             },
             success: function(data) {
-            	console.log(data)
             	$('#place_wrapper').empty();
             	// 검색된 배열의 JSON 요소들을 반복하면서 처리
            	    for (let i = 0; i < data.choTourList.length; i++) {
@@ -87,21 +88,24 @@
 	// 페이징 처리 함수
 	function updatePagination(paging) {
 	    var content = '';
-	    
-	    content += '<ul class="pagination" id="pagination">';
+	    content += '<ol class="pagination" id="pagination">';
 	    if (paging.beginBlock > 1) {
-	        content += '<li><a href="#" class="page-link" data-page="' + (paging.beginBlock - 1) + '">Previous</a></li>';
+	        content += '<li class="page-item" data-page="' + (paging.beginBlock - 1) + '">이전</li>';
 	    }
 
 	    for (var i = paging.beginBlock; i <= paging.endBlock; i++) {
-	        content += '<li><a href="#" class="page-link" data-page="' + i + '">' + i + '</a></li>';
+	    	if(i === paging.nowPage){
+	        content += '<li class="page-item nowPage" data-page="' + i + '">'+ i + '</li>';
+	    	}else{
+	        content += '<li class="page-item" data-page="' + i + '">'+ i + '</li>';
+	    	}
 	    }
 
 	    if (paging.endBlock < paging.totalPage) {
-	        content += '<li><a href="#" class="page-link" data-page="' + (paging.endBlock + 1) + '">Next</a></li>';
+	        content += '<li class="page-item" data-page="' + (paging.endBlock + 1) + '">다음</li>';
 	    }
 
-	    content += '</ul>';
+	    content += '</ol>';
 
 	    $(".board-list-paging").html(content);
 	}
@@ -151,6 +155,7 @@
 				<option value="15">행사/공연/축제</option>
 				<option value="39">음식점</option>
 			</select>
+			<input type="text" class ="searchTitle" name = "title">
 			<input type="button" value="검색" class = "SearchButton">
 		</form>
 		<hr>

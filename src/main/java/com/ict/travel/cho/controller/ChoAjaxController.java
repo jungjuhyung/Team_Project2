@@ -60,12 +60,15 @@ public class ChoAjaxController {
 	}
 	@RequestMapping(value = "areaSearchTourList", produces = "application/json; charset=utf-8" )
 	@ResponseBody
-	public String areaSearchTourList(@RequestParam("areaCode") String areaCode, 
+	public String areaSearchTourList(
+			@RequestParam("areaCode") String areaCode, 
 			@RequestParam("sigunguCode") String sigunguCode, 
-			@RequestParam("contentType") String contentType, @RequestParam("page") String page  ) throws Exception {
+			@RequestParam("contentType") String contentType, 
+			@RequestParam("page") String page, 
+			@RequestParam("title") String title) throws Exception {
 			// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
 			int pagecount = 20;
-			int count = choService.getTourListCount(areaCode,sigunguCode,contentType);
+			int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title);
 			paging.setTotalRecord(count);
 			// 한 페이지에 20개
 			paging.setNumPerPage(pagecount);
@@ -100,9 +103,8 @@ public class ChoAjaxController {
 			if(paging.getEndBlock() > paging.getTotalPage()) {
 				paging.setEndBlock(paging.getTotalPage());
 			}
-			System.out.println("전체 갯수 " + count);
 			
-			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,paging.getOffset(), paging.getNumPerPage());
+			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,paging.getOffset(), paging.getNumPerPage());
 			// Create a Map to hold both tour list and pagination information
 			Map<String, Object> result = new HashMap<>();
 
