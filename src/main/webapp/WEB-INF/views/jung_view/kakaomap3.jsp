@@ -30,7 +30,7 @@
 	</div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c186c802b1e519c6f748b4481b8a4b53"></script>
 <script>
-//여기서부터 map 생성
+// 여기서부터 map 생성
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(35.207766, 128.569655), // 지도의 중심좌표
@@ -62,13 +62,7 @@ function marker(position) {
 	    markers.push(marker)
 }
 function marker_del(position) {
-	console.log(position)
 	for (let i = 0; i < markers.length; i++) {
-		console.log(markers[i].getPosition().getLat())
-		console.log(position.latlng.getLat())
-		console.log(markers[i].getPosition().getLng())
-		console.log(position.latlng.getLng())
-		console.log(markers[i].getPosition().getLat() == position.latlng.getLat() && markers[i].getPosition().getLng() == position.latlng.getLng())
 		if (markers[i].getPosition().getLat() == position.latlng.getLat() && markers[i].getPosition().getLng() == position.latlng.getLng()) {
 			markers[i].setMap(null);
 		}
@@ -76,8 +70,8 @@ function marker_del(position) {
 }
 // 변화시 확인
 $(".chk_box").change(function() {
-		let x = $(this).next().next().next().next().val()
-		let y = $(this).next().next().next().next().next().val()
+		let x = Number($(this).next().next().next().next().val())
+		let y = Number($(this).next().next().next().next().next().val())
         let position = 
             {
         		title: $(this).next().next().next().val(), 

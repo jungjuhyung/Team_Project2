@@ -1,7 +1,7 @@
 package com.ict.travel.jung.dao;
 
-public class MarkerVO {
-	private String[] title, contentid;
+public class MarkersVO {
+	private String[] title, contentid, firstimage;
 	private double[] mapx, mapy;
 	public String[] getTitle() {
 		return title;
@@ -15,6 +15,12 @@ public class MarkerVO {
 	public void setContentid(String[] contentid) {
 		this.contentid = contentid;
 	}
+	public String[] getFirstimage() {
+		return firstimage;
+	}
+	public void setFirstimage(String[] firstimage) {
+		this.firstimage = firstimage;
+	}
 	public double[] getMapx() {
 		return mapx;
 	}
@@ -27,5 +33,6 @@ public class MarkerVO {
 	public void setMapy(double[] mapy) {
 		this.mapy = mapy;
 	}
+	
 
 }
