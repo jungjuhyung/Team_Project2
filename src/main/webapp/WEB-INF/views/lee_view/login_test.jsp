@@ -9,7 +9,7 @@
 	$(document).ready(function(){
 		$("#res").empty();
 		$.ajax({
-			url : "kakaoUser.do",
+			url : "kakaoUser2.do",
 			method : "post",
 			dataType : "text",
 			success : function (data) {
