@@ -112,7 +112,7 @@
 	
    	// 각 장소 정보를 HTML로 변환하여 추가하는 함수
    	function addPlace(place) {
-   	    let placeHTML = '<div class="place-box">' +
+   	    let placeHTML = '<div class="place-box" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
    	                        '<div class="image-box">' +
    	                            '<img alt="' + place.title + '" src="' + place.firstimage + '">' +
    	                        '</div>' +
@@ -121,6 +121,9 @@
    	                        '</div>' +
    	                    '</div>';
    	    $('#place_wrapper').append(placeHTML);
+   	}
+   	function goProductDetail(contentid, contenttypeid){
+   		Location.href = "";
    	}
 </script>
 </head>
