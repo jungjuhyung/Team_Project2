@@ -9,16 +9,10 @@
 	</settings>
 	<typeAliases>
 		<!--<typeAlias type="com.ict.travek.test.dao.Test_VO" alias="testvo"/>-->
-		<!-- 게시판 -->
-		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>
-		<!-- 댓글 -->
-		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
+		<typeAlias type="com.ict.travel.cho.dao.ChoTourVO" alias="choTourVO"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/test-mapper.xml" />
- 		<!-- 게시판 -->
- 		<mapper resource="mappers/board-mapper.xml" />
- 		<!-- 댓글 -->
- 		<mapper resource="mappers/comment-mapper.xml" />
+ 		<mapper resource="mappers/cho-mapper.xml" />
 	</mappers>
 </configuration>
