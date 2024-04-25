@@ -12,7 +12,6 @@
 		<typeAlias type="com.ict.travel.cho.dao.ChoTourVO" alias="choTourVO"/>
 	</typeAliases>
 	<mappers>
- 		<mapper resource="mappers/test-mapper.xml" />
  		<mapper resource="mappers/cho-mapper.xml" />
 	</mappers>
 </configuration>
