@@ -10,8 +10,10 @@
 	<typeAliases>
 		<!--<typeAlias type="com.ict.travek.test.dao.Test_VO" alias="testvo"/>-->
 		<typeAlias type="com.ict.travel.cho.dao.ChoTourVO" alias="choTourVO"/>
+		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/cho-mapper.xml" />
+ 		<mapper resource="mappers/ko-mapper.xml" />
 	</mappers>
 </configuration>
