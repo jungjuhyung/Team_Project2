@@ -4,8 +4,37 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="cho_mapper">
+	<!-- 검색(지역,시군구,타입) 결과 paging용 카운트 -->
+	<select id="tourListCount" parameterType="Map" resultType="int">
+		SELECT count(*) FROM tourapi_t 
+		<where>
+			 <if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+        </where>
+	</select>
+	
+	<!-- 검색(지역,시군구,타입) -->
 	<select id="selectTourList" parameterType="Map" resultType="choTourVO">
-		SELECT contentid, contenttypeid, title, firstimage FROM tourapi_t WHERE areaCode = #{areaCode} AND sigungucode = #{sigunguCode} AND contenttypeid = #{contentType}
+		SELECT contentid, contenttypeid, title, firstimage FROM tourapi_t 
+		<where>
+			 <if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+        </where>
+        LIMIT #{limit} OFFSET #{offset}
 	</select>
 </mapper>
 

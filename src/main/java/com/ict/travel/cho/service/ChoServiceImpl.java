@@ -12,8 +12,14 @@ import com.ict.travel.cho.dao.ChoTourVO;
 public class ChoServiceImpl implements ChoService{
 	@Autowired
 	private ChoDAO choDAO;
+	
 	@Override
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType) {
-		return choDAO.getChoTourList(areaCode, sigunguCode, contentType);
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, int offset, int limit) {
+		return choDAO.getChoTourList(areaCode, sigunguCode, contentType, offset, limit);
+	}
+	
+	@Override
+	public int getTourListCount(String areaCode, String sigunguCode, String contentType) {
+		return choDAO.getTourListCount(areaCode, sigunguCode, contentType);
 	}
 }
