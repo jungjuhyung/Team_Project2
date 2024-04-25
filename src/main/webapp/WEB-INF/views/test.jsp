@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function login_go() {
+		location.href="login_go.do";
+	}
+	
+</script>
 </head>
 <body>
 <div id="ko" style="width: 500px; margin: 60px auto 30px; border: 1px solid red;">
@@ -33,7 +39,7 @@
 		<legend>이학준</legend>
 			<input type="hidden">
 			<input type="text">
-			<input type="submit">
+			<button type="button" onclick="login_go()">고~!</button> 
 		</fieldset>
 	</form>
 </div>
