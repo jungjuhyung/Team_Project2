@@ -9,7 +9,7 @@ public class BoardPaging {
 	private int nowBlock = 1 ;
 	
 	// 한 페이지당 게시물 10개 
-	private int numPerPage = 5 ;
+	private int numPerPage = 10 ;
 	// 한 블록 당 3개 < 1 2 3 >
 	private int pagePerBlock = 3 ;
 	

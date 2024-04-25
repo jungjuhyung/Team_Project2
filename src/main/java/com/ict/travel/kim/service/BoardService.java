@@ -16,8 +16,8 @@ public interface BoardService {
 	// 리스트
 	public List<BoardVO> boardList();
 
-	// 삽입
-	public int boardInsert(BoardVO boardvo);
+	// 작성
+	public int boardWrite(BoardVO boardvo);
 
 	// 상세보기
 	public BoardVO boardDetail(String board_idx);
