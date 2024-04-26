@@ -1,4 +1,4 @@
-package com.ict.travel.lee.dao;
+package com.ict.travel.lee.controller.kakao;
 
 public class KakaoVO {
 	private String access_token, token_type, refresh_token;

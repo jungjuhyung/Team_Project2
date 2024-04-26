@@ -1,4 +1,4 @@
-package com.ict.travel.lee.controller;
+package com.ict.travel.lee.controller.kakao;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.ict.travel.lee.dao.KakaoUsersVO;
 
 @RestController
 public class KakaoAjaxController2 {
+	
 	@RequestMapping(value = "kakaoUser2.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String memberChk(HttpSession session) {
