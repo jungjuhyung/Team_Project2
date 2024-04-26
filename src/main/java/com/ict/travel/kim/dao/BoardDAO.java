@@ -67,7 +67,7 @@ public class BoardDAO {
 	// ªË¡¶
 	public int boardDelete(String board_idx) {
 		try {
-			return sqlSessionTemplate.delete("board_t.boardDelete", board_idx);
+			return sqlSessionTemplate.update("board_t.boardDelete", board_idx);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
