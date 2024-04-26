@@ -9,6 +9,10 @@
 	function login_go() {
 		location.href="login_go.do";
 	}
+
+	function boardList() {
+		location.href="boardList";
+	}
 	
 </script>
 </head>
@@ -29,7 +33,7 @@
 		<legend>김철환</legend>
 			<input type="hidden">
 			<input type="text">
-			<input type="submit">
+			<input type="button" onclick="boardList()">
 		</fieldset>
 	</form>
 </div>

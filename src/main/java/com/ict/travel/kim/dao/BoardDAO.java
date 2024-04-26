@@ -45,10 +45,10 @@ public class BoardDAO {
 		return null;
 	}
 	
-	// ª¿‘
-	public int boardInsert(BoardVO boardvo) {
+	// ¿€º∫
+	public int boardWrite(BoardVO boardvo) {
 		try {
-			return sqlSessionTemplate.insert("board_t.boardInsert", boardvo);
+			return sqlSessionTemplate.insert("board_t.boardWrite", boardvo);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
