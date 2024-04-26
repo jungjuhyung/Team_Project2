@@ -10,13 +10,10 @@
 	<typeAliases>
 		<!--<typeAlias type="com.ict.travek.test.dao.Test_VO" alias="testvo"/>-->
 		<typeAlias type="com.ict.travel.cho.dao.ChoTourVO" alias="choTourVO"/>
-		<!-- 게시판 -->
-		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>
-		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
+		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/cho-mapper.xml" />
- 		<mapper resource="mappers/board-mapper.xml" />
- 		<!-- 게시판  -->
+ 		<mapper resource="mappers/ko-mapper.xml" />
 	</mappers>
 </configuration>

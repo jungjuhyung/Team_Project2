@@ -18,10 +18,11 @@
 </head>
 <body>
 <div id="ko" style="width: 500px; margin: 60px auto 30px; border: 1px solid red;">
-	<form action="">
+	<form action="ko.do">
 		<fieldset>
 		<legend>고예찬</legend>
-			<input type="hidden">
+			<input type="hidden" name="areacode" value="1">
+			<input type="hidden" name="contenttypeid" value="12">
 			<input type="text">
 			<input type="submit">
 		</fieldset>
