@@ -17,14 +17,41 @@
 	    // 지역 바뀔 때마다 시군구 가져오는 ajax 실행
 	    $("#areaCodes").change(function() {
 	        getList(); 
-	    });
-
+	    });   
+	   
 	    // 서치 버튼 누르면 실행
 	    $(".SearchButton").click(function() {
 	        search(1); // 검색 실행하면서 첫 페이지로 이동
 	    });    
+	
+		// 타이틀 검색 엔터 처리
+		document.querySelector('.areaSearchForm').addEventListener('keypress', function(e) {
+		    if (e.key === 'Enter') {
+		        e.preventDefault(); // 기본 제출 동작 방지
+		        document.querySelector('.SearchButton').click(); // SearchButton 클릭
+		    }
+		});
+		// 페이지 이동 엔터 처리
+		document.querySelector(('.board-list-paging')).addEventListener('keypress', function(e) {
+			 if (e.target.classList.contains('pageMove')) {
+		        if (e.key === 'Enter') {
+		            e.preventDefault(); // 기본 제출 동작 방지
+		            document.querySelector('.pageMoveButton').click(); // SearchButton 클릭
+		        }
+			 }
+		});
+		
+		document.querySelector(('.board-list-paging')).addEventListener("input", function(e) {
+			 if (e.target.classList.contains('pageMove')) {
+			        // 입력된 값에서 숫자가 아닌 문자를 제거
+			        let inputValue = e.target.value.replace(/\D/g, '');
+			        // input 요소의 값을 업데이트
+			        e.target.value = inputValue;
+			    }
+		});
 		
 	});
+
 
 	// 시군구 가져오기
 	function getList() {
@@ -53,11 +80,37 @@
 	    let page = parseInt($(this).attr('data-page'));
 	    search(page); // 해당 페이지 검색 실행
 	});
+	
+	// 페이지 검색 이동
+	$(document).on("click", ".pageMoveButton", function(e) {
+	    e.preventDefault();
+	    let page = $(".pageMove").val()
+	    if (page.trim() === "") {
+        page = getCurrentPage(); // 현재 페이지 가져오기
+    	}
+	    search(page); // 해당 페이지 검색 실행
+	});
+	
+	//  뷰 옵션 이벤트 처리
+	$(document).on("change", "#viewLimit", function(e) {
+	    e.preventDefault();
+	    let page = getCurrentPage(); // 현재 페이지 번호 가져오기
+	    search(page); // search 함수 호출
+	});
+	
+	
+	
+	// 현재 페이지 구하는 함수
+	function getCurrentPage() {
+	    return parseInt($(".nowPage").attr("data-page"));
+	}
+	
 	function search(page) {
         let areaCode = $("#areaCodes").val();
         let sigunguCode = $("#sigunguCode").val();
         let contentType = $("#contentTypes").val();
         let title = $(".searchTitle").val();
+        let limit = $('#viewLimit').val();
         // AJAX 요청 실행
         $.ajax({
             url: "areaSearchTourList",
@@ -68,10 +121,15 @@
                 sigunguCode: sigunguCode,
                 contentType: contentType,
                 page: page,
-                title: title
+                title: title,
+                limit: limit
             },
             success: function(data) {
             	$('#place_wrapper').empty();
+            	console.log(data);
+            	// 총 갯수 표시
+            	getTotalRecord(data.paging)
+            	
             	// 검색된 배열의 JSON 요소들을 반복하면서 처리
            	    for (let i = 0; i < data.choTourList.length; i++) {
            	        let place = data.choTourList[i];
@@ -85,51 +143,102 @@
         });
     }
 	
+	function getTotalRecord(paging){
+		
+		let totalRecordHtml = '검색 결과('+paging.totalRecord+')'
+		
+        $('#resultCount').html(totalRecordHtml);
+	}
+	
 	// 페이징 처리 함수
 	function updatePagination(paging) {
-	    var content = '';
-	    content += '<ol class="pagination" id="pagination">';
-	    if (paging.beginBlock > 1) {
-	        content += '<li class="page-item" data-page="' + (paging.beginBlock - 1) + '">이전</li>';
-	    }
+    let content = '';
+    content += '<input type="hidden" class="nowPage" data-page="' + paging.nowPage + '">';
+    content += '<ol class="pagination" id="pagination">';
+    if (paging.beginBlock > 1) {
+        content += '<li class="page-item" data-page="' + 1 + '"> << </li>';
+    }
+    if (paging.beginBlock > 1) {
+        content += '<li class="page-item" data-page="' + (paging.nowPage - 1) + '"> < </li>';
+    }
 
-	    for (var i = paging.beginBlock; i <= paging.endBlock; i++) {
-	    	if(i === paging.nowPage){
-	        content += '<li class="page-item nowPage" data-page="' + i + '">'+ i + '</li>';
-	    	}else{
-	        content += '<li class="page-item" data-page="' + i + '">'+ i + '</li>';
-	    	}
-	    }
+    // 페이지 번호를 표시할 개수
+    const pageNumberDisplay = 5;
 
-	    if (paging.endBlock < paging.totalPage) {
-	        content += '<li class="page-item" data-page="' + (paging.endBlock + 1) + '">다음</li>';
-	    }
+    // 현재 페이지 번호를 기준으로 앞뒤로 표시할 페이지 개수 계산
+    let startPage = Math.max(paging.nowPage - Math.floor(pageNumberDisplay / 2), 1);
+    let endPage = Math.min(startPage + pageNumberDisplay - 1, paging.totalPage);
 
-	    content += '</ol>';
+    // 보정된 시작 페이지 번호 계산
+    startPage = Math.max(endPage - pageNumberDisplay + 1, 1);
 
-	    $(".board-list-paging").html(content);
-	}
+    // 중앙에 오도록 현재 페이지 번호를 위치시키기 위한 변수 설정
+    let centerIndex = Math.floor(pageNumberDisplay / 2);
+
+    // 페이지 번호를 표시하는 부분 수정
+    for (let i = startPage; i <= endPage; i++) {
+        if (i === paging.nowPage) {
+            let inputClass = (i === startPage + centerIndex) ? 'center-page' : ''; // 중앙에 위치할 경우 클래스 추가
+            content += '<li class = "nowPageInput">'
+                        + '<input type="text" class="pageMove ' + inputClass + '" value="' + i + '">'
+                      + '</li>';
+        } else {
+            content += '<li class="page-item" data-page="' + i + '">' + i + '</li>';
+        }
+    }
+
+    if (paging.endBlock < paging.totalPage) {
+        content += '<li class="page-item" data-page="' + (paging.nowPage + 1) + '"> > </li>';
+    }
+    if (paging.endBlock < paging.totalPage) {
+        content += '<li class="page-item" data-page="' + paging.totalPage + '"> >> </li>';
+    }
+
+    content += '</ol>';
+
+    $(".board-list-paging").html(content);
+}
 	
    	// 각 장소 정보를 HTML로 변환하여 추가하는 함수
    	function addPlace(place) {
-   	    let placeHTML = '<div class="place-box" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
-   	                        '<div class="image-box">' +
+   		let originalTitle  = place.title;
+   		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
+
+   	    let placeHTML = '<div class="place-box" >' +
+   	                        '<div class="image-box" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
    	                            '<img alt="' + place.title + '" src="' + place.firstimage + '">' +
    	                        '</div>' +
-   	                        '<div class="text-box">' +
-   	                             place.title +
+   	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+place.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
+   	                     			truncatedTitle + 
    	                        '</div>' +
+   	                        '<div class="wish-box">' +
+	   	                        '<span class = "heart">'+'하트'+'</span>'
+	   	                        + place.heart + 
+	   	                    '</div>' +
    	                    '</div>';
    	    $('#place_wrapper').append(placeHTML);
+   
    	}
+	// 줄인 제목 전부 보기
+   	function showFullTitle(element, originalTitle) {
+   	    element.textContent = originalTitle;
+   	}
+
+   	// 기본 제목으로 되돌리기
+   	function showTruncatedTitle(element,truncatedTitle) {
+   	    element.textContent = truncatedTitle;
+   	}
+   	
    	function goProductDetail(contentid, contenttypeid){
-   		Location.href = "";
-   	}
+        location.href = "ko_detail.do?contentid=" + contentid + "&contenttypeid=" + contenttypeid;
+    }
+   	
 </script>
 </head>
 <body>
 	<section style="width: 1300px; margin: 0 auto;">
-		<form class="areaSearchForm" method="post">
+	
+		<div class="areaSearchForm">
 			<select id="areaCodes" class = "searchSelect">
 				<option value="999">전체</option>
 				<option value="1">서울</option>
@@ -160,12 +269,31 @@
 			</select>
 			<input type="text" class ="searchTitle" name = "title">
 			<input type="button" value="검색" class = "SearchButton">
-		</form>
-		<hr>
-		<div id = "place_wrapper">
 		</div>
-		
-		<div class="board-list-paging"></div>
+		<hr>
+		<div id = "result">
+			<div id = "resultOption">
+				<div id ="resultCount"></div>
+				<!-- 보기 옵션 -->
+				<select id = "viewLimit">
+					<option value = "10">10개 보기</option>
+					<option value = "20" selected>20개 보기</option>
+					<option value = "30">30개 보기</option>
+					<option value = "50">50개 보기</option>
+					<option value = "100">100개 보기</option>
+				</select>
+			</div>
+			<!-- 장소 표시 -->
+			<div id = "place_wrapper"></div>
+			<!-- 페이징 표시 -->
+			<div class="board-list-paging"></div>
+			<!-- 페이지 이동 -->
+			<div class="pageMoveForm">
+				<!-- <input type="text" class ="pageMove"> -->
+				<input type="button" value="이동" class = "pageMoveButton">
+			</div>
+			
+		</div>
 	</section>
 
 </body>
