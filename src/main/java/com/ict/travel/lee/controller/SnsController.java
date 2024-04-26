@@ -22,18 +22,21 @@ public class SnsController {
 	
 	@RequestMapping("login_go.do")
 	public ModelAndView getSnsLogin() {
-		return new ModelAndView("lee/loginForm"); 
+		return new ModelAndView("lee_view/loginForm"); 
 	}
 	
 	@RequestMapping("kakaologin.do")
 	public ModelAndView kakaoLogin(HttpServletRequest request) {
+		// 1. 인증 코드 받기
 		String code = request.getParameter("code");
 		
+		// 2. 토큰 받기(인증코드필요)
 		String reqURL = "https://kauth.kakao.com/oauth/token";
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			
+			System.out.println("2");
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			
@@ -50,6 +53,7 @@ public class SnsController {
 			bw.flush();
 			
 			int responseCode = conn.getResponseCode();
+			System.out.println("200?"+responseCode);
 			if(responseCode == HttpURLConnection.HTTP_OK) {
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				
@@ -67,19 +71,19 @@ public class SnsController {
 				request.getSession().setAttribute("refresh_token", kvo.getRefresh_token());
 				request.getSession().setAttribute("token", kvo.getToken_type());
 				
-				return new ModelAndView("lee/login_test");
+				return new ModelAndView("lee_view/login_test");
 				
 			}
 		} catch (Exception e) {
-			System.out.println("연결실패");
+			System.out.println("연결 실패");
 		}
 		return new ModelAndView("error");
 	}
-	// 카카오 로그아웃
+	// 移댁뭅�삤 濡쒓렇�븘�썐
 	@RequestMapping("kakaologout.do")
 	public ModelAndView getKakaoLogout(HttpSession session) {
 		session.invalidate();
-		return new ModelAndView("lee/loginForm");
+		return new ModelAndView("lee_view/loginForm");
 	}
 	
 }
