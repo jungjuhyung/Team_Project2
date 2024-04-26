@@ -123,8 +123,8 @@
    	    $('#place_wrapper').append(placeHTML);
    	}
    	function goProductDetail(contentid, contenttypeid){
-   		Location.href = "";
-   	}
+        Location.href = "";
+    }
 </script>
 </head>
 <body>
