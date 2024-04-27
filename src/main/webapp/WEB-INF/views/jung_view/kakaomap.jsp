@@ -24,8 +24,8 @@
 				<div><img src="${k.firstimage}"></div>
 				<p>${k.place_title}</p>
 				<input type="hidden" name="place_title" value="${k.place_title}">
-				<input type="hidden" name="map_x" value="${k.map_x}">
-				<input type="hidden" name="map_y" value="${k.map_y}">
+				<input type="hidden" name="map_x" value="${k.mapx}">
+				<input type="hidden" name="map_y" value="${k.mapy}">
 			</div>
 		</c:forEach>
 	</div>
@@ -103,7 +103,7 @@ $(".chk_box").change(function() {
         let position = 
             {
         		title: $(this).next().next().next().val(), 
-                latlng: new kakao.maps.LatLng(y, x)
+                latlng: new kakao.maps.LatLng(x, y)
             }
 	if ($(this).prop("checked")) {
         marker(position)
