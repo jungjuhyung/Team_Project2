@@ -5,20 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MemberDAO {
-	
+public class KakaoDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
-	public int getSignUp(MemberVO mvo) {
-		try {
-			return sqlSessionTemplate.insert("lee-mapper.insert", mvo);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return -1;
-	}
-	
-	
-	
 }

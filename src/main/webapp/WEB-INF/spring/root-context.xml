@@ -64,8 +64,8 @@
        <property name="port" value="587"/>
        <property name="defaultEncoding" value="utf-8"/>
        <!-- 구글에서 설정한 자기 이메일과 비밀 번호를 아래 username과 password로 설정해야한다. -->
-       <property name="username" value="ramyun1537@gmail.com"/>
-       <property name="password" value="uknh mpcs kpax frdf"/>        
+       <property name="username" value="wol02095@gmail.com"/>
+       <property name="password" value="sobz zdlb kybi xuez"/>        
        <property name="javaMailProperties" >
        <props>
           <prop key="mail.transport.protocol">smtp</prop>

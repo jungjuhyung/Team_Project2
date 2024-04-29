@@ -27,7 +27,7 @@
 <body>
 	<h2>kakao 로그인 결과</h2>
 	<div id=res>
-		
+		<span></span>
 		
 	</div>
 		<a href="https://kauth.kakao.com/oauth/logout?client_id=acef18f41c74c70cc25d2050d26d4e94&logout_redirect_uri=http://localhost:8090/kakaologout.do">

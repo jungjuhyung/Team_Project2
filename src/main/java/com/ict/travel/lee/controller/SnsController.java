@@ -20,6 +20,8 @@ import com.ict.travel.lee.controller.kakao.KakaoVO;
 @Controller
 public class SnsController {
 	
+	
+	
 	@RequestMapping("login_go.do")
 	public ModelAndView getSnsLogin() {
 		return new ModelAndView("lee_view/loginForm"); 
@@ -42,7 +44,7 @@ public class SnsController {
 			// 헤더 요청
 			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
 			
-			// 본문
+			// 서버로 요청 보내기
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			
 			StringBuffer sb = new StringBuffer();

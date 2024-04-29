@@ -10,6 +10,14 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/lee_css/loginForm.css">
 <script type="text/javascript">
+	function sign_in_go(f) {
+		
+		
+		
+		f.action = "login_go_ok.do"
+		f.submit();
+	}
+	
 	function sign_up_go(f) {
 		f.action = "agree_go.do";
 		f.submit();
