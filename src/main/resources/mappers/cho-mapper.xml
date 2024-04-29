@@ -25,7 +25,7 @@
 	
 	<!-- 검색(지역,시군구,타입) -->
 	<select id="selectTourList" parameterType="Map" resultType="choTourVO">
-		SELECT contentid, contenttypeid, title, firstimage FROM tourapi_t 
+		SELECT contentid, contenttypeid, title, firstimage, heart FROM tourapi_t 
 		<where>
 			 <if test="areaCode != 999">
 	            AND areaCode = #{areaCode}

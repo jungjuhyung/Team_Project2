@@ -65,9 +65,10 @@ public class ChoAjaxController {
 			@RequestParam("sigunguCode") String sigunguCode, 
 			@RequestParam("contentType") String contentType, 
 			@RequestParam("page") String page, 
-			@RequestParam("title") String title) throws Exception {
+			@RequestParam("title") String title,
+			@RequestParam("limit") int limit) throws Exception {
 			// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
-			int pagecount = 20;
+			int pagecount = limit;
 			int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title);
 			paging.setTotalRecord(count);
 			// 한 페이지에 20개
