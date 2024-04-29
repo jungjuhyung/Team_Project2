@@ -1,7 +1,4 @@
-package com.ict.travel.lee.dao;
-
-import com.ict.travel.lee.controller.KakaoAccout;
-import com.ict.travel.lee.controller.KakaoProperties;
+package com.ict.travel.lee.controller.kakao;
 
 public class KakaoUsersVO {
 	private String id, connected_at;

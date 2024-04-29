@@ -1,4 +1,4 @@
-package com.ict.travel.lee.controller;
+package com.ict.travel.lee.controller.kakao;
 
 public class KakaoProperties {
 	private String nickname;
