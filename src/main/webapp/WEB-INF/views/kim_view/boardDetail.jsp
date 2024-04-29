@@ -37,6 +37,7 @@ function commentDelete(f) {
 	f.submit();
 }
 </script>
+
 </head>
 
 <body>
@@ -75,39 +76,51 @@ function commentDelete(f) {
 			</div>
 		</div>
 	</form>
-		<%-- 댓글 입력 --%>
-	<div style="padding: 10px; width: 580px; margin: 0 auto">
-		<form method="post">
-			<fieldset>
-				<span>닉네임 : ${boardvo.u_nickname}</span> 
-				<span>내용 : <textarea rows="3" cols="40" name="content"></textarea>
-				<input style="float: right;" type="button" value="저장" onclick="commentInsert(this.form)">
-				</span>
-				<!-- 댓글 저장시 어떤 원글의 댓글인지 저장해야 한다. -->
-				<input type="hidden" name = "board_idx" value="${boardvo.board_idx}" >
-			</fieldset>
-		</form>
-	</div>
+	
 	
 	<%-- 댓글 출력 --%>
-	<div style="display: table; margin: 0 auto;">
+	<div class="recomment">
 		<c:forEach var="k" items="${comment_list}">
-			<div style="border: 1px solid #cc00cc; width: 580px; margin: 5px; padding: 5px;" >
+			<div >
 				<form method="post">
-					<p>이름 : ${k.u_nickname}</p>
-					<p>내용 : <pre>${k.content}</pre></p>
-					<p>날짜 : ${k.regdate.substring(0,10)}
+				<div class="renick">
+					닉네임 
+				</div>
+			<div class="recontent">
+					<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
+				</div>
+			<div class="rebutton">
+					${k.regdate.substring(0,10)}
 					<!-- 실제은 로그인 성공 && 글쓴 사람만 삭제할 수 있어야 한다. -->
-					<input style="float: right;" type="button" value="댓글삭제" onclick="commentDelete(this.form)">
+					<input type="button" value="삭제" onclick="commentDelete(this.form)">
+				</div>
 					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
 					<input type="hidden" name = "board_idx" value="${k.board_idx}" >
-					</p>
 					
 				</form>
 			</div>
 		</c:forEach>
 	</div>	
-	
+		<%-- 댓글 입력 --%>
+	<div class="recomment">
+		<form method="post">
+			<fieldset>
+			<div class="renick">
+				<span>닉네임 : ${boardvo.u_nickname}</span> 
+			</div>
+			<div class="recontent">
+				<textarea rows="3" cols="40" name="content"></textarea>
+			</div>
+			<div class="rebutton">
+				<input id="rewrite" type="button" value="저장" onclick="commentInsert(this.form)">
+			</div>
+				<!-- 댓글 저장시 어떤 원글의 댓글인지 저장해야 한다. -->
+				<input type="hidden" name = "board_idx" value="${boardvo.board_idx}" >
+			</fieldset>
+		</form>
+	</div>
+	<div id="empty-area">
+	</div>
 	
 <script>
     // 메인화면 페이지 로드 함수

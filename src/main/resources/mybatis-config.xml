@@ -14,9 +14,11 @@
 		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>
 		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
+		<typeAlias type="com.ict.travel.kim.dao.TourtestVO" alias="tourtestvo"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/board-mapper.xml" />
+ 		<mapper resource="mappers/tourtest-mapper.xml" />
  		<mapper resource="mappers/cho-mapper.xml" />
  		<mapper resource="mappers/jung-mapper.xml" />
  		<mapper resource="mappers/ko-mapper.xml" />

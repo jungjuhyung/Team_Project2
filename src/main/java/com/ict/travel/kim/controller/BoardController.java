@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.travel.common.Paging;
 import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.service.BoardService;
@@ -29,54 +31,49 @@ public class BoardController {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private BoardPaging boardPaging;
+	private Paging paging;
 	
 	@RequestMapping("boardList")
-	public ModelAndView claimList(HttpServletRequest request) {
+	@ResponseBody
+	public ModelAndView boardList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("kim_view/boardList");
 		int count = boardService.getTotalCount();
-		boardPaging.setTotalRecord(count);
-		// ÀüÃ¼ÆäÀÌÁöÀÇ ¼ö¸¦ ±¸ÇÏÀÚ. 
-		if(boardPaging.getTotalRecord() <= boardPaging.getNumPerPage()) {
-			boardPaging.setTotalPage(1);
-		}else {
-			boardPaging.setTotalPage(boardPaging.getTotalRecord()/boardPaging.getNumPerPage());
-			if(boardPaging.getTotalRecord()/boardPaging.getNumPerPage() != 0) {
-				boardPaging.setTotalPage(boardPaging.getTotalPage()+1);
-				
+		paging.setTotalRecord(count);
+		
+		// ì „ì²´ í˜ì´ì§€ì˜ ìˆ˜
+		if (paging.getTotalRecord() < paging.getNumPerPage()) {
+			paging.setTotalPage(1);
+		} else {
+			paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+			if (((paging.getTotalRecord()*1.0) / paging.getNumPerPage()) % 2 != 0) {
+				paging.setTotalPage(paging.getTotalPage() + 1);
 			}
 		}
-		// ÇöÀçÆäÀÌÁö ±¸ÇÏ±â => begin, end ±¸ÇÑ´Ù.
+		// í˜„ì¬ í˜ì´ì§€ êµ¬í•˜ê¸°
 		String cPage = request.getParameter("cPage");
-		// Á¦ÀÏ Ã³À½ µé¾î¿À¸é cPage°¡ ¾øÀ¸¹Ç·Î null ÀÌ´Ù. 
-		// Á¦ÀÏ Ã³À½ ¿À¸é ¹«Á¶°Ç 1ÆäÀÌÁö ÀÌ´Ù. 
-		if(cPage == null) {
-			boardPaging.setNowPage(1);
+		if (cPage == null) {
+			paging.setNowPage(1);
 		}else {
-			boardPaging.setNowPage(Integer.parseInt(cPage));
-		}
-		// ¿À¶óÅ¬Àº begin, end
-		// ¸¶¸®¾Æ´Â limit, offset 
-		// offset = limit * (ÇöÀçÆäÀÌÁö -1)
-		// limit = numPerPage
-		boardPaging.setOffset(boardPaging.getNumPerPage()*(boardPaging.getNowPage()-1));
-		
-		// ½ÃÀÛºí·Ï°ú ³¡ºí·Ï ±¸ÇÏ±â
-		boardPaging.setBeginBlock(
-				(int)(((boardPaging.getNowPage() -1) / 
-						boardPaging.getPagePerBlock()) * 
-						boardPaging.getPagePerBlock() +1));
-		boardPaging.setEndBlock(boardPaging.getBeginBlock() + boardPaging.getPagePerBlock() -1);
-		
-		// ÁÖÀÇ»çÇ×
-		// endBlock °ú totalPage Áß endBlock ÀÌ Å©¸é endBlock¸¦ totalPage ·Î ÁöÁ¤ÇÑ´Ù. 
-		if (boardPaging.getEndBlock() > boardPaging.getTotalPage()) {
-			boardPaging.setEndBlock(boardPaging.getTotalPage());
+			paging.setNowPage(Integer.parseInt(cPage));
 		}
 		
-		List<BoardVO> boardlist = boardService.boardList(boardPaging.getOffset(), boardPaging.getNumPerPage());
+		// ì˜¤ë¼í´ = begin, end
+		// offsetêµ¬í•˜ê¸° limit * í˜„ì¬í˜ì´ì§€-1
+		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() -1 ));
+		
+		paging.setBeginBlock(
+				(int)(((paging.getNowPage()-1)/paging.getPagePerBlock()) * paging.getPagePerBlock() + 1)
+				);
+		
+		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock()-1);
+		
+		if(paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+		
+		List<BoardVO> boardlist = boardService.boardList(paging.getOffset(), paging.getNumPerPage());
 		mv.addObject("boardlist", boardlist);
-		mv.addObject("paging", boardPaging);
+		mv.addObject("paging", paging);
 		return mv;		
 	}
 	
@@ -151,11 +148,11 @@ public class BoardController {
 			BoardVO boardvo
 			) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("ÀÔ·Âºñ¹Ğ¹øÈ£" + board_cpw);
-		// ºñ¹Ğ¹øÈ£ Ã¼Å©
+		System.out.println("ì…ë ¥ë¹„ë°€ë²ˆí˜¸" + board_cpw);
+		// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 		BoardVO boardvo2 = boardService.boardDetail(board_idx);
 		String dpwd = boardvo2.getBoard_pw();
-		System.out.println("µğºñºñ¹Ğ¹øÈ£: " + dpwd );
+		System.out.println("ë””ë¹„ë¹„ë°€ë²ˆí˜¸: " + dpwd );
 		if (! passwordEncoder.matches(board_cpw, dpwd)) {
 			mv.setViewName("redirect:boardUpdate");
 			mv.addObject("pwchk", "fail");
@@ -189,7 +186,7 @@ public class BoardController {
 			@ModelAttribute("board_idx")String board_idx,
 			BoardVO boardvo) {
 		ModelAndView mv = new ModelAndView();
-		// ºñ¹Ğ¹øÈ£ Ã¼Å©
+		// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 		BoardVO boardvo2 = boardService.boardDetail(board_idx);
 		String dpwd = boardvo2.getBoard_pw();
 		if(! passwordEncoder.matches(board_cpw, dpwd)) {
