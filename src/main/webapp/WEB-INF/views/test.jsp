@@ -71,6 +71,15 @@
 			<input type="submit" value="작성하기">
 		</fieldset>
 	</form>
+	<form action="test" method="post">
+		<fieldset>
+		<legend>jung, map, line_test</legend>
+			<input type="hidden" name="contentid" value="126273">
+			<input type="hidden" name="contentid" value="2019720">
+			<input type="hidden" name="contentid" value="2994116">
+			<input type="submit" value="작성하기">
+		</fieldset>
+	</form>
 </div>
 <div id="cho" style="width: 500px; margin: 30px auto 30px; border: 1px solid black;">
 	<form action="areaCategory">
