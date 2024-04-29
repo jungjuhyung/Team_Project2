@@ -10,6 +10,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/jung_css/recommend_write.css">
+<!-- 서머노트를 위해 추가해야할 부분 -->
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
+<!--  -->
 </head>
 <body>
 	<div>
@@ -29,6 +34,19 @@
 			</div>
 		</c:forEach>
 	</div>
+	<div id="upload_box">
+	</div>
+	<div class="container">
+  		<textarea class="summernote" name="editordata"></textarea>    
+	</div>
+
+<!-- 섬머노트 스크립트 -->
+<script>
+	$('.summernote').summernote({
+ 		 height: 450,
+  		lang: "ko-KR"
+	});
+</script>
 	
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c186c802b1e519c6f748b4481b8a4b53"></script>
@@ -44,6 +62,8 @@ let map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 지도에 생성된 마커들 모음
 let markers = [];
+// 지도에 생성된 infowindow 모음
+let infos= [];
 
 // 선긋기 이벤트용 변수들
 let drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
@@ -51,7 +71,8 @@ let moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그
 let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
 let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
 let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
-let index = 0;
+let index = 0; // 지도에서 마커 선택시 순서 표시 변수
+let upload_idx = 0; // 마커 표시에 따른 upload name변수 이름 지정
 
 // 마커 생성 함수
 function marker(position) {
@@ -78,14 +99,41 @@ function marker(position) {
 	    kakao.maps.event.addListener(marker, 'click', function() {
 		    index += 1;
 	    	let infowindow = new kakao.maps.InfoWindow({
-		        content: "<div>"+position.title+"</div>"+"<div>"+index+"</div>" // 인포윈도우에 표시할 내용
+		        content: "<div class='info_title'>"+position.title+"</div>"+"<div class='info_num'>"+index+"</div>" // 인포윈도우에 표시할 내용
 		    });
+	    	infos.push(infowindow)
 	    	infowindow.open(map, marker);
     		line_draw(marker)
+    		div_create(marker)
 		});
 	    markers.push(marker)
 	    map.setCenter(position.latlng);
 }
+// 마커 사진 업로드 div생성 function
+function div_create(marker) {
+	upload_idx += 1;
+    var divElement = $('<div></div>', {
+        id: 'marker'+upload_idx,
+        class: 'markers'
+    });
+	
+    let inputFile = $('<input/>', {
+        type: 'file',
+        name: 'marker'+ upload_idx,
+        multiple: "multiple"
+        
+    });
+    
+    let inputTitle = $('<input/>', {
+        type: 'hidden',
+        name: 'title'+ upload_idx,
+        value : marker.getTitle()
+    });
+	divElement.append(inputFile)
+	divElement.append(inputTitle)
+	$("#upload_box").append(divElement)
+}
+
 
 // 마커 제거 함수(타이틀 기반)
 function marker_del(position) {
@@ -100,6 +148,8 @@ function marker_del(position) {
 $(".chk_box").change(function() {
 		let x = $(this).next().next().next().next().val()
 		let y = $(this).next().next().next().next().next().val()
+		console.log(x)
+		console.log(y)
         let position = 
             {
         		title: $(this).next().next().next().val(), 
@@ -171,7 +221,7 @@ function line_draw(marker) {
     }
     console.log(moveLine)
 }
-    
+
 // 지도에 마우스무브 이벤트를 등록합니다
 // 선을 그리고있는 상태에서 마우스무브 이벤트가 발생하면 그려질 선의 위치를 동적으로 보여주도록 합니다             
 
@@ -222,14 +272,18 @@ function infofunction(map, marker, infowindow) {
 	infowindow.open(map, marker);
 }
 
+// 경로 초기화
 function path_del() {
 	deleteClickLine()
 	deleteDistnce()
 	deleteCircleDot()
-	infowindow.close()
+	for (let i = 0; i < infos.length; i++) {
+		infos[i].close()
+	}
 	index = 0;
 	drawingFlag = false;
-	
+	upload_idx = 0;
+	$("#upload_box").empty()	
 }
 
 // 클릭으로 그려진 선을 지도에서 제거하는 함수입니다
@@ -269,24 +323,23 @@ function deleteCircleDot() {
 function displayCircleDot(position, distance) {
 
  // 클릭 지점을 표시할 빨간 동그라미 커스텀오버레이를 생성합니다
- var circleOverlay = new kakao.maps.CustomOverlay({
-     content: '<span class="dot"></span>',
-     position: position,
-     zIndex: 1
- });
+ 	var circleOverlay = new kakao.maps.CustomOverlay({
+	     content: '<span class="dot"></span>',
+	     position: position,
+	     zIndex: 1
+ 	});
 
  // 지도에 표시합니다
- circleOverlay.setMap(map);
+ 	circleOverlay.setMap(map);
 
- if (distance > 0) {
+ 	if (distance > 0) {
      // 클릭한 지점까지의 그려진 선의 총 거리를 표시할 커스텀 오버레이를 생성합니다
-     var distanceOverlay = new kakao.maps.CustomOverlay({
-         content: '<div class="dotOverlay">거리 <span class="number">' + distance + '</span>m</div>',
-         position: position,
-         yAnchor: 1,
-         zIndex: 2
+    	 var distanceOverlay = new kakao.maps.CustomOverlay({
+	         content: '<div class="dotOverlay">거리 <span class="number">' + distance + '</span>m</div>',
+	         position: position,
+	         yAnchor: 1,
+	         zIndex: 2
      });
-
      // 지도에 표시합니다
      distanceOverlay.setMap(map);
  }
