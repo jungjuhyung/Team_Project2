@@ -13,6 +13,9 @@
 	function boardList() {
 		location.href="boardList";
 	}
+	function pathDetail2(f) {
+		location.href="pathDetail2";
+	}
 	
 </script>
 </head>
@@ -32,9 +35,11 @@
 	<form action="">
 		<fieldset>
 		<legend>김철환</legend>
-			<input type="hidden">
 			<input type="text">
-			<input type="button" onclick="boardList()">
+			<input type="button" onclick="boardList()" value="게시판">
+			<input type="hidden" name="left" value="126.613138">
+			<input type="hidden" name="right" value="37.646322">
+			<input type="button" onclick="pathDetail2(this.form)" value="경로리뷰">
 		</fieldset>
 	</form>
 </div>

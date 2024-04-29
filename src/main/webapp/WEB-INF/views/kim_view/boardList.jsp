@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/common_css/reset.css">
+<link rel="stylesheet" href="resources/kim_css/boardList.css">
 <!-- JQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -17,11 +19,11 @@ function boardWrite() {
 </head>
 <body>
 	<div id="board_form" align="center">
-		<table summary="게시판 목록">
+		<table summary="게시판 목록" style="width: 1000px;">
 			<thead>
-				<tr class="board_title">
+				<tr class="board_title" style="width: 100%;">
 					<th class="no">번호</th>
-					<th class="u_nickname">글쓴이</th>
+					<th class="u_nickname">닉네임</th>
 					<th class="title">제목</th>
 					<th class="reg">날짜</th>
 					<th class="hit">조회수</th>
@@ -38,10 +40,17 @@ function boardWrite() {
 								<td>${paging.totalRecord - ((paging.nowPage-1)*paging.numPerPage + vs.index )}</td>
 								<td>${k.u_nickname}</td>
 								<td>
+									<c:choose>
+								    	<c:when test="${k.active == 1 }">
+								    		<span style="color: lightgray">삭제된 게시물</span>
+								    	</c:when>
+								    	<c:otherwise>
 								   <a href="boardDetail?board_idx=${k.board_idx}&cPage=${paging.nowPage}">${k.board_title}</a>
+								    </c:otherwise>
+								    </c:choose> 
 								</td>
 								<td>${k.regdate.substring(0,10)}</td>
-								<td >${k.hit }</td>
+								<td >${k.hit}</td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
