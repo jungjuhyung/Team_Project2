@@ -28,9 +28,9 @@ public class KoController {
 	@Autowired
 	private KoService koService;
 
-	@RequestMapping("ko.do")
+	@RequestMapping("main_page.do")
 	public ModelAndView getKo(String areacode, String contenttypeid) {
-		ModelAndView mv = new ModelAndView("ko_view/ko");
+		ModelAndView mv = new ModelAndView("ko_view/main_page");
 		System.out.println("areacode : " + areacode);
 		System.out.println("contenttypeid : " + contenttypeid);
 

@@ -1,0 +1,51 @@
+.navbar {
+	display: grid;
+	grid-template-columns: 1fr 7fr 2fr;
+	grid-gap: 20px;
+}
+
+.navbar li {
+	list-style: none;
+}
+
+.navbar a {
+	text-decoration: none;
+}
+
+.nav_logo {
+	width: 200px;
+	height: 200px;
+	background-color: pink;
+	text-align: center;
+	font-size: 30px;
+}
+
+.nav_menu {
+	display: flex;
+	background-color: lightgray;
+}
+
+.nav_menu li {
+	width: 25%;
+	margin: 40px;
+	background-color: white;
+	font-size: 40px;
+	text-align: center;
+}
+
+.nav_icons {
+	display: flex;
+	background-color: lightgreen;
+	height: 30%;
+}
+
+.nav_icons li {
+	width: 30%;
+	margin: 10px;
+	background-color: white;
+	font-size: 20px;
+	text-align: center;
+}
+
+
+
