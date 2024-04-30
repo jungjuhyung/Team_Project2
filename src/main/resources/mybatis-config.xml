@@ -13,6 +13,7 @@
 		<typeAlias type="com.ict.travel.jung.dao.MarkerInfoVO" alias="mivo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>
+		<typeAlias type="com.ict.travel.lee.dao.MemberVO" alias="mvo"/>
 		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
 		<typeAlias type="com.ict.travel.cho.dao.PlaceWishVO" alias="placeWishVO"/>
 	</typeAliases>
