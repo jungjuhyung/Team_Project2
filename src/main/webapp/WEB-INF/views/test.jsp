@@ -82,7 +82,7 @@
 	</form>
 </div>
 <div id="cho" style="width: 500px; margin: 30px auto 30px; border: 1px solid black;">
-	<form action="areaCategory">
+	<form action="themaCategory">
 		<fieldset>
 		<legend>조민기</legend>
 			<input type="submit">

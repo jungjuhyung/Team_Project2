@@ -114,7 +114,9 @@ public class ChoAjaxController {
 			}
 			
 			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,paging.getOffset(), paging.getNumPerPage());
+			
 			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+			// 유저 로그인 상태일 때 찜 여부
 			if(uvo != null) {
 				for (ChoTourVO k : choTourList) {
 					for (PlaceWishVO j : placeWishList) {

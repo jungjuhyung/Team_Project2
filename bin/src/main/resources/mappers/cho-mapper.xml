@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="cho_mapper">
+	<!-- 로그인 임시  -->
+	<select id="sessionInsert" parameterType="String" resultType="com.ict.travel.lee.dao.MemberVO">
+		SELECT * FROM user_t WHERE u_idx = #{u_idx}
+	</select>
+	
+	<!-- 검색(지역,시군구,타입) 결과 paging용 카운트 -->
+	<select id="tourListCount" parameterType="Map" resultType="int">
+		SELECT count(*) FROM tourapi_t 
+		<where>
+			 <if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+	          <if test="title != null">
+	            AND title LIKE CONCAT('%', #{title}, '%')
+	        </if>
+        </where>
+	</select>
+	
+	<!-- 검색(지역,시군구,타입) -->
+	<select id="selectTourList" parameterType="Map" resultType="choTourVO">
+		SELECT contentid, contenttypeid, title, firstimage, heart FROM tourapi_t 
+		<where>
+			 <if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+	        <if test="title != null">
+	            AND title LIKE CONCAT('%', #{title}, '%')
+	        </if>
+        </where>
+        LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!-- 위시리스트 관련  -->
+	<select id="selectPlaceWishList" parameterType="String" resultType="placeWishVO">
+		SELECT * FROM placewish_t WHERE u_idx = #{u_idx}
+	</select>
+
+	
+	<select id="selectPlaceOne" parameterType="String" resultType="placeWishVO">
+		SELECT contentid, mapx, mapy, addr1, firstimage, title AS place_title , contenttypeid FROM tourapi_t WHERE contentid = #{contentid}
+	</select>
+	
+		
+	<insert id="placeWishAdd" parameterType="Map">
+		INSERT INTO 
+		 placewish_t(u_idx, contentid, mapx, mapy, addr1, firstimage, place_title,contenttypeid, regdate) 
+		 VALUES(#{u_idx}, #{placeWishVO.contentid}, #{placeWishVO.mapx}, #{placeWishVO.mapy}, #{placeWishVO.addr1}, #{placeWishVO.firstimage}, #{placeWishVO.place_title}, #{placeWishVO.contenttypeid}, sysdate())
+	</insert>
+	
+	<!-- 추가된 wish heart 증가 -->
+	<update id="placeAddHeart" parameterType="String">
+		UPDATE tourapi_t SET heart = heart + 1 WHERE contentid = #{contentid}
+	</update>
+	
+	<delete id="placeWishRemove" parameterType="Map">
+		DELETE FROM placewish_t WHERE contentid = #{placeWishVO.contentid} AND u_idx = #{u_idx}
+	</delete>
+	<!-- 삭제된 wish heart 감소 -->
+	<update id="placeRemoveHeart" parameterType="String">
+		UPDATE tourapi_t SET heart = heart - 1 WHERE contentid = #{contentid}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
