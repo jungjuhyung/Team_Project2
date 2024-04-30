@@ -111,3 +111,57 @@ input[type="text"], [type="password"]{
 #claim_subject {
 	width: 80%;
 }
+
+#summernote{
+	resize: none;
+}
+
+.recomment{
+	display: flex;
+	flex-direction:  column;
+	flex-wrap: nowrap;
+	padding: 30px;
+	width: 800px;
+	margin: 0 auto;
+	justify-content: center;
+}
+.renick{
+	float: left;
+	height: 30px;
+	justify-content: center;
+	margin-right: 20px;
+	width: 8%;
+}
+.recontent{
+	float: left;
+	height: 26px;
+	padding-top: 1px;
+	margin: 0px;
+	justify-content: center;
+	width: 50%;
+}
+.rebutton{
+	float: right;
+	height: 30px;
+	justify-content: center;
+	
+}
+ textarea {
+    width: 100%;
+    height: 26px;
+    resize: none;
+    border: none;
+    border-bottom: 1px solid black;
+  }
+
+#empty-area{
+	height: 300px;
+}
+
+
+
+
+
+
+
+

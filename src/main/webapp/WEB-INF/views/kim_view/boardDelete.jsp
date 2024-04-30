@@ -8,6 +8,15 @@
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardDelete.css">
 <script type="text/javascript">
+	$(document).ready(function() {
+		let pwdchk = "${pwdchk}";
+		if(pwdchk == 'fail'){
+			alert("비밀번호틀림");
+			return;
+		}
+	});
+</script>
+<script type="text/javascript">
 	function boardDeleteOK(f) {
 		f.action = "boardDeleteOK";
 		f.submit();
