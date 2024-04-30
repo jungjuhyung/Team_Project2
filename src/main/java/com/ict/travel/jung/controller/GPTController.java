@@ -42,8 +42,7 @@ public class GPTController {
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			// 헤더 요청
-			conn.setRequestProperty("Content-Type", "application/json");
-			
+			// 붙여넣어야함
 			
 			OutputStream outputStream = conn.getOutputStream();
 	        outputStream.write(jsonData.getBytes());
