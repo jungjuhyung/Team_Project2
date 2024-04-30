@@ -67,6 +67,12 @@
 			<input type="submit" value="작성하기">
 		</fieldset>
 	</form>
+	<form action="test" method="post">
+		<fieldset>
+		<legend>GPT 테스트</legend>
+			<input type="submit" value="작성하기">
+		</fieldset>
+	</form>
 </div>
 <div id="cho" style="width: 500px; margin: 30px auto 30px; border: 1px solid black;">
 	<form action="areaCategory">

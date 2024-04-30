@@ -36,6 +36,7 @@ public class MarkerController {
 	
 	@RequestMapping("test")
 	public ModelAndView test() {
-		return new ModelAndView("jung_view/kakaoline");
+		return new ModelAndView("jung_view/gpt_test");
 	}
+	
 }
