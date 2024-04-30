@@ -13,6 +13,9 @@
 	function boardList() {
 		location.href="boardList";
 	}
+	function getReportList() {
+		location.href="getReportList";
+	}
 	function pathDetail(f) {
 		location.href="pathDetail";
 	}
@@ -37,6 +40,7 @@
 		<legend>김철환</legend>
 			<input type="text">
 			<input type="button" onclick="boardList()" value="게시판">
+			<input type="button" onclick="getReportList()" value="게시판2">
 			<input type="hidden" name="place_idx" value="126.613138">
 			<input type="hidden" name="right" value="37.646322">
 			<input type="button" onclick="pathDetail(this.form)" value="경로리뷰">

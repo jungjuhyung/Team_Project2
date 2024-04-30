@@ -1,0 +1,101 @@
+@charset "UTF-8";
+/* paging */
+table tfoot ol.paging {
+	list-style: none;
+}
+
+table tfoot ol.paging li {
+	float: left;
+	margin-right: 8px;
+	text-align: center;
+}
+
+table tfoot ol.paging li a {
+	display: block;
+	padding: 3px 7px;
+	font-weight: bold;
+	text-align: center;
+}
+
+table tfoot ol.paging li a:hover {
+	font-weight: bold;
+}
+#board_form{
+	width: 1200px;
+	margin: 0 auto;
+	margin-top : 160px;	
+	
+}
+
+.board_title {
+	font-size: 20px; 	
+	height: 30px;
+	
+}
+
+.board_title th, td{
+	text-align: center;
+	margin: 0 auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+
+}
+
+.no { width: 10%}
+.u_nickname { 	width: 20% }
+.title {	width: 40% }
+.reg {	width: 20% }
+.hit {	width: 10% }
+
+.board-list-paging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+.pagination li {
+  width: 40px;
+  margin: 5px;
+  text-align: center;
+}
+.pagination li:hover {
+  cursor: pointer;
+}
+.nowPage {
+  background-color: gray;
+}
+.pagination .nowPageInput{
+	margin-left:0;
+	margin-right:10px;
+	width: 40px;
+}
+
+.pageMoveForm{
+  display: flex;
+  justify-content: center;	
+  align-items: center;
+}
+.pageMove {
+  width: 50px;
+  height: 35px;
+  border: 2px solid black;
+  margin-right: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  text-align: center;
+}
+.pageMoveButton {
+  height: 35px;
+  border: 2px solid black;
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: white; /* 버튼 배경색 */
+  color: black; /* 글자색 */
+  cursor: pointer; /* 커서 모양 설정 */
+  transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 transition */
+}
