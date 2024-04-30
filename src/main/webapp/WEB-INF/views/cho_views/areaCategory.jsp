@@ -138,10 +138,17 @@
 	// 페이지 검색 이동
 	$(document).on("click", ".pageMoveButton", function(e) {
 	    e.preventDefault();
+	    let totalPage = parseInt($(".totalPage").text());
 	    let page = $(".pageMove").val()
 	    if (page.trim() === "") {
         page = getCurrentPage(); // 현재 페이지 가져오기
     	}
+	    if(page <1){
+	    	page = 1;
+	    }
+	    if(page > totalPage){
+	    	page = totalPage;
+	    }
 	    search(page); // 해당 페이지 검색 실행
 	});
 	
@@ -265,7 +272,7 @@
 	        content += '<li class="page-item" data-page="' + (paging.nowPage + 1) + '"> ... </li>';
 	    }
 	    if (paging.endBlock < paging.totalPage) {
-	        content += '<li class="page-item" data-page="' + paging.totalPage + '"> '+ paging.totalPage +' </li>';
+	        content += '<li class="page-item totalPage" data-page="' + paging.totalPage + '"> '+ paging.totalPage +' </li>';
 	    }
     }
     if (paging.nowPage ===  paging.totalPage) {
