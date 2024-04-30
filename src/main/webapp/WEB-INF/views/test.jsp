@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="ko" style="width: 500px; margin: 60px auto 30px; border: 1px solid red;">
-	<form action="ko.do">
+	<form action="main_page.do">
 		<fieldset>
 		<legend>고예찬</legend>
 			<input type="hidden" name="areacode" value="1">
