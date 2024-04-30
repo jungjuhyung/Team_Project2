@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ict.travel.cho.dao.ChoDAO;
 import com.ict.travel.cho.dao.ChoTourVO;
+import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.lee.dao.MemberVO;
 
 @Service
 public class ChoServiceImpl implements ChoService{
@@ -21,5 +23,25 @@ public class ChoServiceImpl implements ChoService{
 	@Override
 	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title) {
 		return choDAO.getTourListCount(areaCode, sigunguCode, contentType, title);
+	}
+	
+	@Override
+	public List<PlaceWishVO> getPlaceWishList(String u_idx) {
+		return choDAO.getPlaceWishList(u_idx);
+	}
+	
+	@Override
+	public MemberVO getUserLogin(String string) {
+		return choDAO.getUserLogin(string);
+	}
+	
+	@Override
+	public int getPlaceWishAdd(String contentid, String u_idx) {
+		return choDAO.getPlaceWishAdd(contentid,u_idx);
+	}
+	
+	@Override
+	public int getPlaceWishRemove(String contentid, String u_idx) {
+		return choDAO.getPlaceWishRemove(contentid, u_idx);
 	}
 }

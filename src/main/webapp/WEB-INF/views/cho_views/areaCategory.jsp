@@ -50,7 +50,61 @@
 			    }
 		});
 		
+
 	});
+	
+	//  뷰 옵션 이벤트 처리
+	$(document).on("click", ".heart-state", function(e) {
+		let contentid = $(this).data("place_contentid");
+		if ($(this).hasClass("wish-added")) {
+			placeWishRemove(this, contentid);
+		}else {
+			placeWishadd(this, contentid);
+		}
+	});
+	
+
+	// 장소 찜하기
+	function placeWishadd(tag, contentid) {
+		
+			$.ajax({
+				url : "placeWishAdd",
+				type : "post",
+				data : {contentid: contentid},
+				dataType : "text",
+				success : function(data) {
+					$(tag).addClass("wish-added");
+					$(tag).text("♥");
+					search(getCurrentPage());
+				},
+				error : function() {
+					alert("실패");
+				}
+			});
+		
+	}
+	
+	// 장소 찜제거
+	function placeWishRemove(tag, contentid) {
+	
+			$.ajax({
+				url : "placeWishRemove",
+				type : "post",
+				data : {
+					contentid: contentid,
+					},
+				dataType : "text",
+				success : function(data) {
+					$(tag).text("♡");
+					$(tag).removeClass("wish-added");
+					search(getCurrentPage());
+				},
+				error : function() {
+					alert("실패");
+				}
+			});
+		
+	}
 
 
 	// 시군구 가져오기
@@ -84,10 +138,17 @@
 	// 페이지 검색 이동
 	$(document).on("click", ".pageMoveButton", function(e) {
 	    e.preventDefault();
+	    let totalPage = parseInt($(".totalPage").text());
 	    let page = $(".pageMove").val()
 	    if (page.trim() === "") {
         page = getCurrentPage(); // 현재 페이지 가져오기
     	}
+	    if(page <1){
+	    	page = 1;
+	    }
+	    if(page > totalPage){
+	    	page = totalPage;
+	    }
 	    search(page); // 해당 페이지 검색 실행
 	});
 	
@@ -106,6 +167,7 @@
 	}
 	
 	function search(page) {
+		
         let areaCode = $("#areaCodes").val();
         let sigunguCode = $("#sigunguCode").val();
         let contentType = $("#contentTypes").val();
@@ -126,7 +188,7 @@
             },
             success: function(data) {
             	$('#place_wrapper').empty();
-            	console.log(data);
+            	
             	// 총 갯수 표시
             	getTotalRecord(data.paging)
             	
@@ -156,10 +218,10 @@
     content += '<input type="hidden" class="nowPage" data-page="' + paging.nowPage + '">';
     content += '<ol class="pagination" id="pagination">';
     if (paging.beginBlock > 1) {
-        content += '<li class="page-item" data-page="' + 1 + '"> << </li>';
+        content += '<li class="page-item" data-page="' + 1 + '"> 1 </li>';
     }
     if (paging.beginBlock > 1) {
-        content += '<li class="page-item" data-page="' + (paging.nowPage - 1) + '"> < </li>';
+        content += '<li class="page-item" data-page="' + (paging.nowPage - 1) + '"> ... </li>';
     }
 
     // 페이지 번호를 표시할 개수
@@ -174,26 +236,64 @@
 
     // 중앙에 오도록 현재 페이지 번호를 위치시키기 위한 변수 설정
     let centerIndex = Math.floor(pageNumberDisplay / 2);
-
+ 	// 빈 공간을 표시하는 부분 추가
+    if (paging.nowPage === 1) {
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+    }
+ 	if( paging.nowPage === 2){
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+ 	}
+ 	if( paging.nowPage === 3){
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+ 	}
+ 	
     // 페이지 번호를 표시하는 부분 수정
     for (let i = startPage; i <= endPage; i++) {
-        if (i === paging.nowPage) {
-            let inputClass = (i === startPage + centerIndex) ? 'center-page' : ''; // 중앙에 위치할 경우 클래스 추가
-            content += '<li class = "nowPageInput">'
-                        + '<input type="text" class="pageMove ' + inputClass + '" value="' + i + '">'
-                      + '</li>';
-        } else {
-            content += '<li class="page-item" data-page="' + i + '">' + i + '</li>';
-        }
-    }
 
-    if (paging.endBlock < paging.totalPage) {
-        content += '<li class="page-item" data-page="' + (paging.nowPage + 1) + '"> > </li>';
+	    if (i === paging.nowPage) {
+	        content += '<li class="nowPageInput">'
+	                    + '<input type="text" class="pageMove" value="' + i + '">'
+	                  + '</li>';
+	    } else {
+	        content += '<li class="page-item" data-page="' + i + '">' + i + '</li>';
+	    }
+	}
+	if(paging.nowPage < (paging.totalPage-2)){
+	    if (paging.endBlock < paging.totalPage) {
+	        content += '<li class="page-item" data-page="' + (paging.nowPage + 1) + '"> ... </li>';
+	    }
+	    if (paging.endBlock < paging.totalPage) {
+	        content += '<li class="page-item totalPage" data-page="' + paging.totalPage + '"> '+ paging.totalPage +' </li>';
+	    }
     }
-    if (paging.endBlock < paging.totalPage) {
-        content += '<li class="page-item" data-page="' + paging.totalPage + '"> >> </li>';
+    if (paging.nowPage ===  paging.totalPage) {
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
+        content += '<li class="page-item blank"> </li>';
     }
-
+ 	if( paging.nowPage ===  (paging.totalPage-1)){
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+ 	}
+ 	if( paging.nowPage ===  (paging.totalPage-2)){
+        content += '<li class="page-item blank">  </li>';
+        content += '<li class="page-item blank">  </li>';
+ 	}
+  
     content += '</ol>';
 
     $(".board-list-paging").html(content);
@@ -203,7 +303,13 @@
    	function addPlace(place) {
    		let originalTitle  = place.title;
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
-
+		let heartIcon = '';
+		if(place.uheart === "1") {
+		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '♥' + '</span>';
+		} else {
+		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '♡' + '</span>';
+		}
+			
    	    let placeHTML = '<div class="place-box" >' +
    	                        '<div class="image-box" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
    	                            '<img alt="' + place.title + '" src="' + place.firstimage + '">' +
@@ -212,8 +318,7 @@
    	                     			truncatedTitle + 
    	                        '</div>' +
    	                        '<div class="wish-box">' +
-	   	                        '<span class = "heart">'+'하트'+'</span>'
-	   	                        + place.heart + 
+	   	                        heartIcon + place.heart + 
 	   	                    '</div>' +
    	                    '</div>';
    	    $('#place_wrapper').append(placeHTML);
