@@ -87,8 +87,8 @@ public class BoardController {
 		return mv;
 	}
 	
-	@PostMapping("board_write_of")
-	public ModelAndView board_write_of(BoardVO boardvo, HttpServletRequest request) {
+	@PostMapping("boardWriteOK")
+	public ModelAndView boardWriteOK(BoardVO boardvo, HttpServletRequest request) {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:boardList");
 			String pwd = passwordEncoder.encode(boardvo.getBoard_pw());
@@ -112,13 +112,16 @@ public class BoardController {
 	public ModelAndView boardDetail(String board_idx, String cPage) {
 		try {
 			ModelAndView mv = new ModelAndView("kim_view/boardDetail");
-			
+			int result = boardService.boardHitUpdate(board_idx);
 			BoardVO boardvo = boardService.boardDetail(board_idx);
-			List<CommentVO> comment_list = boardService.commentList(board_idx);
-			mv.addObject("comment_list", comment_list);
-			mv.addObject("boardvo", boardvo);
-			mv.addObject("cPage", cPage);
-			return mv;
+			if (result>0 && boardvo !=null) {
+				
+				List<CommentVO> comment_list = boardService.commentList(board_idx);
+				mv.addObject("comment_list", comment_list);
+				mv.addObject("boardvo", boardvo);
+				mv.addObject("cPage", cPage);
+				return mv;
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -144,13 +147,14 @@ public class BoardController {
 	public ModelAndView getBoardUpdateOK(
 			@ModelAttribute("cPage")String cPage,
 			@ModelAttribute("board_idx")String board_idx,
-			@ModelAttribute("board_cpw")String board_cpw
+			@ModelAttribute("board_cpw")String board_cpw,
+			BoardVO boardvo
 			) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("입력비밀번호" + board_cpw);
 		// 비밀번호 체크
-		BoardVO boardvo = boardService.boardDetail(board_idx);
-		String dpwd = boardvo.getBoard_pw();
+		BoardVO boardvo2 = boardService.boardDetail(board_idx);
+		String dpwd = boardvo2.getBoard_pw();
 		System.out.println("디비비밀번호: " + dpwd );
 		if (! passwordEncoder.matches(board_cpw, dpwd)) {
 			mv.setViewName("redirect:boardUpdate");
@@ -173,26 +177,27 @@ public class BoardController {
 	
 	@PostMapping("boardDelete")
 	public ModelAndView getBbsDelete(@ModelAttribute("cPage")String cPage,
-			@ModelAttribute("board_idx")String board_idx) {
-		return new ModelAndView("kch_view/boardDelete");
+			@ModelAttribute("board_idx")String board_idx,
+			@ModelAttribute("board_cpw")String board_cpw) {
+		return new ModelAndView("kim_view/boardDelete");
 	}
 	
 	
 	@PostMapping("boardDeleteOK")
-	public ModelAndView boardDeleteOK(@RequestParam("board_cpw")String board_cpw,
+	public ModelAndView boardDeleteOK(@ModelAttribute("board_cpw")String board_cpw,
 			@ModelAttribute("cPage")String cPage,
-			@ModelAttribute("board_idx")String board_idx) {
+			@ModelAttribute("board_idx")String board_idx,
+			BoardVO boardvo) {
 		ModelAndView mv = new ModelAndView();
 		// 비밀번호 체크
-		BoardVO boardvo = boardService.boardDetail(board_idx);
-		String dpwd = boardvo.getBoard_pw();
-		
+		BoardVO boardvo2 = boardService.boardDetail(board_idx);
+		String dpwd = boardvo2.getBoard_pw();
 		if(! passwordEncoder.matches(board_cpw, dpwd)) {
+			mv.setViewName("kch_view/boardDetail");
 			mv.addObject("pwdchk", "fail");
 			return mv;
 		}else {
-			// 원글 삭제 (댓글이 있을 경우 그냥 삭제하면 외래키 때문에 오류 발생)
-			// active 컬럼의 값을 1로 변경한다. 
+			
 			int result = boardService.boardDelete(board_idx);
 			if(result > 0) {
 				mv.setViewName("redirect:boardList");

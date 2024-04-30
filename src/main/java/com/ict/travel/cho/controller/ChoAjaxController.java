@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.ict.travel.cho.dao.ChoTourVO;
+import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
+import com.ict.travel.lee.dao.MemberVO;
 
 @RestController
 public class ChoAjaxController {
 	@Autowired
 	private ChoService choService;
+	
 	
 	@Autowired
 	private Paging paging;
@@ -66,7 +70,11 @@ public class ChoAjaxController {
 			@RequestParam("contentType") String contentType, 
 			@RequestParam("page") String page, 
 			@RequestParam("title") String title,
-			@RequestParam("limit") int limit) throws Exception {
+			@RequestParam("limit") int limit,
+			HttpSession session) throws Exception {
+			
+			MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		
 			// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
 			int pagecount = limit;
 			int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title);
@@ -106,16 +114,48 @@ public class ChoAjaxController {
 			}
 			
 			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,paging.getOffset(), paging.getNumPerPage());
-			// Create a Map to hold both tour list and pagination information
+			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+			if(uvo != null) {
+				for (ChoTourVO k : choTourList) {
+					for (PlaceWishVO j : placeWishList) {
+						if(k.getContentid().equals(j.getContentid())) {
+							k.setUheart("1");
+							break;
+						}
+					}
+				}
+			}
+
 			Map<String, Object> result = new HashMap<>();
 
-			// Add tour list to the result map
 			result.put("choTourList", choTourList);
 
-			// Add pagination information to the result map
 			result.put("paging", paging);
 				Gson gson = new Gson();
 				String jsonString = gson.toJson(result);
 				return jsonString;
 	}
+	
+	
+	// 찜 추가 
+	@RequestMapping(value = "placeWishAdd", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getWishInsert(String contentid, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		int result = choService.getPlaceWishAdd(contentid,uvo.getU_idx());
+		return String.valueOf(result);
+	}
+	
+	// 찜 삭제
+	@RequestMapping(value = "placeWishRemove", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getWishDelete(String contentid, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		
+		int result = choService.getPlaceWishRemove(contentid,uvo.getU_idx());
+		
+		return String.valueOf(result);
+	}
+	
+	
 }

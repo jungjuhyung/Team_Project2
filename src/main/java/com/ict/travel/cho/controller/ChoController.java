@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChoController {
 	@GetMapping("areaCategory")
 	public ModelAndView areaCategory() {
+		System.out.println(1);
 		return new ModelAndView("cho_views/areaCategory");
 	}
 }

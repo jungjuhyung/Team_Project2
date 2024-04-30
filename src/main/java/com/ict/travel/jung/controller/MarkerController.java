@@ -36,4 +36,9 @@ public class MarkerController {
 		mv.addObject("marker_list", marker_list);
 		return mv;
 	}
+	
+	@RequestMapping("test")
+	public ModelAndView test() {
+		return new ModelAndView("jung_view/kakaoline");
+	}
 }

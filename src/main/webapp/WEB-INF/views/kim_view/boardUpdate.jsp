@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
-<link rel="stylesheet" href="resources/kim_css/reset.css">
+<link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardWrite.css">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -15,13 +15,24 @@
     <!-- include summernote css/js-->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-</head>
+    <script type="https://ajax.gogleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	let pwdchk = "${pwdchk}";
+	if(pwdchk == 'fail'){
+		alert("비밀번호틀림");
+		return;
+	}
+});
+
+</script>
 <script type="text/javascript">
 function updateok(f) {
 	f.action="boardUpdateOK";
 	f.submit();
 }
 </script>
+</head>
 <body>
 <form method="post" >
 		<div class="container">
@@ -59,7 +70,7 @@ function updateok(f) {
 				<input type="hidden" name="board_cpw" value="${board_cpw}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="수정하기" onclick="updateok(this.form)">
-				<input class="but5" type="button" value="취소하기" onclick="location.href='boardList.jsp'"> 
+				<input class="but5" type="button" value="취소하기" onclick="location.href='boardList'"> 
 
 			</div>
 		</div>

@@ -133,6 +133,9 @@
 .pagination li:hover {
   cursor: pointer;
 }
+.board-list-paging .pagination .blank:hover {
+  cursor: default;
+}
 .nowPage {
   background-color: gray;
 }
