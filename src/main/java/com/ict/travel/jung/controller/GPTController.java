@@ -43,7 +43,7 @@ public class GPTController {
 			conn.setDoOutput(true);
 			// 헤더 요청
 			conn.setRequestProperty("Content-Type", "application/json");
-			conn.setRequestProperty("Authorization", "Bearer " +"sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c");
+			conn.setRequestProperty("Authorization", "Bearer "+"api key");
 			
 			OutputStream outputStream = conn.getOutputStream();
 	        outputStream.write(jsonData.getBytes());
