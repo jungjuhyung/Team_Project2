@@ -1,6 +1,9 @@
 #프로젝트 실행마다 작성되는 로그 파일 제외
 target/
 
+#이상한 파일이라 제외
+.factorypath
+
 #프로젝트에서 사용하고 있는 외부 플러그인 tern-project 제외
 #.tern-project
 
