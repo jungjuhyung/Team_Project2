@@ -1,11 +1,19 @@
 package com.ict.travel.kim.dao;
 
 public class BoardVO {
-	private String board_idx, board_title, u_nickname, content, regdate, hit, u_idx, board_pw;
+	private String board_idx, board_title, u_nickname, content, regdate, hit, u_idx, board_pw, active;
 	
 	
 	public String getBoard_pw() {
 		return board_pw;
+	}
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
 	}
 
 	public void setBoard_pw(String board_pw) {

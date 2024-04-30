@@ -2,8 +2,7 @@ package com.ict.travel.jung.dao;
 
 public class MarkerInfoVO {
 	private String place_idx, u_idx, contentid, addr1, firstimage, place_title, contenttypeid, regdate;
-	private double map_x, map_y;
-	
+	private double mapx, mapy;
 	public String getPlace_idx() {
 		return place_idx;
 	}
@@ -52,18 +51,19 @@ public class MarkerInfoVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	public double getMap_x() {
-		return map_x;
+	public double getMapx() {
+		return mapx;
 	}
-	public void setMap_x(double map_x) {
-		this.map_x = map_x;
+	public void setMapx(double mapx) {
+		this.mapx = mapx;
 	}
-	public double getMap_y() {
-		return map_y;
+	public double getMapy() {
+		return mapy;
 	}
-	public void setMap_y(double map_y) {
-		this.map_y = map_y;
+	public void setMapy(double mapy) {
+		this.mapy = mapy;
 	}
+	
 	
 	
 }

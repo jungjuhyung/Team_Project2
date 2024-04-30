@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
-<link rel="stylesheet" href="resources/kim_css/reset.css">
+<link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardWrite.css">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>자유게시판</title>
-<link rel="stylesheet" href="resources/kim_css/reset.css">
+<link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardWrite.css">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<form method="post" action="board_write_of">
+<form method="post" action="boardWriteOK">
 		<div class="container">
 			<div class="insert">
 
@@ -50,7 +50,7 @@
 
 			<div class="create">
 				<input class="but4" type="submit" value="등록하기">
-				<input class="but5" type="button" value="취소하기" onclick="location.href='boardList.jsp'"> 
+				<input class="but5" type="button" value="취소하기" onclick="location.href='boardList'"> 
 
 			</div>
 		</div>

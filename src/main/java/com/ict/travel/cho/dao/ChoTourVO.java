@@ -1,7 +1,15 @@
 package com.ict.travel.cho.dao;
 
 public class ChoTourVO {
-	private String contentid, contenttypeid, title, firstimage;
+	private String contentid, contenttypeid, title, firstimage, heart;
+
+	public String getHeart() {
+		return heart;
+	}
+
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 
 	public String getContentid() {
 		return contentid;
