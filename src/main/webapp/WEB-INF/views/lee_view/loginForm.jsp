@@ -7,21 +7,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/lee_css/loginForm.css">
 <script type="text/javascript">
-	function sign_in_go(f) {
-		
-		
-		
-		f.action = "login_go_ok.do"
-		f.submit();
-	}
-	
+	// 회원가입 폼으로 이동
 	function sign_up_go(f) {
 		f.action = "agree_go.do";
 		f.submit();
 	}
+	// 로그인 시
+	function sign_in_go(f) {
+		if(f.u_id.value == ""){
+			alert("아이디를 입력해주세요.");
+			f.u_id.focus();
+			return;
+		}
+		if(f.u_pwd.value == ""){
+			alert("비밀번호를 입력해주세요.");
+			f.u_pwd.focus();
+			return;
+		}
+		f.action = "login_go_ok.do";
+		f.submit();
+	}
+
 	
 </script>
 </head>
@@ -31,7 +41,7 @@
 			<form method="post" id="login_sub">
 			<h2 class="login-title">로그인</h2>
 				<div class="login-form">
-					<input type="text" class="input" name="u_id" placeholder="아이디" required><br> 
+					<input type="text" class="input" id="u_id" name="u_id" placeholder="아이디" required><br> 
 					<input type="password" class="input" id="u_pwd" name="u_pwd" placeholder="비밀번호" required>
 					<input type="submit" id="btn-signin"  value="Sign In" onclick="sign_in_go(this.form)">
 					<input type="submit" id="btn-signup" value="Sign Up" onclick="sign_up_go(this.form)">

@@ -1,6 +1,7 @@
 package com.ict.travel.lee.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,8 +20,6 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-//	@Autowired
-//	private MailService mailService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -46,42 +45,6 @@ public class MemberController {
 		return new ModelAndView("error");
 	}
 	
-//	@RequestMapping("email_send_go")
-//	public ModelAndView sendMail() {
-//		return new ModelAndView("lee_view/joinForm");
-//	}
-//	@RequestMapping("email_send_ok.do")
-//	public ModelAndView sendMailOK(String email) {
-//		try {
-//			// 임시 번호 만들기
-//			Random random = new Random();
-//			// 1000000 => 숫자 6자리
-//			String randomNumber = String.valueOf(random.nextInt(1000000) % 1000000);  
-//			if (randomNumber.length() < 6) {
-//				int substract = 6 - randomNumber.length();
-//				StringBuffer sb = new StringBuffer();
-//				for (int i = 0; i < substract; i++) {
-//					sb.append("0");
-//				}
-//
-//				sb.append(randomNumber);
-//				randomNumber = sb.toString();
-//			}
-//			// 임시번호 서버에 출력
-//			System.out.println("임시번호 : "+ randomNumber);
-//			
-//			// 임시번호를 DB에 저장 해야 된다.
-//			
-//			// 사용자메일에 임시번호를 보내기
-//			mailService.sendEmail(randomNumber, email);
-//			// 성공하면 
-//			return new ModelAndView("email/email_chk");
-//			
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//		return new ModelAndView("email/error");
-//	}
 	
 	@RequestMapping("join_success_go.do")
 	public ModelAndView getSignUp(MemberVO mvo, HttpServletRequest request) {
@@ -117,5 +80,68 @@ public class MemberController {
 		return new ModelAndView("error");
 	}
 	
+	@RequestMapping("login_go_ok.do")
+	public ModelAndView getLoginOK(HttpServletRequest request, MemberVO mvo) {
+		try {
+			HttpSession session = request.getSession();
+			ModelAndView mv = new ModelAndView();
+			
+			MemberVO mvo2 = memberService.getLoginOK(mvo);
+			
+			if(! passwordEncoder.matches(mvo.getU_pwd(), mvo2.getU_pwd())) {
+				mv.setViewName("redirect:loginForm.do");
+				return mv;
+			}else {
+				session.setAttribute("memberUser", mvo2);
+				session.setAttribute("u_id", mvo2.getU_id());
+				session.setAttribute("u_idx", mvo2.getU_idx());
+				
+				if(mvo2 != null && mvo2.getU_id() != null) {
+					session.setAttribute("memberUser", mvo2);
+					session.setAttribute("u_id", mvo2.getU_idx());
+					session.setAttribute("u_idx", mvo2.getU_idx());
+					
+					String requestPage = (String) session.getAttribute("requestPage");
+					if (requestPage != null && !requestPage.isEmpty()) {
+                        session.removeAttribute("requestPage"); // 세션에서 요청한 페이지 정보 삭제
+                        return new ModelAndView("redirect:" + requestPage);
+                    } else {
+                        return new ModelAndView("redirect:main_page.do"); 
+                    }
+                } else {
+                    return new ModelAndView("redirect:loginForm");
+				}
+			}
+		} catch (Exception e) {
+			return new ModelAndView("error");
+		}
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

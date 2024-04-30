@@ -18,6 +18,15 @@ public class MemberDAO {
 		}
 		return -1;
 	}
+
+	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
+		try {
+			return sqlSessionTemplate.selectOne("lee-mapper.login", mvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
 	
 	
