@@ -70,7 +70,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="./header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
 	<section style="margin: 0 auto; width: 1300px;">
 		<div class="img_wrapper">
@@ -84,44 +84,44 @@
 			</div>
 			<div class="img_slider">
 				<div class="slide_box">
-						<div class="change" style="display: none;">
-							<p>남산</p><br>
+						<div class="change">
+							<p>남산</p>
 							<span>서울타워와 벚꽃</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>고창</p><br>
+						<div class="change">
+							<p>고창</p>
 							<span>해바라기 밭</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>북한산</p><br>
+						<div class="change">
+							<p>북한산</p>
 							<span>가을단풍 풍경</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>안동</p><br>
+						<div class="change">
+							<p>안동</p>
 							<span>하회마을 설경</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>평창</p><br>
+						<div class="change">
+							<p>평창</p>
 							<span>대관령 양떼목장</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>광화문</p><br>
+						<div class="change">
+							<p>광화문</p>
 							<span>경복궁의 정문</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>아산</p><br>
+						<div class="change">
+							<p>아산</p>
 							<span>노란 은행나무길</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>광양</p><br>
+						<div class="change">
+							<p>광양</p>
 							<span>섬진강 매화 축제</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>한강</p><br>
+						<div class="change">
+							<p>한강</p>
 							<span>동작대교 야경</span>					
 						</div>
-						<div class="change" style="display: none;">
-							<p>서울</p><br>
+						<div class="change">
+							<p>서울</p>
 							<span>아름다운 풍경</span>					
 						</div>
 				</div>

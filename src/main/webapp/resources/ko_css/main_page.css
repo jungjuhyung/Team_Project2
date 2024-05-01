@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@import "../common_css/reset.css";
+* {
+  box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+}
 
 /* 추천경로 리스트 */
 #area_wrapper {
@@ -103,7 +110,7 @@
 	color: white;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	padding-top: 200px;
-	line-height: 10px;
+	line-height: 100px;
 	font-weight: bold;
 	text-align: center;
 }

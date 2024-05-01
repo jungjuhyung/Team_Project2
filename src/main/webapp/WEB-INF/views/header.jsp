@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="resources/ko_css/header.css">
+<link rel="stylesheet" type="text/css" href="resources/common_css/header.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
 </head>
 <body>
 	
-	<section style="height: 160px;">
+	<section style="height: 170px;">
 		<nav class="ko_nav">
 			<div class="ko_logo" onclick="main_go()">
 				<img alt="" src="resources/ko_images/logo.png">

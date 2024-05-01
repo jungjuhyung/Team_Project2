@@ -1,7 +1,8 @@
 package com.ict.travel.ko.dao;
 
 public class ItemVO {
-	private String 	contenttypeid,
+	private String 	contentid,
+					contenttypeid,
 					expguide,
 				 	infocenter,
 					parking,
@@ -26,6 +27,14 @@ public class ItemVO {
 					overview,
 					title,
 					firstimage;
+
+	public String getContentid() {
+		return contentid;
+	}
+
+	public void setContentid(String contentid) {
+		this.contentid = contentid;
+	}
 
 	public String getFirstimage() {
 		return firstimage;

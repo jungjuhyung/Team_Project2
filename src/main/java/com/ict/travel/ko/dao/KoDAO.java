@@ -20,4 +20,5 @@ public class KoDAO {
 		return sqlSessionTemplate.selectList("ko.tema_list", contenttypeid);
 	}
 	
+	
 }

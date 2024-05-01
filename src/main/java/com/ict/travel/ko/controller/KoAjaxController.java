@@ -131,6 +131,13 @@ public class KoAjaxController {
 	}
 	
 	
+	@RequestMapping(value = "ko_place_wish.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String koPlaceWish(String contentid) {
+		return null;
+	}
+	
+	
 	
 	
 	
