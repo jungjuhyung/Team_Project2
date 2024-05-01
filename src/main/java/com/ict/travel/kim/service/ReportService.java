@@ -12,4 +12,6 @@ public interface ReportService {
 	public List<ReportVO> reportList(int offset, int limit);
 	
 	public List<ReportVO> reportList();
+	
+	public int reportWrite(ReportVO reportvo);
 }

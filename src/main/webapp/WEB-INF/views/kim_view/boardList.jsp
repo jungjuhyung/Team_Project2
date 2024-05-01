@@ -18,7 +18,8 @@ function boardWrite() {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
+	
 	// 페이지 이동 엔터 처리
 	document.querySelector(('.board-list-paging')).addEventListener('keypress', function(e) {
 		 if (e.target.classList.contains('pageMove')) {

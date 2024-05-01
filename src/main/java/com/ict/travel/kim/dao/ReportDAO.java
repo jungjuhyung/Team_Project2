@@ -44,5 +44,15 @@ public class ReportDAO {
 		}
 		return null;
 	}
+
+	public int reportWrite(ReportVO reportvo) {
+		try {
+			return sqlSessionTemplate.insert("report_t.reportWrite", reportvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
 	
 }

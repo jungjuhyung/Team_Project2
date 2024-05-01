@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/* 페이징 */
+.board-list-paging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+.pagination li {
+  width: 40px;
+  margin: 5px;
+  text-align: center;
+}
+.pagination li:hover {
+  cursor: pointer;
+}
+.nowPage {
+  background-color: gray;
+}
+.pagination .nowPageInput{
+	margin-left:0;
+	margin-right:10px;
+	width: 40px;
+}
+
+.pageMoveForm{
+  display: flex;
+  justify-content: center;	
+  align-items: center;
+}
+.pageMove {
+  width: 50px;
+  height: 35px;
+  border: 2px solid black;
+  margin-right: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  text-align: center;
+}
+.pageMoveButton {
+  height: 35px;
+  border: 2px solid black;
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: white; /* 버튼 배경색 */
+  color: black; /* 글자색 */
+  cursor: pointer; /* 커서 모양 설정 */
+  transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 transition */
+}
+
+#bigbox{
+		margin-top: 160px;
+		
+	}
+span { width: 150px; color: red;}
+input{border:1px solid red;}
+table{width: 80%; margin: 0 auto;}
+table,th,td {border: 1px solid gray; text-align: center;}
+h2{text-align: center;}
+
+
+
+
+
+
+
+

@@ -29,4 +29,9 @@ public class ReportServiceImpl implements ReportService{
 	public List<ReportVO> reportList() {
 		return reportDAO.reportList();
 	}
+
+	@Override
+	public int reportWrite(ReportVO reportvo) {
+		return reportDAO.reportWrite(reportvo);
+	}
 }
