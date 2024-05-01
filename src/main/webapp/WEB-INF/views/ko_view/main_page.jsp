@@ -70,7 +70,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+	<%@ include file="./header.jsp"%>
 
 	<section style="margin: 0 auto; width: 1300px;">
 		<div class="img_wrapper">

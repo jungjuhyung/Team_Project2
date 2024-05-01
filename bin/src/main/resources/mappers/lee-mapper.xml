@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="lee-mapper">
+  	<insert id="insert" parameterType="mvo">
+  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active)
+  		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0)
+  	</insert>
+  	
+  	
+  </mapper>
