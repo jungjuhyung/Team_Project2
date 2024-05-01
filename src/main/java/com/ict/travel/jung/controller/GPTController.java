@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,39 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GPTController {
 	
+	
 	@RequestMapping(value = "gpttest", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public  String memberChk() {
-	   // access_token를 가지고 사용자 정보를 가져올 수 있다.
-		System.out.println("오냐");
-		String apiURL = "https://api.openai.com/v1/chat/completions";
-        String jsonData = "{\n" +
-                "    \"model\": \"gpt-3.5-turbo\",\n" +
-                "    \"messages\": [\n" +
-                "      {\n" +
-                "        \"role\": \"system\",\n" +
-                "        \"content\": \"You are a helpful assistant.\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"role\": \"user\",\n" +
-                "        \"content\": \"오늘 신촌의 날씨를 알려줘!\"\n" +
-                "      }\n" +
-                "    ]\n" +
-                "}";
+	// @RequestBody를 통해 요청의 Body부분에 있는 데이터를 받아서 사용 가능합니다.
+	public  String memberChk(@RequestBody String messages) {
 		try {
+			String apiURL = "https://api.openai.com/v1/chat/completions";
+			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
+			System.out.println(messages);
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			
 			// POST 요청
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
+			
 			// 헤더 요청
 			conn.setRequestProperty("Content-Type", "application/json");
-			conn.setRequestProperty("Authorization", "Bearer "+"sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c");
+			conn.setRequestProperty("Authorization", "Bearer "+api_key);
 			
 			BufferedWriter bw = 
 					new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			bw.write(jsonData);
+			bw.write(messages);
 			bw.flush();
 			int responeseCode = conn.getResponseCode();
 			System.out.println(responeseCode);
