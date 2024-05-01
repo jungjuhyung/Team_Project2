@@ -45,7 +45,7 @@
 	            AND title LIKE CONCAT('%', #{title}, '%')
 	        </if>
         </where>
-        LIMIT #{limit} OFFSET #{offset}
+        ORDER BY heart DESC LIMIT #{limit} OFFSET #{offset} 
 	</select>
 	
 	<!-- 위시리스트 관련  -->

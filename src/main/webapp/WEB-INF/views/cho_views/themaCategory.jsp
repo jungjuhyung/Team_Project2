@@ -1,37 +1,115 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="resources/cho_css/category.css">
 <meta charset="UTF-8">
-<title>Å×¸¶º° Àå¼Ò ÃßÃµ</title>
+<title>í…Œë§ˆë³„ ì¥ì†Œ ì¶”ì²œ</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// ì§€ì—­ ëˆ„ë¥´ë©´ ì‹¤í–‰
+	    $(".swipeAreaList").click(function() {
+	       let areaCode = $(this).attr('data-areacode')
+	       let areaName = $(this).find('span').text();
+	       searchAreaPlace(areaCode,areaName)
+	    });   
+	    searchAreaPlace("1","ì„œìš¸")
+	});
+		function searchAreaPlace(areaCode,areaName) {
+			$('.areaName').empty();
+			$('.areaName').text(areaName);
+			$.ajax({
+				url : "searchAreaPlace",
+				type : "post",
+				data : {areaCode: areaCode},
+				dataType : "json",
+				success : function(data) {
+					
+					$('.place-Wrapper').empty();
+					for (let i = 0; i < data.touristList.length; i++) {
+           	        let place = data.touristList[i];
+           	        addPlace2(place.contenttypeid,place);
+           	    	}
+					for (let i = 0; i < data.partyList.length; i++) {
+           	        let place = data.partyList[i];
+           	        addPlace2(place.contenttypeid,place);
+           	    	}
+					for (let i = 0; i < data.restaurantList.length; i++) {
+           	        let place = data.restaurantList[i];
+           	        addPlace2(place.contenttypeid,place);
+           	    	}
+				},
+				error : function() {
+					alert("ì‹¤íŒ¨");
+				}
+			});
+		}
+		
+		function addPlace2(contenttypeid,place) {
+			console.log(place)
+	   		let originalTitle  = place.title;
+	   		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
+			let heartIcon = '';
+			if(place.uheart === "1") {
+			    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + 'â¤ï¸' + '</span>';
+			} else {
+			    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + 'â™¡' + '</span>';
+			}
+				
+	   	    let placeHTML = '<div class="place-box" >' +
+	   	                        '<div class="image-box" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
+	   	                            '<img alt="' + place.title + '" src="' + place.firstimage + '">' +
+	   	                        '</div>' +
+	   	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+place.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
+	   	                     			truncatedTitle + 
+	   	                        '</div>' +
+	   	                        '<div class="wish-box">' +
+		   	                        heartIcon + '<span class="heart-count">'  + place.heart + '</span>'+ 
+		   	                    '</div>' +
+	   	                    '</div>';
+	   	    if(contenttypeid ==="12"){
+	   	    
+	   	    	
+	   	    	$('#touristPlace').append(placeHTML);
+	   	    }
+	   	    if(contenttypeid ==="15"){
+	   	    	$('#partyPlace').append(placeHTML);
+	   	    }
+	   	    if(contenttypeid ==="39"){
+	   	    	$('#restaurantPlace').append(placeHTML);
+	   	    }
+	   
+	   	}
+</script>
 </head>
 <body>
-	<section class="section" style="background-color: rgba(0,0,0,0.3)">
+	<section class="section">
 		<div class="swipe-Wrapper">
 			<div class="swipe-arealist">
-				<div id="area1" class="swipeAreaList" data-areacode="1"><img src="" ><span>¼­¿ï</span></div>
-				<div id="area2" class="swipeAreaList" data-areacode="2"><img src="" ><span>ÀÎÃµ</span></div>
-				<div id="area3" class="swipeAreaList" data-areacode="3"><img src="" ><span>´ëÀü</span></div>
-				<div id="area4" class="swipeAreaList" data-areacode="4"><img src="" ><span>´ë±¸</span></div>
-				<div id="area5" class="swipeAreaList" data-areacode="5"><img src="" ><span>±¤ÁÖ</span></div>
-				<div id="area6" class="swipeAreaList" data-areacode="6"><img src="" ><span>ºÎ»ê</span></div>
-				<div id="area7" class="swipeAreaList" data-areacode="7"><img src="" ><span>¿ï»ê</span></div>
-				<div id="area8" class="swipeAreaList" data-areacode="8"><img src="" ><span>¼¼Á¾</span></div>
-				<div id="area31" class="swipeAreaList" data-areacode="31"><img src="" ><span>°æ±â</span></div>
-				<div id="area32" class="swipeAreaList" data-areacode="32"><img src="" ><span>°­¿ø</span></div>
-				<div id="area33" class="swipeAreaList" data-areacode="33"><img src="" ><span>ÃæºÏ</span></div>
-				<div id="area34" class="swipeAreaList" data-areacode="34"><img src="" ><span>Ãæ³²</span></div>
-				<div id="area35" class="swipeAreaList" data-areacode="35"><img src="" ><span>°æºÏ</span></div>
-				<div id="area36" class="swipeAreaList" data-areacode="36"><img src="" ><span>°æ³²</span></div>
-				<div id="area37" class="swipeAreaList" data-areacode="37"><img src="" ><span>ÀüºÏ</span></div>
-				<div id="area38" class="swipeAreaList" data-areacode="38"><img src="" ><span>Àü³²</span></div>
-				<div id="area39" class="swipeAreaList" data-areacode="39"><img src="" ><span>Á¦ÁÖ</span></div>
+				<div id="area1" class="swipeAreaList" data-areacode="1"><img src="" ><span>ì„œìš¸</span></div>
+				<div id="area2" class="swipeAreaList" data-areacode="2"><img src="" ><span>ì¸ì²œ</span></div>
+				<div id="area3" class="swipeAreaList" data-areacode="3"><img src="" ><span>ëŒ€ì „</span></div>
+				<div id="area4" class="swipeAreaList" data-areacode="4"><img src="" ><span>ëŒ€êµ¬</span></div>
+				<div id="area5" class="swipeAreaList" data-areacode="5"><img src="" ><span>ê´‘ì£¼</span></div>
+				<div id="area6" class="swipeAreaList" data-areacode="6"><img src="" ><span>ë¶€ì‚°</span></div>
+				<div id="area7" class="swipeAreaList" data-areacode="7"><img src="" ><span>ìš¸ì‚°</span></div>
+				<div id="area8" class="swipeAreaList" data-areacode="8"><img src="" ><span>ì„¸ì¢…</span></div>
+				<div id="area31" class="swipeAreaList" data-areacode="31"><img src="" ><span>ê²½ê¸°</span></div>
+				<div id="area32" class="swipeAreaList" data-areacode="32"><img src="" ><span>ê°•ì›</span></div>
+				<div id="area33" class="swipeAreaList" data-areacode="33"><img src="" ><span>ì¶©ë¶</span></div>
+				<div id="area34" class="swipeAreaList" data-areacode="34"><img src="" ><span>ì¶©ë‚¨</span></div>
+				<div id="area35" class="swipeAreaList" data-areacode="35"><img src="" ><span>ê²½ë¶</span></div>
+				<div id="area36" class="swipeAreaList" data-areacode="36"><img src="" ><span>ê²½ë‚¨</span></div>
+				<div id="area37" class="swipeAreaList" data-areacode="37"><img src="" ><span>ì „ë¶</span></div>
+				<div id="area38" class="swipeAreaList" data-areacode="38"><img src="" ><span>ì „ë‚¨</span></div>
+				<div id="area39" class="swipeAreaList" data-areacode="39"><img src="" ><span>ì œì£¼</span></div>
 			</div>
 			
 			<div class="swipe-Main">
-				<div id="areaName">Áö¿ª</div>
+				<div class="areaName">{ì§€ì—­}</div>
 				<div class="swipe-MainContent-Wrapper">
 					<div class="swipe-MainContent"></div>
 					<div class="swipe-MainContent"></div>
@@ -43,23 +121,27 @@
 		 </div>
 		 
 		 <div id = "hot-place-wrapper">
-		 	<div id="thema-title">¿ì¸® Áö¿ª ÇÖÇÃ·¹ÀÌ½º</div>
-		 	<div class= "thema-box">
-		 		<div class="tourist" >{Áö¿ª} ÃßÃµ °ü±¤Áö</div>
-		 		<div class="tourist-place"></div>
-		 	</div>
-		 	<div class= "thema-box">
-		 		<div class="party">{Áö¿ª} ÃßÃµ ÃàÁ¦</div>
-		 		<div class=""></div>
-		 	</div>
-		 	
-		 	<div class= "thema-box">
-		 		<div class="restaurant">{Áö¿ª} ÃßÃµ ¸ÀÁı</div>
-		 		<div class=""></div>
-		 	</div>
+		 	<div id="thema-title">ìš°ë¦¬ ì§€ì—­ í•«í”Œë ˆì´ìŠ¤</div>
+		 	<div id = thema-wrapper>
+			 	<div class= "thema-box">
+			 		<div id="tourist" > <span class="areaName">{ì§€ì—­}</span> ì¶”ì²œ ê´€ê´‘ì§€</div>
+			 		<div id="touristPlace" class="place-Wrapper"> 
+			 		</div>
+			 	</div>
+			 	<div class= "thema-box">
+			 		<div id="party"><span class="areaName">{ì§€ì—­}</span> ì¶”ì²œ ì¶•ì œ</div>
+			 		<div id="partyPlace"  class="place-Wrapper "></div>
+			 	</div>
+			 	
+			 	<div class= "thema-box">
+			 		<div id="restaurant"><span class="areaName">{ì§€ì—­}</span> ì¶”ì²œ ë§›ì§‘</div>
+			 		<div id="restaurantPlace"  class="place-Wrapper"></div>
+			 	</div>
+			 </div>
 		 </div>
 		 
-		 
 	</section>
+	
+	<%@ include file="searchResult.jsp" %>
 </body>
 </html>
