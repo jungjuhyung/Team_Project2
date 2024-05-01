@@ -45,7 +45,7 @@ function commentDelete(f) {
 		<div class="container">
 			<div class="insert">
 
-				<table>
+				<table id="boardtable">
 					<caption>
 						<h2>자유게시판</h2>
 					</caption>
@@ -92,7 +92,7 @@ function commentDelete(f) {
 			<div class="rebutton">
 					${k.regdate.substring(0,10)}
 					<!-- 실제은 로그인 성공 && 글쓴 사람만 삭제할 수 있어야 한다. -->
-					<input type="button" value="삭제" onclick="commentDelete(this.form)">
+					<input class="rewrite" type="button" value="삭제" onclick="commentDelete(this.form)">
 				</div>
 					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
 					<input type="hidden" name = "board_idx" value="${k.board_idx}" >
@@ -112,7 +112,7 @@ function commentDelete(f) {
 				<textarea rows="3" cols="40" name="content"></textarea>
 			</div>
 			<div class="rebutton">
-				<input id="rewrite" type="button" value="저장" onclick="commentInsert(this.form)">
+				<input class="rewrite" type="button" value="저장" onclick="commentInsert(this.form)">
 			</div>
 				<!-- 댓글 저장시 어떤 원글의 댓글인지 저장해야 한다. -->
 				<input type="hidden" name = "board_idx" value="${boardvo.board_idx}" >

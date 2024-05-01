@@ -144,7 +144,7 @@ $(".board-list-paging").html(content);
 </head>
 <body>
 	<div id="board_form" align="center">
-		<table summary="게시판 목록" style="width: 1000px;">
+		<table id="boardtable" summary="게시판 목록" style="width: 1000px;">
 			<thead>
 				<tr class="board_title" style="width: 100%;">
 					<th class="no">번호</th>
@@ -184,7 +184,7 @@ $(".board-list-paging").html(content);
 			<!-- 페이지기법 -->
 		</table>
 		<div class="board-list-paging"></div>
-		<div><input type="button" value="글쓰기" onclick="boardWrite()" /></div>
+		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" /></div>
 	</div>
 </body>
 </html>

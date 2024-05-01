@@ -47,6 +47,27 @@ table tfoot ol.paging li a:hover {
 .reg {	width: 20% }
 .hit {	width: 10% }
 
+.content_css tr {
+        height: 40px; 
+    }
+
+#bwbtn{
+	border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 페이징 */
 .board-list-paging {
   display: flex;
   justify-content: center;

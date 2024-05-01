@@ -50,7 +50,7 @@
 
 			<div class="create">
 				<input class="but4" type="submit" value="등록하기">
-				<input class="but5" type="button" value="취소하기" onclick="location.href='boardList'"> 
+				<input class="but4" type="button" value="취소하기" onclick="location.href='boardList'"> 
 
 			</div>
 		</div>

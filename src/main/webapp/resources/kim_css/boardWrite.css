@@ -66,6 +66,7 @@ td {
 .but4 {
 	height: 35px;
 	width: 150px;
+	border-radius: 10px;
 }
 
 .but5 {

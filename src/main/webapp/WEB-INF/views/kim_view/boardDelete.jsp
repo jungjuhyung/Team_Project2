@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardDelete.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		let pwdchk = "${pwdchk}";

@@ -140,7 +140,7 @@ public class BoardController {
 		return new ModelAndView("board/error");
 	}
 	
-	@PostMapping("boardUpdateOK")
+	@RequestMapping("boardUpdateOK")
 	public ModelAndView getBoardUpdateOK(
 			@ModelAttribute("cPage")String cPage,
 			@ModelAttribute("board_idx")String board_idx,
@@ -148,15 +148,14 @@ public class BoardController {
 			BoardVO boardvo
 			) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("입력비밀번호" + board_cpw);
-		// 비밀번호 체크
+		System.out.println("입력pw" + board_cpw);
 		BoardVO boardvo2 = boardService.boardDetail(board_idx);
 		String dpwd = boardvo2.getBoard_pw();
-		System.out.println("디비비밀번호: " + dpwd );
+		System.out.println("dbpw: " + dpwd );
 		if (! passwordEncoder.matches(board_cpw, dpwd)) {
-			mv.setViewName("redirect:boardUpdate");
 			mv.addObject("pwchk", "fail");
 			mv.addObject("boardvo", boardvo);
+			mv.setViewName("kim_view/boardUpdate");
 			return mv;
 		}else {
 							
@@ -186,11 +185,10 @@ public class BoardController {
 			@ModelAttribute("board_idx")String board_idx,
 			BoardVO boardvo) {
 		ModelAndView mv = new ModelAndView();
-		// 비밀번호 체크
 		BoardVO boardvo2 = boardService.boardDetail(board_idx);
 		String dpwd = boardvo2.getBoard_pw();
 		if(! passwordEncoder.matches(board_cpw, dpwd)) {
-			mv.setViewName("kch_view/boardDetail");
+			mv.setViewName("kim_view/boardDelete");
 			mv.addObject("pwdchk", "fail");
 			return mv;
 		}else {

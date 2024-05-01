@@ -13,12 +13,14 @@
 		<typeAlias type="com.ict.travel.jung.dao.MarkerInfoVO" alias="mivo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>
+		<typeAlias type="com.ict.travel.kim.dao.ReportVO" alias="reportvo"/>
 		<typeAlias type="com.ict.travel.lee.dao.MemberVO" alias="mvo"/>
 		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
 		<typeAlias type="com.ict.travel.cho.dao.PlaceWishVO" alias="placeWishVO"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/board-mapper.xml" />
+ 		<mapper resource="mappers/report-mapper.xml" />
  		<mapper resource="mappers/tourtest-mapper.xml" />
  		<mapper resource="mappers/cho-mapper.xml" />
  		<mapper resource="mappers/jung-mapper.xml" />

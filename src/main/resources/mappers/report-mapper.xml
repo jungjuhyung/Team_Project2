@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="report_t">
+	
+	<select id="reportCount" resultType="int">
+		select count(*) from report_t
+	</select>
+
+	<select id="reportList" parameterType="Map" resultType="boardvo">
+		select * from report_t order by report_idx desc limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="reportlist" resultType="reportvo">
+		select * from report_t order by report_idx
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
