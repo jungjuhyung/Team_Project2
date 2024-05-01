@@ -30,7 +30,7 @@ public class GPTController {
                 "      },\n" +
                 "      {\n" +
                 "        \"role\": \"user\",\n" +
-                "        \"content\": \"Hello!\"\n" +
+                "        \"content\": \"오늘 신촌의 날씨를 알려줘!\"\n" +
                 "      }\n" +
                 "    ]\n" +
                 "}";
@@ -42,11 +42,13 @@ public class GPTController {
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			// 헤더 요청
-			// 붙여넣어야함
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer "+"sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c");
 			
-			OutputStream outputStream = conn.getOutputStream();
-	        outputStream.write(jsonData.getBytes());
-	        outputStream.flush();
+			BufferedWriter bw = 
+					new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			bw.write(jsonData);
+			bw.flush();
 			int responeseCode = conn.getResponseCode();
 			System.out.println(responeseCode);
 			if(responeseCode == HttpURLConnection.HTTP_OK) {
@@ -68,6 +70,4 @@ public class GPTController {
 		}
 		return null;
 	}
-	
-
 }
