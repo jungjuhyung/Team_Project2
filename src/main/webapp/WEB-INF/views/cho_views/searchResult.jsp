@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="resources/cho_css/tourListCategory.css">
+<title>Search</title>
+<link rel="stylesheet" type="text/css" href="resources/cho_css/category.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -74,7 +74,8 @@
 				dataType : "text",
 				success : function(data) {
 					$(tag).addClass("wish-added");
-					$(tag).text("♥");
+					$(tag).text("❤️");
+					alert("좋아요를 눌렀습니다.")
 					search(getCurrentPage());
 				},
 				error : function() {
@@ -97,6 +98,7 @@
 				success : function(data) {
 					$(tag).text("♡");
 					$(tag).removeClass("wish-added");
+					alert("좋아요를 취소하셨습니다.")
 					search(getCurrentPage());
 				},
 				error : function() {
@@ -221,7 +223,7 @@
         content += '<li class="page-item" data-page="' + 1 + '"> 1 </li>';
     }
     if (paging.beginBlock > 1) {
-        content += '<li class="page-item" data-page="' + (paging.nowPage - 1) + '"> ... </li>';
+        content += '<li class="page-item" data-page="' + (paging.beginBlock - 1) + '"> ... </li>';
     }
 
     // 페이지 번호를 표시할 개수
@@ -269,7 +271,7 @@
 	}
 	if(paging.nowPage < (paging.totalPage-2)){
 	    if (paging.endBlock < paging.totalPage) {
-	        content += '<li class="page-item" data-page="' + (paging.nowPage + 1) + '"> ... </li>';
+	        content += '<li class="page-item" data-page="' + (paging.endBlock + 1) + '"> ... </li>';
 	    }
 	    if (paging.endBlock < paging.totalPage) {
 	        content += '<li class="page-item totalPage" data-page="' + paging.totalPage + '"> '+ paging.totalPage +' </li>';
@@ -305,7 +307,7 @@
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
 		let heartIcon = '';
 		if(place.uheart === "1") {
-		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '♥' + '</span>';
+		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '❤️' + '</span>';
 		} else {
 		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '♡' + '</span>';
 		}
@@ -318,7 +320,7 @@
    	                     			truncatedTitle + 
    	                        '</div>' +
    	                        '<div class="wish-box">' +
-	   	                        heartIcon + place.heart + 
+	   	                        heartIcon + '<span class="heart-count">'  + place.heart + '</span>'+ 
 	   	                    '</div>' +
    	                    '</div>';
    	    $('#place_wrapper').append(placeHTML);
@@ -341,7 +343,7 @@
 </script>
 </head>
 <body>
-	<section style="width: 1300px; margin: 0 auto;">
+	<section class="section" >
 	
 		<div class="areaSearchForm">
 			<select id="areaCodes" class = "searchSelect">

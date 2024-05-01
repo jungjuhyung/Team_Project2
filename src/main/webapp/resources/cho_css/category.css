@@ -3,6 +3,10 @@
 * {
   box-sizing: border-box;
 }
+.section{
+	margin: 0 auto; 
+	width: 1300px;
+}
 /* 검색 폼 */
 .areaSearchForm {
   width: 800px;
@@ -169,3 +173,71 @@
   cursor: pointer; /* 커서 모양 설정 */
   transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 transition */
 }
+.heart-state{
+	margin-right: 10px;
+	font-size: 30px;
+    vertical-align: middle;
+}
+.wish-added {
+	font-size : 16px;
+	
+}
+.heart-count{
+	font-size: 30px;
+}
+.heart-state:hover{
+	cursor: pointer;
+}
+
+/***********테마CSS***************/
+.swipe-Wrapper{
+	width: 960px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+.swipe-arealist{
+	display: flex;
+}
+.swipeAreaList{
+	width: 75px;
+	height: 100px;
+	margin-right: 21px;
+	text-align: center;
+}
+.swipeAreaList:hover{
+	cursor: pointer;
+}
+
+.swipeAreaList > img{
+	width: 75px;
+	border-radius: 50%;
+	background-color: black;
+	height: 80px;
+}
+.swipe-Main{
+	position:relative;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#areaName{
+	font-size: 36px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.swipe-MainContent-Wrapper{
+	position:relative;
+	display: flex;
+}
+.swipe-MainContent{
+	width: 300px;
+	height: 300px;
+	background-color: #fff;
+	padding: 30px;
+    border-radius: 5px;
+    border: 1px solid #666;
+    margin-right: 20px;
+}
+

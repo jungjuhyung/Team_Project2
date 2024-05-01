@@ -6,9 +6,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ChoController {
-	@GetMapping("areaCategory")
-	public ModelAndView areaCategory() {
+	@GetMapping("searchResult")
+	public ModelAndView searchResult() {
 		System.out.println(1);
-		return new ModelAndView("cho_views/areaCategory");
+		return new ModelAndView("cho_views/searchResult");
+	}
+	@GetMapping("themaCategory")
+	public ModelAndView themaCategory() {
+		System.out.println(1);
+		return new ModelAndView("cho_views/themaCategory");
 	}
 }
