@@ -58,7 +58,7 @@
 let gpt_token = [];
 
 // open api에서 제공 받은 각자의 API_KEY를 저장해놓은 변수
-let api_key = "제공받은 API_KEY 삽입"
+let api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c"
 
 // GPT에 답변을 요구하는 ajax 함수
 function gpt() {
