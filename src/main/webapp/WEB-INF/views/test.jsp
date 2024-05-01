@@ -9,7 +9,6 @@
 	function login_go() {
 		location.href="login_go.do";
 	}
-
 	function boardList() {
 		location.href="boardList";
 	}
@@ -69,18 +68,12 @@
 	<form action="recommend_write_go" method="post">
 		<fieldset>
 		<legend>jung, kakaomap, wish</legend>
-			<input type="hidden" name="contentid" value="126273">
-			<input type="hidden" name="contentid" value="2019720">
-			<input type="hidden" name="contentid" value="2994116">
 			<input type="submit" value="작성하기">
 		</fieldset>
 	</form>
 	<form action="test" method="post">
 		<fieldset>
-		<legend>jung, map, line_test</legend>
-			<input type="hidden" name="contentid" value="126273">
-			<input type="hidden" name="contentid" value="2019720">
-			<input type="hidden" name="contentid" value="2994116">
+		<legend>GPT 테스트</legend>
 			<input type="submit" value="작성하기">
 		</fieldset>
 	</form>

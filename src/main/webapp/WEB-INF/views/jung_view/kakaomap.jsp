@@ -7,14 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/jung_css/recommend_write.css">
 <!-- 서머노트를 위해 추가해야할 부분 -->
 <script src="resources/jung_summernote/summernote-lite.js"></script>
 <script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
-<!--  -->
+<style type="text/css">
+	/* summernote toolbar 수정 */
+    .note-btn-group{width: auto;}
+    .note-toolbar{width: auto;}
+</style>
 </head>
 <body>
 	<div>
@@ -42,20 +46,31 @@
 
 <!-- 섬머노트 스크립트 -->
 <script>
-	$('.summernote').summernote({
- 		 height: 450,
-  		lang: "ko-KR"
-	});
+$('.summernote').summernote({
+    lang: "ko-KR",
+	height: 300,
+	minHeight: null,
+	maxHeight: null,
+    focus: true,
+    placeholder: "최대 3000자까지 쓸 수 있습니다.",
+    callbacks : {
+        onImageUpload : 
+        	function(files, editor) {
+        	console.log("하이")
+        	for (var i = 0; i < files.length; i++) {
+                 sendImage(files[i], editor);    
+        	}
+        }
+    }
+});
 </script>
-	
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c186c802b1e519c6f748b4481b8a4b53"></script>
 <script>
 // 기본 map 생성
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(35.207766, 128.569655), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 6 // 지도의 확대 레벨
     };
 
 let map = new kakao.maps.Map(mapContainer, mapOption);
@@ -202,9 +217,7 @@ function line_draw(marker) {
         });
     
         // 클릭한 지점에 대한 정보를 지도에 표시합니다
-        displayCircleDot(clickPosition, 0);
-
-            
+        displayCircleDot(clickPosition, 0)
     } else { // 선이 그려지고 있는 상태이면
 
         // 그려지고 있는 선의 좌표 배열을 얻어옵니다
