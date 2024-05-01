@@ -15,6 +15,11 @@ public class MemberServiceImpl implements MemberService{
 	public int getSignUp(MemberVO mvo) throws Exception {
 		return memberDAO.getSignUp(mvo);
 	}
+
+	@Override
+	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
+		return memberDAO.getLoginOK(mvo);
+	}
 	
 	
 	

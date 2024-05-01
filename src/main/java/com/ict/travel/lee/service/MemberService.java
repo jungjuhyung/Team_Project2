@@ -5,5 +5,7 @@ import com.ict.travel.lee.dao.MemberVO;
 public interface MemberService {
 	
 	public int getSignUp(MemberVO mvo) throws Exception;
+
+	public MemberVO getLoginOK(MemberVO mvo) throws Exception;
 	
 }

@@ -8,6 +8,8 @@
   		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active)
   		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0)
   	</insert>
-  	
+  	<select id="login" parameterType="mvo" resultType="mvo">
+  		select * from user_t where u_id = #{u_id}
+  	</select>
   	
   </mapper>
