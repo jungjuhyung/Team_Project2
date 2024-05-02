@@ -62,6 +62,7 @@
 	line-height: 20px;
 }
 
+/* 찜하기 버튼 */
 .wish_btn {
 	text-align: center;
 	margin: 20px auto;
@@ -71,19 +72,21 @@
 	padding: 10px;
 	border: none;
 	outline: none;
-	background-color: lightgreen;
+	background-color: green;
 	border-radius: 10px;
 	font-size: 20px;
 	color: white;
-	box-shadow: 0 0 10px lightgreen;
+	box-shadow: 0 0 10px black;
 	cursor: pointer;
 }
 
 
 .wish_btn button:hover {
 	color: black;
+	font-weight: bold;
 }
 
+/* 상세설명 */
 .detail_content {
 	margin: 20px auto;
 	width: 1000px;
@@ -102,6 +105,7 @@
 	margin-bottom: 10px;
 }
 
+/* 지도 */
 .detail_map h2 {
 	font-size: 30px;
 	font-weight: bold;
@@ -113,9 +117,56 @@
 	width: 1000px;
 }
 
+/* 해당 장소 포함된 경로 */
 .detail_path {
 	margin: 20px auto;
 	width: 1000px;
-	height: 300px;
-	background-color: black;
+}
+
+.detail_path h2 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+#path_wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: 30px;
+}
+
+.path_box {
+	width: clac(20% - 10px);
+	margin-bottom: 20px;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 30px;
+	transition: transform 0.2s ease;
+}
+
+.path_box:hover {
+	transform: translateY(-10px); /* 마우스를 올렸을 때 약간 위로 이동 */
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.path_image {
+	width: 220px;
+	height: 280px;
+}
+
+.path_image img {
+	border-radius: 10px;
+	max-width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.path_text {
+	margin-top: 10px;
+	width: 220px;
+	height: 50px;
+	text-align: center;
+	color: gray;
+	font-size: 16px;
 }

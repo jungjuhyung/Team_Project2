@@ -151,9 +151,13 @@
 							</c:if>
 						</table>
 					</c:if>
+					
 					<div class="wish_btn">
-						<button type="button" onclick="wish_go(${itemVO.contentid})"></button>
+						<button type="button" onclick="wish_go(${itemVO.contentid})">
+							찜목록으로
+						</button>
 					</div>
+					
 				</div>
 			</div>
 			<hr>
@@ -178,7 +182,20 @@
 
 			<hr>
 
-			<div class="detail_path"></div>
+			<div class="detail_path">
+				<h2>해당장소 포함된 추천경로</h2>
+				<div id="path_wrapper">
+					<c:forEach var="k" items="${path_list}">
+						<div class="path_box"
+							onclick="path_detail(${k.contentid}, ${k.contenttypeid})">
+							<div class="path_image">
+								<img alt="" src="${k.firstimage}">
+							</div>
+							<div class="path_text">${k.title}</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
 
 		</div>
 	</section>

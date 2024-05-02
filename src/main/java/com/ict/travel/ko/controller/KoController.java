@@ -76,6 +76,8 @@ public class KoController {
 		System.out.println("contentid : " + contentid);
 		System.out.println("contenttypeid : " + contenttypeid);
 		
+		List<KoVO> path_list = koService.getPathList(contentid);
+		mv.addObject("path_list", path_list);
 
 		try {
 			// 공통 정보 조회

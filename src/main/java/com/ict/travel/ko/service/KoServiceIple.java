@@ -24,5 +24,9 @@ public class KoServiceIple implements KoService{
 		return koDAO.getTemaList(contenttypeid);
 	}
 	
+	@Override
+	public List<KoVO> getPathList(String contentid) {
+		return koDAO.getPathList(contentid);
+	}
 
 }

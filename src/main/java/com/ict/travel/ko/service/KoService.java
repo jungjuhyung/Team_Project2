@@ -8,4 +8,5 @@ public interface KoService {
 	
 	List<KoVO> getAreaList(String areacode);
 	List<KoVO> getTemaList(String contenttypeid);
+	List<KoVO> getPathList(String contentid);
 }
