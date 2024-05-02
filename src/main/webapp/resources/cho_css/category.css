@@ -74,7 +74,7 @@
   flex-wrap: wrap;
 }
 .place-box {
-  width: clac(20% - 10px);
+  width: calc(20% - 40px);
   margin: 10px 20px;
   text-align: center;
   border-radius: 30px;
@@ -85,19 +85,20 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 .image-box {
-  width: 220px;
+  width: 100%;
   height: 280px;
   cursor: pointer;
+  border-radius: 10px;
+  background-color: white;
 }
 .image-box img {
-  border-radius: 10px;
   max-width: 100%;
   height: 100%;
   object-fit: cover;
 }
 .text-box {
   cursor: pointer;
-  width: 220px;
+  width: 100%;
   margin-top: 10px;
   text-align: center;
   color: gray;
@@ -241,3 +242,28 @@
     margin-right: 20px;
 }
 
+#hot-place-wrapper{
+	background-color: f4f5f7;
+}
+.thema-box{
+	margin: 0 auto;
+}
+.place-Wrapper{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
+    gap: 10px; /* 그리드 간격 설정 */
+}
+.place-Wrapper .place-box {
+  width: 80%;
+  margin: 10px 20px;
+  text-align: center;
+  border-radius: 30px;
+  transition: transform 0.2s ease;
+}
+.place-Wrapper .place-box .image-box  {
+  width: 100%;
+  height: 180px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: white;
+}

@@ -159,5 +159,25 @@ public class ChoAjaxController {
 		return String.valueOf(result);
 	}
 	
+	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String searchAreaPlace(String areaCode) {
+		
+		 List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,0, 4);
+		 List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,0, 4);
+		 List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,0, 4);
+		
+		Map<String, Object> result = new HashMap<>();
+
+		result.put("touristList", touristList);
+		result.put("partyList", partyList);
+		result.put("restaurantList", restaurantList);
+		
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(result);
+		return jsonString;
+	}
+	
+	
 	
 }
