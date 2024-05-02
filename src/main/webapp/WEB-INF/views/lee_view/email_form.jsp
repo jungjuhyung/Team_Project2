@@ -5,6 +5,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	let name = document.getElementById("u_name")
+	let email = document.getElementById("u_email")
+	
+	$("#btn").on("click", function() {
+		$("#userInfo").empty();
+		$.ajax({
+			url : "getAjaxId.do",
+			data : {"u_name" : name , "u_email" : email} ,
+			method : "post",
+			dataType : "text",
+			
+			success : function (data){
+				if(data == 0){
+					$('#u_name').val();
+					$('#u_email').val();
+				}
+				$("#userInfo").append(data);
+			},
+			error:function(){
+				alert("아이디를 가져오지 못했습니다.");
+			}
+		});
+	});
+	
+	
+	
+})
+</script>
 </head>
 <body>
 	<h2>비밀번호 받을 이메일을 넣어주세요</h2>
@@ -14,11 +46,19 @@
         <input type="submit" value="전송">
     </form>
     <h2>아이디 찾을 이메일을 넣어주세요</h2>
+    
     <form action="id_send_ok.do" method="post">
-    	<input type="text" id="u_id" name="u_id"  ><br>
-    	<input type="email" name="email"
+    <label>이름
+    	<input type="text" id="u_name" name="u_name"><br>
+    </label>
+    <label>이메일
+    	
+    	<input type="email" id="u_email" name="u_email"
     		pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" title="이메일 양식">
-    	<input type="submit" value="전송">
+    	
+    </label>
+    <div id="userInfo"></div>
+    	<input type="submit" onclick="btn" value="전송">
     </form>
 </body>
 </html>

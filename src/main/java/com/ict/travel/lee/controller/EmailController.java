@@ -1,19 +1,23 @@
 package com.ict.travel.lee.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MailService;
 import com.ict.travel.lee.service.MemberService;
+
 
 @Controller
 public class EmailController {
@@ -94,18 +98,8 @@ public class EmailController {
 		}
 		return new ModelAndView("error");
 	}
-	@PostMapping("id_send_ok.do")
-	public ModelAndView sendId(MemberVO mvo) {
-		try {
-			ModelAndView mv = new ModelAndView();
-			MemberVO mvo2 = memberService.getFindIdOK(mvo);
-			
-			
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return new ModelAndView("error");
-	}
+	
+	
 	
 	
 }
