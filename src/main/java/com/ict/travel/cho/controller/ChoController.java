@@ -8,12 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChoController {
 	@GetMapping("searchResult")
 	public ModelAndView searchResult() {
-		System.out.println(1);
 		return new ModelAndView("cho_views/searchResult");
 	}
 	@GetMapping("themaCategory")
 	public ModelAndView themaCategory() {
-		System.out.println(1);
 		return new ModelAndView("cho_views/themaCategory");
+	}
+	@GetMapping("dbUpdateTest")
+	public ModelAndView dbUpdateTest() {
+		return new ModelAndView("cho_views/dbUpdateTest");
 	}
 }
