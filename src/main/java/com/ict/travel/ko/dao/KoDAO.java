@@ -20,5 +20,8 @@ public class KoDAO {
 		return sqlSessionTemplate.selectList("ko.tema_list", contenttypeid);
 	}
 	
+	public List<KoVO> getPathList(String contentid) {
+		return sqlSessionTemplate.selectList("ko.path_list", contentid);
+	}
 	
 }
