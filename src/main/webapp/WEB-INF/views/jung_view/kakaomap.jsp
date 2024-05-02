@@ -33,8 +33,8 @@
 				<div><img src="${k.firstimage}"></div>
 				<p>${k.place_title}</p>
 				<input type="hidden" name="place_title" value="${k.place_title}">
-				<input type="hidden" name="map_x" value="${k.mapx}">
-				<input type="hidden" name="map_y" value="${k.mapy}">
+				<input type="hidden" name="mapx" value="${k.mapx}">
+				<input type="hidden" name="mapy" value="${k.mapy}">
 			</div>
 		</c:forEach>
 	</div>
@@ -100,15 +100,13 @@ function marker(position) {
 	        image : markerImage // 마커 이미지
 	    });
 	    
-	    let infowindow = new kakao.maps.InfoWindow({
-	        content: "<div>"+position.title+"</div>"+"<div>"+index+"</div>" // 인포윈도우에 표시할 내용
-	    });
-	    
 	    kakao.maps.event.addListener(marker, 'click', function() {
 		    index += 1;
 	    	let infowindow = new kakao.maps.InfoWindow({
-		        content: "<div class='info_title'>"+position.title+"</div>"+"<div class='info_num'>"+index+"</div>" // 인포윈도우에 표시할 내용
+		        content: "<div class='info_title'>"+position.title+"</div>"+"<div class='info_num'>"+index+"</div>", // 인포윈도우에 표시할 내용
+		        position: position.latlng
 		    });
+	    	console.log(infowindow.getPosition())
 	    	infos.push(infowindow)
 	    	infowindow.open(map, marker);
     		line_draw(marker)
@@ -121,15 +119,15 @@ function marker(position) {
 function div_create(marker) {
 	upload_idx += 1;
     var divElement = $('<div></div>', {
-        id: 'marker'+upload_idx,
         class: 'markers'
     });
-	
+    let span = $('<span></span>');
+	span.text(marker.getTitle());
     let inputFile = $('<input/>', {
         type: 'file',
         name: 'marker'+ upload_idx,
-        multiple: "multiple"
-        
+        multiple: "multiple",
+        onchange: "checkFileCount(this)"
     });
     
     let inputTitle = $('<input/>', {
@@ -137,18 +135,46 @@ function div_create(marker) {
         name: 'title'+ upload_idx,
         value : marker.getTitle()
     });
+    let inputX = $('<input/>', {
+        type: 'hidden',
+        name: 'mapx',
+        value : marker.getPosition().getLat()
+    });
+    let inputY = $('<input/>', {
+        type: 'hidden',
+        name: 'mapy',
+        value : marker.getPosition().getLng()
+    });
+	divElement.append(span)
 	divElement.append(inputFile)
 	divElement.append(inputTitle)
+	divElement.append(inputX)
+	divElement.append(inputY)
 	$("#upload_box").append(divElement)
 }
 
+// 마커별 사진 업로드 갯수 제한
+function checkFileCount(input) {
+    const maxCount = 5; // 최대 파일 수 설정
+    if (input.files.length > maxCount) {
+        alert(`장소별 사진은 최대 ${maxCount}개까지 등록 가능합니다.`);
+        input.value = ''; // 입력된 파일 선택을 초기화
+    }
+}
 
 // 마커 제거 함수(타이틀 기반)
 function marker_del(position) {
-	console.log(position)
 	for (let i = 0; i < markers.length; i++) {
 		if (markers[i].getTitle() == position.title) {
 			markers[i].setMap(null);
+		}
+	}
+	for (let i = 0; i < infos.length; i++) {
+		console.log("info", infos[i].getPosition())
+		console.log("position", position.latlng)
+		console.log(infos[i].getPosition().equals(position.latlng))
+		if (infos[i].getPosition().equals(position.latlng)) {
+			infos[i].close();
 		}
 	}
 }
@@ -156,8 +182,6 @@ function marker_del(position) {
 $(".chk_box").change(function() {
 		let x = $(this).next().next().next().next().val()
 		let y = $(this).next().next().next().next().next().val()
-		console.log(x)
-		console.log(y)
         let position = 
             {
         		title: $(this).next().next().next().val(), 
