@@ -1,5 +1,7 @@
 package com.ict.travel.lee.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +33,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberVO getFindID(String u_id) {
-		return memberDAO.getFindID(u_id);
+	public int getFindId(MemberVO mvo) throws Exception {
+		return memberDAO.getFindId(mvo);
 	}
+
+	
+
+	
+
+	
 
 	
 	

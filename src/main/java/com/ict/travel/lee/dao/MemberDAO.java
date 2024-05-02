@@ -1,5 +1,7 @@
 package com.ict.travel.lee.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,14 +47,17 @@ public class MemberDAO {
 		return -1;
 	}
 
-	public MemberVO getFindID(String u_id) {
+
+	public int getFindId(MemberVO mvo) throws Exception{
 		try {
-			return sqlSessionTemplate.selectOne("lee-mapper.findId", u_id);
+			return sqlSessionTemplate.selectOne("lee-mapper.findId", mvo);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return null;
+		return -1;
 	}
+
+	
 
 	
 	
