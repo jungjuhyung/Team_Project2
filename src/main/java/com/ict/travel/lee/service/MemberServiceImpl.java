@@ -32,10 +32,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.PassUpdate(mvo);
 	}
 
-	@Override
-	public int getFindId(MemberVO mvo) throws Exception {
-		return memberDAO.getFindId(mvo);
-	}
+	
+
+
 
 	
 

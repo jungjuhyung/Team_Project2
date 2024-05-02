@@ -19,10 +19,6 @@
   		u_pwd = #{u_pwd}
   		where u_email = #{u_email}
   	</update>
-  	<select id="findId" parameterType="String" resultType="mvo">
-  		select * from user_t where u_id = #{u_id}
-  	</select>
-  	<select id="findId" parameterType="mvo" resultType="mvo">
-  		select * from user_t where u_name = #{u_name} and u_email = #{u_email}
-  	</select> 
+  	
+  	
   </mapper>

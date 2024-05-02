@@ -13,7 +13,6 @@ public interface MemberService {
 	
 	public int PassUpdate(MemberVO mvo);
 	
-	public int getFindId(MemberVO mvo) throws Exception;
 
 	
 }

@@ -8,9 +8,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$.ajax({
-		
-	})
+	
+	let name = document.getElementById("u_name")
+	let email = document.getElementById("u_email")
+	
+	$("#btn").on("click", function() {
+		$("#userInfo").empty();
+		$.ajax({
+			url : "getAjaxId.do",
+			data : {"u_name" : name , "u_email" : email} ,
+			method : "post",
+			dataType : "text",
+			
+			success : function (data){
+				if(data == 0){
+					$('#u_name').val();
+					$('#u_email').val();
+				}
+				$("#userInfo").append(data);
+			},
+			error:function(){
+				alert("아이디를 가져오지 못했습니다.");
+			}
+		});
+	});
+	
+	
+	
 })
 </script>
 </head>
@@ -34,7 +58,7 @@ $(document).ready(function() {
     	
     </label>
     <div id="userInfo"></div>
-    	<input type="submit" value="전송">
+    	<input type="submit" onclick="btn" value="전송">
     </form>
 </body>
 </html>

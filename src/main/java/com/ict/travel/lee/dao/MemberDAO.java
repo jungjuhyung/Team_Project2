@@ -47,15 +47,10 @@ public class MemberDAO {
 		return -1;
 	}
 
+	
 
-	public int getFindId(MemberVO mvo) throws Exception{
-		try {
-			return sqlSessionTemplate.selectOne("lee-mapper.findId", mvo);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return -1;
-	}
+
+	
 
 	
 
