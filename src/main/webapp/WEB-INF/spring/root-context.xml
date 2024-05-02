@@ -47,6 +47,7 @@
 		<!-- classpath:mybatis-config.xml는 src/main/resources에 생성해준다. -->
 		<!-- mapper.xml들은 src/main/resources/mappers에 모아놓는다. -->
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		
 	</bean>
 		
 	<!-- mybatis: SqlSessionTemplate : 실제로 실행하는 클래스(위의 정보값을 가지고 DB에 접속한다.) -->

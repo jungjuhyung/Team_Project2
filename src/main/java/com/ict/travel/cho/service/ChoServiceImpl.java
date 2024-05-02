@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ict.travel.cho.dao.ChoDAO;
 import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Service
@@ -43,5 +44,10 @@ public class ChoServiceImpl implements ChoService{
 	@Override
 	public int getPlaceWishRemove(String contentid, String u_idx) {
 		return choDAO.getPlaceWishRemove(contentid, u_idx);
+	}
+	
+	@Override
+	public int dataUpdate(List<TourapiVO> voList) {
+		return choDAO.dataUpdate(voList);
 	}
 }

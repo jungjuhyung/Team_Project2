@@ -22,6 +22,10 @@ public class ChoDAO {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
+	public MemberVO getUserLogin(String string) {
+		return sqlSessionTemplate.selectOne("cho_mapper.sessionInsert", string);
+	}
+	
 	// 페이징 카운트
 	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title) {
 		try {
@@ -52,13 +56,12 @@ public class ChoDAO {
 		}
 		return null;
 	}
+	// 위시리스트 호출
 	public List<PlaceWishVO> getPlaceWishList(String u_idx) {
 		return sqlSessionTemplate.selectList("cho_mapper.selectPlaceWishList",u_idx);
 	}
-	public MemberVO getUserLogin(String string) {
-		return sqlSessionTemplate.selectOne("cho_mapper.sessionInsert", string);
-	}
-	
+
+	// 위시리스트 추가
 	public int getPlaceWishAdd(String contentid, String u_idx) {
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
@@ -79,7 +82,7 @@ public class ChoDAO {
 		}
 		return 0;
 	}
-	
+	// 위시리스트 삭제
 	public int getPlaceWishRemove(String contentid, String u_idx) {
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
@@ -96,6 +99,15 @@ public class ChoDAO {
 			}
 			transactionManager.commit(status);
 			return result;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return 0;
+	}
+	
+	public int dataUpdate(List<TourapiVO> voList) {
+		try {
+			return sqlSessionTemplate.update("cho_mapper.placeUpdate", voList);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

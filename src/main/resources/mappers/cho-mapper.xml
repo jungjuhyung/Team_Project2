@@ -78,6 +78,33 @@
 		UPDATE tourapi_t SET heart = heart - 1 WHERE contentid = #{contentid}
 	</update>
 	
+	<!-- 장소 업데이트 -->
+	<update id="placeUpdate" parameterType="java.util.List">
+		 <foreach collection="list" item="item" separator=";">
+			UPDATE tourapi_t 
+			 SET 
+				addr1 = #{item.addr1},
+		        addr2 = #{item.addr2},
+		        areacode = #{item.areacode},
+		        cat1 = #{item.cat1},
+		        cat2 = #{item.cat2},
+		        cat3 = #{item.cat3},
+		        contentid = #{item.contentid},
+		        contenttypeid = #{item.contenttypeid},
+		        createdtime = #{item.createdtime},
+		        firstimage = #{item.firstimage},
+		        mapx = #{item.mapx},
+		        mapy = #{item.mapy},
+		        modifiedtime = #{item.modifiedtime},
+		        sigungucode = #{item.sigungucode},
+		        tel = #{item.tel},
+		        title = #{item.title},
+		        zipcode = #{item.zipcode},
+		        regdate = sysdate()
+		    WHERE contenttypeid = #{item.contenttypeid} AND contentid = #{item.contentid}
+		</foreach>
+	</update>
+	
 </mapper>
 
 

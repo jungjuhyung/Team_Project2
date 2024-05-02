@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 public interface ChoService {
@@ -15,6 +16,7 @@ public interface ChoService {
 	MemberVO getUserLogin(String string);
 	int getPlaceWishAdd(String contentid, String u_idx);
 	int getPlaceWishRemove(String contentid, String u_idx);
+	int dataUpdate(List<TourapiVO> voList);
 
 
 }
