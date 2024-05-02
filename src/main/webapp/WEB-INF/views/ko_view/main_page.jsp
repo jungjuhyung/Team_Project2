@@ -60,6 +60,8 @@
 								+ '<img alt="" src="' + value.firstimage + '"></div>'
 								+ '<div class="path_text">' + value.title + '</div></div>';
 				})
+				
+				
 				$("#tema_wrapper").append(content);
 			},
 			error : function() {
