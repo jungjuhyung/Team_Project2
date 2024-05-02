@@ -20,6 +20,21 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
 		return memberDAO.getLoginOK(mvo);
 	}
+
+	@Override
+	public MemberVO getFindPW(String email) {
+		return memberDAO.getFindPW(email);
+	}
+	@Override
+	public int PassUpdate(MemberVO mvo) {
+		return memberDAO.PassUpdate(mvo);
+	}
+
+	@Override
+	public MemberVO getFindID(String u_id) {
+		return memberDAO.getFindID(u_id);
+	}
+
 	
 	
 	

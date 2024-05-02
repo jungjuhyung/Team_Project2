@@ -7,5 +7,12 @@ public interface MemberService {
 	public int getSignUp(MemberVO mvo) throws Exception;
 
 	public MemberVO getLoginOK(MemberVO mvo) throws Exception;
+
+	public MemberVO getFindPW(String email);
+	
+	public int PassUpdate(MemberVO mvo);
+	
+	public MemberVO getFindID(String u_id);
+
 	
 }

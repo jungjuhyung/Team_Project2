@@ -27,6 +27,33 @@ public class MemberDAO {
 		}
 		return null;
 	}
+	public MemberVO getFindPW(String email) {
+		try {
+			return sqlSessionTemplate.selectOne("lee-mapper.findPwd", email);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	public int PassUpdate(MemberVO mvo) {
+		try {
+			return sqlSessionTemplate.update("lee-mapper.passUpdate", mvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+
+	public MemberVO getFindID(String u_id) {
+		try {
+			return sqlSessionTemplate.selectOne("lee-mapper.findId", u_id);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
 	
 	
 	

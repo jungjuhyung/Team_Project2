@@ -10,6 +10,7 @@
 
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/lee_css/loginForm.css">
+
 <script type="text/javascript">
 	// 회원가입 폼으로 이동
 	function sign_up_go(f) {
@@ -28,9 +29,11 @@
 			f.u_pwd.focus();
 			return;
 		}
+		
 		f.action = "login_go_ok.do";
 		f.submit();
 	}
+	
 
 	
 </script>
@@ -46,7 +49,9 @@
 					<input type="submit" id="btn-signin"  value="Sign In" onclick="sign_in_go(this.form)">
 					<input type="submit" id="btn-signup" value="Sign Up" onclick="sign_up_go(this.form)">
 				</div>
-				<a id="a1" href="#">비밀번호를 잊어버리셨나요?</a><br>
+				<div>
+					<a id="a1" href="email_send.do">비밀번호를 잊어버리셨나요?</a><br>
+				</div>
 				<a href="https://kauth.kakao.com/oauth/authorize?client_id=acef18f41c74c70cc25d2050d26d4e94&redirect_uri=http://localhost:8090/kakaologin.do&response_type=code">
 					<img src="resources/lee_images/kakao_login.png">
 				</a>

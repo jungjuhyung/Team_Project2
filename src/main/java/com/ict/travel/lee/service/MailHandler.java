@@ -36,4 +36,8 @@ public class MailHandler {
 		public void send() {
 			mailSender.send(message);
 		}
+		
+		public void setTo2(String email) throws Exception {
+			messageHelper.setTo(email);
+		}
 }

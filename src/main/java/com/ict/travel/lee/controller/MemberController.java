@@ -109,7 +109,7 @@ public class MemberController {
                         return new ModelAndView("redirect:main_page.do"); 
                     }
                 } else {
-                    return new ModelAndView("redirect:loginForm");
+                    return new ModelAndView("redirect:loginForm.do");
 				}
 			}
 		} catch (Exception e) {
