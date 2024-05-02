@@ -33,9 +33,8 @@ public class BoardController {
 	@Autowired
 	private Paging paging;
 	
-	@GetMapping("getReportgo")
+	@RequestMapping("getReportgo")
 	public ModelAndView getSpringAjax2() {
-		System.out.println("오냐ㅐ");
 		return new ModelAndView("kim_view/reportList");
 	}
 	
@@ -159,9 +158,9 @@ public class BoardController {
 		String dpwd = boardvo2.getBoard_pw();
 		System.out.println("dbpw: " + dpwd );
 		if (! passwordEncoder.matches(board_cpw, dpwd)) {
-			mv.addObject("pwchk", "fail");
-			mv.addObject("boardvo", boardvo);
 			mv.setViewName("kim_view/boardUpdate");
+			mv.addObject("boardvo", boardvo);
+			mv.addObject("pwdchk", "fail"); // pwdchk 값을 모델에 추가
 			return mv;
 		}else {
 							
@@ -178,7 +177,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("boardDelete")
-	public ModelAndView getBbsDelete(@ModelAttribute("cPage")String cPage,
+	public ModelAndView getBoardDelete(@ModelAttribute("cPage")String cPage,
 			@ModelAttribute("board_idx")String board_idx,
 			@ModelAttribute("board_cpw")String board_cpw) {
 		return new ModelAndView("kim_view/boardDelete");

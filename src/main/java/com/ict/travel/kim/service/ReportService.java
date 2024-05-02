@@ -14,4 +14,18 @@ public interface ReportService {
 	public List<ReportVO> reportList();
 	
 	public int reportWrite(ReportVO reportvo);
+	
+	public ReportVO reportDetail(String report_idx);
+	
+	public int reportDelete(String report_idx);
+
+	public int reportUpdate(ReportVO reportvo);
+
+	/*
+	 * public List<CommentVO> commentList(String report_idx);
+	 * 
+	 * public int commentInsert(CommentVO commentvo);
+	 * 
+	 * public int commentDelete(String comment_idx);
+	 */
 }

@@ -9,7 +9,7 @@
 		select count(*) from report_t
 	</select>
 
-	<select id="reportList" parameterType="Map" resultType="boardvo">
+	<select id="reportList" parameterType="Map" resultType="reportvo">
 		select * from report_t order by report_idx desc limit #{limit} offset #{offset}
 	</select>
 	
@@ -21,6 +21,22 @@
 		insert into report_t (report_title, u_id, content, regdate, u_idx, report_pw)
 		values (#{report_title}, #{u_id}, #{content}, sysdate(), #{u_idx}, #{report_pw})
 	</insert>
+	
+	<select id="reportDetail" resultType="reportvo">
+		select * from report_t where report_idx = #{report_idx}
+	</select>
+	
+	<delete id="reportDelete">
+		delete from report_t where report_idx = #{report_idx}
+	</delete>
+	
+	<update id="reportUpdate" parameterType="reportvo">
+ 		update report_t
+ 		set report_title = #{report_title},
+ 			content = #{content}
+ 		where report_idx = #{report_idx}
+ 	</update>
+	
 </mapper>
 
 

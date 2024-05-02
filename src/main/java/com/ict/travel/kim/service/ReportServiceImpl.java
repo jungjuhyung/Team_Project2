@@ -34,4 +34,20 @@ public class ReportServiceImpl implements ReportService{
 	public int reportWrite(ReportVO reportvo) {
 		return reportDAO.reportWrite(reportvo);
 	}
+
+	@Override
+	public ReportVO reportDetail(String report_idx) {
+		return reportDAO.reportDetail(report_idx);
+	}
+
+	@Override
+	public int reportDelete(String report_idx) {
+		return reportDAO.reportDelete(report_idx);
+	}
+
+	@Override
+	public int reportUpdate(ReportVO reportvo) {
+		return reportDAO.reportUpdate(reportvo);
+	}
+
 }
