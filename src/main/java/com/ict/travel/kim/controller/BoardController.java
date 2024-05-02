@@ -33,6 +33,12 @@ public class BoardController {
 	@Autowired
 	private Paging paging;
 	
+	@GetMapping("getReportgo")
+	public ModelAndView getSpringAjax2() {
+		System.out.println("오냐ㅐ");
+		return new ModelAndView("kim_view/reportList");
+	}
+	
 	@RequestMapping("boardList")
 	@ResponseBody
 	public ModelAndView boardList(HttpServletRequest request) {

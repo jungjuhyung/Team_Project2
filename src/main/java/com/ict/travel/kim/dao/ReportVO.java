@@ -3,10 +3,18 @@ package com.ict.travel.kim.dao;
 public class ReportVO {
 
 	
-	private String report_idx, u_idx, u_id, board_title, content, report_state, regdate, reported_idx;
+	private String report_idx, u_idx, u_id, report_title, content, report_state, regdate, reported_idx, report_pw;
 
 	public String getReport_idx() {
 		return report_idx;
+	}
+
+	public String getReport_pw() {
+		return report_pw;
+	}
+
+	public void setReport_pw(String report_pw) {
+		this.report_pw = report_pw;
 	}
 
 	public void setReport_idx(String report_idx) {
@@ -29,12 +37,14 @@ public class ReportVO {
 		this.u_id = u_id;
 	}
 
-	public String getBoard_title() {
-		return board_title;
+	
+
+	public String getReport_title() {
+		return report_title;
 	}
 
-	public void setBoard_title(String board_title) {
-		this.board_title = board_title;
+	public void setReport_title(String report_title) {
+		this.report_title = report_title;
 	}
 
 	public String getContent() {

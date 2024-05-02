@@ -17,7 +17,10 @@
 		select * from report_t order by report_idx
 	</select>
 	
-	
+	<insert id="reportWrite" parameterType="reportvo">
+		insert into report_t (report_title, u_id, content, regdate, u_idx, report_pw)
+		values (#{report_title}, #{u_id}, #{content}, sysdate(), #{u_idx}, #{report_pw})
+	</insert>
 </mapper>
 
 
