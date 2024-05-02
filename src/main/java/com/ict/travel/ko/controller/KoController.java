@@ -75,6 +75,7 @@ public class KoController {
 		ModelAndView mv = new ModelAndView("ko_view/detail");
 		System.out.println("contentid : " + contentid);
 		System.out.println("contenttypeid : " + contenttypeid);
+		
 
 		try {
 			// 공통 정보 조회
@@ -156,6 +157,7 @@ public class KoController {
 				JSONObject item_list2 = (JSONObject) item2.get(0);
 
 				ItemVO itemVO = new ItemVO();
+				itemVO.setContentid(item_list.get("contentid").toString());
 				itemVO.setContenttypeid(item_list.get("contenttypeid").toString());
 				itemVO.setTitle(item_list.get("title").toString());
 				itemVO.setAddr1(item_list.get("addr1").toString());

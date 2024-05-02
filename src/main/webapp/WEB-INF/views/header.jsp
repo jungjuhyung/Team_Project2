@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="resources/ko_css/header.css">
+<link rel="stylesheet" type="text/css" href="resources/common_css/header.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
@@ -16,14 +16,15 @@
 </script>
 </head>
 <body>
-		
+	
+	<section style="height: 170px;">
 		<nav class="ko_nav">
 			<div class="ko_logo" onclick="main_go()">
 				<img alt="" src="resources/ko_images/logo.png">
 			</div>
 			<ul class="ko_menu">
 				<li class="main">
-					<a href="areaCategory">장소검색</a>
+					<a href="">여행검색</a>
 				</li>
 				<li class="main"> 
 					<a href="">추천경로</a>
@@ -38,6 +39,7 @@
 				<li class="btn"><a href="">고객센터</a></li>
 			</ul>
 		</nav>
+	</section>	
 
 </body>
 </html>

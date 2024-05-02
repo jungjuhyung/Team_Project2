@@ -13,7 +13,6 @@
 		select * from tourapi_t where contenttypeid = #{contenttypeid} limit 5
 	</select>
 	
-	
 		
 </mapper>
 

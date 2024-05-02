@@ -23,5 +23,6 @@ public class KoServiceIple implements KoService{
 	public List<KoVO> getTemaList(String contenttypeid) {
 		return koDAO.getTemaList(contenttypeid);
 	}
+	
 
 }
