@@ -38,11 +38,13 @@
 			</div>
 		</c:forEach>
 	</div>
-	<div id="upload_box">
-	</div>
-	<div class="container">
-  		<textarea class="summernote" name="editordata"></textarea>    
-	</div>
+	<form action="">
+		<div id="upload_box">
+		</div>
+		<div class="container">
+	  		<textarea class="summernote" name="editordata"></textarea>    
+		</div>
+	</form>
 
 <!-- 섬머노트 스크립트 -->
 <script>
@@ -52,16 +54,7 @@ $('.summernote').summernote({
 	minHeight: null,
 	maxHeight: null,
     focus: true,
-    placeholder: "최대 3000자까지 쓸 수 있습니다.",
-    callbacks : {
-        onImageUpload : 
-        	function(files, editor) {
-        	console.log("하이")
-        	for (var i = 0; i < files.length; i++) {
-                 sendImage(files[i], editor);    
-        	}
-        }
-    }
+    placeholder: "최대 3000자까지 쓸 수 있습니다."
 });
 </script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c186c802b1e519c6f748b4481b8a4b53"></script>
