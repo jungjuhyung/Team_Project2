@@ -35,14 +35,41 @@
 				<input type="hidden" name="place_title" value="${k.place_title}">
 				<input type="hidden" name="mapx" value="${k.mapx}">
 				<input type="hidden" name="mapy" value="${k.mapy}">
+				<input type="hidden" name="contentid" value="${k.contentid}">
 			</div>
 		</c:forEach>
 	</div>
 	<form action="">
+		<p>경로 유형</p>
+		<input type="radio" name="contenttypeid" value="12">관광지
+		<input type="radio" name="contenttypeid" value="15">문화시설
+		<input type="radio" name="contenttypeid" value="39">음식
+		<input type="radio" name="contenttypeid" value="99">종합
+		<p>경로 지역</p>
+		<select name="areacode">
+			<option value="1">서울</option>
+			<option value="2">인천</option>
+			<option value="3">대전</option>
+			<option value="4">대구</option>
+			<option value="5">광주</option>
+			<option value="6">부산</option>
+			<option value="7">울산</option>
+			<option value="8">세종시</option>
+			<option value="31">경기도</option>
+			<option value="32">강원도</option>
+			<option value="33">충청북도</option>
+			<option value="34">충청남도</option>
+			<option value="35">경상북도</option>
+			<option value="36">경상남도</option>
+			<option value="37">전라북도</option>
+			<option value="38">전라남도</option>
+			<option value="39">제주도</option>
+		</select>
+		<p></p>
 		<div id="upload_box">
 		</div>
 		<div class="container">
-	  		<textarea class="summernote" name="editordata"></textarea>    
+	  		<textarea class="summernote" name="path_post_content"></textarea>    
 		</div>
 	</form>
 
@@ -83,7 +110,7 @@ let index = 0; // 지도에서 마커 선택시 순서 표시 변수
 let upload_idx = 0; // 마커 표시에 따른 upload name변수 이름 지정
 
 // 마커 생성 함수
-function marker(position) {
+function marker(position, contentid) {
 	// 마커 이미지
 	let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 	    
@@ -110,19 +137,20 @@ function marker(position) {
 	    	infos.push(infowindow)
 	    	infowindow.open(map, marker);
     		line_draw(marker)
-    		div_create(marker)
+    		div_create(marker, contentid)
 		});
 	    markers.push(marker)
 	    map.setCenter(position.latlng);
 }
 // 마커 사진 업로드 div생성 function
-function div_create(marker) {
+function div_create(marker, contentid) {
 	upload_idx += 1;
     var divElement = $('<div></div>', {
         class: 'markers'
     });
-    let span = $('<span></span>');
-	span.text(marker.getTitle());
+    let span = $('<span></span>',{
+    	class : "marker_title"
+    }).text(marker.getTitle())
     let inputFile = $('<input/>', {
         type: 'file',
         name: 'marker'+ upload_idx,
@@ -145,11 +173,17 @@ function div_create(marker) {
         name: 'mapy',
         value : marker.getPosition().getLng()
     });
+    let inputContentid = $('<input/>', {
+        type: 'hidden',
+        name: 'contentid',
+        value : contentid
+    });
 	divElement.append(span)
 	divElement.append(inputFile)
 	divElement.append(inputTitle)
 	divElement.append(inputX)
 	divElement.append(inputY)
+	divElement.append(inputContentid)
 	$("#upload_box").append(divElement)
 }
 
@@ -182,13 +216,14 @@ function marker_del(position) {
 $(".chk_box").change(function() {
 		let x = $(this).next().next().next().next().val()
 		let y = $(this).next().next().next().next().next().val()
+		let contentid = $(this).next().next().next().next().next().next().val()
         let position = 
             {
         		title: $(this).next().next().next().val(), 
                 latlng: new kakao.maps.LatLng(x, y)
             }
 	if ($(this).prop("checked")) {
-        marker(position)
+        marker(position,contentid)
     } else {
         marker_del(position)
     }
