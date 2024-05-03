@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +34,8 @@ public class ReportController {
 
 	@RequestMapping(value = "getReportList", produces = "text/xml; charset=utf-8")
 	@ResponseBody
-	public String getReportList(HttpServletRequest request) {
+	public String getReportList(HttpServletRequest request
+			) {
 		int count = reportService.getTotalCount();
 		paging.setTotalRecord(count);
 		
@@ -140,12 +142,6 @@ public class ReportController {
 			System.out.println(reportvo.getReport_idx());
 			if (reportvo !=null) {
 				
-				
-				/*
-				 * List<CommentVO> comment_list = reportService.commentList(report_idx);
-				 * mv.addObject("comment_list", comment_list);
-				 */
-				 
 				mv.addObject("reportvo", reportvo);
 				mv.addObject("cPage", cPage);
 				return mv;
@@ -233,7 +229,17 @@ public class ReportController {
 		
 	}
 	
-	
+	@PostMapping("reportConfirm")
+	public ModelAndView reportConfirm(String report_idx) {
+		ModelAndView mv = new ModelAndView();
+		int result = reportService.reportState(report_idx);
+		if(result > 0) {
+			mv.setViewName("redirect:getReportgo");
+			return mv;
+		}
+		
+		return new ModelAndView("report/error");
+	}
 	
 	
 	

@@ -215,7 +215,10 @@ function reportWrite() {
         </table>
     </div>
     <div class="board-list-paging"></div>
-    <div id="bwbtn"><input type="button" value="글쓰기" onclick="reportWrite()" /></div>
+    <div id="bwbtn">
+    	<input type="hidden" name="cPage" value="${paging.nowPage}+${paging.endBlock}+ ${paging.beginBlock}+${paging.totalPage}">
+    	<input type="button" value="글쓰기" onclick="reportWrite()" />
+    </div>
 </div>
 </body>
 </html>

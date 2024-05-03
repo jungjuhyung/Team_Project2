@@ -8,12 +8,13 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <!-- include libraries(jQuery, bootstrap) -->
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <style type="text/css">
 #world{
 	text-align: center;
@@ -38,7 +39,9 @@
 #summer{
 	margin-top: 30px;
 }
-
+#empty-area{
+	height: 300px;
+}
 </style>
 </head>
 <body>
@@ -99,6 +102,7 @@
 			</div>
 		</c:forEach>
 	</div>	
+	<div id="empty-area">
 	</div>
 	<script>
 		// 메인화면 페이지 로드 함수
@@ -113,6 +117,22 @@
 	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3f599c1d6971197a01e6600cd397224a"></script>
 <script>
+
+/* $(document).ready(function(){
+	function getDetail(){
+		
+		$.ajax({
+			url : "pathDetail",
+			method : "post",
+			dataType : "json",
+			success : function(data){
+				$(data).find()
+			}
+		}
+	}
+}); 
+ */
+
 
 var latitude = 37.55265;  // 위도
 var longitude = 126.9376; // 경도
@@ -134,19 +154,19 @@ function setMarkers(map) {
 // 마커를 표시할 위치와 title 객체 배열입니다 
 var positions = [
     {
-        title: '거구장', 
-        latlng: new kakao.maps.LatLng(37.55265, 126.9376)
+        title: '되닝?', 
+        latlng: new kakao.maps.LatLng(latitude, longitude)
     },
     {
-        title: '서강대', 
-        latlng: new kakao.maps.LatLng(37.55104, 126.9394)
+        title: '', 
+        latlng: new kakao.maps.LatLng()
     },
     {
-        title: '신촌역', 
-        latlng: new kakao.maps.LatLng(37.55484, 126.9374)
+        title: '', 
+        latlng: new kakao.maps.LatLng( )
     },
     {
-        title: '버스정류장',
+        title: '',
         latlng: new kakao.maps.LatLng()
     }
 ];

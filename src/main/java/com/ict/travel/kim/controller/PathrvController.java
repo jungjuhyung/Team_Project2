@@ -1,32 +1,28 @@
 package com.ict.travel.kim.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.ict.travel.kim.dao.TourtestVO;
 import com.ict.travel.kim.service.TourtestService;
 
-@Controller
+@RestController
 public class PathrvController {
 
 	@Autowired
 	private TourtestService tourtestService;
 	
-	@GetMapping("pathDetail")
-	public ModelAndView pathDetail(String place_idx, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("kim_view/pathDetail");
-		TourtestVO tourtestvo = tourtestService.tourDetail(place_idx);
+	@RequestMapping(value = "pathDetail", produces = "text/xml; charset=utf-8")
+	@ResponseBody
+	public String pathDetail(HttpServletRequest request,
+			String place_idx) {
 		
-		if(tourtestvo != null) {
-			mv.addObject("tourtestvo", tourtestvo);
-			return mv;
-		}
-		
-		return mv;
+		return null;
 	}
 	
 	
