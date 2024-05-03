@@ -1,6 +1,8 @@
 package com.ict.travel.lee.service;
 
 
+import java.util.List;
+
 import com.ict.travel.lee.dao.MemberVO;
 
 public interface MemberService {
@@ -12,6 +14,10 @@ public interface MemberService {
 	public MemberVO getFindPW(String email);
 	
 	public int PassUpdate(MemberVO mvo);
+
+	public List<MemberVO> getFindId(MemberVO mvo);
+
+	
 	
 
 	

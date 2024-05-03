@@ -19,6 +19,8 @@
   		u_pwd = #{u_pwd}
   		where u_email = #{u_email}
   	</update>
-  	
+  	<select id="findId" resultType="mvo">
+  		select * from user_t where u_name = #{u_name} and  u_email = #{u_email}
+  	</select>
   	
   </mapper>

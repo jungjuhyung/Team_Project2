@@ -32,6 +32,15 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.PassUpdate(mvo);
 	}
 
+	@Override
+	public List<MemberVO> getFindId(MemberVO mvo) {
+		return memberDAO.getFindId(mvo);
+	}
+
+	
+
+	
+
 	
 
 
