@@ -195,11 +195,8 @@ public class ChoAjaxController {
 	
 		
         String result1 = dataFetcher.fetchData("12");
-        System.out.println(result1);
         String result2 = dataFetcher.fetchData("15");
-        System.out.println(result2);
         String result3 = dataFetcher.fetchData("39");
-        System.out.println(result3);
         
         // JSON 데이터를 JSONObject로 파싱
         JSONObject obj1 = (JSONObject) JSONValue.parse(result1);
@@ -222,12 +219,12 @@ public class ChoAjaxController {
         
     
         // itemArray를 TourapiParser를 사용하여 List<TourapiVO>로 파싱
-        List<TourapiVO> PartyVoList = tourapiParser.parseJsonToVO(itemArray1.toString());
         List<TourapiVO> touristVoList = tourapiParser.parseJsonToVO(itemArray2.toString());
+        List<TourapiVO> PartyVoList = tourapiParser.parseJsonToVO(itemArray1.toString());
         List<TourapiVO> restaurantVoList = tourapiParser.parseJsonToVO(itemArray3.toString());
 
+        choService.dataUpdate(touristVoList);
 		choService.dataUpdate(PartyVoList);
-		choService.dataUpdate(touristVoList);
 		choService.dataUpdate(restaurantVoList);
         
         return "Success";

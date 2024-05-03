@@ -79,32 +79,39 @@
 	</update>
 	
 	<!-- 장소 업데이트 -->
-	<update id="placeUpdate" parameterType="java.util.List">
-		 <foreach collection="list" item="item" separator=";">
+	<update id="placeUpdate" parameterType="tourapiVO">
 			UPDATE tourapi_t 
 			 SET 
-				addr1 = #{item.addr1},
-		        addr2 = #{item.addr2},
-		        areacode = #{item.areacode},
-		        cat1 = #{item.cat1},
-		        cat2 = #{item.cat2},
-		        cat3 = #{item.cat3},
-		        contentid = #{item.contentid},
-		        contenttypeid = #{item.contenttypeid},
-		        createdtime = #{item.createdtime},
-		        firstimage = #{item.firstimage},
-		        mapx = #{item.mapx},
-		        mapy = #{item.mapy},
-		        modifiedtime = #{item.modifiedtime},
-		        sigungucode = #{item.sigungucode},
-		        tel = #{item.tel},
-		        title = #{item.title},
-		        zipcode = #{item.zipcode},
+				addr1 = #{addr1},
+		        addr2 = #{addr2},
+		        areacode = #{areacode},
+		        cat1 = #{cat1},
+		        cat2 = #{cat2},
+		        cat3 = #{cat3},
+		        contentid = #{contentid},
+		        contenttypeid = #{contenttypeid},
+		        createdtime = #{createdtime},
+		        firstimage = #{firstimage},
+		        mapx = #{mapx},
+		        mapy = #{mapy},
+		        modifiedtime = #{modifiedtime},
+		        sigungucode = #{sigungucode},
+		        tel = #{tel},
+		        title = #{title},
+		        zipcode = #{zipcode},
 		        regdate = sysdate()
-		    WHERE contenttypeid = #{item.contenttypeid} AND contentid = #{item.contentid}
-		</foreach>
+		    WHERE contenttypeid = #{contenttypeid} AND contentid = #{contentid}
 	</update>
-	
+	<insert id="placeInsert" parameterType="tourapiVO">
+			INSERT INTO 
+			 tourapi_t(addr1, addr2, areacode, cat1, cat2, cat3, contentid, contenttypeid, 
+			 createdtime, firstimage, mapx, mapy, modifiedtime, sigungucode, tel, title, zipcode,heart, regdate)
+			 
+			 VALUES(#{addr1}, #{addr2}, #{areacode}, #{cat1}, #{cat2}, #{cat3}, 
+			 #{contentid}, #{contenttypeid}, #{createdtime}, #{firstimage}, 
+			 #{mapx}, #{mapy}, #{modifiedtime}, #{sigungucode}, #{tel}, 
+			 #{title}, #{zipcode}, 0, sysdate())
+	</insert>
 </mapper>
 
 

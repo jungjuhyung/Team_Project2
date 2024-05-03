@@ -1,5 +1,6 @@
 package com.ict.travel.cho.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,7 @@ public class ChoDAO {
 			transactionManager.commit(status);
 			return result;
 		} catch (Exception e) {
+			transactionManager.rollback(status);
 			System.out.println(e);
 		}
 		return 0;
@@ -100,6 +102,7 @@ public class ChoDAO {
 			transactionManager.commit(status);
 			return result;
 		} catch (Exception e) {
+			transactionManager.rollback(status);
 			System.out.println(e);
 		}
 		return 0;
@@ -107,7 +110,26 @@ public class ChoDAO {
 	
 	public int dataUpdate(List<TourapiVO> voList) {
 		try {
-			return sqlSessionTemplate.update("cho_mapper.placeUpdate", voList);
+			int result = 0;
+			int cnt = 0;
+			int success = 0;
+			List<TourapiVO> tempList = new ArrayList<TourapiVO>();
+			// 데이터 정제
+			for (TourapiVO k : voList) {
+				if(k.getFirstimage() != null && !k.getFirstimage().equals("") && 
+						Double.parseDouble(k.getMapy()) > 30 && Double.parseDouble(k.getMapy()) < 45 && 
+						Double.parseDouble(k.getMapx()) > 120 && Double.parseDouble(k.getMapx()) < 135) {
+					tempList.add(k);
+				}else {
+				}
+			}
+			// 데이터 수정, 삽입
+			for (TourapiVO k : tempList) {
+				result= sqlSessionTemplate.update("cho_mapper.placeUpdate", k);
+				if(result != 1) {
+					sqlSessionTemplate.insert("cho_mapper.placeInsert", k);
+				}
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
