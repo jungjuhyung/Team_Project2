@@ -1,5 +1,6 @@
 package com.ict.travel.lee.service;
 
+
 import com.ict.travel.lee.dao.MemberVO;
 
 public interface MemberService {
@@ -12,7 +13,6 @@ public interface MemberService {
 	
 	public int PassUpdate(MemberVO mvo);
 	
-	public MemberVO getFindID(String u_id);
 
 	
 }

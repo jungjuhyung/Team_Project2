@@ -54,5 +54,43 @@ public class ReportDAO {
 		return -1;
 	}
 	
+	public ReportVO reportDetail(String report_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("report_t.reportDetail", report_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	public int reportDelete(String report_idx) {
+		try {
+			return sqlSessionTemplate.delete("report_t.reportDelete", report_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+
+	public int reportUpdate(ReportVO reportvo) {
+		try {
+			return sqlSessionTemplate.update("report_t.reportUpdate", reportvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

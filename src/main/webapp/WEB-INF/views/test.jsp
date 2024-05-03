@@ -26,8 +26,6 @@
 	<form action="main_page.do">
 		<fieldset>
 		<legend>고예찬</legend>
-			<input type="hidden" name="areacode" value="1">
-			<input type="hidden" name="contenttypeid" value="12">
 			<input type="text">
 			<input type="submit">
 		</fieldset>

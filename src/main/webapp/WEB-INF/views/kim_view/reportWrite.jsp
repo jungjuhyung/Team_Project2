@@ -13,8 +13,14 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script type="text/javascript">
+function getReportgo(f) {
+	f.action="getReportgo";
+	f.submit();
+}
+</script>
 </head>
 
 <body>
@@ -50,7 +56,7 @@
 
 			<div class="create">
 				<input class="but4" type="submit" value="등록하기">
-				<input class="but4" type="button" value="취소하기" onclick="location.href='reportList'"> 
+				<input class="but4" type="button" value="취소하기" onclick="getReportgo(this.form)"> 
 
 			</div>
 		</div>

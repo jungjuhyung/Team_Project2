@@ -31,12 +31,12 @@ $(document).ready(function() {
 		    }
 	});
 	
-	let paging = {
-			nowPage : ${paging.nowPage},
-			endBlock : ${paging.endBlock},
-			beginBlock : ${paging.beginBlock},
-			totalPage : ${paging.totalPage}
-	}
+	 let paging = {
+		        nowPage: ${paging.nowPage},
+		        endBlock: ${paging.endBlock},
+		        beginBlock: ${paging.beginBlock},
+		        totalPage: ${paging.totalPage}
+		    };
 	updatePagination(paging);
 	
 });
@@ -136,6 +136,9 @@ $(".board-list-paging").html(content);
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		
+		
 		function getList() {
 			$.ajax({
 				url : "getReportList",
@@ -143,8 +146,10 @@ $(".board-list-paging").html(content);
 				dataType : "xml",
 				success : function(data){
 					let tbody ="";
+					console.log(data);
 					$(data).find("report").each(function() {
 						tbody += "<tr>";
+						tbody += "<td>" + "<input type= 'hidden' name = 'report_idx' value='"+$(this).find("report_idx").text()+"'>"
 						tbody += "<td>" + $(this).find("report_idx").text() + "</td>";
 						tbody += "<td>" + $(this).find("u_id").text() + "</td>";
 						tbody += "<td><a href='#' class='report-title-link'>" + $(this).find("report_title").text() + "</td>";
@@ -152,29 +157,40 @@ $(".board-list-paging").html(content);
 						 let reportState = $(this).find("report_state").text();
 						    if (reportState === "0") {
 						        tbody += "<td style='color: red;'>답변대기</td>";
-						    } else if (reportState === "1") {
+						    } else{
 						        tbody += "<td style='color: blue;'>답변완료</td>";
-						    } else {
-						        tbody += "<td>Unknown State</td>";
-						    }
+						    } 
 						tbody += "</tr>";
 					});
 					$("#tbody").append(tbody);
-					
+		/* 			
 					$(".report-title-link").click(function(event) {
 	                    event.preventDefault();
-	                    var clickedTitle = $(this).text();
-	                    console.log("Clicked report title: " + clickedTitle);
-	                    // 여기에 클릭한 보드 타이틀에 대한 추가 동작을 수행
-	                    // 예: 클릭한 보드 타이틀에 해당하는 내용을 불러오거나, 다른 페이지로 이동 등
-	                });
+	                    let clickedTitle = $(this).text();
+	                    let reportIdx = $(this).data("report_idx").text();
+	                    window.location.href = "reportDetail?report_idx=" + encodeURIComponent(reportIdx);
+					}); */
+					$("body").on("click", ".report-title-link", function(event) {
+					    event.preventDefault();
+
+					    // 클릭한 보고서의 행(tr 요소)을 찾기
+					    let $row = $(this).closest("tr");
+
+					    // 클릭한 보고서의 report_idx 값을 가져옴
+					    let reportIdx = $row.find("input[name='report_idx']").val();
+					    
+					    // reportDetail 페이지로 이동하면서 report_idx 값을 쿼리 문자열로 전달
+					    window.location.href = "reportDetail?report_idx=" + encodeURIComponent(reportIdx);
+					});
 				},
 				error : function(){
 					alert("실패 역")
 				}
 			});	
 		}
+		
 		getList();
+
 	});
 </script>
 <script type="text/javascript">

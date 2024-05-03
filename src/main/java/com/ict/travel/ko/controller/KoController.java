@@ -29,13 +29,11 @@ public class KoController {
 	private KoService koService;
 
 	@RequestMapping("main_page.do")
-	public ModelAndView getKo(String areacode, String contenttypeid) {
+	public ModelAndView getKo() {
 		ModelAndView mv = new ModelAndView("ko_view/main_page");
-		System.out.println("areacode : " + areacode);
-		System.out.println("contenttypeid : " + contenttypeid);
 
-		List<KoVO> area_list = koService.getAreaList(areacode);
-		List<KoVO> tema_list = koService.getTemaList(contenttypeid);
+		List<KoVO> area_list = koService.getAreaList("1");
+		List<KoVO> tema_list = koService.getTemaList("12");
 		
 		mv.addObject("area_list", area_list);
 		mv.addObject("tema_list", tema_list);
@@ -76,6 +74,8 @@ public class KoController {
 		System.out.println("contentid : " + contentid);
 		System.out.println("contenttypeid : " + contenttypeid);
 		
+		List<KoVO> path_list = koService.getPathList(contentid);
+		mv.addObject("path_list", path_list);
 
 		try {
 			// 공통 정보 조회

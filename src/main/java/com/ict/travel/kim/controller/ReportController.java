@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.common.Paging;
-import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.kim.service.ReportService;
 
@@ -68,20 +69,21 @@ public class ReportController {
 		}
 		
 		// DB 처리 (전체정보 가져오기)
-		List<ReportVO> list = reportService.reportList();
+		List<ReportVO> list = reportService.reportList(paging.getOffset(), paging.getNumPerPage());
 		
 		if (list != null) {
 			// xml 만들기
 			StringBuffer sb = new StringBuffer();
 			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			sb.append("<reports>");
-			/*
-			 * // 페이징 정보 추가 sb.append("<paging>"); sb.append("<nowPage>" +
-			 * paging.getNowPage() + "</nowPage>"); sb.append("<endBlock>" +
-			 * paging.getEndBlock() + "</endBlock>"); sb.append("<beginBlock>" +
-			 * paging.getBeginBlock() + "</beginBlock>"); sb.append("<totalPage>" +
-			 * paging.getTotalPage() + "</totalPage>"); sb.append("</paging>");
-			 */
+			
+			  // 페이징 정보 추가 1111111111111111
+			  sb.append("<paging>"); 
+			  sb.append("<nowPage>" + paging.getNowPage() + "</nowPage>"); 
+			  sb.append("<endBlock>" + paging.getEndBlock() + "</endBlock>"); 
+			  sb.append("<beginBlock>" + paging.getBeginBlock() + "</beginBlock>"); 
+			  sb.append("<totalPage>" + paging.getTotalPage() + "</totalPage>"); sb.append("</paging>");
+			
 			for (ReportVO k : list) {
 				sb.append("<report>");
 				sb.append("<report_idx>"+k.getReport_idx()+"</report_idx>");
@@ -94,11 +96,8 @@ public class ReportController {
 			}
 			
 			sb.append("</reports>");
-			System.out.println("성공?");
-			System.out.println(sb.toString());
 			return sb.toString();
 		}
-		System.out.println("에러");
 		return "fail";
 		
 	}
@@ -132,12 +131,107 @@ public class ReportController {
 		return new ModelAndView("");
 	}
 	
+	@GetMapping("reportDetail")
+	public ModelAndView reportDetail(String report_idx, String cPage) {
+		try {
+			ModelAndView mv = new ModelAndView("kim_view/reportDetail");
+			System.out.println("idx" + report_idx);
+			ReportVO reportvo = reportService.reportDetail(report_idx);
+			System.out.println(reportvo.getReport_idx());
+			if (reportvo !=null) {
+				
+				
+				/*
+				 * List<CommentVO> comment_list = reportService.commentList(report_idx);
+				 * mv.addObject("comment_list", comment_list);
+				 */
+				 
+				mv.addObject("reportvo", reportvo);
+				mv.addObject("cPage", cPage);
+				return mv;
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return new ModelAndView("kim_view/reportDetail");
+	}
 	
 	
+	@PostMapping("reportUpdate")
+	public ModelAndView getReportUpdate(@ModelAttribute("cPage")String cPage,
+			@ModelAttribute("report_idx")String report_idx) {
+		ModelAndView mv = new ModelAndView("kim_view/reportUpdate");
+		ReportVO reportvo = reportService.reportDetail(report_idx);
+		if (reportvo != null) {
+			mv.addObject("reportvo", reportvo);
+			return mv;
+		}
+		
+		
+		return new ModelAndView("report/error");
+	}
+	
+	@RequestMapping("reportUpdateOK")
+	public ModelAndView getReportUpdateOK(
+			@ModelAttribute("cPage")String cPage,
+			@ModelAttribute("report_idx")String report_idx,
+			@ModelAttribute("report_cpw")String report_cpw,
+			ReportVO reportvo
+			) {
+		ModelAndView mv = new ModelAndView();
+		ReportVO reportvo2 = reportService.reportDetail(report_idx);
+		String dpwd = reportvo2.getReport_pw();
+		if (! passwordEncoder.matches(report_cpw, dpwd)) {
+			mv.addObject("pwdchk", "fail");
+			mv.addObject("reportvo", reportvo);
+			mv.setViewName("kim_view/reportUpdate");
+			return mv;
+		}else {
+							
+			int result = reportService.reportUpdate(reportvo);
+			if (result>0) {
+				mv.setViewName("redirect:reportDetail");
+				return mv;
+			}
+				
+			
+		}
+				
+		return new ModelAndView("");
+	}
+	
+	@PostMapping("reportDelete")
+	public ModelAndView getBbsDelete(@ModelAttribute("cPage")String cPage,
+			@ModelAttribute("report_idx")String report_idx,
+			@ModelAttribute("report_cpw")String report_cpw) {
+		return new ModelAndView("kim_view/reportDelete");
+	}
 	
 	
-	
-	
+	@PostMapping("reportDeleteOK")
+	public ModelAndView reportDeleteOK(@ModelAttribute("report_cpw")String report_cpw,
+			@ModelAttribute("cPage")String cPage,
+			@ModelAttribute("report_idx")String report_idx,
+			ReportVO reportvo) {
+		ModelAndView mv = new ModelAndView();
+		ReportVO reportvo2 = reportService.reportDetail(report_idx);
+		String dpwd = reportvo2.getReport_pw();
+		if(! passwordEncoder.matches(report_cpw, dpwd)) {
+			mv.setViewName("kim_view/reportDelete");
+			mv.addObject("pwdchk", "fail");
+			return mv;
+		}else {
+			
+			int result = reportService.reportDelete(report_idx);
+			if(result > 0) {
+				mv.setViewName("redirect:getReportgo");
+				return mv;
+			}
+		}
+		return new ModelAndView("report/error");
+		
+	}
 	
 	
 	

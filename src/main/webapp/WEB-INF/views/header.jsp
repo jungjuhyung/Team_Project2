@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
 <script type="text/javascript">
 	function main_go() {
-		location.href = "main_page.do?areacode=1&contenttypeid=12";
+		location.href = "main_page.do";
 	}
 </script>
 </head>
@@ -24,7 +24,7 @@
 			</div>
 			<ul class="ko_menu">
 				<li class="main">
-					<a href="">여행검색</a>
+					<a href="themaCategory">여행검색</a>
 				</li>
 				<li class="main"> 
 					<a href="">추천경로</a>
@@ -34,8 +34,8 @@
 				</li>
 			</ul>
 			<ul class="ko_util">
-				<li class="btn"><a href="">로그인</a></li>
-				<li class="btn"><a href="">회원가입</a></li>
+				<li class="btn"><a href="login_go.do">로그인</a></li>
+				<li class="btn"><a href="agree_acc.do">회원가입</a></li>
 				<li class="btn"><a href="">고객센터</a></li>
 			</ul>
 		</nav>
