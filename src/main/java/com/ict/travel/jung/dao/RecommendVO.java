@@ -3,7 +3,8 @@ package com.ict.travel.jung.dao;
 import org.springframework.web.multipart.MultipartFile;
 
 public class RecommendVO {
-	String path_post_idx, u_idx, u_id, contenttypeid, areacode, main_image, path_post_title, path_post_content, regdate, like;
+	String path_post_idx, u_idx, u_id, areacode, main_image, path_post_title, path_post_content, regdate, like;
+	String[] contenttypeid;
 	MultipartFile f_main;
 	
 	public String getPath_post_idx() {
@@ -24,10 +25,10 @@ public class RecommendVO {
 	public void setU_id(String u_id) {
 		this.u_id = u_id;
 	}
-	public String getContenttypeid() {
+	public String[] getContenttypeid() {
 		return contenttypeid;
 	}
-	public void setContenttypeid(String contenttypeid) {
+	public void setContenttypeid(String[] contenttypeid) {
 		this.contenttypeid = contenttypeid;
 	}
 	public String getAreacode() {

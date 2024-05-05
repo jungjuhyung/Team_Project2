@@ -39,7 +39,7 @@
 			</div>
 		</c:forEach>
 	</div>
-	<form action="">
+	<form action="" enctype="multipart/form-data">
 		<p>경로 유형</p>
 		<input type="radio" name="contenttypeid" value="12">관광지
 		<input type="radio" name="contenttypeid" value="15">문화시설
@@ -65,7 +65,10 @@
 			<option value="38">전라남도</option>
 			<option value="39">제주도</option>
 		</select>
-		<p></p>
+		<p>
+			<label>메인 이미지 : </label>
+			<input type="file" name="f_main">
+		</p>
 		<div id="upload_box">
 		</div>
 		<div class="container">
@@ -165,12 +168,12 @@ function div_create(marker, contentid) {
     });
     let inputX = $('<input/>', {
         type: 'hidden',
-        name: 'mapx',
+        name: 'mapy',
         value : marker.getPosition().getLat()
     });
     let inputY = $('<input/>', {
         type: 'hidden',
-        name: 'mapy',
+        name: 'mapx',
         value : marker.getPosition().getLng()
     });
     let inputContentid = $('<input/>', {
@@ -214,8 +217,8 @@ function marker_del(position) {
 }
 // 체크박스 상태가 변하면 타이틀, 위도, 경도를 가지고 상태에 따른 함수 실행
 $(".chk_box").change(function() {
-		let x = $(this).next().next().next().next().val()
-		let y = $(this).next().next().next().next().next().val()
+		let y = $(this).next().next().next().next().val()
+		let x = $(this).next().next().next().next().next().val()
 		let contentid = $(this).next().next().next().next().next().next().val()
         let position = 
             {
