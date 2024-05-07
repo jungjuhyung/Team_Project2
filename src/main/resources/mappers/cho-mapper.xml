@@ -45,7 +45,17 @@
 	            AND title LIKE CONCAT('%', #{title}, '%')
 	        </if>
         </where>
-        ORDER BY heart DESC LIMIT #{limit} OFFSET #{offset} 
+        ORDER BY 
+        <if test="order == null or order == '' or order == 'like'">
+		    heart DESC, title ASC
+		</if>
+		<if test="order == 't_asc'">
+		    title ASC, heart DESC
+		</if>
+		<if test="order == 't_desc'">
+		    title DESC, heart DESC
+		</if>
+         LIMIT #{limit} OFFSET #{offset} 
 	</select>
 	
 	<!-- 위시리스트 관련  -->

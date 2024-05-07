@@ -10,6 +10,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
+	let areaCode ="";
+	let areaName ="";
 	$(document).ready(function() {
 	    getList();
 	    search(1); // 초기 검색은 첫 페이지로 시작
@@ -53,13 +55,20 @@
 
 	});
 	
-	//  뷰 옵션 이벤트 처리
+	//  찜버튼 누르기 옵션 이벤트 처리
 	$(document).on("click", ".heart-state", function(e) {
 		let contentid = $(this).data("place_contentid");
-		if ($(this).hasClass("wish-added")) {
-			placeWishRemove(this, contentid);
-		}else {
-			placeWishadd(this, contentid);
+		let userLogin = document.getElementById("userLogin").value;
+		
+		if (userLogin !== null && userLogin === "ok") {
+			if ($(this).hasClass("wish-added")) {
+				placeWishRemove(this, contentid);
+			}else {
+				placeWishadd(this, contentid);
+			}
+			
+		}else{
+			alert("찜하기를 하시려면 로그인을 해주세요.")
 		}
 	});
 	
@@ -76,6 +85,10 @@
 					$(tag).addClass("wish-added");
 					$(tag).text("❤️");
 					alert("좋아요를 눌렀습니다.")
+					if(areaCode === "" || areaName ===""){
+						areaCode = "1";
+						areaName = "서울";
+					}
 					search(getCurrentPage());
 				},
 				error : function() {
@@ -99,6 +112,10 @@
 					$(tag).text("♡");
 					$(tag).removeClass("wish-added");
 					alert("좋아요를 취소하셨습니다.")
+					if(areaCode === "" || areaName ===""){
+						areaCode = "1";
+						areaName = "서울";
+					}
 					search(getCurrentPage());
 				},
 				error : function() {
@@ -154,8 +171,15 @@
 	    search(page); // 해당 페이지 검색 실행
 	});
 	
-	//  뷰 옵션 이벤트 처리
+	//  보기 갯수 이벤트 처리
 	$(document).on("change", "#viewLimit", function(e) {
+	    e.preventDefault();
+	    let page = getCurrentPage(); // 현재 페이지 번호 가져오기
+	    search(page); // search 함수 호출
+	});
+	
+	//  정렬 이벤트 처리
+	$(document).on("change", "#orderOption", function(e) {
 	    e.preventDefault();
 	    let page = getCurrentPage(); // 현재 페이지 번호 가져오기
 	    search(page); // search 함수 호출
@@ -175,6 +199,7 @@
         let contentType = $("#contentTypes").val();
         let title = $(".searchTitle").val();
         let limit = $('#viewLimit').val();
+        let order = $('#orderOption').val();
         // AJAX 요청 실행
         $.ajax({
             url: "areaSearchTourList",
@@ -186,7 +211,8 @@
                 contentType: contentType,
                 page: page,
                 title: title,
-                limit: limit
+                limit: limit,
+                order: order
             },
             success: function(data) {
             	$('#place_wrapper').empty();
@@ -343,8 +369,8 @@
 </script>
 </head>
 <body>
+	<%@ include file="../header.jsp"%>
 	<section class="section" >
-	
 		<div class="areaSearchForm">
 			<select id="areaCodes" class = "searchSelect">
 				<option value="999">전체</option>
@@ -382,13 +408,20 @@
 			<div id = "resultOption">
 				<div id ="resultCount"></div>
 				<!-- 보기 옵션 -->
-				<select id = "viewLimit">
-					<option value = "10">10개 보기</option>
-					<option value = "20" selected>20개 보기</option>
-					<option value = "30">30개 보기</option>
-					<option value = "50">50개 보기</option>
-					<option value = "100">100개 보기</option>
-				</select>
+				<div>
+					<select id = "orderOption">
+						<option value = "like">좋아요 순</option>
+						<option value = "t_asc">제목(ㄱ->ㅎ)</option>
+						<option value = "t_desc">제목(ㅎ->ㄱ)</option>
+					</select>
+					<select id = "viewLimit">
+						<option value = "10">10개 보기</option>
+						<option value = "20" selected>20개 보기</option>
+						<option value = "30">30개 보기</option>
+						<option value = "50">50개 보기</option>
+						<option value = "100">100개 보기</option>
+					</select>
+				</div>
 			</div>
 			<!-- 장소 표시 -->
 			<div id = "place_wrapper"></div>
@@ -402,6 +435,6 @@
 			
 		</div>
 	</section>
-
+	<input type="hidden" id="userLogin" value="${userLogin}">
 </body>
 </html>

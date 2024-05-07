@@ -42,7 +42,7 @@ public class ChoDAO {
 		return 0;
 	}
 	// 페이징 검색
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, int offset, int limit) {
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order, int offset, int limit) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("areaCode", areaCode);
@@ -51,6 +51,7 @@ public class ChoDAO {
 			map.put("title", title);
 			map.put("offset", offset );
 			map.put("limit", limit );
+			map.put("order", order );
 			return sqlSessionTemplate.selectList("cho_mapper.selectTourList", map);
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);

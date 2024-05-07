@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="resources/cho_css/category.css">
 <meta charset="UTF-8">
-<title>테마별 장소 추천</title>
+<title>지역별 여행경로 추천</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -212,7 +212,7 @@
 			 <div id = "hot-place-wrapper">
 			 	<div id = thema-wrapper>
 				 	<div class= "thema-box">
-				 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName">{지역}</span> 추천 관광지</h4>
+				 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName">{지역}</span> 추천 맛집 경로</h4>
 				 		<div id="touristPlace" class="place-Wrapper"> 
 				 		</div>
 				 	</div>

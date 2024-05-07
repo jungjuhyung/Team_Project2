@@ -81,6 +81,7 @@ public class ChoAjaxController {
 			@RequestParam("page") String page, 
 			@RequestParam("title") String title,
 			@RequestParam("limit") int limit,
+			@RequestParam("order") String order,
 			HttpSession session) throws Exception {
 			
 			MemberVO uvo = (MemberVO) session.getAttribute("userVO");
@@ -123,11 +124,11 @@ public class ChoAjaxController {
 				paging.setEndBlock(paging.getTotalPage());
 			}
 			
-			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,paging.getOffset(), paging.getNumPerPage());
+			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,order,paging.getOffset(), paging.getNumPerPage());
 			
-			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
 			// 유저 로그인 상태일 때 찜 여부
 			if(uvo != null) {
+				List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
 				for (ChoTourVO k : choTourList) {
 					for (PlaceWishVO j : placeWishList) {
 						if(k.getContentid().equals(j.getContentid())) {
@@ -171,14 +172,44 @@ public class ChoAjaxController {
 	
 	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
 	@ResponseBody
-	public String searchAreaPlace(String areaCode) {
+	public String searchAreaPlace(String areaCode, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
-		 List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,0, 4);
-		 List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,0, 4);
-		 List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,0, 4);
+		 List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like",0, 4);
+		 List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like",0, 4);
+		 List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like",0, 4);
 		
 		Map<String, Object> result = new HashMap<>();
 
+	
+		// 유저 로그인 상태일 때 찜 여부
+		if(uvo != null) {
+			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+			for (ChoTourVO k : touristList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+			for (ChoTourVO k : partyList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+			for (ChoTourVO k : restaurantList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+		}
 		result.put("touristList", touristList);
 		result.put("partyList", partyList);
 		result.put("restaurantList", restaurantList);
