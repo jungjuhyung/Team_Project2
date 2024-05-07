@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.ko.dao.ItemVO;
+import com.ict.travel.ko.dao.KoPathVO;
 import com.ict.travel.ko.dao.KoVO;
 import com.ict.travel.ko.service.KoService;
+import com.ict.travel.lee.dao.MemberVO;
 
 @Controller
 public class KoController {
@@ -69,12 +73,17 @@ public class KoController {
 
 	@RequestMapping("ko_detail.do")
 	public ModelAndView getKoDetail(@ModelAttribute("contentid") String contentid,
-			@ModelAttribute("contenttypeid") String contenttypeid) {
+			@ModelAttribute("contenttypeid") String contenttypeid, 
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView("ko_view/detail");
 		System.out.println("contentid : " + contentid);
 		System.out.println("contenttypeid : " + contenttypeid);
 		
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		mv.addObject("u_idx", uvo.getU_idx());
+		
 		List<KoVO> path_list = koService.getPathList(contentid);
+		//List<KoPathVO> path_list = koService.getPathList(contentid);
 		mv.addObject("path_list", path_list);
 
 		try {
