@@ -39,7 +39,7 @@
 			</div>
 		</c:forEach>
 	</div>
-	<form action="" enctype="multipart/form-data">
+	<form action="recommend_write_ok" method="post" enctype="multipart/form-data">
 		<p>경로 유형</p>
 		<input type="radio" name="contenttypeid" value="12">관광지
 		<input type="radio" name="contenttypeid" value="15">문화시설
@@ -71,9 +71,14 @@
 		</p>
 		<div id="upload_box">
 		</div>
+		<div>
+			<label>본글 제목 : </label>
+			<input type="text" name="path_post_title">
+		</div>
 		<div class="container">
 	  		<textarea class="summernote" name="path_post_content"></textarea>    
 		</div>
+		<input type="submit" value="작성하기">
 	</form>
 
 <!-- 섬머노트 스크립트 -->
@@ -147,7 +152,6 @@ function marker(position, contentid) {
 }
 // 마커 사진 업로드 div생성 function
 function div_create(marker, contentid) {
-	upload_idx += 1;
     var divElement = $('<div></div>', {
         class: 'markers'
     });
@@ -187,6 +191,7 @@ function div_create(marker, contentid) {
 	divElement.append(inputX)
 	divElement.append(inputY)
 	divElement.append(inputContentid)
+	upload_idx += 1;
 	$("#upload_box").append(divElement)
 }
 
