@@ -16,6 +16,8 @@
 		<typeAlias type="com.ict.travel.kim.dao.ReportVO" alias="reportvo"/>
 		<typeAlias type="com.ict.travel.lee.dao.MemberVO" alias="mvo"/>
 		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
+		<typeAlias type="com.ict.travel.kim.dao.TourtestVO" alias="tourtestvo"/>
+		<typeAlias type="com.ict.travel.kim.dao.PlaceRWishVO" alias="placerwishvo"/>
 		<typeAlias type="com.ict.travel.cho.dao.PlaceWishVO" alias="placeWishVO"/>
 		<typeAlias type="com.ict.travel.cho.dao.TourapiVO" alias="tourapiVO"/>
 	</typeAliases>
@@ -23,6 +25,7 @@
  		<mapper resource="mappers/board-mapper.xml" />
  		<mapper resource="mappers/report-mapper.xml" />
  		<mapper resource="mappers/tourtest-mapper.xml" />
+ 		<mapper resource="mappers/placerwish-mapper.xml" />
  		<mapper resource="mappers/cho-mapper.xml" />
  		<mapper resource="mappers/jung-mapper.xml" />
  		<mapper resource="mappers/ko-mapper.xml" />

@@ -38,10 +38,6 @@ public class BoardController {
 		return new ModelAndView("kim_view/reportList");
 	}
 
-	@RequestMapping("getPathgo")
-	public ModelAndView getPathgo() {
-		return new ModelAndView("kim_view/pathDetail");
-	}
 	
 	@RequestMapping("boardList")
 	@ResponseBody
