@@ -1,7 +1,6 @@
 package com.ict.travel.lee.service;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,9 @@ public interface MemberService {
 
 	public List<MemberVO> getFindId(MemberVO mvo);
 	
-	/* public Map<String, String> KakaoLogin(HashMap<String, String> map); */
+	public int KakaoLogin(HashMap<String, Object> map);
+
+	
 	
 
 	

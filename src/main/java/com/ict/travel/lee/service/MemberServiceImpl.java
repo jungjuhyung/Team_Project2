@@ -47,11 +47,12 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.getFindId(mvo);
 	}
 
-//	@Override
-//	public Map<String, String> KakaoLogin(HashMap<String, String> map) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public int KakaoLogin(HashMap<String, Object> map) {
+		return memberDAO.KakaoLogin(map);
+	}
+
+
 
 
 	

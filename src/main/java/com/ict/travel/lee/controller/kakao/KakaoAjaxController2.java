@@ -74,17 +74,17 @@ public class KakaoAjaxController2 {
 				
 				
 				// DB 저장하기
-//				HashMap<String, String> map = new HashMap<String, String>();
+				Map<String, Object> map = new HashMap<>();
+				map.put("kakao_nickname", kakao_nickname);
+				map.put("kakao_email", kakao_email);
 				
-//				int result1 = memberService.KakaoLogin();
-//				if(result1 > 0) {
-//					map.put("kakao_nickname", kakao_nickname);
-//					map.put("kakao_email", kakao_email);
-//					
-//				
-//				}
+				int result1 = memberService.KakaoLogin(map);
+				if(result1 > 0) {
+					return kakao_id + "/" + kakao_nickname + "/" + kakao_email + "/";
+				} else {
+					return "error";
+				}
 				
-				return kakao_id + "/" + kakao_nickname + "/" + kakao_email + "/";
 			}
 			
 		} catch (Exception e) {
