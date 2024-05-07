@@ -74,8 +74,8 @@ public class KakaoAjaxController2 {
 				
 				
 				// DB 저장하기
-				HashMap<String, String> map = new HashMap<String, String>();
-
+//				HashMap<String, String> map = new HashMap<String, String>();
+				
 //				int result1 = memberService.KakaoLogin();
 //				if(result1 > 0) {
 //					map.put("kakao_nickname", kakao_nickname);

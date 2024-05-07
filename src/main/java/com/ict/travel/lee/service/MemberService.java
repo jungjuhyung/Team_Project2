@@ -20,7 +20,7 @@ public interface MemberService {
 
 	public List<MemberVO> getFindId(MemberVO mvo);
 	
-	public Map<String, String> KakaoLogin(HashMap<String, String> map);
+	/* public Map<String, String> KakaoLogin(HashMap<String, String> map); */
 	
 
 	
