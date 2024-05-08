@@ -16,6 +16,44 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
+	/* 
+	function path_detail(path_post_idx) {
+		location.href = "경로게시판 글로 이동?path_post_idx=" + path_post_idx; 
+	}
+	 */
+	 /* 
+	<div id="wish_btn">
+						<button type="button" onclick="wish_go(${itemVO.contentid})">
+							찜목록으로
+						</button>
+					</div>
+	 */
+	 function wish_go(contentid, u_idx) {
+		
+		$.ajax({
+			url : "ko_ajax_wish.do",
+			data : "contentid=" + contentid,
+			method : "post",
+			dataType : "text",
+			success : function(data) {
+				console.log(data);
+				let content = '';
+				if (data == 1) {
+					$("#wish_btn").empty();
+					content += '<button type="button" onclick="wish_go(' + contentid 
+							+ '})">찜해제</button>'
+				}else if (data == 0) {
+					$("#wish_btn").empty();
+					content += '<button type="button" onclick="wish_go(' + contentid 
+							+ '})">찜하기</button>'
+				}
+				$("#wish_btn").append(content);
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
 	
 </script>
 </head>
@@ -24,7 +62,7 @@
 
 	<section style="width: 1300px; margin: 0 auto;">
 		<div class="ko_detail">
-
+			
 			<div class="detail_main">
 				<div class="main_image">
 					<img alt="${itemVO.title}" src="${itemVO.firstimage}" width="100%"
@@ -152,8 +190,8 @@
 						</table>
 					</c:if>
 					
-					<div class="wish_btn">
-						<button type="button" onclick="wish_go(${itemVO.contentid})">
+					<div id="wish_btn">
+						<button type="button" onclick="wish_go(${itemVO.contentid}, ${u_idx})">
 							찜목록으로
 						</button>
 					</div>
@@ -184,16 +222,27 @@
 
 			<div class="detail_path">
 				<h2>해당장소 포함된 추천경로</h2>
+				<h4>&nbsp;&nbsp;&nbsp;=>현재는 tourapi 테이블 데이터</h4>
 				<div id="path_wrapper">
 					<c:forEach var="k" items="${path_list}">
-						<div class="path_box"
-							onclick="path_detail(${k.contentid}, ${k.contenttypeid})">
+						<div class="path_box">
 							<div class="path_image">
 								<img alt="" src="${k.firstimage}">
 							</div>
 							<div class="path_text">${k.title}</div>
 						</div>
 					</c:forEach>
+					<%-- 
+					<c:forEach var="k" items="${path_list}">
+						<div class="path_box"
+							onclick="path_detail(${k.path_post_idx})">
+							<div class="path_image">
+								<img alt="" src="${k.firstimage}">
+							</div>
+							<div class="path_text">${k.path_post_title}</div>
+						</div>
+					</c:forEach>
+					 --%>
 				</div>
 			</div>
 
