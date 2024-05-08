@@ -35,15 +35,25 @@
 				<input type="hidden" name="place_title" value="${k.place_title}">
 				<input type="hidden" name="mapx" value="${k.mapx}">
 				<input type="hidden" name="mapy" value="${k.mapy}">
+				<input type="hidden" name="contentid" value="${k.contentid}">
 			</div>
 		</c:forEach>
 	</div>
-	<form action="">
+	<form action="recommend_write_ok" method="post" enctype="multipart/form-data">
+		<p>
+			<label>메인 이미지 : </label>
+			<input type="file" name="f_main">
+		</p>
 		<div id="upload_box">
 		</div>
-		<div class="container">
-	  		<textarea class="summernote" name="editordata"></textarea>    
+		<div>
+			<label>본글 제목 : </label>
+			<input type="text" name="path_post_title">
 		</div>
+		<div class="container">
+	  		<textarea class="summernote" name="path_post_content"></textarea>    
+		</div>
+		<input type="submit" value="작성하기">
 	</form>
 
 <!-- 섬머노트 스크립트 -->
@@ -83,7 +93,7 @@ let index = 0; // 지도에서 마커 선택시 순서 표시 변수
 let upload_idx = 0; // 마커 표시에 따른 upload name변수 이름 지정
 
 // 마커 생성 함수
-function marker(position) {
+function marker(position, contentid) {
 	// 마커 이미지
 	let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 	    
@@ -110,19 +120,19 @@ function marker(position) {
 	    	infos.push(infowindow)
 	    	infowindow.open(map, marker);
     		line_draw(marker)
-    		div_create(marker)
+    		div_create(marker, contentid)
 		});
 	    markers.push(marker)
 	    map.setCenter(position.latlng);
 }
 // 마커 사진 업로드 div생성 function
-function div_create(marker) {
-	upload_idx += 1;
+function div_create(marker, contentid) {
     var divElement = $('<div></div>', {
         class: 'markers'
     });
-    let span = $('<span></span>');
-	span.text(marker.getTitle());
+    let span = $('<span></span>',{
+    	class : "marker_title"
+    }).text(marker.getTitle())
     let inputFile = $('<input/>', {
         type: 'file',
         name: 'marker'+ upload_idx,
@@ -137,19 +147,26 @@ function div_create(marker) {
     });
     let inputX = $('<input/>', {
         type: 'hidden',
-        name: 'mapx',
+        name: 'mapy',
         value : marker.getPosition().getLat()
     });
     let inputY = $('<input/>', {
         type: 'hidden',
-        name: 'mapy',
+        name: 'mapx',
         value : marker.getPosition().getLng()
+    });
+    let inputContentid = $('<input/>', {
+        type: 'hidden',
+        name: 'contentid',
+        value : contentid
     });
 	divElement.append(span)
 	divElement.append(inputFile)
 	divElement.append(inputTitle)
 	divElement.append(inputX)
 	divElement.append(inputY)
+	divElement.append(inputContentid)
+	upload_idx += 1;
 	$("#upload_box").append(divElement)
 }
 
@@ -180,15 +197,16 @@ function marker_del(position) {
 }
 // 체크박스 상태가 변하면 타이틀, 위도, 경도를 가지고 상태에 따른 함수 실행
 $(".chk_box").change(function() {
-		let x = $(this).next().next().next().next().val()
-		let y = $(this).next().next().next().next().next().val()
+		let y = $(this).next().next().next().next().val()
+		let x = $(this).next().next().next().next().next().val()
+		let contentid = $(this).next().next().next().next().next().next().val()
         let position = 
             {
         		title: $(this).next().next().next().val(), 
                 latlng: new kakao.maps.LatLng(x, y)
             }
 	if ($(this).prop("checked")) {
-        marker(position)
+        marker(position,contentid)
     } else {
         marker_del(position)
     }
