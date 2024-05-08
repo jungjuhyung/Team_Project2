@@ -36,6 +36,8 @@
 				<input type="hidden" name="mapx" value="${k.mapx}">
 				<input type="hidden" name="mapy" value="${k.mapy}">
 				<input type="hidden" name="contentid" value="${k.contentid}">
+				<input type="hidden" name="contentid" value="${k.areacode}">
+				<input type="hidden" name="contentid" value="${k.sigungucode}">
 			</div>
 		</c:forEach>
 	</div>

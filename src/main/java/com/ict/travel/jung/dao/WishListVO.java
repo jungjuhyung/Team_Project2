@@ -1,8 +1,9 @@
 package com.ict.travel.jung.dao;
 
 public class WishListVO {
-	private String place_idx, u_idx, contentid, addr1, firstimage, place_title, contenttypeid, regdate;
+	private String place_idx, u_idx, contentid, addr1, firstimage, place_title, contenttypeid, areacode, sigungucode, regdate;
 	private double mapx, mapy;
+	
 	public String getPlace_idx() {
 		return place_idx;
 	}
@@ -45,6 +46,18 @@ public class WishListVO {
 	public void setContenttypeid(String contenttypeid) {
 		this.contenttypeid = contenttypeid;
 	}
+	public String getAreacode() {
+		return areacode;
+	}
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
+	}
+	public String getSigungucode() {
+		return sigungucode;
+	}
+	public void setSigungucode(String sigungucode) {
+		this.sigungucode = sigungucode;
+	}
 	public String getRegdate() {
 		return regdate;
 	}
@@ -63,7 +76,6 @@ public class WishListVO {
 	public void setMapy(double mapy) {
 		this.mapy = mapy;
 	}
-	
 	
 	
 }

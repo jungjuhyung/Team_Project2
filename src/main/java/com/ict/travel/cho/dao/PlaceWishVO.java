@@ -1,7 +1,23 @@
 package com.ict.travel.cho.dao;
 
 public class PlaceWishVO {
-	private String place_idx, u_idx, contentid, mapx, mapy, addr1, firstimage, place_title, contenttypeid, regdate;
+	private String place_idx, u_idx, contentid, mapx, mapy, addr1, firstimage, place_title, contenttypeid, regdate, areacode, sigungucode;
+
+	public String getAreacode() {
+		return areacode;
+	}
+
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
+	}
+
+	public String getSigungucode() {
+		return sigungucode;
+	}
+
+	public void setSigungucode(String sigungucode) {
+		this.sigungucode = sigungucode;
+	}
 
 	public String getPlace_idx() {
 		return place_idx;
