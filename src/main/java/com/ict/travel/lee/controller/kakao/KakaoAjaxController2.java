@@ -11,20 +11,27 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.inject.spi.Element;
 import com.ict.travel.lee.dao.KakaoDAO;
 import com.ict.travel.lee.dao.MemberDAO;
+import com.ict.travel.lee.dao.MemberVO;
+import com.ict.travel.lee.service.KakaoService;
 import com.ict.travel.lee.service.MemberService;
 
 @RestController
 public class KakaoAjaxController2 {
 	
 	@Autowired
-	private MemberService memberService;
+	private MemberDAO memberDAO;
 	
 	@RequestMapping(value = "kakaoUser2.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
@@ -74,16 +81,8 @@ public class KakaoAjaxController2 {
 				
 				
 				// DB 저장하기
-				Map<String, Object> map = new HashMap<>();
-				map.put("kakao_nickname", kakao_nickname);
-				map.put("kakao_email", kakao_email);
 				
-				int result1 = memberService.KakaoLogin(map);
-				if(result1 > 0) {
-					return kakao_id + "/" + kakao_nickname + "/" + kakao_email + "/";
-				} else {
-					return "error";
-				}
+				return kakao_id + "/" + kakao_nickname + "/" + kakao_email + "/";
 				
 			}
 			
@@ -94,6 +93,9 @@ public class KakaoAjaxController2 {
 		
 		return null;
 	}
+	
+	
+	
 	
 	
 }

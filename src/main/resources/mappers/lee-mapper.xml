@@ -22,9 +22,12 @@
   	<select id="findId" resultType="mvo">
   		select * from user_t where u_name = #{u_name} and  u_email = #{u_email}
   	</select>
-  	<insert id="ka_insert" parameterType="mvo">
-  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active, k_nickname, k_email)
-  		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0, #{k_nickname}, #{k_email})
+  	<select id="findkakao" parameterType="Map" resultType="mvo">
+  		select * from user_t where k_nickname = #{k_nickname} and k_email = #{k_email}
+  	</select>
+  	<insert id="kakao_insert" parameterType="Map">
+  		insert into user_t(k_nickname, k_email)
+  		values(#{k_nickname}, #{k_email})
   	</insert>
   	
   </mapper>

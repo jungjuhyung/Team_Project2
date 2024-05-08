@@ -123,6 +123,11 @@ public class MemberVO {
 	public void setK_email(String k_email) {
 		this.k_email = k_email;
 	}
+
+	public String get(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

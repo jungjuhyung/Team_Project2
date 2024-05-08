@@ -18,8 +18,14 @@ public interface MemberService {
 	public int PassUpdate(MemberVO mvo);
 
 	public List<MemberVO> getFindId(MemberVO mvo);
+
+ 	public String getAccessToken(String code);
+
+	public MemberVO getUserInfo(String access_Token);
 	
-	public int KakaoLogin(HashMap<String, Object> map);
+	
+
+
 
 	
 	
