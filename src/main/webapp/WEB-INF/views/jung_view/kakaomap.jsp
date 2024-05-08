@@ -216,7 +216,6 @@ $(".chk_box").change(function() {
 
 // --------------------------- 여기서부터 선긋기 함수 실행
 
-
 function line_draw(marker) {
     // 마우스로 클릭한 위치입니다
    	var clickPosition = marker.getPosition();
