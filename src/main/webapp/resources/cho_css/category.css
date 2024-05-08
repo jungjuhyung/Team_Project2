@@ -1,5 +1,8 @@
 @charset "UTF-8";
 @import "../common_css/reset.css";
+body {
+    background-image: url(/resources/ko_images/bg.png);
+}
 * {
   box-sizing: border-box;
 }
@@ -18,7 +21,7 @@
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
   cursor: pointer; /* 커서 모양 설정 */
   text-align: center;
 }
@@ -27,7 +30,7 @@
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
 }
 
 /* 결과 보기 옵션 */
@@ -36,7 +39,7 @@
   height: 20px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
   cursor: pointer; /* 커서 모양 설정 */
   text-align: center;
 }
@@ -47,7 +50,7 @@
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
   background-color: white; /* 버튼 배경색 */
   color: black; /* 글자색 */
   cursor: pointer; /* 커서 모양 설정 */
