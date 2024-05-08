@@ -10,9 +10,9 @@ public class TourtestDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public TourtestVO tourDetail(String place_idx) {
+	public TourtestVO tourDetail(String path_maker_idx) {
 		try {
-			return sqlSessionTemplate.selectOne("tourtest_t.tourDetail", place_idx);
+			return sqlSessionTemplate.selectOne("tourtest_t.tourDetail",path_maker_idx);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

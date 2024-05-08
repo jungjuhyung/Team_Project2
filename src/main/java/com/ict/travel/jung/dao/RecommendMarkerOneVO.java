@@ -1,7 +1,7 @@
-package com.ict.travel.kim.dao;
+package com.ict.travel.jung.dao;
 
-public class TourtestVO {
-	private String path_maker_idx, path_post_idx, mapy, mapx, img01, img02, img03, img04, img05, regdate, contentid;
+public class RecommendMarkerOneVO {
+	String path_maker_idx, path_post_idx, mapx, mapy, contentid, img01, img02, img03, img04, img05, regdate;
 
 	public String getPath_maker_idx() {
 		return path_maker_idx;
@@ -19,6 +19,14 @@ public class TourtestVO {
 		this.path_post_idx = path_post_idx;
 	}
 
+	public String getMapx() {
+		return mapx;
+	}
+
+	public void setMapx(String mapx) {
+		this.mapx = mapx;
+	}
+
 	public String getMapy() {
 		return mapy;
 	}
@@ -27,12 +35,12 @@ public class TourtestVO {
 		this.mapy = mapy;
 	}
 
-	public String getMapx() {
-		return mapx;
+	public String getContentid() {
+		return contentid;
 	}
 
-	public void setMapx(String mapx) {
-		this.mapx = mapx;
+	public void setContentid(String contentid) {
+		this.contentid = contentid;
 	}
 
 	public String getImg01() {
@@ -82,15 +90,4 @@ public class TourtestVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-
-	public String getContentid() {
-		return contentid;
-	}
-
-	public void setContentid(String contentid) {
-		this.contentid = contentid;
-	}
-
-	
-	
 }

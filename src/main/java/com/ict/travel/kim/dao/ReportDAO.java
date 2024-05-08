@@ -81,8 +81,14 @@ public class ReportDAO {
 		return -1;
 	}
 
-	
-	
+	public int reportState(String report_idx) {
+		try {
+			return sqlSessionTemplate.update("report_t.reportState", report_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
 	
 	
 	

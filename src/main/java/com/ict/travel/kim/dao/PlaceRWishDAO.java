@@ -1,21 +1,24 @@
-package com.ict.travel.lee.dao;
-
+package com.ict.travel.kim.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class KakaoDAO {
+public class PlaceRWishDAO {
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public int kakaoLogin(MemberVO mvo) {
+	public PlaceRWishVO placeRDetail(String place_idx) {
 		try {
-			return sqlSessionTemplate.insert("lee-mapper.kakao_insert");
+			return sqlSessionTemplate.selectOne("placerwish_t.placeRDetail", place_idx);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return -1;
+		return null;
 	}
+	
+	
+	
 }

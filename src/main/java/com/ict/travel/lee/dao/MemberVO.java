@@ -2,7 +2,7 @@ package com.ict.travel.lee.dao;
 
 public class MemberVO {
 	private String u_idx, u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, 
-			u_stopdate, u_regdate, u_active;
+			u_stopdate, u_regdate, u_active, k_nickname, k_email;
 
 	public String getU_idx() {
 		return u_idx;
@@ -106,6 +106,22 @@ public class MemberVO {
 
 	public void setU_active(String u_active) {
 		this.u_active = u_active;
+	}
+
+	public String getK_nickname() {
+		return k_nickname;
+	}
+
+	public void setK_nickname(String k_nickname) {
+		this.k_nickname = k_nickname;
+	}
+
+	public String getK_email() {
+		return k_email;
+	}
+
+	public void setK_email(String k_email) {
+		this.k_email = k_email;
 	}
 	
 	

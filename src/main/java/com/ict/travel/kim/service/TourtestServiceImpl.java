@@ -13,7 +13,11 @@ public class TourtestServiceImpl implements TourtestService {
 	private TourtestDAO tourtestDAO;
 
 	@Override
-	public TourtestVO tourDetail(String place_idx) {
-		return tourtestDAO.tourDetail(place_idx);
+	public TourtestVO tourDetail(String path_maker_idx) {
+		return tourtestDAO.tourDetail(path_maker_idx);
 	}
+
+	
+
+	
 }

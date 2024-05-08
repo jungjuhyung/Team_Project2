@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoDAO;
 import com.ict.travel.ko.dao.KoVO;
 
@@ -28,5 +29,20 @@ public class KoServiceIple implements KoService{
 	public List<KoVO> getPathList(String contentid) {
 		return koDAO.getPathList(contentid);
 	}
-
+	/*
+	@Override public List<KoPathVO> getPathList(String contentid) { 
+		return koDAO.getPathList(contentid); 
+	}
+	*/
+	
+	@Override
+	public ItemVO getPlaceDetail(String contentid) {
+		return koDAO.getPlaceDetail(contentid);
+	}
+	
+	@Override
+	public String getPlaceWish(ItemVO itemVO) {
+		return koDAO.getPlaceWish(itemVO);
+	}
+	
 }

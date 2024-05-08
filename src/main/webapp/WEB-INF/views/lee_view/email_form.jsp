@@ -7,35 +7,30 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
+function idfindForm(f) {
+		var name = document.getElementById("u_name").value;
+		var email = document.getElementById("u_email").value;
+		var emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+(\.[a-zA-Z]+)?$/;
+		
+		if(name.trim() === ""){
+			alert("이름을 입력하세요.");
+			return false;
+		}
+		if(email.trim() === ""){
+			alert("이메일을 입력하세요.");
+			return false;
+		}else if(!emailPattern.test(email)){
+			alert("이메일 형식이 아닙니다.");
+			return false;
+		}
+		f.action="idFind_go.do";
+		f.submit();
 	
-	let name = document.getElementById("u_name")
-	let email = document.getElementById("u_email")
-	
-	$("#btn").on("click", function() {
-		$("#userInfo").empty();
-		$.ajax({
-			url : "getAjaxId.do",
-			data : {"u_name" : name , "u_email" : email} ,
-			method : "post",
-			dataType : "text",
-			
-			success : function (data){
-				if(data == 0){
-					$('#u_name').val();
-					$('#u_email').val();
-				}
-				$("#userInfo").append(data);
-			},
-			error:function(){
-				alert("아이디를 가져오지 못했습니다.");
-			}
-		});
-	});
+}
 	
 	
 	
-})
+
 </script>
 </head>
 <body>
@@ -45,20 +40,27 @@ $(document).ready(function() {
             pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" title="이메일 양식">
         <input type="submit" value="전송">
     </form>
-    <h2>아이디 찾을 이메일을 넣어주세요</h2>
     
-    <form action="id_send_ok.do" method="post">
+    <h2>아이디 찾을 이메일을 넣어주세요</h2>
+    <span id="userInfo"></span>
+    <form method="post">
     <label>이름
     	<input type="text" id="u_name" name="u_name"><br>
     </label>
     <label>이메일
-    	
     	<input type="email" id="u_email" name="u_email"
     		pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" title="이메일 양식">
-    	
     </label>
-    <div id="userInfo"></div>
-    	<input type="submit" onclick="btn" value="전송">
+    
+    	<input type="button" onclick="idfindForm(this.form)" value="전송">
     </form>
 </body>
 </html>
+
+
+
+
+
+
+
+

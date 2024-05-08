@@ -13,7 +13,7 @@
 .main_image img {
 	margin: 10px;
 	border-radius: 20px;
-	box-shadow: 0 0 10px black;
+	box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 .main_content {
@@ -63,12 +63,12 @@
 }
 
 /* 찜하기 버튼 */
-.wish_btn {
+#wish_btn {
 	text-align: center;
 	margin: 20px auto;
 }
 
-.wish_btn button {
+#wish_btn button {
 	padding: 10px;
 	border: none;
 	outline: none;
@@ -81,7 +81,7 @@
 }
 
 
-.wish_btn button:hover {
+#wish_btn button:hover {
 	color: black;
 	font-weight: bold;
 }

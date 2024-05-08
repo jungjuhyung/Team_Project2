@@ -15,9 +15,6 @@
 	function getReportgo() {
 		location.href="getReportgo";
 	}
-	function pathDetail(f) {
-		location.href="pathDetail";
-	}
 	
 </script>
 </head>
@@ -38,9 +35,14 @@
 			<input type="text">
 			<input type="button" onclick="boardList()" value="게시판">
 			<input type="button" onclick="getReportgo()" value="게시판2">
-			<input type="hidden" name="place_idx" value="126.613138">
-			<input type="hidden" name="right" value="37.646322">
-			<input type="button" onclick="pathDetail(this.form)" value="경로리뷰">
+		</fieldset>
+	</form>
+	<form action="pathReviewDetail" method="post">
+		<fieldset>
+			<input type="text">
+			<input type="hidden" name="path_maker_idx" value="1">
+			<input type="hidden" name="place_idx" value="203">
+			<input type="submit" value="경로리뷰">
 		</fieldset>
 	</form>
 </div>

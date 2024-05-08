@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,13 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.ict.travel.lee.dao.KakaoDAO;
+import com.ict.travel.lee.dao.MemberDAO;
+import com.ict.travel.lee.service.MemberService;
 
 @RestController
 public class KakaoAjaxController2 {
-	;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping(value = "kakaoUser2.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
@@ -26,8 +32,9 @@ public class KakaoAjaxController2 {
 		
 		String access_token = (String) session.getAttribute("access_token");
 		
-//		HashMap<String, Object> userInfo = new HashMap<String, Object>();
 		String apiURL = "https://kapi.kakao.com/v2/user/me";
+		
+				
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -59,14 +66,25 @@ public class KakaoAjaxController2 {
 				
 				KakaoUsersVO kvo = gson.fromJson(result, KakaoUsersVO.class);
 				
+				
 				String kakao_id = kvo.getId();
 				String kakao_nickname = kvo.getProperties().getNickname();
 				String kakao_email = kvo.getKakao_account().getEmail();
-//				userInfo.put("kakao_nickname", kakao_nickname);
-//				userInfo.put("kakao_email", kakao_email);
+						
+				
 				
 				// DB 저장하기
-				return kakao_id + "/" + kakao_nickname + "/" + kakao_email + "/";
+				Map<String, Object> map = new HashMap<>();
+				map.put("kakao_nickname", kakao_nickname);
+				map.put("kakao_email", kakao_email);
+				
+				int result1 = memberService.KakaoLogin(map);
+				if(result1 > 0) {
+					return kakao_id + "/" + kakao_nickname + "/" + kakao_email + "/";
+				} else {
+					return "error";
+				}
+				
 			}
 			
 		} catch (Exception e) {
@@ -76,4 +94,19 @@ public class KakaoAjaxController2 {
 		
 		return null;
 	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

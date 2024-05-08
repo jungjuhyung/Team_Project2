@@ -31,6 +31,7 @@ body {
 	cursor: pointer;
 	border-radius: 30px;
 	transition: transform 0.2s ease;
+	background-color: white;
 }
 
 .path_box:hover {
@@ -55,8 +56,10 @@ body {
 	width: 220px;
 	height: 50px;
 	text-align: center;
-	color: gray;
+	color: black;
 	font-size: 16px;
+	font-weight: bold;
+	line-height: 40px;
 }
 
 .path_button {
@@ -72,10 +75,12 @@ body {
 /* 슬라이드 이미지 배경 */
 .img_slider2 {
     margin: 10px auto;
-    padding: 10px;
     display: flex;
 	z-index: -1;
 	position: absolute;
+	background-color: white;
+    border-radius: 20px;
+	
 }
 
 .slide_show2{

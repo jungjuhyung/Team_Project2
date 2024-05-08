@@ -16,11 +16,52 @@
 		<!-- 나중에는 pathpost_t 에서 contenttypeid 와 like 많은거 뽑아오게 -->
 	</select>
 	
+	<!-- css 때문에 나중에 아래로 변경-->
 	<select id="path_list" parameterType="String" resultType="kovo">
-		select * from tourapi_t where areacode = 7 limit 4
-		<!-- 나중에는 pathpost_t 에서 contentid 가 들어가 있는 경로 중에 like 많은거 뽑아오기 -->
+		select * from tourapi_t where areacode = 1 limit 4
 	</select>
-		
+	<!-- 
+	<select id="path_list" parameterType="String" resultType="kopathvo">
+		select p.*
+		from pathmaker_t m , pathpost_t p
+		where m.path_post_idx = p.path_post_idx and m.contentid = #{contentid}
+		order by like desc
+		limit 4
+	</select>
+	-->	
+	
+	<select id="place_detail" parameterType="String" resultType="ivo">
+		select * from tourapi_t where contentid = #{contentid}
+	</select>
+	
+	<select id="wish_check" parameterType="String" resultType="String">
+		select count(*) from placewish_t where contentid = #{contentid}
+	</select>
+	
+	<delete id="wish_delete" parameterType="String">
+		delete from placewish_t where contentid = #{contentid} 
+	</delete>
+	
+	<update id="tour_like_minus" parameterType="String">
+		update tourapi_t  
+		set heart -= heart
+		where contentid = #{contentid} 
+	</update>
+	
+	<insert id="wish_insert" parameterType="ivo">
+		insert into placewish_t(u_idx, contentid, mapx, mapy, addr1, firstimage, place_title, 
+								contenttypeid, regdate)  
+		values(1, #{contentid}, #{mapx}, #{mapy}, #{addr1}, #{firstimage}, #{title}, 
+				#{contenttypeid}, sysdate())
+	</insert>
+	
+	<update id="tour_like_plus" parameterType="String">
+		update tourapi_t  
+		set heart += heart
+		where contentid = #{contentid} 
+	</update>	
+
+	 
 </mapper>
 
 

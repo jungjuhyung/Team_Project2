@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoVO;
 import com.ict.travel.ko.service.KoService;
 
@@ -131,9 +132,17 @@ public class KoAjaxController {
 	}
 	
 	
-	@RequestMapping(value = "ko_place_wish.do", produces = "text/plain; charset=utf-8")
+	@RequestMapping(value = "ko_ajax_wish.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String koPlaceWish(String contentid) {
+		//System.out.println(contentid);
+		
+		ItemVO itemVO = koService.getPlaceDetail(contentid);
+		if (itemVO != null) {
+			String result = koService.getPlaceWish(itemVO);
+			System.out.println("getPlaceWish : " + result);
+			return result;
+		}
 		return null;
 	}
 	

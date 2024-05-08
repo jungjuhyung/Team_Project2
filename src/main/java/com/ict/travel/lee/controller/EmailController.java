@@ -1,5 +1,6 @@
 package com.ict.travel.lee.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -44,6 +45,7 @@ public class EmailController {
 		return new ModelAndView("error");
 	}
 	
+	// 비밀번호 찾기 - 이메일 전송
 	@PostMapping("email_send_ok.do")
 	public ModelAndView sendMailOK(String email) {
 		try {
@@ -90,6 +92,29 @@ public class EmailController {
 	}
 	@PostMapping("email_pass_ok.do")
 	public ModelAndView sentNumberOK() {
+		try {
+			ModelAndView mv = new ModelAndView("lee_view/loginForm");
+			return mv;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return new ModelAndView("error");
+	}
+	
+	// 아이디 찾기
+	@PostMapping("idFind_go.do")
+	public ModelAndView getFindId(MemberVO mvo) {
+			ModelAndView mv = new ModelAndView();
+			List<MemberVO> list = memberService.getFindId(mvo);
+			if(list != null) {
+				mv.addObject("list", list);
+				mv.setViewName("lee_view/id_find");
+				return mv;
+			}
+		return new ModelAndView("error");
+	}
+	@PostMapping("backup.do")
+	public ModelAndView backEmailFomr() {
 		try {
 			ModelAndView mv = new ModelAndView("lee_view/loginForm");
 			return mv;

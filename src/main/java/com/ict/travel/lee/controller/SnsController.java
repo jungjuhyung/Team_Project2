@@ -10,12 +10,19 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.ict.travel.lee.controller.kakao.KakaoAccout;
+import com.ict.travel.lee.controller.kakao.KakaoProperties;
+import com.ict.travel.lee.controller.kakao.KakaoUsersVO;
 import com.ict.travel.lee.controller.kakao.KakaoVO;
+import com.ict.travel.lee.service.KakaoService;
+import com.ict.travel.lee.service.MemberService;
 
 @Controller
 public class SnsController {
@@ -31,6 +38,7 @@ public class SnsController {
 	public ModelAndView kakaoLogin(HttpServletRequest request) {
 		// 1. 인증 코드 받기
 		String code = request.getParameter("code");
+		
 		// 2. 토큰 받기(인증코드필요)
 		String reqURL = "https://kauth.kakao.com/oauth/token";
 		try {
@@ -73,9 +81,11 @@ public class SnsController {
 				Gson gson = new Gson();
 				KakaoVO kvo = gson.fromJson(result, KakaoVO.class);
 				
+				
 				request.getSession().setAttribute("access_token", kvo.getAccess_token());
 				request.getSession().setAttribute("refresh_token", kvo.getRefresh_token());
 				request.getSession().setAttribute("token", kvo.getToken_type());
+				
 				
 				return new ModelAndView("lee_view/login_test");
 				
@@ -85,6 +95,9 @@ public class SnsController {
 		}
 		return new ModelAndView("error");
 	}
+	
+	
+	
 	// 카카오 로그아웃
 	@RequestMapping("kakaologout.do")
 	public ModelAndView getKakaoLogout(HttpSession session) {

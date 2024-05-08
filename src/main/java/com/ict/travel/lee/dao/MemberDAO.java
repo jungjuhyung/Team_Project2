@@ -1,5 +1,7 @@
 package com.ict.travel.lee.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -46,6 +48,28 @@ public class MemberDAO {
 		}
 		return -1;
 	}
+
+	public List<MemberVO> getFindId(MemberVO mvo) {
+		try {
+			return sqlSessionTemplate.selectList("lee-mapper.findId", mvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	public int KakaoLogin(HashMap<String, Object> map) {
+		try {
+			return sqlSessionTemplate.insert("lee-mapper.ka_insert", map);
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		return -1;
+	}
+
+
+	
+
+	
 
 	
 
