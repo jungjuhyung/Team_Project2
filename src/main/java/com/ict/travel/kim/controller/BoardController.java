@@ -34,9 +34,10 @@ public class BoardController {
 	private Paging paging;
 	
 	@RequestMapping("getReportgo")
-	public ModelAndView getSpringAjax2() {
+	public ModelAndView getReportgo() {
 		return new ModelAndView("kim_view/reportList");
 	}
+
 	
 	@RequestMapping("boardList")
 	@ResponseBody
@@ -119,6 +120,7 @@ public class BoardController {
 			if (result>0 && boardvo !=null) {
 				
 				List<CommentVO> comment_list = boardService.commentList(board_idx);
+				System.out.println(comment_list);
 				mv.addObject("comment_list", comment_list);
 				mv.addObject("boardvo", boardvo);
 				mv.addObject("cPage", cPage);

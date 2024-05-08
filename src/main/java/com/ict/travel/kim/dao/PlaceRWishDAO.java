@@ -5,18 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TourtestDAO {
+public class PlaceRWishDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public TourtestVO tourDetail(String path_maker_idx) {
+	public PlaceRWishVO placeRDetail(String place_idx) {
 		try {
-			return sqlSessionTemplate.selectOne("tourtest_t.tourDetail",path_maker_idx);
+			return sqlSessionTemplate.selectOne("placerwish_t.placeRDetail", place_idx);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
 	}
+	
+	
 	
 }

@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="tourtest_t">
+<mapper namespace="placerwish_t">
 	
 	
-	<select id="tourDetail" resultType="tourtestvo">
-		select * from pathmaker_t where path_maker_idx = #{path_maker_idx}
+	<select id="placeRDetail" resultType="placerwishvo">
+		select * from placewish_t where place_idx = #{place_idx}
 	</select>
 	
 </mapper>

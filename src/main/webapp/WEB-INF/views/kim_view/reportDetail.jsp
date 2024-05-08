@@ -40,6 +40,11 @@ function commentDelete(f) {
 	f.action="commentDelete";
 	f.submit();
 }
+function reportConfirm(f) {
+	console.log="${reportvo.report_idx}";
+	f.action="reportConfirm";
+	f.submit();
+}
 </script>
 
 </head>
@@ -76,53 +81,19 @@ function commentDelete(f) {
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="getReportgo(this.form)"/>
 				<!-- 답변이 달리면 수정 삭제 불가 -->
+				<c:choose>
+					<c:when test="${reportvo.report_state ==0}">
 				<input class="but4" type="button" value="수정" onclick="reportUpdate(this.form)"/>
 				<input class="but4" type="button" value="삭제" onclick="reportDelete(this.form)"/>
+				<!-- 관리자 확인버튼 -->
+				<input class="but4" type="button" value="확인" onclick="reportConfirm(this.form)"/>
+				</c:when>
+			</c:choose>
 			</div>
 		</div>
 	</form>
 	
 	
-	<%-- 댓글 출력 --%>
-	<div class="recomment">
-		<c:forEach var="k" items="${comment_list}">
-			<div >
-				<form method="post">
-				<div class="renick">
-					닉네임 
-				</div>
-			<div class="recontent">
-					<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
-				</div>
-			<div class="rebutton">
-					${k.regdate.substring(0,10)}
-					<input class="rewrite" type="button" value="삭제" onclick="commentDelete(this.form)">
-				</div>
-					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
-					<input type="hidden" name = "report_idx" value="${k.report_idx}" >
-					
-				</form>
-			</div>
-		</c:forEach>
-	</div>	
-		<!-- 댓글 입력 관리자만 쓸수 있게 바꿈-->
-	<div class="recomment">
-		<form method="post">
-			<fieldset>
-			<div class="renick">
-				<span>관리자 : ${reportvo.u_id}</span> 
-			</div>
-			<div class="recontent">
-				<textarea rows="3" cols="40" name="content"></textarea>
-			</div>
-			<div class="rebutton">
-				<input class="rewrite" type="button" value="저장" onclick="commentInsert(this.form)">
-			</div>
-				<!-- 댓글 저장시 어떤 원글의 댓글인지 저장해야 한다. -->
-				<input type="hidden" name = "report_idx" value="${reportvo.report_idx}" >
-			</fieldset>
-		</form>
-	</div>
 	<div id="empty-area">
 	</div>
 	 
