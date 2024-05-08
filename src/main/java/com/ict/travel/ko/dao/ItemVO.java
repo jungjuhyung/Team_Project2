@@ -26,7 +26,25 @@ public class ItemVO {
 					mapy,
 					overview,
 					title,
-					firstimage;
+					firstimage,
+					uheart,
+					heart;
+
+	public String getUheart() {
+		return uheart;
+	}
+
+	public void setUheart(String uheart) {
+		this.uheart = uheart;
+	}
+
+	public String getHeart() {
+		return heart;
+	}
+
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 
 	public String getContentid() {
 		return contentid;

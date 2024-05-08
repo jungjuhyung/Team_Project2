@@ -17,7 +17,7 @@
 </head>
 <body>
 	
-	<section style="height: 170px;">
+	<section class="header" style="height: 170px;">
 		<nav class="ko_nav">
 			<div class="ko_logo" onclick="main_go()">
 				<img alt="" src="resources/ko_images/logo.png">
