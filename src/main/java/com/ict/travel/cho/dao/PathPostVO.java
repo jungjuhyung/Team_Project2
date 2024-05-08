@@ -1,7 +1,15 @@
 package com.ict.travel.cho.dao;
 
 public class PathPostVO {
-	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, like;
+	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart;
+
+	public String getHeart() {
+		return heart;
+	}
+
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 
 	public String getPath_post_idx() {
 		return path_post_idx;
@@ -59,13 +67,5 @@ public class PathPostVO {
 		this.regdate = regdate;
 	}
 
-	public String getLike() {
-		return like;
-	}
-
-	public void setLike(String like) {
-		this.like = like;
-	}
-	
 	
 }

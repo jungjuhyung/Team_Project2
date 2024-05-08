@@ -74,19 +74,19 @@
 	        <if test="contentType != 999">
 	            AND contenttypeid = #{contentType}
 	        </if>
-	        <if test="title != null">
+	        <if test="path_post_title != null">
 	            AND path_post_title LIKE CONCAT('%', #{path_post_title}, '%')
 	        </if>
         </where>
         ORDER BY 
         <if test="order == null or order == '' or order == 'like'">
-		    like DESC, path_post_title ASC
+		    heart DESC, path_post_title ASC
 		</if>
 		<if test="order == 't_asc'">
-		    path_post_title ASC, like DESC
+		    path_post_title ASC, heart DESC
 		</if>
 		<if test="order == 't_desc'">
-		    path_post_title DESC, like DESC
+		    path_post_title DESC, heart DESC
 		</if>
          LIMIT #{limit} OFFSET #{offset} 
 	</select>

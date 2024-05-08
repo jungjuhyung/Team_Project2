@@ -196,37 +196,46 @@ body {
 }
 
 /***********테마CSS***************/
-.swipe-Wrapper{
-	width: 960px;
-	margin: 0 auto;
-	position: relative;
-	overflow: hidden;
+ .swipe-Wrapper {
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
 }
-.swipe-arealist{
-	display: flex;
+.swipe-arealist {
+    display: flex;
+    position: relative;
 }
-.swipeAreaList{
-	width: 75px;
-	height: 100px;
-	margin-right: 21px;
-	text-align: center;
+.swiper{
+	width: 960px!important;
 }
-.swipeAreaList:hover{
-	cursor: pointer;
+.swiper-slide {
+   width: 100px!important;
+   height: 100px!important;
+   text-align: center;
+   font-size: 18px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
 }
 
-.swipeAreaList > img{
-	width: 75px;
-	border-radius: 50%;
-	background-color: black;
-	height: 80px;
+.swipeAreaList img {
+    width: 75px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: black;
+    height: 80px;
+    object-fit: cover;
+} 
+
+
+.swipeAreaList:hover {
+    cursor: pointer;
 }
-.swipe-Main{
-	position:relative;
-	width: 100%;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
+
+
+
+
 #areaName{
 	font-size: 36px;
 	font-weight: bold;
