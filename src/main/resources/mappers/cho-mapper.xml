@@ -98,14 +98,13 @@
 
 	
 	<select id="selectPlaceOne" parameterType="String" resultType="placeWishVO">
-		SELECT contentid, mapx, mapy, addr1, firstimage, title AS place_title , contenttypeid FROM tourapi_t WHERE contentid = #{contentid}
+		SELECT contentid, mapx, mapy, addr1, firstimage, title AS place_title , contenttypeid, sigungucode, areacode  FROM tourapi_t WHERE contentid = #{contentid}
 	</select>
 	
-		
 	<insert id="placeWishAdd" parameterType="Map">
 		INSERT INTO 
-		 placewish_t(u_idx, contentid, mapx, mapy, addr1, firstimage, place_title,contenttypeid, regdate) 
-		 VALUES(#{u_idx}, #{placeWishVO.contentid}, #{placeWishVO.mapx}, #{placeWishVO.mapy}, #{placeWishVO.addr1}, #{placeWishVO.firstimage}, #{placeWishVO.place_title}, #{placeWishVO.contenttypeid}, sysdate())
+		 placewish_t(u_idx, contentid, mapx, mapy, addr1, firstimage, place_title,contenttypeid,sigungucode, areacode, regdate) 
+		 VALUES(#{u_idx}, #{placeWishVO.contentid}, #{placeWishVO.mapx}, #{placeWishVO.mapy}, #{placeWishVO.addr1}, #{placeWishVO.firstimage}, #{placeWishVO.place_title}, #{placeWishVO.contenttypeid}, #{placeWishVO.sigungucode}, #{placeWishVO.areacode}, sysdate())
 	</insert>
 	
 	<!-- 추가된 wish heart 증가 -->
