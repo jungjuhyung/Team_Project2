@@ -28,7 +28,7 @@
         </where>
 	</select>
 	
-	<!-- 검색(지역,시군구,타입) -->
+	<!-- 지역 검색(지역,시군구,타입) -->
 	<select id="selectTourList" parameterType="Map" resultType="choTourVO">
 		SELECT contentid, contenttypeid, title, firstimage, heart FROM tourapi_t 
 		<where>
@@ -54,6 +54,39 @@
 		</if>
 		<if test="order == 't_desc'">
 		    title DESC, heart DESC
+		</if>
+         LIMIT #{limit} OFFSET #{offset} 
+	</select>
+	
+	
+	<!-- 경로 검색(지역,시군구,타입) -->
+	
+	<!-- 검색(지역,시군구,타입) -->
+	<select id="selectTourPathList" parameterType="Map" resultType="pathpostVO">
+		SELECT * FROM pathpost_t
+		<where>
+			<if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+	        <if test="title != null">
+	            AND path_post_title LIKE CONCAT('%', #{path_post_title}, '%')
+	        </if>
+        </where>
+        ORDER BY 
+        <if test="order == null or order == '' or order == 'like'">
+		    like DESC, path_post_title ASC
+		</if>
+		<if test="order == 't_asc'">
+		    path_post_title ASC, like DESC
+		</if>
+		<if test="order == 't_desc'">
+		    path_post_title DESC, like DESC
 		</if>
          LIMIT #{limit} OFFSET #{offset} 
 	</select>
@@ -123,19 +156,3 @@
 			 #{title}, #{zipcode}, 0, sysdate())
 	</insert>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

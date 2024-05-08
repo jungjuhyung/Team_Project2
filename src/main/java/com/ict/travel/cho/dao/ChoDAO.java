@@ -137,5 +137,23 @@ public class ChoDAO {
 		return 0;
 	}
 
+	public List<ChoTourVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
+			String order, int offset, int limit) {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("areaCode", areaCode);
+			map.put("sigunguCode", sigunguCode);
+			map.put("contentType", contentType);
+			map.put("title", title);
+			map.put("offset", offset );
+			map.put("limit", limit );
+			map.put("order", order );
+			return sqlSessionTemplate.selectList("cho_mapper.selectTourPathList", map);
+		} catch (Exception e) {
+			System.out.println("지역 검색" + e);
+		}
+		return null;
+	}
+
 
 }

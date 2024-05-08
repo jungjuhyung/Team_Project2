@@ -50,4 +50,10 @@ public class ChoServiceImpl implements ChoService{
 	public int dataUpdate(List<TourapiVO> voList) {
 		return choDAO.dataUpdate(voList);
 	}
+	
+	@Override
+	public List<ChoTourVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
+			String order, int offset, int limit) {
+		return choDAO.getChoTourPathList(areaCode, sigunguCode, contentType, title, order, offset, limit);
+	}
 }

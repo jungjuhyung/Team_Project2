@@ -219,6 +219,58 @@ public class ChoAjaxController {
 		return jsonString;
 	}
 	
+	// 지역 경로 검색
+	@RequestMapping(value = "searchAreaPath", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String searchAreaPath(String areaCode, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		
+		 List<ChoTourVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like",0, 4);
+		 List<ChoTourVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like",0, 4);
+		 List<ChoTourVO> restaurantList = choService.getChoTourPathList(areaCode, "999", "39",null,"like",0, 4);
+		
+		Map<String, Object> result = new HashMap<>();
+
+	
+		// 유저 로그인 상태일 때 찜 여부
+		if(uvo != null) {
+			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+			for (ChoTourVO k : touristList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+			for (ChoTourVO k : partyList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+			for (ChoTourVO k : restaurantList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+		}
+		result.put("touristList", touristList);
+		result.put("partyList", partyList);
+		result.put("restaurantList", restaurantList);
+		
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(result);
+		return jsonString;
+	}
+	
+	
+	
 	// 디비 최신화
 	@RequestMapping(value = "updateTest", produces = "application/json; charset=utf-8" )
 	@ResponseBody
@@ -263,6 +315,7 @@ public class ChoAjaxController {
 
 	}
 	
-	
+		
+
 	
 }

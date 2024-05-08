@@ -96,7 +96,7 @@
 		$('.areaName').empty();
 		$('.areaName').text(areaName);
 		$.ajax({
-			url : "searchAreaPlace",
+			url : "searchAreaPath",
 			type : "post",
 			data : {
 				areaCode: areaCode,
@@ -207,21 +207,21 @@
 			</div>
 		 </div>
 		 
-		 <div id="thema-titleWrap" class="section"><div id="thema-title">우리 지역 핫플레이스</div> <div class = "SearchTitleView">상세 검색 하기</div></div>
+		 <div id="thema-titleWrap" class="section"><div id="thema-title">우리 지역 추천 경로</div> <div class = "SearchTitleView">상세 검색 하기</div></div>
 		 <div id = "hot-place-back">
 			 <div id = "hot-place-wrapper">
 			 	<div id = thema-wrapper>
 				 	<div class= "thema-box">
-				 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName">{지역}</span> 추천 맛집 경로</h4>
+				 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName">{지역}</span> 랜드마크 경로</h4>
 				 		<div id="touristPlace" class="place-Wrapper"> 
 				 		</div>
 				 	</div>
 				 	<div class= "thema-box">
-				 		<h4 id="party" class="thema-subtitle"><span class="areaName">{지역}</span> 추천 축제</h4>
+				 		<h4 id="party" class="thema-subtitle"><span class="areaName">{지역}</span> 축제 테마 경로</h4>
 				 		<div id="partyPlace"  class="place-Wrapper "></div>
 				 	</div>
 				 	<div class= "thema-box" >
-				 		<h4 id="restaurant" class="thema-subtitle"><span class="areaName">{지역}</span> 추천 맛집</h4>
+				 		<h4 id="restaurant" class="thema-subtitle"><span class="areaName">{지역}</span> 맛집 테마 경로</h4>
 				 		<div id="restaurantPlace"  class="place-Wrapper"></div>
 				 	</div>
 				 </div>

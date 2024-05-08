@@ -17,6 +17,8 @@ public interface ChoService {
 	int getPlaceWishAdd(String contentid, String u_idx);
 	int getPlaceWishRemove(String contentid, String u_idx);
 	int dataUpdate(List<TourapiVO> voList);
-
+	// 검색(지역,시군구,기타)
+	List<ChoTourVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title, String order, int offset, int limit);
+	
 
 }
