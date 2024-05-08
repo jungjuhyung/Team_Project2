@@ -31,7 +31,7 @@
 }
 
 /* 결과 보기 옵션 */
-#viewLimit {
+#viewLimit, #orderOption{
   width: 130px;
   height: 20px;
   border: 2px solid black;
@@ -78,7 +78,9 @@
   margin: 10px 20px;
   text-align: center;
   border-radius: 30px;
+  background-color: #ffffff;
   transition: transform 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 .place-box:hover {
   transform: translateY(-10px); /* 마우스를 올렸을 때 약간 위로 이동 */
@@ -241,9 +243,21 @@
     border: 1px solid #666;
     margin-right: 20px;
 }
-
+#thema-titleWrap{
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 20px auto; 
+	width: 1300px;
+	padding-right: 50px;
+}
+#hot-place-back{
+	background-color: #f4f5f7;
+}
 #hot-place-wrapper{
-	background-color: f4f5f7;
+	margin: 0 auto; 
+	width: 1300px;
+	padding: 10px;
 }
 .thema-box{
 	margin: 0 auto;
@@ -267,3 +281,30 @@
   border-radius: 10px;
   background-color: white;
 }
+
+#searchResultWrapper summary {
+  list-style-type: none;
+  font-size: 
+}
+.thema-subtitle{
+	font-size: 1.5rem;
+}
+#thema-title {
+	width: 400px;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.SearchTitleView{
+	font-size: 2rem;
+	font-weight: bold;
+	border-radius: 15px;
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 5px;
+ 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+.SearchTitleView:hover{
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
+}
+

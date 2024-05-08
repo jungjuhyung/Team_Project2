@@ -17,8 +17,8 @@ public class ChoServiceImpl implements ChoService{
 	private ChoDAO choDAO;
 	
 	@Override
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, int offset, int limit) {
-		return choDAO.getChoTourList(areaCode, sigunguCode, contentType,title, offset, limit);
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order,int offset, int limit) {
+		return choDAO.getChoTourList(areaCode, sigunguCode, contentType, title, order, offset, limit);
 	}
 	
 	@Override

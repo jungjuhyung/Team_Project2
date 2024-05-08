@@ -1,5 +1,6 @@
 package com.ict.travel.cho.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class ChoDAO {
 		return 0;
 	}
 	// 페이징 검색
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, int offset, int limit) {
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order, int offset, int limit) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("areaCode", areaCode);
@@ -50,6 +51,7 @@ public class ChoDAO {
 			map.put("title", title);
 			map.put("offset", offset );
 			map.put("limit", limit );
+			map.put("order", order );
 			return sqlSessionTemplate.selectList("cho_mapper.selectTourList", map);
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);
@@ -78,6 +80,7 @@ public class ChoDAO {
 			transactionManager.commit(status);
 			return result;
 		} catch (Exception e) {
+			transactionManager.rollback(status);
 			System.out.println(e);
 		}
 		return 0;
@@ -100,6 +103,7 @@ public class ChoDAO {
 			transactionManager.commit(status);
 			return result;
 		} catch (Exception e) {
+			transactionManager.rollback(status);
 			System.out.println(e);
 		}
 		return 0;
@@ -107,7 +111,26 @@ public class ChoDAO {
 	
 	public int dataUpdate(List<TourapiVO> voList) {
 		try {
-			return sqlSessionTemplate.update("cho_mapper.placeUpdate", voList);
+			int result = 0;
+			int cnt = 0;
+			int success = 0;
+			List<TourapiVO> tempList = new ArrayList<TourapiVO>();
+			// 데이터 정제
+			for (TourapiVO k : voList) {
+				if(k.getFirstimage() != null && !k.getFirstimage().equals("") && 
+						Double.parseDouble(k.getMapy()) > 30 && Double.parseDouble(k.getMapy()) < 45 && 
+						Double.parseDouble(k.getMapx()) > 120 && Double.parseDouble(k.getMapx()) < 135) {
+					tempList.add(k);
+				}else {
+				}
+			}
+			// 데이터 수정, 삽입
+			for (TourapiVO k : tempList) {
+				result= sqlSessionTemplate.update("cho_mapper.placeUpdate", k);
+				if(result != 1) {
+					sqlSessionTemplate.insert("cho_mapper.placeInsert", k);
+				}
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}

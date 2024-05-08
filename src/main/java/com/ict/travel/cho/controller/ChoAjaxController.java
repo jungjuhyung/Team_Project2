@@ -81,6 +81,7 @@ public class ChoAjaxController {
 			@RequestParam("page") String page, 
 			@RequestParam("title") String title,
 			@RequestParam("limit") int limit,
+			@RequestParam("order") String order,
 			HttpSession session) throws Exception {
 			
 			MemberVO uvo = (MemberVO) session.getAttribute("userVO");
@@ -123,11 +124,11 @@ public class ChoAjaxController {
 				paging.setEndBlock(paging.getTotalPage());
 			}
 			
-			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,paging.getOffset(), paging.getNumPerPage());
+			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,order,paging.getOffset(), paging.getNumPerPage());
 			
-			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
 			// 유저 로그인 상태일 때 찜 여부
 			if(uvo != null) {
+				List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
 				for (ChoTourVO k : choTourList) {
 					for (PlaceWishVO j : placeWishList) {
 						if(k.getContentid().equals(j.getContentid())) {
@@ -171,14 +172,44 @@ public class ChoAjaxController {
 	
 	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
 	@ResponseBody
-	public String searchAreaPlace(String areaCode) {
+	public String searchAreaPlace(String areaCode, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
-		 List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,0, 4);
-		 List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,0, 4);
-		 List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,0, 4);
+		 List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like",0, 4);
+		 List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like",0, 4);
+		 List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like",0, 4);
 		
 		Map<String, Object> result = new HashMap<>();
 
+	
+		// 유저 로그인 상태일 때 찜 여부
+		if(uvo != null) {
+			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+			for (ChoTourVO k : touristList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+			for (ChoTourVO k : partyList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+			for (ChoTourVO k : restaurantList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
+		}
 		result.put("touristList", touristList);
 		result.put("partyList", partyList);
 		result.put("restaurantList", restaurantList);
@@ -195,11 +226,8 @@ public class ChoAjaxController {
 	
 		
         String result1 = dataFetcher.fetchData("12");
-        System.out.println(result1);
         String result2 = dataFetcher.fetchData("15");
-        System.out.println(result2);
         String result3 = dataFetcher.fetchData("39");
-        System.out.println(result3);
         
         // JSON 데이터를 JSONObject로 파싱
         JSONObject obj1 = (JSONObject) JSONValue.parse(result1);
@@ -222,12 +250,12 @@ public class ChoAjaxController {
         
     
         // itemArray를 TourapiParser를 사용하여 List<TourapiVO>로 파싱
-        List<TourapiVO> PartyVoList = tourapiParser.parseJsonToVO(itemArray1.toString());
         List<TourapiVO> touristVoList = tourapiParser.parseJsonToVO(itemArray2.toString());
+        List<TourapiVO> PartyVoList = tourapiParser.parseJsonToVO(itemArray1.toString());
         List<TourapiVO> restaurantVoList = tourapiParser.parseJsonToVO(itemArray3.toString());
 
+        choService.dataUpdate(touristVoList);
 		choService.dataUpdate(PartyVoList);
-		choService.dataUpdate(touristVoList);
 		choService.dataUpdate(restaurantVoList);
         
         return "Success";
