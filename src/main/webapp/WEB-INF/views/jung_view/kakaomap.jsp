@@ -40,31 +40,6 @@
 		</c:forEach>
 	</div>
 	<form action="recommend_write_ok" method="post" enctype="multipart/form-data">
-		<p>경로 유형</p>
-		<input type="radio" name="contenttypeid" value="12">관광지
-		<input type="radio" name="contenttypeid" value="15">문화시설
-		<input type="radio" name="contenttypeid" value="39">음식
-		<input type="radio" name="contenttypeid" value="99">종합
-		<p>경로 지역</p>
-		<select name="areacode">
-			<option value="1">서울</option>
-			<option value="2">인천</option>
-			<option value="3">대전</option>
-			<option value="4">대구</option>
-			<option value="5">광주</option>
-			<option value="6">부산</option>
-			<option value="7">울산</option>
-			<option value="8">세종시</option>
-			<option value="31">경기도</option>
-			<option value="32">강원도</option>
-			<option value="33">충청북도</option>
-			<option value="34">충청남도</option>
-			<option value="35">경상북도</option>
-			<option value="36">경상남도</option>
-			<option value="37">전라북도</option>
-			<option value="38">전라남도</option>
-			<option value="39">제주도</option>
-		</select>
 		<p>
 			<label>메인 이미지 : </label>
 			<input type="file" name="f_main">
