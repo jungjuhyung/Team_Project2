@@ -10,6 +10,12 @@
 		select * from pathmaker_t where path_maker_idx = #{path_maker_idx}
 	</select>
 	
+	<select id="tourMaps" resultType="tourtestvo">
+		select mapy, mapx
+		from pathmaker_t where path_post_idx = 1 and path_maker_idx in (1,2,3);
+	</select>
+	
+	
 </mapper>
 
 

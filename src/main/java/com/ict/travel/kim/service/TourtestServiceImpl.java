@@ -1,5 +1,7 @@
 package com.ict.travel.kim.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class TourtestServiceImpl implements TourtestService {
 	@Override
 	public TourtestVO tourDetail(String path_maker_idx) {
 		return tourtestDAO.tourDetail(path_maker_idx);
+	}
+
+	@Override
+	public List<TourtestVO> tourMaps(String path_post_idx) {
+		return tourtestDAO.tourMaps(path_post_idx);
 	}
 
 	

@@ -9,144 +9,25 @@
 <link rel="stylesheet" href="resources/kim_css/reportList.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script type="text/javascript">
-$(document).ready(function() {
-	
-	// 페이지 이동 엔터 처리
-	document.querySelector(('.board-list-paging')).addEventListener('keypress', function(e) {
-		 if (e.target.classList.contains('pageMove')) {
-	        if (e.key === 'Enter') {
-	            e.preventDefault(); // 기본 제출 동작 방지
-	            document.querySelector('.pageMoveButton').click(); // SearchButton 클릭
-	        }
-		 }
-	});
-	
-	document.querySelector(('.board-list-paging')).addEventListener("input", function(e) {
-		 if (e.target.classList.contains('pageMove')) {
-		        // 입력된 값에서 숫자가 아닌 문자를 제거
-		        let inputValue = e.target.value.replace(/\D/g, '');
-		        // input 요소의 값을 업데이트
-		        e.target.value = inputValue;
-		    }
-	});
-	
-	 let paging = {
-		        nowPage: ${paging.nowPage},
-		        endBlock: ${paging.endBlock},
-		        beginBlock: ${paging.beginBlock},
-		        totalPage: ${paging.totalPage}
-		    };
-	updatePagination(paging);
-	
-});
 
-
-
-// 페이지 번호 클릭 이벤트 처리
-$(document).on("click", ".pagination li.page-item", function(e) {
-    e.preventDefault();
-    let page = parseInt($(this).attr('data-page'));
-    location.href="boardList?cPage="+page; // 해당 페이지 검색 실행
-});
-
-// 페이지 검색 이동
-$(document).on("click", ".pageMoveButton", function(e) {
-    e.preventDefault();
-    let cPage = $(".pageMove").val()
-    if (cPage.trim() === "") {
-    page = getCurrentPage(); // 현재 페이지 가져오기
-	}
-    search(cPage); // 해당 페이지 검색 실행
-});
-
-//뷰 옵션 이벤트 처리
-$(document).on("change", "#viewLimit", function(e) {
-    e.preventDefault();
-    let cPage = getCurrentPage(); // 현재 페이지 번호 가져오기
-    search(cPage); // search 함수 호출
-});
-
-
-// 현재 페이지 구하는 함수
-function getCurrentPage() {
-    return parseInt($(".nowPage").attr("data-page"));
-}
-
-
-
-function getTotalRecord(paging){
-	
-	let totalRecordHtml = '검색 결과('+paging.totalRecord+')'
-	
-    $('#resultCount').html(totalRecordHtml);
-}
-
-// 페이징 처리 함수
-function updatePagination(paging) {
-let content = '';
-content += '<input type="hidden" class="nowPage" data-page="' + paging.nowPage + '">';
-content += '<ol class="pagination" id="pagination">';
-if (paging.beginBlock > 1) {
-    content += '<li class="page-item" data-page="' + 1 + '"> << </li>';
-}
-if (paging.beginBlock > 1) {
-    content += '<li class="page-item" data-page="' + (paging.nowPage - 1) + '"> < </li>';
-}
-
-// 페이지 번호를 표시할 개수
-const pageNumberDisplay = 5;
-
-// 현재 페이지 번호를 기준으로 앞뒤로 표시할 페이지 개수 계산
-let startPage = Math.max(paging.nowPage - Math.floor(pageNumberDisplay / 2), 1);
-let endPage = Math.min(startPage + pageNumberDisplay - 1, paging.totalPage);
-
-// 보정된 시작 페이지 번호 계산
-startPage = Math.max(endPage - pageNumberDisplay + 1, 1);
-
-// 중앙에 오도록 현재 페이지 번호를 위치시키기 위한 변수 설정
-let centerIndex = Math.floor(pageNumberDisplay / 2);
-
-// 페이지 번호를 표시하는 부분 수정
-for (let i = startPage; i <= endPage; i++) {
-    if (i === paging.nowPage) {
-        let inputClass = (i === startPage + centerIndex) ? 'center-page' : ''; // 중앙에 위치할 경우 클래스 추가
-        content += '<li class = "nowPageInput">'
-                    + '<input type="text" class="pageMove ' + inputClass + '" value="' + i + '">'
-                  + '</li>';
-    } else {
-        content += '<li class="page-item" data-page="' + i + '">' + i + '</li>';
-    }
-}
-
-if (paging.endBlock < paging.totalPage) {
-    content += '<li class="page-item" data-page="' + (paging.nowPage + 1) + '"> > </li>';
-}
-if (paging.endBlock < paging.totalPage) {
-    content += '<li class="page-item" data-page="' + paging.totalPage + '"> >> </li>';
-}
-
-content += '</ol>';
-
-$(".board-list-paging").html(content);
-}
-
-
-	
-</script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		getList(1);
 		
-		
-		
-		function getList() {
+		function getList(page) {
+			$("#tbody").empty()
 			$.ajax({
 				url : "getReportList",
 				method : "post",        //type : "post", 메서드와 동일
 				dataType : "xml",
+				data: {
+					page: page // 페이지 번호 전달
+				},
 				success : function(data){
 					let tbody ="";
 					console.log(data);
+					processXML(data);
+					
 					$(data).find("report").each(function() {
 						tbody += "<tr>";
 						tbody += "<td>" + "<input type= 'hidden' name = 'report_idx' value='"+$(this).find("report_idx").text()+"'>"
@@ -188,10 +69,150 @@ $(".board-list-paging").html(content);
 				}
 			});	
 		}
-		
-		getList();
+		function processXML(xml) {
+		    // XML에서 페이징 정보 추출
+		    let paging = {
+		        nowPage: $(xml).find('paging > nowPage').text(),
+		        endBlock: $(xml).find('paging > endBlock').text(),
+		        beginBlock: $(xml).find('paging > beginBlock').text(),
+		        totalPage: $(xml).find('paging > totalPage').text()
+		    };
 
+		    // 페이징 처리
+		    updatePagination(paging);
+		}
+		
+		// 페이징 처리 함수
+		function updatePagination(paging) {
+	    let content = '';
+	    content += '<input type="hidden" class="nowPage" data-page="' + paging.nowPage + '">';
+	    content += '<ol class="pagination" id="pagination">';
+	    if (paging.beginBlock > 1) {
+	        content += '<li class="page-item" data-page="' + 1 + '"> 1 </li>';
+	    }
+	    if (paging.beginBlock > 1) {
+	        content += '<li class="page-item" data-page="' + (paging.beginBlock - 1) + '"> ... </li>';
+	    }
+
+	    // 페이지 번호를 표시할 개수
+	    const pageNumberDisplay = 5;
+
+	    // 현재 페이지 번호를 기준으로 앞뒤로 표시할 페이지 개수 계산
+	    let startPage = Math.max(paging.nowPage - Math.floor(pageNumberDisplay / 2), 1);
+	    let endPage = Math.min(startPage + pageNumberDisplay - 1, paging.totalPage);
+
+	    // 보정된 시작 페이지 번호 계산
+	    startPage = Math.max(endPage - pageNumberDisplay + 1, 1);
+
+	    // 중앙에 오도록 현재 페이지 번호를 위치시키기 위한 변수 설정
+	    let centerIndex = Math.floor(pageNumberDisplay / 2);
+	 	// 빈 공간을 표시하는 부분 추가
+	    if (paging.nowPage === 1) {
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	    }
+	 	if( paging.nowPage === 2){
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	 	}
+	 	if( paging.nowPage === 3){
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	 	}
+	 	
+	    // 페이지 번호를 표시하는 부분 수정
+	    for (let i = startPage; i <= endPage; i++) {
+
+		    if (i === paging.nowPage) {
+		        content += '<li class="nowPageInput">'
+		                    + '<input type="text" class="pageMove" value="' + i + '">'
+		                  + '</li>';
+		    } else {
+		        content += '<li class="page-item" data-page="' + i + '">' + i + '</li>';
+		    }
+		}
+		if(paging.nowPage < (paging.totalPage-2)){
+		    if (paging.endBlock < paging.totalPage) {
+		        content += '<li class="page-item" data-page="' + (paging.endBlock + 1) + '"> ... </li>';
+		    }
+		    if (paging.endBlock < paging.totalPage) {
+		        content += '<li class="page-item totalPage" data-page="' + paging.totalPage + '"> '+ paging.totalPage +' </li>';
+		    }
+	    }
+	    if (paging.nowPage ===  paging.totalPage) {
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	        content += '<li class="page-item blank"> </li>';
+	    }
+	 	if( paging.nowPage ===  (paging.totalPage-1)){
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	 	}
+	 	if( paging.nowPage ===  (paging.totalPage-2)){
+	        content += '<li class="page-item blank">  </li>';
+	        content += '<li class="page-item blank">  </li>';
+	 	}
+	  
+	    content += '</ol>';
+
+	    $(".board-list-paging").html(content);
+	    
+		}
+		
+		
+		// 페이지 이동 엔터 처리
+		document.querySelector(('.board-list-paging')).addEventListener('keypress', function(e) {
+			 if (e.target.classList.contains('pageMove')) {
+		        if (e.key === 'Enter') {
+		            e.preventDefault(); // 기본 제출 동작 방지
+		            document.querySelector('.pageMoveButton').click(); // SearchButton 클릭
+		        }
+			 }
+		});
+		
+		document.querySelector(('.board-list-paging')).addEventListener("input", function(e) {
+			 if (e.target.classList.contains('pageMove')) {
+			        // 입력된 값에서 숫자가 아닌 문자를 제거
+			        let inputValue = e.target.value.replace(/\D/g, '');
+			        // input 요소의 값을 업데이트
+			        e.target.value = inputValue;
+			    }
+		});
+		
+		$(document).on("click", ".pagination li.page-item", function(e) {
+		    e.preventDefault();
+		    let page = parseInt($(this).attr('data-page'));
+		    console.log(page)
+		    getList(page);
+		});
+
+
+
+	
+		
 	});
+
+	// 현재 페이지 구하는 함수
+	function getCurrentPage() {
+	    return parseInt($(".nowPage").attr("data-page"));
+	}
+
+	
+
+
+
+	
 </script>
 <script type="text/javascript">
 function reportWrite() {

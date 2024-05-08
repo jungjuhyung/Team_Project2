@@ -50,8 +50,9 @@
 </style>
 </head>
 <body>
+	<%@ include file="../header.jsp"%>
 	<div id="world">
-		<div id="reviewTitle">${placerwishvo.place_title}</div>
+		<div id="reviewTitle">${kpostvo.path_post_title}</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>
 
 		
@@ -71,7 +72,7 @@
 			<div class="in_div"></div> 
 		</div>
 		<div id="summer">
-			<textarea rows="10" cols="60" id="summernote" name="content"></textarea>
+			<textarea rows="10" cols="60" id="summernote" name="content">${kpostvo.path_post_content}</textarea>
 		</div>
 	<button type="button">추천</button>
 	<button type="button">비추천</button>
@@ -125,47 +126,73 @@
 <script>
 
 
-var latitude = ${latitude};  // 위도
-var longitude = ${longitude}; // 경도
+var mapy1 = ${mapy1};  // 위도
+var mapx1 = ${mapx1}; // 경도
+var mapy2 = ${mapy2};  // 위도
+var mapx2 = ${mapx2}; // 경도
+var mapy3 = ${mapy3};  // 위도
+var mapx3 = ${mapx3}; // 경도
 
-console.log("위도: " + latitude);  // 콘솔에 출력
-console.log("경도: " + longitude); // 콘솔에 출력
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 mapOption = { 
-    center: new kakao.maps.LatLng(longitude, latitude), // 지도의 중심좌표
+    center: new kakao.maps.LatLng(mapy1, mapx1), // 지도의 중심좌표
     level: 4, // 지도의 확대 레벨
     draggable: false, // 지도를 생성할때 지도 이동을 막으려면 draggable: false 옵션을 추가하세요
     scrollwheel: false // 지도를 생성할때 지도 확대/축소를 막으려면 scrollwheel: false 옵션을 추가하세요    
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+var positions = [];
+<%-- 
+var positions = [];
+var linePath = [];
 
+<%
+for (int i = 0; i < tourtestvoList.size(); i++) {
+    TourtestVO tourtestVO = tourtestvoList.get(i);
+%>
+    var mapy<%= (i + 1) %> = ${tourtestVO.getMapy()};
+    var mapx<%= (i + 1) %> = ${tourtestVO.getMapx()};
+
+    positions.push({
+        title: '',
+        latlng: new kakao.maps.LatLng(mapy<%= (i + 1) %>, mapx<%= (i + 1) %>)
+    });
+
+    linePath.push(new kakao.maps.LatLng(mapy<%= (i + 1) %>, mapx<%= (i + 1) %>));
+<%
+}
+%>
+
+<%@ page import="java.util.List" %>
+<%@ page import="com.ict.traver.kim.dao.TourtestVO" %>
+--%>
 //마커를 표시할 위치와 title 객체 배열입니다 
 var positions = [
 {
-    title: '카카오', 
-    latlng: new kakao.maps.LatLng(longitude, latitude)
+    title: '', 
+    latlng: new kakao.maps.LatLng(mapy1, mapx1)
 },
 {
-    title: '생태연못', 
-    latlng: new kakao.maps.LatLng(36.02, 128.592)
+    title: '', 
+    latlng: new kakao.maps.LatLng(mapy2, mapx2)
 },
 {
-    title: '텃밭', 
-    latlng: new kakao.maps.LatLng(36.022, 128.598)
+    title: '', 
+    latlng: new kakao.maps.LatLng(mapy3, mapx3)
 },
 {
-    title: '근린공원',
+    title: '',
     latlng: new kakao.maps.LatLng()
 }
 ];
 
 //선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
 var linePath = [
-    new kakao.maps.LatLng(longitude, latitude),
-    new kakao.maps.LatLng(36.02, 128.592),
-    new kakao.maps.LatLng(36.022, 128.598)
+    new kakao.maps.LatLng(mapy1, mapx1),
+    new kakao.maps.LatLng(mapy2, mapx2),
+    new kakao.maps.LatLng(mapy3, mapx3)
 ];
 
 // 지도에 표시할 선을 생성합니다

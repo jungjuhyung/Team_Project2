@@ -34,7 +34,8 @@ public class ReportController {
 
 	@RequestMapping(value = "getReportList", produces = "text/xml; charset=utf-8")
 	@ResponseBody
-	public String getReportList(HttpServletRequest request
+	public String getReportList(HttpServletRequest request,
+			@RequestParam("page") String page
 			) {
 		int count = reportService.getTotalCount();
 		paging.setTotalRecord(count);
@@ -49,7 +50,7 @@ public class ReportController {
 			}
 		}
 		// 현재 페이지 구하기
-		String cPage = request.getParameter("cPage");
+		String cPage = page;
 		if (cPage == null) {
 			paging.setNowPage(1);
 		}else {

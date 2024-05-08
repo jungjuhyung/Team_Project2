@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="placerwish_t">
+<mapper namespace="kpost_t">
 	
 	
-	<select id="placeRDetail" resultType="placerwishvo">
-		select * from placewish_t where place_idx = #{place_idx}
+	<select id="kpostDetail" resultType="kpostvo">
+		select * from pathpost_t where path_post_idx = #{path_post_idx}
 	</select>
 	
 </mapper>

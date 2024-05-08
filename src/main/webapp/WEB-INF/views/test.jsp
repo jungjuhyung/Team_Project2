@@ -41,7 +41,7 @@
 		<fieldset>
 			<input type="text">
 			<input type="hidden" name="path_maker_idx" value="1">
-			<input type="hidden" name="place_idx" value="203">
+			<input type="hidden" name="path_post_idx" value="1">
 			<input type="submit" value="경로리뷰">
 		</fieldset>
 	</form>
