@@ -18,6 +18,7 @@
 		<typeAlias type="com.ict.travel.kim.dao.CommentVO" alias="commentvo"/>
 		<typeAlias type="com.ict.travel.cho.dao.PlaceWishVO" alias="placeWishVO"/>
 		<typeAlias type="com.ict.travel.cho.dao.TourapiVO" alias="tourapiVO"/>
+		<typeAlias type="com.ict.travel.cho.dao.PathPostVO" alias="pathpostVO"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/board-mapper.xml" />
