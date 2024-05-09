@@ -20,4 +20,14 @@ public class MarkerDAO {
 		}
 		return null;
 	}
+	
+	public int markerImgInsert(MarkerImgVO mkivo) {
+		try {
+			return sqlSessionTemplate.insert("marker.markerImgInsert", mkivo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+
 }

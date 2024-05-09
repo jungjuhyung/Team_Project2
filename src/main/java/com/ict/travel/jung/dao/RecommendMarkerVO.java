@@ -1,9 +1,12 @@
 package com.ict.travel.jung.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class RecommendMarkerVO {
-	String[] mapx, mapy, contentid;
+	String[] mapx, mapy, contentid,areacode,sigungucode,contenttypeid;
 	MultipartFile[] marker0;
 	MultipartFile[] marker1;
 	MultipartFile[] marker2;
@@ -34,6 +37,24 @@ public class RecommendMarkerVO {
 	}
 	public void setContentid(String[] contentid) {
 		this.contentid = contentid;
+	}
+	public String[] getAreacode() {
+		return areacode;
+	}
+	public void setAreacode(String[] areacode) {
+		this.areacode = areacode;
+	}
+	public String[] getSigungucode() {
+		return sigungucode;
+	}
+	public void setSigungucode(String[] sigungucode) {
+		this.sigungucode = sigungucode;
+	}
+	public String[] getContenttypeid() {
+		return contenttypeid;
+	}
+	public void setContenttypeid(String[] contenttypeid) {
+		this.contenttypeid = contenttypeid;
 	}
 	public MultipartFile[] getMarker0() {
 		return marker0;

@@ -3,9 +3,8 @@ package com.ict.travel.jung.dao;
 import org.springframework.web.multipart.MultipartFile;
 
 public class RecommendVO {
-	String path_post_idx, u_idx, u_id, areacode,firstimage, path_post_title, path_post_content, regdate, contenttypeid, like;
+	private String path_post_idx, u_idx, u_id, r_areacode,firstimage, title, path_post_content, regdate, r_contenttypeid, like;
 	MultipartFile f_main;
-	
 	public String getPath_post_idx() {
 		return path_post_idx;
 	}
@@ -24,11 +23,11 @@ public class RecommendVO {
 	public void setU_id(String u_id) {
 		this.u_id = u_id;
 	}
-	public String getAreacode() {
-		return areacode;
+	public String getR_areacode() {
+		return r_areacode;
 	}
-	public void setAreacode(String areacode) {
-		this.areacode = areacode;
+	public void setR_areacode(String r_areacode) {
+		this.r_areacode = r_areacode;
 	}
 	public String getFirstimage() {
 		return firstimage;
@@ -54,17 +53,23 @@ public class RecommendVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	public String getContenttypeid() {
-		return contenttypeid;
+	public String getR_contenttypeid() {
+		return r_contenttypeid;
 	}
-	public void setContenttypeid(String contenttypeid) {
-		this.contenttypeid = contenttypeid;
+	public void setR_contenttypeid(String r_contenttypeid) {
+		this.r_contenttypeid = r_contenttypeid;
 	}
 	public String getLike() {
 		return like;
 	}
 	public void setLike(String like) {
 		this.like = like;
+	}
+	public String getSigungucode() {
+		return sigungucode;
+	}
+	public void setSigungucode(String sigungucode) {
+		this.sigungucode = sigungucode;
 	}
 	public MultipartFile getF_main() {
 		return f_main;

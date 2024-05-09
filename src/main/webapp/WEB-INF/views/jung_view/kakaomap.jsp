@@ -36,12 +36,38 @@
 				<input type="hidden" name="mapx" value="${k.mapx}">
 				<input type="hidden" name="mapy" value="${k.mapy}">
 				<input type="hidden" name="contentid" value="${k.contentid}">
-				<input type="hidden" name="contentid" value="${k.areacode}">
-				<input type="hidden" name="contentid" value="${k.sigungucode}">
+				<input type="hidden" name="areacode" value="${k.areacode}">
+				<input type="hidden" name="sigungucode" value="${k.sigungucode}">
+				<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
 			</div>
 		</c:forEach>
 	</div>
 	<form action="recommend_write_ok" method="post" enctype="multipart/form-data">
+		<p>경로 유형</p>
+			<input type="radio" name="r_contenttypeid" value="12">관광지
+			<input type="radio" name="r_contenttypeid" value="15">문화시설
+			<input type="radio" name="r_contenttypeid" value="39">음식
+			<input type="radio" name="r_contenttypeid" value="99">종합
+		<p>경로 지역</p>
+		<select name="r_areacode">
+			<option value="1">서울</option>
+			<option value="2">인천</option>
+			<option value="3">대전</option>
+			<option value="4">대구</option>
+			<option value="5">광주</option>
+			<option value="6">부산</option>
+			<option value="7">울산</option>
+			<option value="8">세종시</option>
+			<option value="31">경기도</option>
+			<option value="32">강원도</option>
+			<option value="33">충청북도</option>
+			<option value="34">충청남도</option>
+			<option value="35">경상북도</option>
+			<option value="36">경상남도</option>
+			<option value="37">전라북도</option>
+			<option value="38">전라남도</option>
+			<option value="39">제주도</option>
+		</select>
 		<p>
 			<label>메인 이미지 : </label>
 			<input type="file" name="f_main">
@@ -95,7 +121,7 @@ let index = 0; // 지도에서 마커 선택시 순서 표시 변수
 let upload_idx = 0; // 마커 표시에 따른 upload name변수 이름 지정
 
 // 마커 생성 함수
-function marker(position, contentid) {
+function marker(position,contentid,areacode,sigungucode,contenttypeid) {
 	// 마커 이미지
 	let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 	    
@@ -122,13 +148,13 @@ function marker(position, contentid) {
 	    	infos.push(infowindow)
 	    	infowindow.open(map, marker);
     		line_draw(marker)
-    		div_create(marker, contentid)
+    		div_create(marker,contentid,areacode,sigungucode,contenttypeid)
 		});
 	    markers.push(marker)
 	    map.setCenter(position.latlng);
 }
 // 마커 사진 업로드 div생성 function
-function div_create(marker, contentid) {
+function div_create(marker,contentid,areacode,sigungucode,contenttypeid) {
     var divElement = $('<div></div>', {
         class: 'markers'
     });
@@ -144,7 +170,7 @@ function div_create(marker, contentid) {
     
     let inputTitle = $('<input/>', {
         type: 'hidden',
-        name: 'title'+ upload_idx,
+        name: 'title',
         value : marker.getTitle()
     });
     let inputX = $('<input/>', {
@@ -162,12 +188,31 @@ function div_create(marker, contentid) {
         name: 'contentid',
         value : contentid
     });
+    let inputAreacode = $('<input/>', {
+        type: 'hidden',
+        name: 'areacode',
+        value : areacode
+    });
+    let inputSigungucode = $('<input/>', {
+        type: 'hidden',
+        name: 'sigungucode',
+        value : sigungucode
+    });
+    let inputContenttypeid = $('<input/>', {
+        type: 'hidden',
+        name: 'contenttypeid',
+        value : contenttypeid
+    });
+
 	divElement.append(span)
 	divElement.append(inputFile)
 	divElement.append(inputTitle)
 	divElement.append(inputX)
 	divElement.append(inputY)
 	divElement.append(inputContentid)
+	divElement.append(inputAreacode)
+	divElement.append(inputSigungucode)
+	divElement.append(inputContenttypeid)
 	upload_idx += 1;
 	$("#upload_box").append(divElement)
 }
@@ -202,13 +247,16 @@ $(".chk_box").change(function() {
 		let y = $(this).next().next().next().next().val()
 		let x = $(this).next().next().next().next().next().val()
 		let contentid = $(this).next().next().next().next().next().next().val()
+		let areacode = $(this).next().next().next().next().next().next().next().val()
+		let sigungucode = $(this).next().next().next().next().next().next().next().next().val()
+		let contenttypeid = $(this).next().next().next().next().next().next().next().next().next().val()
         let position = 
             {
         		title: $(this).next().next().next().val(), 
                 latlng: new kakao.maps.LatLng(x, y)
             }
 	if ($(this).prop("checked")) {
-        marker(position,contentid)
+        marker(position,contentid,areacode,sigungucode,contenttypeid)
     } else {
         marker_del(position)
     }
