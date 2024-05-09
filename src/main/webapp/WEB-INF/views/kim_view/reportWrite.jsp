@@ -41,6 +41,11 @@ function getReportgo(f) {
 						<td class="userin"><input type="password" id="report_pw" name="report_pw" />
 					</tr>
 					<tr>
+						<td class="menu">불량유저ID</td>
+						<td class="userin"><input type="text" id="reported_id" name="reported_id">
+						</td>
+					</tr>
+					<tr>
 						<td class="menu">제목</td>
 						<td class="userin"><input type="text" id="report_title" name="report_title">
 						</td>
@@ -55,7 +60,7 @@ function getReportgo(f) {
 			</div>
 
 			<div class="create">
-				<input class="but4" type="submit" value="등록하기">
+				<input class="but4" type="submit" id="submit_btn" value="등록하기">
 				<input class="but4" type="button" value="취소하기" onclick="getReportgo(this.form)"> 
 
 			</div>
@@ -70,6 +75,33 @@ function getReportgo(f) {
             maxHeight: 400
         });
     });
+    
+    /* 불량유저 아이디체크할껀데 잠시 보류
+    $("#reported_id").keyup(function() {
+		$.ajax({
+			url : "AjaxIdChk",
+			data : "reported_id="+$("#reported_id").val(),        // 갈때 url 갈때 따라감
+			method : "post",                       //type : "post", 메서드와 동일
+			dataType : "text",                    // 올때
+			success : function(data){
+				if (data == '1') {
+					// 사용가능
+					$("#submit_btn").removeAttr("disabled");
+					$("span").text("사용가능");
+				}else if (data == '0') {
+					// 사용불가
+					$("#submit_btn").attr("disabled","disabled");
+					$("span").text("사용가능");
+					
+				}
+			},
+			error : function() {
+				alert("읽기 실패")
+			}
+		});
+	});
+    */
+    
 </script>
 </body>
 </html>

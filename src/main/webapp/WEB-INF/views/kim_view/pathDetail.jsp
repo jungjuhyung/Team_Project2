@@ -54,8 +54,17 @@
 	<div id="world">
 		<div id="reviewTitle">${kpostvo.path_post_title}</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>
-
-		
+	<div id="review_img1">
+		<c:choose>
+			<c:when test="${empty imglist}">
+			</c:when>
+			<c:otherwise>
+			<c:forEach var="k" items="${imglist}" varStatus="vs">
+				<div>${k.imglist}</div>
+			</c:forEach>
+			</c:otherwise>
+		</c:choose>		
+	</div>
 		<div class="d_img"> 
 			<div class="in_div"></div> 
 			<div class="in_div"></div> 
@@ -111,7 +120,9 @@
 	</div>	
 	<div id="empty-area">
 	</div>
+	</div>
 	<script>
+	console.log(${mapyList.size()})
 		// 메인화면 페이지 로드 함수
 		$(document).ready(function() {
 			$('#summernote').summernote({
@@ -124,109 +135,129 @@
 	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3f599c1d6971197a01e6600cd397224a"></script>
 <script>
-
-
-var mapy1 = ${mapy1};  // 위도
-var mapx1 = ${mapx1}; // 경도
-var mapy2 = ${mapy2};  // 위도
-var mapx2 = ${mapx2}; // 경도
-var mapy3 = ${mapy3};  // 위도
-var mapx3 = ${mapx3}; // 경도
-
-
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-mapOption = { 
-    center: new kakao.maps.LatLng(mapy1, mapx1), // 지도의 중심좌표
-    level: 4, // 지도의 확대 레벨
-    draggable: false, // 지도를 생성할때 지도 이동을 막으려면 draggable: false 옵션을 추가하세요
-    scrollwheel: false // 지도를 생성할때 지도 확대/축소를 막으려면 scrollwheel: false 옵션을 추가하세요    
+var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+var mapOption = {
+    center: new kakao.maps.LatLng(${mapy1}, ${mapx1}), // 지도의 중심 좌표
+    level: 6 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-var positions = [];
-<%-- 
+
 var positions = [];
 var linePath = [];
+var mapyList = <%= request.getAttribute("mapyList") %>;
+var mapxList = <%= request.getAttribute("mapxList") %>;
 
-<%
-for (int i = 0; i < tourtestvoList.size(); i++) {
-    TourtestVO tourtestVO = tourtestvoList.get(i);
-%>
-    var mapy<%= (i + 1) %> = ${tourtestVO.getMapy()};
-    var mapx<%= (i + 1) %> = ${tourtestVO.getMapx()};
-
+for (let i = 0; i < mapyList.length; i++) {
+    let mapy = mapyList[i];
+    let mapx = mapxList[i];
+    let position = new kakao.maps.LatLng(mapy, mapx);
+    
     positions.push({
         title: '',
-        latlng: new kakao.maps.LatLng(mapy<%= (i + 1) %>, mapx<%= (i + 1) %>)
+        latlng: position
     });
 
-    linePath.push(new kakao.maps.LatLng(mapy<%= (i + 1) %>, mapx<%= (i + 1) %>));
-<%
-}
-%>
+    linePath.push(position);
 
-<%@ page import="java.util.List" %>
-<%@ page import="com.ict.traver.kim.dao.TourtestVO" %>
---%>
-//마커를 표시할 위치와 title 객체 배열입니다 
-var positions = [
-{
-    title: '', 
-    latlng: new kakao.maps.LatLng(mapy1, mapx1)
-},
-{
-    title: '', 
-    latlng: new kakao.maps.LatLng(mapy2, mapx2)
-},
-{
-    title: '', 
-    latlng: new kakao.maps.LatLng(mapy3, mapx3)
-},
-{
-    title: '',
-    latlng: new kakao.maps.LatLng()
-}
-];
+    // 마커 생성
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: position
+    });
 
-//선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
-var linePath = [
-    new kakao.maps.LatLng(mapy1, mapx1),
-    new kakao.maps.LatLng(mapy2, mapx2),
-    new kakao.maps.LatLng(mapy3, mapx3)
-];
+    // 인포윈도우 생성
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '마커 ' + (i + 1) + ' 위치',
+        removable: true
+    });
+	
+    
+    
+    // 클로저를 사용하여 현재 인덱스를 이용하여 이벤트 핸들러를 정의합니다.
+    (function(marker, infowindow) {
+        kakao.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+        });
+    })(marker, infowindow);
+}
 
 // 지도에 표시할 선을 생성합니다
 var polyline = new kakao.maps.Polyline({
-    path: linePath, // 선을 구성하는 좌표배열 입니다
-    strokeWeight: 2, // 선의 두께 입니다
-    strokeColor: '#FFAE00', // 선의 색깔입니다
-    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-    strokeStyle: 'solid' // 선의 스타일입니다
+    path: linePath,
+    strokeWeight: 2,
+    strokeColor: '#FFAE00',
+    strokeOpacity: 0.7,
+    strokeStyle: 'solid'
 });
 
 // 지도에 선을 표시합니다 
 polyline.setMap(map);  
 
-//마커 이미지의 이미지 주소입니다
-var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 
-for (var i = 0; i < positions.length; i ++) {
 
-// 마커 이미지의 이미지 크기 입니다
-var imageSize = new kakao.maps.Size(24, 35); 
 
-// 마커 이미지를 생성합니다    
-var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+//HTML Content를 만들어 리턴하는 함수입니다
+function getTimeHTML(distance) {
 
-// 마커를 생성합니다
-var marker = new kakao.maps.Marker({
-    map: map, // 마커를 표시할 지도
-    position: positions[i].latlng, // 마커를 표시할 위치
-    title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-    image : markerImage // 마커 이미지 
-});
+    // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
+    var walkkTime = distance / 67 | 0;
+    var walkHour = '', walkMin = '';
+
+    // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
+    if (walkkTime > 60) {
+        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
+    }
+    walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
+
+    // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
+    var bycicleTime = distance / 227 | 0;
+    var bycicleHour = '', bycicleMin = '';
+
+    // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
+    if (bycicleTime > 60) {
+        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
+    }
+    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
+
+    // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
+    var content = '<ul class="dotOverlay distanceInfo">';
+    content += '    <li>';
+    content += '        <span class="label">총거리</span><span class="number">' + distance + '</span>m';
+    content += '    </li>';
+    content += '    <li>';
+    content += '        <span class="label">도보</span>' + walkHour + walkMin;
+    content += '    </li>';
+    content += '    <li>';
+    content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
+    content += '    </li>';
+    content += '</ul>'
+
+    return content;
 }
+
+
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

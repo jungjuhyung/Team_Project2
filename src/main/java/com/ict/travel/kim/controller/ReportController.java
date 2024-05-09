@@ -19,12 +19,16 @@ import com.ict.travel.common.Paging;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.kim.service.ReportService;
+import com.ict.travel.lee.service.MemberService;
 
 @RestController
 public class ReportController {
 
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -242,6 +246,15 @@ public class ReportController {
 		return new ModelAndView("report/error");
 	}
 	
+	
+	/* 신고할때 신고당하는 사람 아이디 체크
+	 * @RequestMapping(value = "AjaxIdChk", produces = "text/plain; charset=utf-8")
+	 * 
+	 * @ResponseBody public String AjaxIdChk(String reported_id) {
+	 * 
+	 * String result = memberService.AjaxIdChk(reported_id); return result; }
+	 * 
+	 */
 	
 	
 }

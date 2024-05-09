@@ -15,8 +15,8 @@ public class TourtestServiceImpl implements TourtestService {
 	private TourtestDAO tourtestDAO;
 
 	@Override
-	public TourtestVO tourDetail(String path_maker_idx) {
-		return tourtestDAO.tourDetail(path_maker_idx);
+	public TourtestVO tourDetail(String path_marker_idx) {
+		return tourtestDAO.tourDetail(path_marker_idx);
 	}
 
 	@Override

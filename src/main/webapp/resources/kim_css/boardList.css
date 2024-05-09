@@ -1,72 +1,4 @@
 @charset "UTF-8";
-/* paging */
-table tfoot ol.paging {
-	list-style: none;
-}
-
-table tfoot ol.paging li {
-	float: left;
-	margin-right: 8px;
-	text-align: center;
-}
-
-table tfoot ol.paging li a {
-	display: block;
-	padding: 3px 7px;
-	font-weight: bold;
-	text-align: center;
-}
-
-table tfoot ol.paging li a:hover {
-	font-weight: bold;
-}
-#board_form{
-	width: 1200px;
-	margin: 0 auto;
-	margin-top : 160px;	
-	
-}
-
-.board_title {
-	font-size: 20px; 	
-	height: 30px;
-	
-}
-
-.board_title th, td{
-	text-align: center;
-	margin: 0 auto;
-	border: 1px solid black;
-	border-collapse: collapse;
-
-}
-
-.no { width: 10%}
-.u_nickname { 	width: 20% }
-.title {	width: 40% }
-.reg {	width: 20% }
-.hit {	width: 10% }
-
-.content_css tr {
-        height: 40px; 
-    }
-
-#bwbtn{
-	border-radius: 10px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 페이징 */
 .board-list-paging {
   display: flex;
@@ -120,3 +52,51 @@ table tfoot ol.paging li a:hover {
   cursor: pointer; /* 커서 모양 설정 */
   transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 transition */
 }
+/* 페이징 끝 */
+
+
+
+#board_form{
+	width: 1200px;
+	margin: 0 auto;
+	margin-top : 160px;	
+	
+}
+
+.board_title {
+	font-size: 20px; 	
+	height: 30px;
+	
+}
+
+.board_title th, td{
+	text-align: center;
+	margin: 0 auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+
+}
+
+.no { width: 10%}
+.u_nickname { 	width: 20% }
+.title {	width: 40% }
+.reg {	width: 20% }
+.hit {	width: 10% }
+
+.content_css tr {
+        height: 40px; 
+    }
+
+#bwbtn{
+	border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+

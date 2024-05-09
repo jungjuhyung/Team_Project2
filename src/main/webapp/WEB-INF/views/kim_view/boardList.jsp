@@ -144,6 +144,7 @@ $(".board-list-paging").html(content);
 </script>
 </head>
 <body>
+<%@ include file="../header.jsp"%>
 	<div id="board_form" align="center">
 		<table id="boardtable" summary="게시판 목록" style="width: 1000px;">
 			<thead>

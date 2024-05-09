@@ -221,6 +221,7 @@ function reportWrite() {
 </script>
 </head>
 <body>
+<%@ include file="../header.jsp"%>
 <div id="bigbox">
     <h2>신고게시판</h2>
     <div>
