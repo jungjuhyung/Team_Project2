@@ -200,6 +200,7 @@
         let title = $(".searchTitle").val();
         let limit = $('#viewLimit').val();
         let order = $('#orderOption').val();
+        let type = $('#searchType').val();
         // AJAX 요청 실행
         $.ajax({
             url: "areaSearchTourList",
@@ -212,7 +213,8 @@
                 page: page,
                 title: title,
                 limit: limit,
-                order: order
+                order: order,
+                type: type
             },
             success: function(data) {
             	$('#place_wrapper').empty();
@@ -372,7 +374,14 @@
 	<%@ include file="../header.jsp"%>
 	<section class="section" >
 		<div class="areaSearchForm">
+			<select id="searchType" class = "searchSelect">
+				<option value="999">타입</option>
+				<option value="999">전체</option>
+				<option value="1">장소</option>
+				<option value="2">경로</option>
+			</select>
 			<select id="areaCodes" class = "searchSelect">
+				<option value="999">지역</option>
 				<option value="999">전체</option>
 				<option value="1">서울</option>
 				<option value="6">부산</option>
@@ -395,11 +404,13 @@
 			<select id="sigunguCode" class = "searchSelect">
 			</select> 
 			<select id="contentTypes" class = "searchSelect">
+				<option value="999">테마</option>
 				<option value="999">전체</option>
 				<option value="12">관광지</option>
 				<option value="15">행사/공연/축제</option>
 				<option value="39">음식점</option>
 			</select>
+			
 			<input type="text" class ="searchTitle" name = "title">
 			<input type="button" value="검색" class = "SearchButton">
 		</div>

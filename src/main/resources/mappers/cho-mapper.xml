@@ -11,21 +11,32 @@
 	
 	<!-- 검색(지역,시군구,타입) 결과 paging용 카운트 -->
 	<select id="tourListCount" parameterType="Map" resultType="int">
-		SELECT count(*) FROM tourapi_t 
+		SELECT count(*) FROM 
+		<choose>
+			<when test="type == 1">
+				tourapi_t
+			</when>
+			<when test="type == 2">
+				pathpost_t
+			</when>
+			<otherwise>
+				tourapi_t UNION ALL SELECT * FROM pathpost_t
+			</otherwise>
+		</choose>
 		<where>
-			 <if test="areaCode != 999">
-	            AND areaCode = #{areaCode}
-	        </if>
-	        <if test="sigunguCode != 999">
-	            AND sigunguCode = #{sigunguCode}
-	        </if>
-	        <if test="contentType != 999">
-	            AND contenttypeid = #{contentType}
-	        </if>
-	          <if test="title != null">
-	            AND title LIKE CONCAT('%', #{title}, '%')
-	        </if>
-        </where>
+			<if test="areaCode != 999">
+				AND areaCode = #{areaCode}
+			</if>
+			<if test="sigunguCode != 999">
+				AND sigunguCode = #{sigunguCode}
+			</if>
+			<if test="contentType != 999">
+				AND contenttypeid = #{contentType}
+			</if>
+			<if test="title != null">
+				AND title LIKE CONCAT('%', #{title}, '%')
+			</if>
+		</where>
 	</select>
 	
 	<!-- 지역 검색(지역,시군구,타입) -->
@@ -59,37 +70,7 @@
 	</select>
 	
 	
-	<!-- 경로 검색(지역,시군구,타입) -->
 	
-	<!-- 검색(지역,시군구,타입) -->
-	<select id="selectTourPathList" parameterType="Map" resultType="pathpostVO">
-		SELECT * FROM pathpost_t
-		<where>
-			<if test="areaCode != 999">
-	            AND areaCode = #{areaCode}
-	        </if>
-	        <if test="sigunguCode != 999">
-	            AND sigunguCode = #{sigunguCode}
-	        </if>
-	        <if test="contentType != 999">
-	            AND contenttypeid = #{contentType}
-	        </if>
-	        <if test="path_post_title != null">
-	            AND path_post_title LIKE CONCAT('%', #{path_post_title}, '%')
-	        </if>
-        </where>
-        ORDER BY 
-        <if test="order == null or order == '' or order == 'like'">
-		    heart DESC, path_post_title ASC
-		</if>
-		<if test="order == 't_asc'">
-		    path_post_title ASC, heart DESC
-		</if>
-		<if test="order == 't_desc'">
-		    path_post_title DESC, heart DESC
-		</if>
-         LIMIT #{limit} OFFSET #{offset} 
-	</select>
 	
 	<!-- 위시리스트 관련  -->
 	<select id="selectPlaceWishList" parameterType="String" resultType="placeWishVO">
@@ -107,7 +88,7 @@
 		 VALUES(#{u_idx}, #{placeWishVO.contentid}, #{placeWishVO.mapx}, #{placeWishVO.mapy}, #{placeWishVO.addr1}, #{placeWishVO.firstimage}, #{placeWishVO.place_title}, #{placeWishVO.contenttypeid}, #{placeWishVO.sigungucode}, #{placeWishVO.areacode}, sysdate())
 	</insert>
 	
-	<!-- 추가된 wish heart 증가 -->
+	<!-- 추가된 장소 wish heart 증가 -->
 	<update id="placeAddHeart" parameterType="String">
 		UPDATE tourapi_t SET heart = heart + 1 WHERE contentid = #{contentid}
 	</update>
@@ -115,9 +96,71 @@
 	<delete id="placeWishRemove" parameterType="Map">
 		DELETE FROM placewish_t WHERE contentid = #{placeWishVO.contentid} AND u_idx = #{u_idx}
 	</delete>
-	<!-- 삭제된 wish heart 감소 -->
+	<!-- 삭제된 장소 wish heart 감소 -->
 	<update id="placeRemoveHeart" parameterType="String">
 		UPDATE tourapi_t SET heart = heart - 1 WHERE contentid = #{contentid}
+	</update>
+	
+	
+	
+	<!-- 경로 검색(지역,시군구,타입) -->
+	<select id="selectTourPathList" parameterType="Map" resultType="pathpostVO">
+		SELECT * FROM pathpost_t
+		<where>
+			<if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+	        <if test="title != null">
+	            AND title LIKE CONCAT('%', #{title}, '%')
+	        </if>
+        </where>
+        ORDER BY 
+        <if test="order == null or order == '' or order == 'like'">
+		    heart DESC, title ASC
+		</if>
+		<if test="order == 't_asc'">
+		    title ASC, heart DESC
+		</if>
+		<if test="order == 't_desc'">
+		    title DESC, heart DESC
+		</if>
+         LIMIT #{limit} OFFSET #{offset} 
+	</select>
+	
+	<!-- 경로 위시리스트 가져오기 -->
+	<select id="selectpathWishList" parameterType="String" resultType="pathWishVO">
+		SELECT * FROM pathwish_t WHERE u_idx= #{u_idx}
+	</select>
+	
+	<!-- 좋아요한 경로 게시판 선택  -->
+	<select id="selectPathWishOne" parameterType="String" resultType="pathWishVO">
+		SELECT * FROM pathpost_t WHERE path_post_idx = #{path_post_idx}
+	</select>
+	
+	<!-- 경로 좋아요 추가 -->
+	<insert id="pathWishAdd" parameterType="Map">
+		INSERT INTO 
+		 pathwish_t(u_idx, path_post_idx, firstimage, contenttypeid, title ,regdate) 
+		 VALUES(#{u_idx}, #{pathWishVO.path_post_idx}, #{pathWishVO.firstimage}, #{pathWishVO.contenttypeid},#{pathWishVO.title}, sysdate())
+	</insert>
+	<!-- 추가된 wish heart 증가 -->
+	<update id="pathPostAddHeart" parameterType="String">
+		UPDATE pathpost_t SET heart = heart + 1 WHERE path_post_idx = #{path_post_idx}
+	</update>
+	
+	<!-- 경로 좋아요 삭제 -->
+	<delete id="pathWishRemove" parameterType="Map">
+		DELETE FROM pathwish_t WHERE path_post_idx = #{pathWishVO.path_post_idx} AND u_idx = #{u_idx}
+	</delete>
+	<!-- 삭제된 장소 wish heart 감소 -->
+	<update id="pathRemoveHeart" parameterType="String">
+		UPDATE pathpost_t SET heart = heart - 1 WHERE path_post_idx = #{path_post_idx}
 	</update>
 	
 	<!-- 장소 업데이트 -->
@@ -154,4 +197,7 @@
 			 #{mapx}, #{mapy}, #{modifiedtime}, #{sigungucode}, #{tel}, 
 			 #{title}, #{zipcode}, 0, sysdate())
 	</insert>
+	
+
+	
 </mapper>

@@ -1,10 +1,34 @@
 package com.ict.travel.cho.dao;
 
 public class PathPostVO {
-	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart;
+	private String path_post_idx, u_idx, u_id, firstimage, title, path_post_content, regdate, heart, u_heart, areacode,contenttypeid;
 
 	public String getHeart() {
 		return heart;
+	}
+
+	public String getU_heart() {
+		return u_heart;
+	}
+
+	public String getAreacode() {
+		return areacode;
+	}
+
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
+	}
+
+	public String getContenttypeid() {
+		return contenttypeid;
+	}
+
+	public void setContenttypeid(String contenttypeid) {
+		this.contenttypeid = contenttypeid;
+	}
+
+	public void setU_heart(String u_heart) {
+		this.u_heart = u_heart;
 	}
 
 	public void setHeart(String heart) {
@@ -43,12 +67,12 @@ public class PathPostVO {
 		this.firstimage = firstimage;
 	}
 
-	public String getPath_post_title() {
-		return path_post_title;
+	public String gettitle() {
+		return title;
 	}
 
-	public void setPath_post_title(String path_post_title) {
-		this.path_post_title = path_post_title;
+	public void settitle(String title) {
+		this.title = title;
 	}
 
 	public String getPath_post_content() {

@@ -207,6 +207,7 @@ body {
 }
 .swiper{
 	width: 960px!important;
+	margin-bottom: 20px;
 }
 .swiper-slide {
    width: 100px!important;
@@ -233,10 +234,7 @@ body {
     cursor: pointer;
 }
 
-
-
-
-#areaName{
+.areaName{
 	font-size: 36px;
 	font-weight: bold;
 	margin-top: 10px;
@@ -278,20 +276,6 @@ body {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
     gap: 10px; /* 그리드 간격 설정 */
-}
-.place-Wrapper .place-box {
-  width: 80%;
-  margin: 10px 20px;
-  text-align: center;
-  border-radius: 30px;
-  transition: transform 0.2s ease;
-}
-.place-Wrapper .place-box .image-box  {
-  width: 100%;
-  height: 180px;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: white;
 }
 
 #searchResultWrapper summary {

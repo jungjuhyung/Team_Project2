@@ -27,7 +27,7 @@
 					<a href="themaCategory">여행검색</a>
 				</li>
 				<li class="main"> 
-					<a href="">추천경로</a>
+					<a href="pathCategory">추천경로</a>
 				</li>
 				<li class="main">
 					<a href="">커뮤니티</a>

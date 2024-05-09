@@ -28,13 +28,14 @@ public class ChoDAO {
 	}
 	
 	// 페이징 카운트
-	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title) {
+	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title, String type) {
 		try {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("areaCode", areaCode);
 			map.put("sigunguCode", sigunguCode);
 			map.put("contentType", contentType);
 			map.put("title", title);
+			map.put("type", type);
 			return sqlSessionTemplate.selectOne("cho_mapper.tourListCount", map);
 		} catch (Exception e) {
 			System.out.println("검색 카운트" + e);
@@ -42,7 +43,7 @@ public class ChoDAO {
 		return 0;
 	}
 	// 페이징 검색
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order, int offset, int limit) {
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order, String type, int offset, int limit) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("areaCode", areaCode);
@@ -52,6 +53,7 @@ public class ChoDAO {
 			map.put("offset", offset );
 			map.put("limit", limit );
 			map.put("order", order );
+			map.put("type", type);
 			return sqlSessionTemplate.selectList("cho_mapper.selectTourList", map);
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);
@@ -136,8 +138,9 @@ public class ChoDAO {
 		}
 		return 0;
 	}
-
-	public List<ChoTourVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
+	
+	// 경로 호출
+	public List<PathPostVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
 			String order, int offset, int limit) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -153,6 +156,59 @@ public class ChoDAO {
 			System.out.println("지역 검색" + e);
 		}
 		return null;
+	}
+
+	public List<PathWishVO> getpathWishList(String u_idx) {
+		return sqlSessionTemplate.selectList("cho_mapper.selectpathWishList", u_idx);
+	}
+	// 경로 위시리스트 추가
+	public int getPathWishAdd(String path_post_idx, String u_idx) {
+		int result = 0;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			PathWishVO placeVO = sqlSessionTemplate.selectOne("cho_mapper.selectPathWishOne", path_post_idx);
+			map.put("u_idx", u_idx);
+			map.put("pathWishVO", placeVO);
+			result += sqlSessionTemplate.insert("cho_mapper.pathWishAdd", map);
+			
+			if(result > 0) {
+				result += sqlSessionTemplate.update("cho_mapper.pathPostAddHeart",path_post_idx);	
+			}
+			
+			transactionManager.commit(status);
+			return result;
+		} catch (Exception e) {
+			transactionManager.rollback(status);
+			System.out.println(e);
+		}
+		return 0;
+	}
+	
+	// 경로 위시리스트 삭제 
+	public int getPathWishRemove(String path_post_idx, String u_idx) {
+		int result = 0;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			System.out.println(path_post_idx);
+			PathWishVO placeVO = sqlSessionTemplate.selectOne("cho_mapper.selectPathWishOne", path_post_idx);
+			map.put("u_idx", u_idx);
+			map.put("pathWishVO", placeVO);
+			result += sqlSessionTemplate.delete("cho_mapper.pathWishRemove", map);
+			
+			if(result > 0) {
+				result += sqlSessionTemplate.update("cho_mapper.pathRemoveHeart", path_post_idx);	
+			}
+			transactionManager.commit(status);
+			return result;
+		} catch (Exception e) {
+			transactionManager.rollback(status);
+			System.out.println(e);
+		}
+		return 0;
 	}
 
 

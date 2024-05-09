@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ict.travel.cho.dao.ChoDAO;
 import com.ict.travel.cho.dao.ChoTourVO;
+import com.ict.travel.cho.dao.PathPostVO;
+import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.lee.dao.MemberVO;
@@ -17,13 +19,13 @@ public class ChoServiceImpl implements ChoService{
 	private ChoDAO choDAO;
 	
 	@Override
-	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order,int offset, int limit) {
+	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order, String type, int offset, int limit) {
 		return choDAO.getChoTourList(areaCode, sigunguCode, contentType, title, order, offset, limit);
 	}
 	
 	@Override
-	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title) {
-		return choDAO.getTourListCount(areaCode, sigunguCode, contentType, title);
+	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title, String type) {
+		return choDAO.getTourListCount(areaCode, sigunguCode, contentType, title, type);
 	}
 	
 	@Override
@@ -52,8 +54,21 @@ public class ChoServiceImpl implements ChoService{
 	}
 	
 	@Override
-	public List<ChoTourVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
+	public List<PathPostVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
 			String order, int offset, int limit) {
 		return choDAO.getChoTourPathList(areaCode, sigunguCode, contentType, title, order, offset, limit);
+	}
+	@Override
+	public List<PathWishVO> getpathWishList(String u_idx) {
+		return choDAO.getpathWishList(u_idx);
+	}
+	
+	@Override
+	public int getPathWishAdd(String path_post_idx, String u_idx) {
+		return choDAO.getPathWishAdd(path_post_idx, u_idx);
+	}
+	@Override
+	public int getPathWishRemove(String path_post_idx, String u_idx) {
+		return choDAO.getPathWishRemove(path_post_idx, u_idx);
 	}
 }

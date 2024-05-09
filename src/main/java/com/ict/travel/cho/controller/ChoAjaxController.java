@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.DataFetcher;
+import com.ict.travel.cho.dao.PathPostVO;
+import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.dao.TourapiParser;
 import com.ict.travel.cho.dao.TourapiVO;
@@ -44,6 +46,7 @@ public class ChoAjaxController {
 	@Autowired
 	private Paging paging;
 	
+	// 시군구 코드 가져오기
 	@RequestMapping(value = "sigunguCodeList", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String sigunguCodeList(@RequestParam("areaCode") String areaCode) throws Exception {
@@ -72,6 +75,8 @@ public class ChoAjaxController {
 	        conn.disconnect();
 	        return sb.toString();
 	}
+
+	// 장소 검색 기능
 	@RequestMapping(value = "areaSearchTourList", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String areaSearchTourList(
@@ -82,13 +87,14 @@ public class ChoAjaxController {
 			@RequestParam("title") String title,
 			@RequestParam("limit") int limit,
 			@RequestParam("order") String order,
+			@RequestParam("type") String type,
 			HttpSession session) throws Exception {
 			
 			MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
 			// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
 			int pagecount = limit;
-			int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title);
+			int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title,type);
 			paging.setTotalRecord(count);
 			// 한 페이지에 20개
 			paging.setNumPerPage(pagecount);
@@ -124,7 +130,7 @@ public class ChoAjaxController {
 				paging.setEndBlock(paging.getTotalPage());
 			}
 			
-			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,order,paging.getOffset(), paging.getNumPerPage());
+			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,order,type,paging.getOffset(), paging.getNumPerPage());
 			
 			// 유저 로그인 상태일 때 찜 여부
 			if(uvo != null) {
@@ -150,7 +156,7 @@ public class ChoAjaxController {
 	}
 	
 	
-	// 찜 추가 
+	// 장소 찜 추가 
 	@RequestMapping(value = "placeWishAdd", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getWishInsert(String contentid, HttpSession session) {
@@ -159,7 +165,7 @@ public class ChoAjaxController {
 		return String.valueOf(result);
 	}
 	
-	// 찜 삭제
+	// 장소 찜 삭제
 	@RequestMapping(value = "placeWishRemove", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getWishDelete(String contentid, HttpSession session) {
@@ -170,14 +176,15 @@ public class ChoAjaxController {
 		return String.valueOf(result);
 	}
 	
+	// 테마,지역별 장소 호출
 	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String searchAreaPlace(String areaCode, HttpSession session) {
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
-		 List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like",0, 4);
-		 List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like",0, 4);
-		 List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like",0, 4);
+		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like",0, 4);
+		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like",0, 4);
+		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like",0, 4);
 		
 		Map<String, Object> result = new HashMap<>();
 
@@ -225,36 +232,36 @@ public class ChoAjaxController {
 	public String searchAreaPath(String areaCode, HttpSession session) {
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
-		 List<ChoTourVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like",0, 4);
-		 List<ChoTourVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like",0, 4);
-		 List<ChoTourVO> restaurantList = choService.getChoTourPathList(areaCode, "999", "39",null,"like",0, 4);
+		List<PathPostVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like",0, 4);
+		List<PathPostVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like",0, 4);
+		List<PathPostVO> restaurantList = choService.getChoTourPathList(areaCode, "999", "39",null,"like",0, 4);
 		
 		Map<String, Object> result = new HashMap<>();
 
 	
 		// 유저 로그인 상태일 때 찜 여부
 		if(uvo != null) {
-			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
-			for (ChoTourVO k : touristList) {
-				for (PlaceWishVO j : placeWishList) {
-					if(k.getContentid().equals(j.getContentid())) {
-						k.setUheart("1");
+			List<PathWishVO> pathWishList = choService.getpathWishList(uvo.getU_idx());	
+			for (PathPostVO k : touristList) {
+				for (PathWishVO j : pathWishList) {
+					if(k.getPath_post_idx().equals(j.getPath_post_idx())) {
+						k.setU_heart("1");
 						break;
 					}
 				}
 			}
-			for (ChoTourVO k : partyList) {
-				for (PlaceWishVO j : placeWishList) {
-					if(k.getContentid().equals(j.getContentid())) {
-						k.setUheart("1");
+			for (PathPostVO k : partyList) {
+				for (PathWishVO j : pathWishList) {
+					if(k.getPath_post_idx().equals(j.getPath_post_idx())) {
+						k.setU_heart("1");
 						break;
 					}
 				}
 			}
-			for (ChoTourVO k : restaurantList) {
-				for (PlaceWishVO j : placeWishList) {
-					if(k.getContentid().equals(j.getContentid())) {
-						k.setUheart("1");
+			for (PathPostVO k : restaurantList) {
+				for (PathWishVO j : pathWishList) {
+					if(k.getPath_post_idx().equals(j.getPath_post_idx())) {
+						k.setU_heart("1");
 						break;
 					}
 				}
@@ -270,6 +277,29 @@ public class ChoAjaxController {
 	}
 	
 	
+	// 경로 찜 추가 
+	@RequestMapping(value = "pathWishAdd", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String pathWishadd(String path_post_idx, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		int result = choService.getPathWishAdd(path_post_idx,uvo.getU_idx());
+		return String.valueOf(result);
+	}
+	
+	// 경로 찜 삭제
+	@RequestMapping(value = "pathWishRemove", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String pathWishRemove(String path_post_idx, HttpSession session) {
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		
+		int result = choService.getPathWishRemove(path_post_idx,uvo.getU_idx());
+		
+		return String.valueOf(result);
+	}
+	
+	
+	
+	// -----------------------
 	
 	// 디비 최신화
 	@RequestMapping(value = "updateTest", produces = "application/json; charset=utf-8" )
