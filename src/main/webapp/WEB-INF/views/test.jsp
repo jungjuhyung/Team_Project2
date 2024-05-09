@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="/resources/ko_images/favicon.png">
 <script type="text/javascript">
 	function login_go() {
 		location.href="login_go.do";

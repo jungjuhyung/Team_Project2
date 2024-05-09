@@ -238,5 +238,10 @@ public class KoController {
 		}
 		return null;
 	}
+	
+	@RequestMapping("footer_terms.do")
+	public ModelAndView getTerms() {
+		return new ModelAndView("ko_view/footer_terms");
+	}
 
 }

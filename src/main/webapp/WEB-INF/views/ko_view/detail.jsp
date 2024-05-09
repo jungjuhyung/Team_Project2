@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Detail</title>
+<link rel="icon" href="/resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/detail.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,9 +47,13 @@
 			},
 			dataType : "text",
 			success : function(data) {
-				$('.heart-count').text("좋아요 : " + data);
+				$('.heart-count').text("좋아요  " + data);
 				$(tag).addClass("wish-added");
-				$(tag).text("❤️ 찜해제하기");
+				$(tag).text("찜해제하기");
+				$('.heart_icon').empty();
+				let content = '<img alt="" src="/resources/ko_images/heart_on3.png" width="40px;">';
+				$('.heart_icon').append(content);
+				$('.heart-state').css('background', 'pink');
 				alert("좋아요를 눌렀습니다.")
 			},
 			error : function() {
@@ -67,9 +72,13 @@
 			},
 			dataType : "text",
 			success : function(data) {
-				$('.heart-count').text("좋아요 : " + data);
-				$(tag).text("♡ 찜추가하기");
+				$('.heart-count').text("좋아요  " + data);
+				$(tag).text("찜추가하기");
 				$(tag).removeClass("wish-added");
+				$('.heart_icon').empty();
+				let content = '<img alt="" src="/resources/ko_images/heart_off2.png" width="40px;">';
+				$('.heart_icon').append(content);
+				$('.heart-state').css('background', 'black');
 				alert("좋아요를 취소하셨습니다.")
 			},
 			error : function() {
@@ -215,18 +224,24 @@
 					<div class="wish_btn">
 						<c:choose>
 							<c:when test="${itemVO.uheart == 1}">
+								<i class="heart_icon"><img alt="" src="/resources/ko_images/heart_on3.png" width="40px;"></i>
 								<button type="button" class="heart-state wish-added"
-									value="${itemVO.contentid}">❤️ 찜해제하기</button>
+									value="${itemVO.contentid}">
+									찜해제하기
+								</button>
 							</c:when>
 							<c:otherwise>
+								<i class="heart_icon"><img alt="" src="/resources/ko_images/heart_off2.png" width="40px;"></i>
 								<button type="button" class="heart-state"
-									value="${itemVO.contentid}">♡ 찜추가하기</button>
+									value="${itemVO.contentid}">
+									찜추가하기
+									</button>
 							</c:otherwise>
 						</c:choose>
 					</div>
 					<div class="like_count">
 						<img alt="" src="/resources/ko_images/like.png" width="50px">
-						<span class="heart-count">좋아요 : ${itemVO.heart}</span>
+						<div class="heart-count">좋아요  ${itemVO.heart}</div>
 					</div>
 					<input type="hidden" id="userLogin" value="${userLogin}">
 				</div>
@@ -323,6 +338,8 @@
 		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 		infowindow.open(map, marker);
 	</script>
+	
+	<%@ include file="../footer.jsp"%>
 
 </body>
 </html>
