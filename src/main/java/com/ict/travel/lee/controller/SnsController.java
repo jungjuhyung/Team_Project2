@@ -46,11 +46,11 @@ public class SnsController {
 		MemberVO userInfo = memberService.getUserInfo(access_Token);
 		
 		System.out.println("###access_Token### : " + access_Token);
-		System.out.println("###nickname### : " + userInfo.get("nickname"));
-		System.out.println("###email### : " + userInfo.get("email"));
+//		System.out.println("###nickname### : " + userInfo.get("nickname"));
+//		System.out.println("###email### : " + userInfo.get("email"));
 		
 		
-		return null;
+		return new ModelAndView("ko_view/main_page");
 	}
 	
 //	@RequestMapping("kakaologin.do")
