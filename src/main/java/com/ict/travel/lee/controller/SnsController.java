@@ -14,17 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.ict.travel.lee.controller.kakao.KakaoAccout;
-import com.ict.travel.lee.controller.kakao.KakaoProperties;
-import com.ict.travel.lee.controller.kakao.KakaoUsersVO;
-import com.ict.travel.lee.controller.kakao.KakaoVO;
-import com.ict.travel.lee.dao.MemberDAO;
 import com.ict.travel.lee.dao.MemberVO;
-import com.ict.travel.lee.service.KakaoService;
 import com.ict.travel.lee.service.MemberService;
 
 @Controller
@@ -48,6 +40,19 @@ public class SnsController {
 		System.out.println("###access_Token### : " + access_Token);
 //		System.out.println("###nickname### : " + userInfo.get("nickname"));
 //		System.out.println("###email### : " + userInfo.get("email"));
+		
+		
+		return new ModelAndView("ko_view/main_page");
+	}
+	@RequestMapping("naverlogin.do")
+	public ModelAndView naverLogin(HttpServletRequest request, String code, String state) {
+		System.out.println("#####" + code);
+		System.out.println("#### state : " + state);
+		
+		String access_Token = memberService.getNaverToken(code, state);
+		MemberVO userInfo2 = memberService.getUserNaver(access_Token);
+		
+		System.out.println("#####url : " + access_Token);
 		
 		
 		return new ModelAndView("ko_view/main_page");

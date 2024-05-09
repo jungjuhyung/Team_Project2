@@ -155,6 +155,118 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Override
+	public String getNaverToken(String code, String state) {
+		String access_Token = "";
+		String refresh_Token = "";
+		String reqURL = "https://nid.naver.com/oauth2.0/token";
+		
+		try {
+			URL url = new URL(reqURL);
+			
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+			sb.append("&client_id=TRKMsvddX9k547J_e_XD");
+			sb.append("&client_secret=8AJJIuOG6V");
+			sb.append("&redirect_uri=http://localhost:8090/naverlogin.do");
+			sb.append("&code=" + code);
+			sb.append("&state=" + state);
+			bw.write(sb.toString());
+			bw.flush();
+			
+			int responseCode = conn.getResponseCode();
+			System.out.println(responseCode);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+			
+			while ((line = br.readLine())!=null) {
+				result += line;
+			}
+			System.out.println("response body : " + result);
+			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+			
+			access_Token = element.getAsJsonObject().get("access_token").getAsString();
+			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+			
+			System.out.println("access_token : " + access_Token);
+			System.out.println("refresh_token : " + refresh_Token);
+			
+			br.close();
+			bw.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return access_Token;
+	}
+
+	@Override
+	public MemberVO getUserNaver(String access_Token) {
+		HashMap<String, Object> userInfo2 = new HashMap<String, Object>();
+		String reqURL = "https://openapi.naver.com/v1/nid/me";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+
+			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
+			String line = "";
+			String result = "";
+			
+			while ((line = br.readLine())!= null) {
+				result += line;
+			}
+			System.out.println("response body : " + result);
+			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+			
+			// 네이버는 response 사용
+			JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
+			System.out.println("response : "+response);
+			
+			String name = response.getAsJsonObject().get("name").getAsString();
+			String email = response.getAsJsonObject().get("email").getAsString();
+			String mobile = response.getAsJsonObject().get("mobile").getAsString();
+			
+			userInfo2.put("name", name);
+			userInfo2.put("email", email);
+			userInfo2.put("mobile", mobile);
+			
+			System.out.println("name@@@@@@@@@ : " + name);
+			System.out.println("email@@@@@@@@@@ : " + email);
+			System.out.println("mobile@@@@@@@@@@ : " + mobile);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		MemberVO mvo2 = memberDAO.findnaver(userInfo2);
+		System.out.println("S : " + mvo2);
+		if(mvo2==null) {
+			memberDAO.naverinsert(userInfo2);
+			return memberDAO.findnaver(userInfo2);
+			
+		}else {
+			return mvo2;
+		}
+	}
+
 
 	
 

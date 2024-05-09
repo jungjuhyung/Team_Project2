@@ -55,8 +55,8 @@
 				<a href="https://kauth.kakao.com/oauth/authorize?client_id=acef18f41c74c70cc25d2050d26d4e94&redirect_uri=http://localhost:8090/kakaologin.do&response_type=code">
 					<img src="resources/lee_images/kakao_login.png">
 				</a>
-				<a id="a3">
-					<img src="resources/lee_images/btnG_logIn.png">
+				<a id="a3" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=TRKMsvddX9k547J_e_XD&state=STATE_STRING&redirect_uri=http://localhost:8090/naverlogin.do">
+					<img  src="resources/lee_images/btnG_logIn.png">
 				</a>
 			</form>
 		</div>

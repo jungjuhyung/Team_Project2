@@ -4,28 +4,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.inject.spi.Element;
-import com.ict.travel.lee.dao.KakaoDAO;
 import com.ict.travel.lee.dao.MemberDAO;
-import com.ict.travel.lee.dao.MemberVO;
-import com.ict.travel.lee.service.KakaoService;
-import com.ict.travel.lee.service.MemberService;
 
 @RestController
 public class KakaoAjaxController2 {
