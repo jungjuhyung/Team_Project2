@@ -8,7 +8,7 @@
 		select * from placewish_t where u_idx = #{u_idx}
 	</select>
 	
-	<insert id="markerImgInsert">
+<!-- 	<insert id="markerImgInsert">
 		<selectKey keyProperty="user_idx" resultType="String" order="BEFORE">
 			SELECT (IFNULL(MAX(user_idx),0)) as user_idx FROM user_table
 	    </selectKey>
@@ -22,7 +22,7 @@
 	    </selectKey>
 	    INSERT INTO user_addr_table (user_idx, zip_code, main_addr, detail_addr, ex_addr, addr_type) 
 	    VALUES (#{user_idx}, #{zip_code},#{main_addr},#{detail_addr},#{ex_addr}, 0)
-	</insert>
+	</insert> -->
 	
 	
 </mapper>

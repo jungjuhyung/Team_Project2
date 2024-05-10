@@ -62,14 +62,13 @@ public class MarkerController {
 				// 파일 이름 지정
 				UUID uuid = UUID.randomUUID();
 				String f_name = uuid.toString()+"_"+f_main.getOriginalFilename();
-				rcvo.setFirstimage(f_name)
+				rcvo.setFirstimage(f_name);
 				// 파일 업로드(복사)
 				byte[] in = f_main.getBytes();
 				File out = new File(path, f_name);
 				FileCopyUtils.copy(in, out);
 				rcvo.setU_idx("1");
 				rcvo.setU_id("test01");
-				int res_p = productService.productInsert(pvo);
 			}
 		
 		for (int i = 6; i < field.length; i++) {
@@ -89,7 +88,7 @@ public class MarkerController {
 			marker_one.setContenttypeid(contenttypeid[i]);
 			for (MultipartFile k : marker_img.get(i)) {
 				try {
-					String path = request.getSession().getServletContext().getRealPath("/resources/rc_marker_img");
+					String path2 = request.getSession().getServletContext().getRealPath("/resources/rc_marker_img");
 					MarkerImgVO mkivo = new MarkerImgVO();
 					if(k.isEmpty()) {
 						mkivo.setImage_name("");
@@ -103,10 +102,6 @@ public class MarkerController {
 						FileCopyUtils.copy(in, out);
 					}
 
-					int result = shopService.getProductInsert(svo);
-					if(result>0) {
-						return new ModelAndView("redirect:shop_list.do?category="+svo.getCategory());
-					}
 				} catch (Exception e) {
 					System.out.println(e);
 				}
@@ -114,5 +109,6 @@ public class MarkerController {
 		}
 		
 		return mv;
+	}
 	}
 }

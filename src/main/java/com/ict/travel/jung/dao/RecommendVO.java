@@ -35,11 +35,11 @@ public class RecommendVO {
 	public void setFirstimage(String firstimage) {
 		this.firstimage = firstimage;
 	}
-	public String getPath_post_title() {
-		return path_post_title;
+	public String getTitle() {
+		return title;
 	}
-	public void setPath_post_title(String path_post_title) {
-		this.path_post_title = path_post_title;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getPath_post_content() {
 		return path_post_content;
@@ -65,18 +65,12 @@ public class RecommendVO {
 	public void setLike(String like) {
 		this.like = like;
 	}
-	public String getSigungucode() {
-		return sigungucode;
-	}
-	public void setSigungucode(String sigungucode) {
-		this.sigungucode = sigungucode;
-	}
 	public MultipartFile getF_main() {
 		return f_main;
 	}
 	public void setF_main(MultipartFile f_main) {
 		this.f_main = f_main;
 	}
-	
+
 	
 }
