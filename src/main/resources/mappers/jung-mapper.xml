@@ -3,27 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="marker">
+<mapper namespace="recommend">
 	<select id="wish_list" parameterType="String" resultType="wishvo">
 		select * from placewish_t where u_idx = #{u_idx}
 	</select>
 	
-<!-- 	<insert id="markerImgInsert">
-		<selectKey keyProperty="user_idx" resultType="String" order="BEFORE">
-			SELECT (IFNULL(MAX(user_idx),0)) as user_idx FROM user_table
+	<insert id="postInsert">
+	    INSERT INTO user_addr_table (u_idx, u_id, firstimage, title, path_post_content, r_areacode,r_contenttypeid,heart,regdate) 
+	    VALUES (#{u_idx}, #{u_id},#{firstimage},#{title},#{path_post_content}, #{r_areacode},#{r_contenttypeid},#{heart},sysdate())
+	</insert>
+	
+	<insert id="markerInsert">
+		<selectKey keyProperty="path_post_idx" resultType="String" order="BEFORE">
+			SELECT (IFNULL(MAX(path_post_idx),0)) as path_post_idx FROM pathpost_t
 	    </selectKey>
-	    INSERT INTO user_addr_table (user_idx, zip_code, main_addr, detail_addr, ex_addr, addr_type) 
-	    VALUES (#{user_idx}, #{zip_code},#{main_addr},#{detail_addr},#{ex_addr}, 0)
+	    INSERT INTO pathmarker_t (contentid, path_post_idx, mapy, mapx, areacode, sigungucode,contenttypeid,title,regdate) 
+	    VALUES (#{contentid}, #{path_post_idx},#{mapy},#{mapx},#{areacode}, #{sigungucode}, #{contenttypeid}, #{title}, sysdate())
 	</insert>
 	
 	<insert id="markerImgInsert">
-		<selectKey keyProperty="user_idx" resultType="String" order="BEFORE">
-			SELECT (IFNULL(MAX(user_idx),0)) as user_idx FROM user_table
+		<selectKey keyProperty="path_marker_idx" resultType="String" order="BEFORE">
+			SELECT (IFNULL(MAX(path_marker_idx),0)) as path_marker_idx FROM pathmarker_t
 	    </selectKey>
-	    INSERT INTO user_addr_table (user_idx, zip_code, main_addr, detail_addr, ex_addr, addr_type) 
-	    VALUES (#{user_idx}, #{zip_code},#{main_addr},#{detail_addr},#{ex_addr}, 0)
-	</insert> -->
-	
-	
+	    INSERT INTO pathmarker_img_t (image_name, path_marker_idx) 
+	    VALUES (#{image_name}, #{path_marker_idx})
+	</insert>
 </mapper>
 
