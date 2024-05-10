@@ -63,6 +63,10 @@ function reportConfirm(f) {
 						<td class="userin">${reportvo.u_id}</td>
 					</tr>
 					<tr>
+						<td class="menu">불량유저ID</td>
+						<td class="userin">${reportvo.reported_id}</td>
+					</tr>
+					<tr>
 						<td class="menu">제목</td>
 						<td class="userin">${reportvo.report_title }
 						</td>

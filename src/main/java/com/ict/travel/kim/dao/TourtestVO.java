@@ -1,14 +1,17 @@
 package com.ict.travel.kim.dao;
 
 public class TourtestVO {
-	private String path_maker_idx, path_post_idx, mapy, mapx, img01, img02, img03, img04, img05, regdate, contentid;
-
-	public String getPath_maker_idx() {
-		return path_maker_idx;
+	private String path_marker_idx, path_post_idx, img01, img02, img03, img04, img05, regdate, contentid;
+	
+	private double mapy, mapx;
+	
+	
+	public String getPath_marker_idx() {
+		return path_marker_idx;
 	}
 
-	public void setPath_maker_idx(String path_maker_idx) {
-		this.path_maker_idx = path_maker_idx;
+	public void setPath_marker_idx(String path_marker_idx) {
+		this.path_marker_idx = path_marker_idx;
 	}
 
 	public String getPath_post_idx() {
@@ -19,19 +22,20 @@ public class TourtestVO {
 		this.path_post_idx = path_post_idx;
 	}
 
-	public String getMapy() {
+	
+	public double getMapy() {
 		return mapy;
 	}
 
-	public void setMapy(String mapy) {
+	public void setMapy(double mapy) {
 		this.mapy = mapy;
 	}
 
-	public String getMapx() {
+	public double getMapx() {
 		return mapx;
 	}
 
-	public void setMapx(String mapx) {
+	public void setMapx(double mapx) {
 		this.mapx = mapx;
 	}
 

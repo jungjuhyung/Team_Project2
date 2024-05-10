@@ -325,7 +325,7 @@
     content += '</ol>';
 
     $(".board-list-paging").html(content);
-}
+	}
 	
    	// 각 장소 정보를 HTML로 변환하여 추가하는 함수
    	function addPlace(place) {

@@ -5,20 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PlaceRWishDAO {
+public class KpostDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public PlaceRWishVO placeRDetail(String place_idx) {
+	public KpostVO kpostDetail(String path_post_idx) {
 		try {
-			return sqlSessionTemplate.selectOne("placerwish_t.placeRDetail", place_idx);
+			return sqlSessionTemplate.selectOne("kpost_t.kpostDetail", path_post_idx);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
-	
 	
 }

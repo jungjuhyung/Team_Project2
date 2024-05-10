@@ -7,8 +7,14 @@
 	
 	
 	<select id="tourDetail" resultType="tourtestvo">
-		select * from pathmaker_t where path_maker_idx = #{path_maker_idx}
+		select * from pathmarker_t where path_marker_idx = #{path_marker_idx}
 	</select>
+	
+	<select id="tourMaps" resultType="tourtestvo">
+		select mapy, mapx
+		from pathmarker_t where path_post_idx = #{path_post_idx}
+	</select>
+	
 	
 </mapper>
 
