@@ -40,9 +40,5 @@ public class KoServiceIple implements KoService{
 		return koDAO.getPlaceDetail(contentid);
 	}
 	
-	@Override
-	public String getPlaceWish(ItemVO itemVO) {
-		return koDAO.getPlaceWish(itemVO);
-	}
 	
 }

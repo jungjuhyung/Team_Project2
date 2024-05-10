@@ -1,9 +1,14 @@
 @charset "UTF-8";
 
+body {
+	background-color: #F9F3FF;
+}
+
 .detail_main {
 	margin: 20px;
 	display: grid;
 	grid-template-columns: 5fr 5fr;
+	margin-top: 40px;
 }
 
 .main_image {
@@ -63,27 +68,56 @@
 }
 
 /* 찜하기 버튼 */
-#wish_btn {
+.wish_btn {
 	text-align: center;
 	margin: 20px auto;
 }
 
-#wish_btn button {
+.wish_btn img {
+	vertical-align: middle;
+}
+
+.wish_btn button {
 	padding: 10px;
 	border: none;
 	outline: none;
-	background-color: green;
-	border-radius: 10px;
+	background-color: pink;
 	font-size: 20px;
 	color: white;
-	box-shadow: 0 0 10px black;
 	cursor: pointer;
+	border-radius: 10px;
+	box-shadow: 0 0 10px pink;
 }
 
-
-#wish_btn button:hover {
-	color: black;
+.wish_btn button:hover {
+	color: #FF6C6E;
 	font-weight: bold;
+}
+
+.heart-state {
+	background-color: black;
+}
+
+.wish-added {
+	background-color: pink;
+}
+
+.like_count {
+	text-align: center;
+}
+
+.like_count img {
+	vertical-align: middle;
+}
+
+.heart-count {
+	padding: 10px;
+	font-size: 20px;
+	background-color: skyblue;
+	color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 10px skyblue;
+	display: inline-block;
 }
 
 /* 상세설명 */
@@ -170,3 +204,5 @@
 	color: gray;
 	font-size: 16px;
 }
+
+

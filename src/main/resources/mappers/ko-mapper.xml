@@ -34,33 +34,6 @@
 		select * from tourapi_t where contentid = #{contentid}
 	</select>
 	
-	<select id="wish_check" parameterType="String" resultType="String">
-		select count(*) from placewish_t where contentid = #{contentid}
-	</select>
-	
-	<delete id="wish_delete" parameterType="String">
-		delete from placewish_t where contentid = #{contentid} 
-	</delete>
-	
-	<update id="tour_like_minus" parameterType="String">
-		update tourapi_t  
-		set heart -= heart
-		where contentid = #{contentid} 
-	</update>
-	
-	<insert id="wish_insert" parameterType="ivo">
-		insert into placewish_t(u_idx, contentid, mapx, mapy, addr1, firstimage, place_title, 
-								contenttypeid, regdate)  
-		values(1, #{contentid}, #{mapx}, #{mapy}, #{addr1}, #{firstimage}, #{title}, 
-				#{contenttypeid}, sysdate())
-	</insert>
-	
-	<update id="tour_like_plus" parameterType="String">
-		update tourapi_t  
-		set heart += heart
-		where contentid = #{contentid} 
-	</update>	
-
 	 
 </mapper>
 

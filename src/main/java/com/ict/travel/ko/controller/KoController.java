@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.travel.cho.dao.ChoTourVO;
+import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPathVO;
 import com.ict.travel.ko.dao.KoVO;
@@ -33,15 +37,20 @@ public class KoController {
 	private KoService koService;
 
 	@RequestMapping("main_page.do")
-	public ModelAndView getKo() {
+	public ModelAndView getKo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("ko_view/main_page");
-
+		
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		if(uvo !=null) {
+			mv.addObject("userLogin", "ok");
+		}
+		
 		List<KoVO> area_list = koService.getAreaList("1");
 		List<KoVO> tema_list = koService.getTemaList("12");
-		
+
 		mv.addObject("area_list", area_list);
 		mv.addObject("tema_list", tema_list);
-		
+
 		Map<String, String> area = new HashMap<String, String>();
 		area.put("1", "서울");
 		area.put("2", "인천");
@@ -61,29 +70,48 @@ public class KoController {
 		area.put("38", "전남");
 		area.put("39", "제주");
 		mv.addObject("area", area);
-		
+
 		Map<String, String> tema = new HashMap<String, String>();
 		tema.put("12", "관광지");
 		tema.put("15", "행사/공연/축제");
 		tema.put("39", "음식점");
 		mv.addObject("tema", tema);
-		
+
 		return mv;
 	}
 
+	@Autowired
+	private ChoService choService;
+	
 	@RequestMapping("ko_detail.do")
 	public ModelAndView getKoDetail(@ModelAttribute("contentid") String contentid,
-			@ModelAttribute("contenttypeid") String contenttypeid, 
-			HttpSession session) {
+			@ModelAttribute("contenttypeid") String contenttypeid, HttpSession session) {
 		ModelAndView mv = new ModelAndView("ko_view/detail");
-		System.out.println("contentid : " + contentid);
-		System.out.println("contenttypeid : " + contenttypeid);
-		
+		//System.out.println("contentid : " + contentid);
+		//System.out.println("contenttypeid : " + contenttypeid);
+
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
-		mv.addObject("u_idx", uvo.getU_idx());
+		if(uvo !=null) {
+			mv.addObject("userLogin", "ok");
+		}
 		
+		ItemVO itemVO = koService.getPlaceDetail(contentid);
+		//System.out.println("상세페이지 좋아요 수 : " + itemVO.getHeart());
+		
+		// 유저 로그인 상태일 때 찜 여부
+		if (uvo != null) {
+			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());
+			for (PlaceWishVO k : placeWishList) {
+				if (k.getContentid().equals(contentid)) {
+					itemVO.setUheart("1");
+					break;
+				}
+			}
+		}
+		
+
 		List<KoVO> path_list = koService.getPathList(contentid);
-		//List<KoPathVO> path_list = koService.getPathList(contentid);
+		// List<KoPathVO> path_list = koService.getPathList(contentid);
 		mv.addObject("path_list", path_list);
 
 		try {
@@ -125,8 +153,8 @@ public class KoController {
 			// 200 이면 성공과 같은 의미 (HttpURLConnection.HTTP_OK)
 			int responseCode = conn.getResponseCode();
 			int responseCode2 = conn.getResponseCode();
-			System.out.println(responseCode);
-			System.out.println(responseCode2);
+			//System.out.println(responseCode);
+			//System.out.println(responseCode2);
 
 			if (responseCode == HttpURLConnection.HTTP_OK && responseCode2 == 200) {
 				// 공통 정보 조회
@@ -137,7 +165,7 @@ public class KoController {
 					sb.append(line);
 				}
 				String result = sb.toString();
-				System.out.println(result);
+				//System.out.println(result);
 
 				JSONParser parser = new JSONParser();
 				JSONObject obj = (JSONObject) parser.parse(result);
@@ -146,7 +174,7 @@ public class KoController {
 				JSONObject items = (JSONObject) body.get("items");
 				JSONArray item = (JSONArray) items.get("item");
 				JSONObject item_list = (JSONObject) item.get(0);
-				
+
 				// 소개 정보 조회
 				BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
 				String line2 = "";
@@ -155,7 +183,7 @@ public class KoController {
 					sb2.append(line2);
 				}
 				String result2 = sb2.toString();
-				System.out.println(result2);
+				//System.out.println(result2);
 
 				JSONParser parser2 = new JSONParser();
 				JSONObject obj2 = (JSONObject) parser2.parse(result2);
@@ -165,7 +193,7 @@ public class KoController {
 				JSONArray item2 = (JSONArray) items2.get("item");
 				JSONObject item_list2 = (JSONObject) item2.get(0);
 
-				ItemVO itemVO = new ItemVO();
+				
 				itemVO.setContentid(item_list.get("contentid").toString());
 				itemVO.setContenttypeid(item_list.get("contenttypeid").toString());
 				itemVO.setTitle(item_list.get("title").toString());
@@ -203,12 +231,17 @@ public class KoController {
 				}
 				mv.addObject("itemVO", itemVO);
 				return mv;
-				
+
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
+	}
+	
+	@RequestMapping("footer_terms.do")
+	public ModelAndView getTerms() {
+		return new ModelAndView("ko_view/footer_terms");
 	}
 
 }

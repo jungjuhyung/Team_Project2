@@ -8,6 +8,10 @@ a {
 	text-decoration: none;
 }
 
+.header {
+	background-image: url(/resources/ko_images/bg.png);
+}
+
 .ko_nav li {
 	list-style: none;
 }
@@ -19,6 +23,7 @@ a {
 	grid-gap: 20px;
 	margin: 0;
 	padding: 0;
+	
 }
 
 .ko_logo {

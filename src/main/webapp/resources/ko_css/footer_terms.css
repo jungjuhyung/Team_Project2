@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+#contents {
+	color: #666;
+	box-sizing: border-box;
+	width: 1000px;
+	margin: 0 auto;
+	padding: 130px 20px 30px 20px;
+}
+
+.tit_pos {
+	position: relative;
+    width: 940px;
+    border-bottom: 2px solid #000;
+}
+
+.term_wrap {
+    color: #666;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    padding-top: 40px;
+}
+

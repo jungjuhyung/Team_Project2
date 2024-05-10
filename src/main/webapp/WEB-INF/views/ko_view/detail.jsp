@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Detail</title>
+<link rel="icon" href="/resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/detail.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,33 +22,64 @@
 		location.href = "경로게시판 글로 이동?path_post_idx=" + path_post_idx; 
 	}
 	 */
-	 /* 
-	<div id="wish_btn">
-						<button type="button" onclick="wish_go(${itemVO.contentid})">
-							찜목록으로
-						</button>
-					</div>
-	 */
-	 function wish_go(contentid, u_idx) {
-		
+
+	$(document).on("click", ".heart-state", function(e) {
+		let contentid = $(this).val();
+		let userLogin = document.getElementById("userLogin").value;
+		if (userLogin !== null && userLogin === "ok") {
+			if ($(this).hasClass("wish-added")) {
+				placeWishRemove(this, contentid);
+			} else {
+				placeWishadd(this, contentid);
+			}
+		} else {
+			alert("찜하기를 하시려면 로그인을 해주세요.")
+		}
+	});
+
+	// 장소 찜하기
+	function placeWishadd(tag, contentid) {
 		$.ajax({
-			url : "ko_ajax_wish.do",
-			data : "contentid=" + contentid,
-			method : "post",
+			url : "placeWishAdd2",
+			type : "post",
+			data : {
+				contentid : contentid
+			},
 			dataType : "text",
 			success : function(data) {
-				console.log(data);
-				let content = '';
-				if (data == 1) {
-					$("#wish_btn").empty();
-					content += '<button type="button" onclick="wish_go(' + contentid 
-							+ '})">찜해제</button>'
-				}else if (data == 0) {
-					$("#wish_btn").empty();
-					content += '<button type="button" onclick="wish_go(' + contentid 
-							+ '})">찜하기</button>'
-				}
-				$("#wish_btn").append(content);
+				$('.heart-count').text("좋아요  " + data);
+				$(tag).addClass("wish-added");
+				$(tag).text("찜해제하기");
+				$('.heart_icon').empty();
+				let content = '<img alt="" src="/resources/ko_images/heart_on3.png" width="40px;">';
+				$('.heart_icon').append(content);
+				$('.heart-state').css('background', 'pink');
+				alert("좋아요를 눌렀습니다.")
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+	}
+
+	// 장소 찜제거
+	function placeWishRemove(tag, contentid) {
+		$.ajax({
+			url : "placeWishRemove2",
+			type : "post",
+			data : {
+				contentid : contentid,
+			},
+			dataType : "text",
+			success : function(data) {
+				$('.heart-count').text("좋아요  " + data);
+				$(tag).text("찜추가하기");
+				$(tag).removeClass("wish-added");
+				$('.heart_icon').empty();
+				let content = '<img alt="" src="/resources/ko_images/heart_off2.png" width="40px;">';
+				$('.heart_icon').append(content);
+				$('.heart-state').css('background', 'black');
+				alert("좋아요를 취소하셨습니다.")
 			},
 			error : function() {
 				alert("실패");
@@ -62,7 +94,7 @@
 
 	<section style="width: 1300px; margin: 0 auto;">
 		<div class="ko_detail">
-			
+
 			<div class="detail_main">
 				<div class="main_image">
 					<img alt="${itemVO.title}" src="${itemVO.firstimage}" width="100%"
@@ -189,13 +221,29 @@
 							</c:if>
 						</table>
 					</c:if>
-					
-					<div id="wish_btn">
-						<button type="button" onclick="wish_go(${itemVO.contentid}, ${u_idx})">
-							찜목록으로
-						</button>
+					<div class="wish_btn">
+						<c:choose>
+							<c:when test="${itemVO.uheart == 1}">
+								<i class="heart_icon"><img alt="" src="/resources/ko_images/heart_on3.png" width="40px;"></i>
+								<button type="button" class="heart-state wish-added"
+									value="${itemVO.contentid}">
+									찜해제하기
+								</button>
+							</c:when>
+							<c:otherwise>
+								<i class="heart_icon"><img alt="" src="/resources/ko_images/heart_off2.png" width="40px;"></i>
+								<button type="button" class="heart-state"
+									value="${itemVO.contentid}">
+									찜추가하기
+									</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
-					
+					<div class="like_count">
+						<img alt="" src="/resources/ko_images/like.png" width="50px">
+						<div class="heart-count">좋아요  ${itemVO.heart}</div>
+					</div>
+					<input type="hidden" id="userLogin" value="${userLogin}">
 				</div>
 			</div>
 			<hr>
@@ -290,6 +338,8 @@
 		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 		infowindow.open(map, marker);
 	</script>
+	
+	<%@ include file="../footer.jsp"%>
 
 </body>
 </html>

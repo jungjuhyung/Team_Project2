@@ -16,6 +16,6 @@ public interface KoService {
 	
 	ItemVO getPlaceDetail(String contentid);
 	
-	String getPlaceWish(ItemVO itemVO);
+	
 	
 }

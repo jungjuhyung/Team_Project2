@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Five Guys Travel Guide</title>
+<link rel="icon" href="/resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css" href="resources/ko_css/main_page.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -74,7 +75,7 @@
 <body>
 	<%@ include file="../header.jsp"%>
 
-	<section style="margin: 0 auto; width: 1300px;">
+	<section style="margin: 0 auto; width: 1300px; min-height: 1750px;">
 		<div class="img_wrapper">
 			<div class="img_slider2">
 				<c:forEach var="k" begin="1" end="10">
@@ -236,6 +237,8 @@
 	    }
 	    
 	</script>
+	
+	<%@ include file="../footer.jsp"%>
 
 </body>
 </html>
