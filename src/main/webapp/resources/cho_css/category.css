@@ -1,5 +1,8 @@
 @charset "UTF-8";
 @import "../common_css/reset.css";
+body {
+    background-image: url(/resources/ko_images/bg.png);
+}
 * {
   box-sizing: border-box;
 }
@@ -18,7 +21,7 @@
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
   cursor: pointer; /* 커서 모양 설정 */
   text-align: center;
 }
@@ -27,7 +30,7 @@
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
 }
 
 /* 결과 보기 옵션 */
@@ -36,7 +39,7 @@
   height: 20px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
   cursor: pointer; /* 커서 모양 설정 */
   text-align: center;
 }
@@ -47,7 +50,7 @@
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius:3%
   background-color: white; /* 버튼 배경색 */
   color: black; /* 글자색 */
   cursor: pointer; /* 커서 모양 설정 */
@@ -193,38 +196,45 @@
 }
 
 /***********테마CSS***************/
-.swipe-Wrapper{
-	width: 960px;
-	margin: 0 auto;
-	position: relative;
-	overflow: hidden;
+ .swipe-Wrapper {
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
 }
-.swipe-arealist{
-	display: flex;
+.swipe-arealist {
+    display: flex;
+    position: relative;
 }
-.swipeAreaList{
-	width: 75px;
-	height: 100px;
-	margin-right: 21px;
-	text-align: center;
+.swiper{
+	width: 960px!important;
+	margin-bottom: 20px;
 }
-.swipeAreaList:hover{
-	cursor: pointer;
+.swiper-slide {
+   width: 100px!important;
+   height: 100px!important;
+   text-align: center;
+   font-size: 18px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
 }
 
-.swipeAreaList > img{
-	width: 75px;
-	border-radius: 50%;
-	background-color: black;
-	height: 80px;
+.swipeAreaList img {
+    width: 75px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: black;
+    height: 80px;
+    object-fit: cover;
+} 
+
+
+.swipeAreaList:hover {
+    cursor: pointer;
 }
-.swipe-Main{
-	position:relative;
-	width: 100%;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-#areaName{
+
+.areaName{
 	font-size: 36px;
 	font-weight: bold;
 	margin-top: 10px;
@@ -266,20 +276,6 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
     gap: 10px; /* 그리드 간격 설정 */
-}
-.place-Wrapper .place-box {
-  width: 80%;
-  margin: 10px 20px;
-  text-align: center;
-  border-radius: 30px;
-  transition: transform 0.2s ease;
-}
-.place-Wrapper .place-box .image-box  {
-  width: 100%;
-  height: 180px;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: white;
 }
 
 #searchResultWrapper summary {
