@@ -25,6 +25,7 @@
 		<typeAlias type="com.ict.travel.cho.dao.TourapiVO" alias="tourapiVO"/>
 		<typeAlias type="com.ict.travel.cho.dao.PathPostVO" alias="pathPostVO"/>
 		<typeAlias type="com.ict.travel.cho.dao.PathWishVO" alias="pathWishVO"/>
+		<typeAlias type="com.ict.travel.cho.dao.SearchVO" alias="searchVO"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/board-mapper.xml" />

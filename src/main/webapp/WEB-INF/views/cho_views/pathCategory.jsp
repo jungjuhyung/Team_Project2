@@ -107,15 +107,15 @@
 				$('.place-Wrapper').empty();
 				for (let i = 0; i < data.touristList.length; i++) {
 	          	        let pathPost = data.touristList[i];
-	          	        addPlace2(pathPost.contenttypeid,pathPost);
+	          	        addPlace2(pathPost.r_contenttypeid,pathPost);
           	    	}
 				for (let i = 0; i < data.partyList.length; i++) {
 	          	        let pathPost = data.partyList[i];
-	          	        addPlace2(pathPost.contenttypeid,pathPost);
+	          	        addPlace2(pathPost.r_contenttypeid,pathPost);
           	    	}
 				for (let i = 0; i < data.restaurantList.length; i++) {
 	          	        let pathPost = data.restaurantList[i];
-	          	        addPlace2(pathPost.contenttypeid,pathPost);
+	          	        addPlace2(pathPost.r_contenttypeid,pathPost);
           	    	}
 			},
 			error : function() {
@@ -124,7 +124,7 @@
 		});
 	}
 	
-	function addPlace2(contenttypeid,pathPost) {
+	function addPlace2(r_contenttypeid,pathPost) {
    		let originalTitle  = pathPost.title;
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
 		let heartIcon = '';
@@ -134,10 +134,10 @@
 		    heartIcon = '<span class="heart-state" data-path_post_idx="' + pathPost.path_post_idx + '">' + '♡' + '</span>';
 		}
    	    let pathPostHTML = '<div class="place-box" >' +
-   	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.contenttypeid + ')">' +
+   	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
    	                            '<img alt="' + pathPost.title + '" src="' + /* pathPost.firstimage */ "/resources/cho_images/cat.png" + '">' +
    	                        '</div>' +
-   	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+pathPost.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.contenttypeid + ')">' +
+   	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+pathPost.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
    	                     			truncatedTitle + 
    	                        '</div>' +
    	                        '<div class="wish-box">' +
@@ -145,13 +145,13 @@
 	   	                    '</div>' +
    	                    '</div>';
    	                    
-   	    if(contenttypeid ==="12"){
+   	    if(r_contenttypeid ==="12"){
    	    	$('#touristPlace').append(pathPostHTML);
    	    }
-   	    if(contenttypeid ==="15"){
+   	    if(r_contenttypeid ==="15"){
    	    	$('#partyPlace').append(pathPostHTML);
    	    }
-   	    if(contenttypeid ==="39"){
+   	    if(r_contenttypeid ==="39"){
    	    	$('#restaurantPlace').append(pathPostHTML);
    	    }
    	}
@@ -166,8 +166,8 @@
    	    element.textContent = truncatedTitle;
    	}
    	
-/* 	function goProductDetail(contentid, contenttypeid){
-        location.href = "ko_detail.do?contentid=" + contentid + "&contenttypeid=" + contenttypeid;
+/* 	function goProductDetail(contentid, r_contenttypeid){
+        location.href = "ko_detail.do?contentid=" + contentid + "&r_contenttypeid=" + r_contenttypeid;
     } */
 	
 	document.addEventListener('DOMContentLoaded', function () {

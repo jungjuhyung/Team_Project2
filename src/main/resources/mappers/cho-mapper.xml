@@ -11,33 +11,116 @@
 	
 	<!-- 검색(지역,시군구,타입) 결과 paging용 카운트 -->
 	<select id="tourListCount" parameterType="Map" resultType="int">
-		SELECT count(*) FROM 
-		<choose>
-			<when test="type == 1">
-				tourapi_t
-			</when>
-			<when test="type == 2">
-				pathpost_t
-			</when>
-			<otherwise>
-				tourapi_t UNION ALL SELECT * FROM pathpost_t
-			</otherwise>
-		</choose>
+	    SELECT count(*) FROM tourapi_t
+	     <where>
+		      <if test="areaCode != 999">
+		      	areaCode = #{areaCode} 
+		      </if>
+		      <if test="contentType != 999">
+		      	AND contenttypeid = #{contentType} 
+		      </if>
+		      <if test="sigunguCode != 999">
+		      	AND sigunguCode = #{sigunguCode} 
+		      </if>
+		      <if test="title != null">
+		       AND title LIKE CONCAT('%', #{title}, '%') 
+		      </if>
+	      </where> 
+	</select>
+	
+	<select id="tourPathListCount" parameterType="Map" resultType="int">
+	    SELECT count(distinct path_post_idx) FROM pathpost_t
+		    <choose>
+		    	<when test="post_idxList != null ">
+		            WHERE path_post_idx IN 
+		            <foreach collection="post_idxList" item="path_post_idx" open="(" close=")" separator=",">
+		                #{path_post_idx}
+		            </foreach>
+		            <if test="title != null">
+		                AND title LIKE CONCAT('%', #{title}, '%')
+		            </if>
+		    	</when>
+		    	<otherwise>
+		           WHERE 1 = 0
+		    	</otherwise>
+		    </choose>
+	</select>
+	
+	<!-- 페이징 검색 -->
+	<!-- 지역 -->
+	<select id="selectSearchTourList" parameterType="Map" resultType="searchVO">
+		SELECT * FROM tourapi_t 
+		<where>
+			 <if test="areaCode != 999">
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
+	        <if test="title != null">
+	            AND title LIKE CONCAT('%', #{title}, '%')
+	        </if>
+        </where>
+        ORDER BY 
+        <if test="order == null or order == '' or order == 'like'">
+		    heart DESC, title ASC
+		</if>
+		<if test="order == 't_asc'">
+		    title ASC, heart DESC
+		</if>
+		<if test="order == 't_desc'">
+		    title DESC, heart DESC
+		</if>
+         LIMIT #{limit} OFFSET #{offset} 
+	</select>
+	
+	<!-- 경로 -->
+	<select id="selectPostIdxList" parameterType="Map" resultType="String">
+		SELECT distinct path_post_idx FROM pathmarker_t
 		<where>
 			<if test="areaCode != 999">
-				AND areaCode = #{areaCode}
-			</if>
-			<if test="sigunguCode != 999">
-				AND sigunguCode = #{sigunguCode}
-			</if>
-			<if test="contentType != 999">
-				AND contenttypeid = #{contentType}
-			</if>
-			<if test="title != null">
-				AND title LIKE CONCAT('%', #{title}, '%')
-			</if>
+	            AND areaCode = #{areaCode}
+	        </if>
+	        <if test="sigunguCode != 999">
+	            AND sigunguCode = #{sigunguCode}
+	        </if>
+	        <if test="contentType != 999">
+	            AND contenttypeid = #{contentType}
+	        </if>
 		</where>
 	</select>
+	
+	<select id="selectSearchPathList" parameterType="Map" resultType="searchVO">
+		SELECT * FROM pathpost_t
+		 <where>
+		 <choose>
+			 <when test="post_idxList != null">
+	            AND path_post_idx IN 
+	            <foreach collection="post_idxList" item="path_post_idx" open="(" close=")" separator=",">
+	                #{path_post_idx}
+	            </foreach>
+			 </when>
+			 <otherwise>
+	            AND 1 = 0
+			 </otherwise>
+		 </choose>
+	    </where>
+        ORDER BY 
+        <if test="order == null or order == '' or order == 'like'">
+		    heart DESC, title ASC
+		</if>
+		<if test="order == 't_asc'">
+		    title ASC, heart DESC
+		</if>
+		<if test="order == 't_desc'">
+		    title DESC, heart DESC
+		</if>
+         LIMIT #{limit} OFFSET #{offset} 
+	</select>
+	
 	
 	<!-- 지역 검색(지역,시군구,타입) -->
 	<select id="selectTourList" parameterType="Map" resultType="choTourVO">
@@ -108,13 +191,10 @@
 		SELECT * FROM pathpost_t
 		<where>
 			<if test="areaCode != 999">
-	            AND areaCode = #{areaCode}
-	        </if>
-	        <if test="sigunguCode != 999">
-	            AND sigunguCode = #{sigunguCode}
+	            AND r_areaCode = #{areaCode}
 	        </if>
 	        <if test="contentType != 999">
-	            AND contenttypeid = #{contentType}
+	            AND r_contenttypeid = #{contentType}
 	        </if>
 	        <if test="title != null">
 	            AND title LIKE CONCAT('%', #{title}, '%')
