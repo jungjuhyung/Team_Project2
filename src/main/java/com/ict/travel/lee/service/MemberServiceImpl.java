@@ -253,17 +253,20 @@ public class MemberServiceImpl implements MemberService{
 			System.out.println("name@@@@@@@@@ : " + name);
 			System.out.println("email@@@@@@@@@@ : " + email);
 			System.out.println("mobile@@@@@@@@@@ : " + mobile);
+			
+			MemberVO mvo2 = memberDAO.findnaver(userInfo2);
+			System.out.println("S : " + mvo2);
+			if(mvo2 == null) {
+				memberDAO.naverinsert(userInfo2);
+				
+				return memberDAO.findnaver(userInfo2);
+				
+			}else {
+				return mvo2;
+			}
 		} catch (Exception e) {
 			System.out.println(e);
-		}
-		MemberVO mvo2 = memberDAO.findnaver(userInfo2);
-		System.out.println("S : " + mvo2);
-		if(mvo2==null) {
-			memberDAO.naverinsert(userInfo2);
-			return memberDAO.findnaver(userInfo2);
-			
-		}else {
-			return mvo2;
+			return null;
 		}
 	}
 

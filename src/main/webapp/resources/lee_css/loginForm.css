@@ -7,25 +7,52 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 }
+body{
+	background-image: url("../ko_images/bg.png");
+}
+
+html {
+  /* background: #95a5a6; */
+  
+  font-family: 'Helvetica Neue', Arial, Sans-Serif;
+}
 
 .login-container {
 	text-align: center;
+	background-image: url("../lee_images/loginbg.jpg");
+	background-size:cover;
+	background-position:center;
+	
 }
+
+.login{
+	margin: 80px;
+	
+} 
+
 
 .login-form {
 	width: 450px;
+	height: 650px;
+	background-color: pink;
+	box-shadow: 3px 3px 10px #333;
+	
 }
 
+.login-form h2{
+	margin: 20px;
+	font-weight: bold;
+	font-size: 20px;
+}
 div {
 	margin: auto;
-	background-color: #EEEFF1;
 	border-radius: 5px;
 	text-align: center;
 	padding: 20px;
 }
 
 input {
-	width: 100%;
+	width: 80%;
 	margin: 10px;
 	padding: 10px;
 	box-sizing: border-box;
@@ -43,6 +70,10 @@ input {
 	color: white;
 }
 
+/* #btn-sigin:hover {
+	color: gray;
+} */
+
 a {
 	text-decoration: none;
 	color: #9B9B9B;
@@ -50,9 +81,12 @@ a {
 }
 
 #a1 {
-	margin-bottom: 5px;
+	margin: 30px;
+	color: white;
+	margin-bottom: 20px;
 }
 
 #a3 img {
+	margin: 10px;
 	width: 170px;
 }

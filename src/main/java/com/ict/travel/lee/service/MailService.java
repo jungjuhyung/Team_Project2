@@ -43,32 +43,32 @@ public class MailService {
 
 	}
 
-	public void sendEmailId(String u_id, String email) {
-		try {
-			MailHandler sendMail = new MailHandler(mailSender);
-			
-			sendMail.setSubject("[본인확인 인증번호입니다.]");
-			
-			sendMail.setText("" 
-					+ "<table><tbody>" 
-					+ "<tr><td><h2>Five Guys 메일 인증</h2></td></tr>"
-					+ "<tr><td><h3>Five Guys</h3></td></tr>" 
-					+ "<tr><td><font size='20px'>인증번호 안내입니다.</font></td></tr>"
-					+ "<tr><td></td></tr>" 
-					+ "<tr><td>안녕하세요 인증번호 생성되었습니다.</td></tr>" 
-					+ "<tr><td></td></tr>"
-					+ "<tr><td><font size='20px'>확인번호 : " + u_id + "</font></td></tr>" 
-					+ "</tbody></table>");
-			
-			sendMail.setFrom("wol02095@gmail.com", "FIVEGYES");
-			
-			sendMail.setTo2(email);
-			sendMail.send();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		
-	}
+//	public void sendEmailId(String u_id, String email) {
+//		try {
+//			MailHandler sendMail = new MailHandler(mailSender);
+//			
+//			sendMail.setSubject("[본인확인 인증번호입니다.]");
+//			
+//			sendMail.setText("" 
+//					+ "<table><tbody>" 
+//					+ "<tr><td><h2>Five Guys 메일 인증</h2></td></tr>"
+//					+ "<tr><td><h3>Five Guys</h3></td></tr>" 
+//					+ "<tr><td><font size='20px'>인증번호 안내입니다.</font></td></tr>"
+//					+ "<tr><td></td></tr>" 
+//					+ "<tr><td>안녕하세요 인증번호 생성되었습니다.</td></tr>" 
+//					+ "<tr><td></td></tr>"
+//					+ "<tr><td><font size='20px'>확인번호 : " + u_id + "</font></td></tr>" 
+//					+ "</tbody></table>");
+//			
+//			sendMail.setFrom("wol02095@gmail.com", "FIVEGYES");
+//			
+//			sendMail.setTo2(email);
+//			sendMail.send();
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
+//		
+//	}
 	
 	
 }

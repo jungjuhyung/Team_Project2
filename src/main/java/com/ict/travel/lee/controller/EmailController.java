@@ -47,10 +47,11 @@ public class EmailController {
 	
 	// 비밀번호 찾기 - 이메일 전송
 	@PostMapping("email_send_ok.do")
-	public ModelAndView sendMailOK(String email) {
+	public ModelAndView sendMailOK(String email, String u_id) {
 		try {
 			System.out.println("1");
 			System.out.println(email);
+			System.out.println(u_id);
 			MemberVO mvo = memberService.getFindPW(email);
 			System.out.println(mvo.getU_email());
 			if(mvo != null) {
@@ -88,7 +89,7 @@ public class EmailController {
 			System.out.println(e);
 		}
 		System.out.println("안되니3");
-		return new ModelAndView("error");
+		return null;
 	}
 	@PostMapping("email_pass_ok.do")
 	public ModelAndView sentNumberOK() {
