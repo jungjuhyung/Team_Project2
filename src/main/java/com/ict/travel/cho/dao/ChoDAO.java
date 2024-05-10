@@ -247,6 +247,7 @@ public class ChoDAO {
 				List<String> post_idxList = sqlSessionTemplate.selectList("cho_mapper.selectPostIdxList",map);
 				if(post_idxList.size() > 0) {
 					map.put("post_idxList", post_idxList);
+					System.out.println(title);
 				}
 				return sqlSessionTemplate.selectList("cho_mapper.selectSearchPathList", map);
 			}

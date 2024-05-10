@@ -95,19 +95,18 @@
 	
 	<select id="selectSearchPathList" parameterType="Map" resultType="searchVO">
 		SELECT * FROM pathpost_t
-		 <where>
-		 <choose>
-			 <when test="post_idxList != null">
-	            AND path_post_idx IN 
-	            <foreach collection="post_idxList" item="path_post_idx" open="(" close=")" separator=",">
-	                #{path_post_idx}
-	            </foreach>
-			 </when>
-			 <otherwise>
-	            AND 1 = 0
-			 </otherwise>
-		 </choose>
-	    </where>
+			 <choose>
+				 <when test="post_idxList != null">
+		            WHERE path_post_idx IN 
+		            <foreach collection="post_idxList" item="path_post_idx" open="(" close=")" separator=",">
+		                #{path_post_idx}
+		            </foreach>
+		            AND title LIKE CONCAT('%', #{title}, '%')
+				 </when>
+				 <otherwise>
+		            WHERE 1 = 0
+				 </otherwise>
+			 </choose>
         ORDER BY 
         <if test="order == null or order == '' or order == 'like'">
 		    heart DESC, title ASC
