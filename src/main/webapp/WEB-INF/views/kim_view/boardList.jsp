@@ -146,6 +146,7 @@ $(".board-list-paging").html(content);
 <body>
 <%@ include file="../header.jsp"%>
 	<div id="board_form" align="center">
+		<div id="board_maint">자유게시판</div>
 		<table id="boardtable" summary="게시판 목록" style="width: 1000px;">
 			<thead>
 				<tr class="board_title" style="width: 100%;">
@@ -187,6 +188,7 @@ $(".board-list-paging").html(content);
 		</table>
 		<div class="board-list-paging"></div>
 		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" /></div>
+		<div id="empty-area">
 	</div>
 </body>
 </html>

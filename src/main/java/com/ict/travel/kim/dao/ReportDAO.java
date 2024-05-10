@@ -91,7 +91,14 @@ public class ReportDAO {
 	}
 	
 	
-	
+	public ReportVO baduser(String reported_id) {
+		try {
+			return sqlSessionTemplate.selectOne("report_t.baduser", reported_id);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
 	
 	

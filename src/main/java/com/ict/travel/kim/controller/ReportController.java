@@ -28,9 +28,6 @@ public class ReportController {
 	private ReportService reportService;
 	
 	@Autowired
-	private MemberService memberService;
-	
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -121,13 +118,23 @@ public class ReportController {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:getReportgo");
 			String pwd = passwordEncoder.encode(reportvo.getReport_pw());
-			String title = reportvo.getReport_title();
+			String bad_id = reportvo.getReported_id();
 			reportvo.setReport_pw(pwd);;
 			String u_idx = reportvo.getU_idx();
 			reportvo.setU_idx(u_idx);
+			ReportVO reportvo2 = reportService.baduser(bad_id);
+			if (reportvo2 == null) {
+			    // bad_id에 해당하는 정보가 없는 경우의 처리
+				System.out.println("왜안되닝");
+				mv.addObject("badid", "fail");
+			    mv.addObject("reportvo", reportvo);
+			    return new ModelAndView("kim_view/reportWrite");
+			}
+			reportvo.setReported_idx(reportvo2.getU_idx());
 			
 			int result = reportService.reportWrite(reportvo);
-			if(result > 0) {
+			if(result > 0 ) {
+				mv.addObject("reportvo", reportvo);
 				return mv;
 			}
 			return new ModelAndView("");
@@ -142,9 +149,7 @@ public class ReportController {
 	public ModelAndView reportDetail(String report_idx, String cPage) {
 		try {
 			ModelAndView mv = new ModelAndView("kim_view/reportDetail");
-			System.out.println("idx" + report_idx);
 			ReportVO reportvo = reportService.reportDetail(report_idx);
-			System.out.println(reportvo.getReport_idx());
 			if (reportvo !=null) {
 				
 				mv.addObject("reportvo", reportvo);
@@ -247,14 +252,8 @@ public class ReportController {
 	}
 	
 	
-	/* 신고할때 신고당하는 사람 아이디 체크
-	 * @RequestMapping(value = "AjaxIdChk", produces = "text/plain; charset=utf-8")
-	 * 
-	 * @ResponseBody public String AjaxIdChk(String reported_id) {
-	 * 
-	 * String result = memberService.AjaxIdChk(reported_id); return result; }
-	 * 
-	 */
+	
+
 	
 	
 }

@@ -30,8 +30,7 @@
 					
 					$(data).find("report").each(function() {
 						tbody += "<tr>";
-						tbody += "<td>" + "<input type= 'hidden' name = 'report_idx' value='"+$(this).find("report_idx").text()+"'>"
-						tbody += "<td>" + $(this).find("report_idx").text() + "</td>";
+						tbody += "<td><input type='hidden' name='report_idx' value='" + $(this).find("report_idx").text() + "'>" + $(this).find("report_idx").text() + "</td>";
 						tbody += "<td>" + $(this).find("u_id").text() + "</td>";
 						tbody += "<td><a href='#' class='report-title-link'>" + $(this).find("report_title").text() + "</td>";
 						tbody += "<td>" + $(this).find("regdate").text() + "</td>";
@@ -44,13 +43,7 @@
 						tbody += "</tr>";
 					});
 					$("#tbody").append(tbody);
-		/* 			
-					$(".report-title-link").click(function(event) {
-	                    event.preventDefault();
-	                    let clickedTitle = $(this).text();
-	                    let reportIdx = $(this).data("report_idx").text();
-	                    window.location.href = "reportDetail?report_idx=" + encodeURIComponent(reportIdx);
-					}); */
+		
 					$("body").on("click", ".report-title-link", function(event) {
 					    event.preventDefault();
 
@@ -223,15 +216,15 @@ function reportWrite() {
 <body>
 <%@ include file="../header.jsp"%>
 <div id="bigbox">
-    <h2>신고게시판</h2>
+    <div id="list_maint">신고게시판</div>
     <div>
-        <table id="list">
+        <table id="listtable">
             <thead>
-                <tr>
+                <tr class="list_title" style="width: 100%;">
                     <th>번호</th><th>닉네임</th><th>제목</th><th>작성일자</th><th>답변여부</th>
                 </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody id="tbody" cl>
             	
             </tbody>
         </table>

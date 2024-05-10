@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.kim.dao.BaduserVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.ReportDAO;
 import com.ict.travel.kim.dao.ReportVO;
@@ -54,6 +55,11 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public int reportState(String report_idx) {
 		return reportDAO.reportState(report_idx);
+	}
+
+	@Override
+	public ReportVO baduser(String reported_id) {
+		return reportDAO.baduser(reported_id);
 	}
 
 

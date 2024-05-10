@@ -1,9 +1,11 @@
 @charset "UTF-8";
 /* 페이징 */
 .board-list-paging {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   align-items: center;
+  width: 80%;
+  margin-top: 30px;
 }
 .pagination {
   list-style: none;
@@ -59,8 +61,13 @@
 #board_form{
 	width: 1200px;
 	margin: 0 auto;
-	margin-top : 160px;	
+	margin-top : 40px;	
 	
+}
+
+#board_maint{
+	font-size: 30px;
+	margin-bottom: 50px;
 }
 
 .board_title {
@@ -72,9 +79,16 @@
 .board_title th, td{
 	text-align: center;
 	margin: 0 auto;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 	border-collapse: collapse;
+	height: 40px;
+	vertical-align: middle;
+}
 
+.content_css td{
+	vertical-align: middle;
+	border-bottom: 1px solid black;
+	border-collapse: collapse;
 }
 
 .no { width: 10%}
@@ -89,8 +103,12 @@
 
 #bwbtn{
 	border-radius: 10px;
+	display: inline-block;
 }
 
+#empty-area{
+	height: 300px;
+}
 
 
 

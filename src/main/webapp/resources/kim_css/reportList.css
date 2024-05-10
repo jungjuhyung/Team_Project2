@@ -1,10 +1,15 @@
 @charset "UTF-8";
+body{
+	
+	vertical-align: middle;
+}
 
 /* 페이징 */
 .board-list-paging {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   align-items: center;
+  width: 85%;
 }
 .pagination {
   list-style: none;
@@ -57,15 +62,60 @@
 
 
 #bigbox{
-		margin-top: 160px;
+	width: 1200px;
+	margin: 0 auto;
+	margin-top : 40px;	
 		
 	}
-span { width: 150px; color: red;}
-input{border:1px solid red;}
-table{width: 80%; margin: 0 auto;}
-table,th,td {border: 1px solid gray; text-align: center;}
-h2{text-align: center;}
+	
+#list_maint{
+	font-size: 30px;
+	margin-bottom: 50px;
+	text-align: center;
+}
+#listtable{
+	width: 80%;
+	margin: 0 auto;
+	vertical-align: middle;
+}
 
+.list_title {
+	font-size: 20px; 	
+	height: 30px;
+	vertical-align: middle;
+	
+	
+}
+
+.list_title th, td{
+	text-align: center;
+	margin: 0 auto;
+	border-bottom: 1px solid black;
+	border-collapse: collapse;
+	height: 40px;
+	vertical-align: middle;
+}
+
+#content_css td{
+	vertical-align: middle;
+	border-bottom: 1px solid black;
+	border-collapse: collapse;
+}
+
+
+.content_css tr {
+        height: 40px; 
+    }
+
+#bwbtn{
+	border-radius: 10px;
+	display: inline-block;
+}
+
+#empty-area{
+	height: 300px;
+}
+	
 
 
 

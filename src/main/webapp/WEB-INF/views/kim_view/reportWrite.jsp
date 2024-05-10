@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardWrite.css">
     <!-- include libraries(jQuery, bootstrap) -->
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
@@ -20,6 +21,18 @@ function getReportgo(f) {
 	f.action="getReportgo";
 	f.submit();
 }
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	<%-- let badid = "<%= request.getAttribute("badid") %>"; --%>
+	let badid = "${badid}";
+	console.log("badid 값:", badid);
+	if(badid == "fail"){
+		alert("신고하는 아이디가 없습니다.");
+		return;
+	}
+});
+
 </script>
 </head>
 

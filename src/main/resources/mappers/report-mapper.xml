@@ -18,8 +18,8 @@
 	</select>
 	
 	<insert id="reportWrite" parameterType="reportvo">
-		insert into report_t (report_title, u_id, content, regdate, u_idx, report_pw)
-		values (#{report_title}, #{u_id}, #{content}, sysdate(), #{u_idx}, #{report_pw})
+		insert into report_t (report_title, u_id, content, regdate, u_idx, report_pw, reported_id, reported_idx)
+		values (#{report_title}, #{u_id}, #{content}, sysdate(), #{u_idx}, #{report_pw}, #{reported_id}, #{reported_idx})
 	</insert>
 	
 	<select id="reportDetail" resultType="reportvo">
@@ -40,6 +40,9 @@
 	<update id="reportState" parameterType="String">
 		update report_t set report_state = 1 where report_idx = #{report_idx}
 	</update>
+	<select id="baduser" resultType="reportvo">
+		select * from user_t where u_id = #{reported_id}
+	</select>
 	
 </mapper>
 

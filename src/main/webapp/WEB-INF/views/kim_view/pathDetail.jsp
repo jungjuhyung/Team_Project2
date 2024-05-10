@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
+<link rel="stylesheet" href="resources/kim_css/pathDetail.css">
 <!-- include libraries(jQuery, bootstrap) -->
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -15,39 +16,7 @@
 <!-- include summernote css/js-->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<style type="text/css">
-#world{
-	text-align: center;
-	width: 1200px;
-	margin: auto;
-	margin-top : 160px;
-}
-.d_img{
-	width: 100%;
-	height: 200px;
-	border: 1px solid black;
-	margin-top: 20px;	
 
-}
-.in_div{
-	width : 33.3333%;
-	height : 100%;
-	border: 1px solid black;
-	float: left;
-	
-}
-#summer{
-	margin-top: 30px;
-}
-#empty-area{
-	height: 300px;
-}
-#reviewTitle {
-	height: 100px;
-	border: 1px solid black;
-	margin-bottom: 10px;
-}
-</style>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -193,6 +162,8 @@ var polyline = new kakao.maps.Polyline({
 
 // 지도에 선을 표시합니다 
 polyline.setMap(map);  
+
+
 
 
 
