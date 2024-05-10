@@ -1,17 +1,20 @@
 @charset "UTF-8";
 
-#contents {
+#terms {
 	color: #666;
 	box-sizing: border-box;
 	width: 1000px;
 	margin: 0 auto;
-	padding: 130px 20px 30px 20px;
+	padding: 50px 20px 30px 20px;
 }
 
 .tit_pos {
 	position: relative;
     width: 940px;
     border-bottom: 2px solid #000;
+    font-size: 50px;
+    font-weight: bold;
+    padding-bottom: 20px;
 }
 
 .term_wrap {
@@ -19,6 +22,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    padding-top: 40px;
+    padding-bottom: 30px;
+    line-height: 30px;
 }
 
+.tit01 {
+    margin: 0;
+    padding: 0;
+    font-weight: 800;
+    color: #333;
+    font-size: 28px;
+    padding-top: 20px;
+}
+
+.tit02 {
+    padding: 0;
+    margin: 30px 0 3px;
+    font-weight: 800;
+    color: #333;
+    font-size: 20px;
+}
