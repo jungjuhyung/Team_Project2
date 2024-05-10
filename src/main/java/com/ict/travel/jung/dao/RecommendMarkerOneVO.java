@@ -1,7 +1,8 @@
 package com.ict.travel.jung.dao;
 
 public class RecommendMarkerOneVO {
-	String path_maker_idx, path_post_idx, mapx, mapy, contentid, img01, img02, img03, img04, img05, regdate;
+	private String path_maker_idx, path_post_idx, mapx, mapy, regdate,
+	contentid, areacode, sigungucode, contenttypeid;
 
 	public String getPath_maker_idx() {
 		return path_maker_idx;
@@ -35,6 +36,14 @@ public class RecommendMarkerOneVO {
 		this.mapy = mapy;
 	}
 
+	public String getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+
 	public String getContentid() {
 		return contentid;
 	}
@@ -43,51 +52,29 @@ public class RecommendMarkerOneVO {
 		this.contentid = contentid;
 	}
 
-	public String getImg01() {
-		return img01;
+	public String getAreacode() {
+		return areacode;
 	}
 
-	public void setImg01(String img01) {
-		this.img01 = img01;
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
 	}
 
-	public String getImg02() {
-		return img02;
+	public String getSigungucode() {
+		return sigungucode;
 	}
 
-	public void setImg02(String img02) {
-		this.img02 = img02;
+	public void setSigungucode(String sigungucode) {
+		this.sigungucode = sigungucode;
 	}
 
-	public String getImg03() {
-		return img03;
+	public String getContenttypeid() {
+		return contenttypeid;
 	}
 
-	public void setImg03(String img03) {
-		this.img03 = img03;
+	public void setContenttypeid(String contenttypeid) {
+		this.contenttypeid = contenttypeid;
 	}
 
-	public String getImg04() {
-		return img04;
-	}
-
-	public void setImg04(String img04) {
-		this.img04 = img04;
-	}
-
-	public String getImg05() {
-		return img05;
-	}
-
-	public void setImg05(String img05) {
-		this.img05 = img05;
-	}
-
-	public String getRegdate() {
-		return regdate;
-	}
-
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
-	}
+	
 }
