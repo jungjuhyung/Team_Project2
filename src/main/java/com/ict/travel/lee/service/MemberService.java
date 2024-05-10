@@ -1,9 +1,7 @@
 package com.ict.travel.lee.service;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.ict.travel.lee.dao.MemberVO;
 
@@ -18,8 +16,23 @@ public interface MemberService {
 	public int PassUpdate(MemberVO mvo);
 
 	public List<MemberVO> getFindId(MemberVO mvo);
+
+	// 카카오 로그인
+ 	public String getAccessToken(String code);
+
+	public MemberVO getUserInfo(String access_Token);
 	
-	public int KakaoLogin(HashMap<String, Object> map);
+	// 네이버 로그인
+	public String getNaverToken(String code, String state);
+	
+	public MemberVO getUserNaver(String access_Token);
+
+
+	
+	
+	
+
+
 
 	
 	

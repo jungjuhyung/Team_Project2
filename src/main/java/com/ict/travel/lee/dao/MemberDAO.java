@@ -3,6 +3,7 @@ package com.ict.travel.lee.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	// 회원가입
 	public int getSignUp(MemberVO mvo) {
 		try {
 			return sqlSessionTemplate.insert("lee-mapper.insert", mvo);
@@ -22,7 +24,8 @@ public class MemberDAO {
 		}
 		return -1;
 	}
-
+	
+	// 로그인
 	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
 		try {
 			return sqlSessionTemplate.selectOne("lee-mapper.login", mvo);
@@ -31,6 +34,7 @@ public class MemberDAO {
 		}
 		return null;
 	}
+	// 비밀번호 찾기(이메일로 전송)
 	public MemberVO getFindPW(String email) {
 		try {
 			return sqlSessionTemplate.selectOne("lee-mapper.findPwd", email);
@@ -39,7 +43,8 @@ public class MemberDAO {
 		}
 		return null;
 	}
-
+	
+	// 비밀번호 변경
 	public int PassUpdate(MemberVO mvo) {
 		try {
 			return sqlSessionTemplate.update("lee-mapper.passUpdate", mvo);
@@ -48,7 +53,8 @@ public class MemberDAO {
 		}
 		return -1;
 	}
-
+	
+	// 아이디 찾기
 	public List<MemberVO> getFindId(MemberVO mvo) {
 		try {
 			return sqlSessionTemplate.selectList("lee-mapper.findId", mvo);
@@ -57,14 +63,55 @@ public class MemberDAO {
 		}
 		return null;
 	}
-	public int KakaoLogin(HashMap<String, Object> map) {
+	// 카카오 정보조회
+	public MemberVO findkakao(HashMap<String, Object> userInfo) {
 		try {
-			return sqlSessionTemplate.insert("lee-mapper.ka_insert", map);
+			return sqlSessionTemplate.selectOne("lee-mapper.findkakao", userInfo);
 		} catch (Exception e) {
-			System.err.println(e);
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	// 카카오 로그인시 DB 저장
+	public int kakaoinsert(HashMap<String, Object> userInfo) {
+		try {
+			System.out.println("RN:"+userInfo.get("nickname"));
+			System.out.println("RE:"+userInfo.get("email"));
+			return sqlSessionTemplate.insert("lee-mapper.kakao_insert", userInfo);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 		return -1;
+		
 	}
+
+	// 네이버 정보조회
+	public MemberVO findnaver(HashMap<String, Object> userInfo2) {
+		try {
+			return sqlSessionTemplate.selectOne("lee-mapper.findnaver", userInfo2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	// 네이버 로그인시 DB 저장
+	public int naverinsert(HashMap<String, Object> userInfo2) {
+		try {
+			System.out.println("이름 : " + userInfo2.get("name"));
+			System.out.println("이메일 : " + userInfo2.get("email"));
+			System.out.println("폰넘버 : " + userInfo2.get("mobile"));
+			return sqlSessionTemplate.insert("lee-mapper.naver_insert", userInfo2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+		
+	}
+	
+
+	
 
 
 	
