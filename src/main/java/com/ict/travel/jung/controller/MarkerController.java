@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -34,7 +35,7 @@ public class MarkerController {
 	
 	@RequestMapping("recommend_write_go")
 	public ModelAndView recommend_write_go(HttpSession session) {
-		ModelAndView mv = new ModelAndView("jung_view/kakaomap");
+		ModelAndView mv = new ModelAndView("jung_view/recommend_write");
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		List<WishListVO> marker_list = marService.getWishList(uvo.getU_idx());
 		mv.addObject("marker_list", marker_list);
@@ -46,6 +47,7 @@ public class MarkerController {
 		ModelAndView mv = new ModelAndView("jung_view/test");
 		List<MultipartFile[]> marker_img = new ArrayList<MultipartFile[]>();
 		Field[] field = rcmvo.getClass().getDeclaredFields();
+		System.out.println(field);
 		String[] mapx = rcmvo.getMapx();
 		String[] mapy = rcmvo.getMapy();
 		String[] contentid = rcmvo.getContentid();
@@ -54,8 +56,9 @@ public class MarkerController {
 		String[] contenttypeid = rcmvo.getContenttypeid();
 		String[] title = rcmvo.getTitle();
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
-		for (int i = 6; i < field.length; i++) {
+		for (int i = 7; i < field.length; i++) {
 			try {
+				field[i].setAccessible(true);
 				marker_img.add((MultipartFile[])field[i].get(rcmvo));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -118,5 +121,13 @@ public class MarkerController {
 			System.out.println(e);
 		}
 		return new ModelAndView("jung_view/error");
+	}
+	
+	@RequestMapping("mypage")
+	public ModelAndView mypage(HttpSession session) {
+		ModelAndView mv = new ModelAndView("jung_view/mypage");
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		
+		return mv;
 	}
 }

@@ -9,8 +9,8 @@
 	</select>
 	
 	<insert id="postInsert">
-	    INSERT INTO user_addr_table (u_idx, u_id, firstimage, title, path_post_content, r_areacode,r_contenttypeid,heart,regdate) 
-	    VALUES (#{u_idx}, #{u_id},#{firstimage},#{title},#{path_post_content}, #{r_areacode},#{r_contenttypeid},#{heart},sysdate())
+	    INSERT INTO pathpost_t (u_idx, u_id, firstimage, path_post_title, path_post_content, r_areacode,r_contenttypeid,heart,regdate) 
+	    VALUES (#{u_idx}, #{u_id},#{firstimage},#{path_post_title},#{path_post_content}, #{r_areacode},#{r_contenttypeid},0,sysdate())
 	</insert>
 	
 	<insert id="markerInsert">
