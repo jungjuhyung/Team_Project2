@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ict.travel.jung.dao.MarkerDAO;
 import com.ict.travel.jung.dao.MarkerImgVO;
+import com.ict.travel.jung.dao.RecommendMarkerOneVO;
+import com.ict.travel.jung.dao.RecommendVO;
 import com.ict.travel.jung.dao.WishListVO;
 
 @Service
@@ -18,10 +20,22 @@ public class MarkerServiceImpl implements MarkerService {
 	public List<WishListVO> getWishList(String u_idx) {
 		return markerDAO.getWishList(u_idx) ;
 	}
-	
+
 	@Override
-	public int markerImgInsert(MarkerImgVO mkivo) {
-		return markerDAO.markerImgInsert(mkivo);
+	public int recommendPostInsert(RecommendVO rcvo) {
+		return markerDAO.recommendPostInsert(rcvo);
 	}
+
+	@Override
+	public int recommendMarkerInsert(RecommendMarkerOneVO rcmvo) {
+		return markerDAO.recommendMarkerInsert(rcmvo);
+	}
+
+	@Override
+	public int recommendImgInsert(MarkerImgVO mkivo) {
+		return markerDAO.recommendImgInsert(mkivo);
+	}
+	
+	
 
 }

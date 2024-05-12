@@ -5,10 +5,10 @@ package com.ict.travel.jung.controller;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +35,7 @@ public class MarkerController {
 	
 	@RequestMapping("recommend_write_go")
 	public ModelAndView recommend_write_go(HttpSession session) {
-		ModelAndView mv = new ModelAndView("jung_view/kakaomap");
+		ModelAndView mv = new ModelAndView("jung_view/recommend_write");
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		List<WishListVO> marker_list = marService.getWishList(uvo.getU_idx());
 		mv.addObject("marker_list", marker_list);
@@ -47,12 +47,23 @@ public class MarkerController {
 		ModelAndView mv = new ModelAndView("jung_view/test");
 		List<MultipartFile[]> marker_img = new ArrayList<MultipartFile[]>();
 		Field[] field = rcmvo.getClass().getDeclaredFields();
+		System.out.println(field);
 		String[] mapx = rcmvo.getMapx();
 		String[] mapy = rcmvo.getMapy();
 		String[] contentid = rcmvo.getContentid();
 		String[] areacode = rcmvo.getAreacode();
 		String[] sigungucode = rcmvo.getSigungucode();
 		String[] contenttypeid = rcmvo.getContenttypeid();
+		String[] title = rcmvo.getTitle();
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		for (int i = 7; i < field.length; i++) {
+			try {
+				field[i].setAccessible(true);
+				marker_img.add((MultipartFile[])field[i].get(rcmvo));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 		try {
 			String path = request.getSession().getServletContext().getRealPath("resources/rc_main_img");
 			MultipartFile f_main = rcvo.getF_main();
@@ -67,17 +78,11 @@ public class MarkerController {
 				byte[] in = f_main.getBytes();
 				File out = new File(path, f_name);
 				FileCopyUtils.copy(in, out);
-				rcvo.setU_idx("1");
-				rcvo.setU_id("test01");
+				rcvo.setU_idx(uvo.getU_idx());
+				rcvo.setU_id(uvo.getU_id());
 			}
+			int res_p = marService.recommendPostInsert(rcvo);
 		
-		for (int i = 6; i < field.length; i++) {
-			try {
-				marker_img.add((MultipartFile[])field[i].get(rcmvo));
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
 		for (int i = 0; i < contenttypeid.length; i++) {
 			RecommendMarkerOneVO marker_one = new RecommendMarkerOneVO();
 			marker_one.setMapx(mapx[i]);
@@ -86,6 +91,9 @@ public class MarkerController {
 			marker_one.setAreacode(areacode[i]);
 			marker_one.setSigungucode(sigungucode[i]);
 			marker_one.setContenttypeid(contenttypeid[i]);
+			marker_one.setTitle(title[i]);
+			int res_m = marService.recommendMarkerInsert(marker_one);
+			
 			for (MultipartFile k : marker_img.get(i)) {
 				try {
 					String path2 = request.getSession().getServletContext().getRealPath("/resources/rc_marker_img");
@@ -101,14 +109,25 @@ public class MarkerController {
 						File out = new File(path, f_name);
 						FileCopyUtils.copy(in, out);
 					}
+					int res_i = marService.recommendImgInsert(mkivo);
 
 				} catch (Exception e) {
 					System.out.println(e);
 				}
 			}
 		}
+		return mv;
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return new ModelAndView("jung_view/error");
+	}
+	
+	@RequestMapping("mypage")
+	public ModelAndView mypage(HttpSession session) {
+		ModelAndView mv = new ModelAndView("jung_view/mypage");
+		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
 		return mv;
-	}
 	}
 }

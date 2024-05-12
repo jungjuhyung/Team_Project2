@@ -13,21 +13,38 @@ public class MarkerDAO {
 	
 	public List<WishListVO> getWishList(String u_idx) {
 		try {
-			return sqlSessionTemplate.selectList("marker.wish_list", u_idx);
+			return sqlSessionTemplate.selectList("recommend.wish_list", u_idx);
 		} catch (Exception e) {
-			System.out.println("오류니?");
 			System.out.println(e);
 		}
 		return null;
 	}
 	
-	public int markerImgInsert(MarkerImgVO mkivo) {
+	
+	public int recommendPostInsert(RecommendVO rcvo) {
 		try {
-			return sqlSessionTemplate.insert("marker.markerImgInsert", mkivo);
+			return sqlSessionTemplate.insert("recommend.postInsert", rcvo);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return -1;
 	}
 
+	public int recommendMarkerInsert(RecommendMarkerOneVO rcmvo) {
+		try {
+			return sqlSessionTemplate.insert("recommend.markerInsert", rcmvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+
+	public int recommendImgInsert(MarkerImgVO mkivo) {
+		try {
+			return sqlSessionTemplate.insert("recommend.markerImgInsert", mkivo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
 }

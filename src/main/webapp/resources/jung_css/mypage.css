@@ -1,0 +1,59 @@
+@charset "UTF-8";
+body{
+	background-image: url(/resources/ko_images/bg.png);
+}
+#mypage{
+	margin: 0 auto; 
+	width: 1300px;
+	border: 1px solid black
+}
+
+#mypage > article{
+	margin: 30px auto 30px;
+	background-color: white;
+	border-radius:3%;
+	box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.my_profile_box{
+	width: 100%;
+	height: 120px;
+	
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+}
+
+.profile_image{
+	widows: 5%;
+	height: 100px;
+}
+
+.profile_box_left{
+	width: 20%;
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.update_button{
+	width: 150px;
+	height: 30px;
+}
+
+.pro_image{
+	width: 83%;
+	height: 100%;
+}
+
+.profile_box_right{
+	border-left: 1px solid black;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 75%;
+}
+
+
+
+
