@@ -99,9 +99,6 @@ public class MemberDAO {
 	// 네이버 로그인시 DB 저장
 	public int naverinsert(HashMap<String, Object> userInfo2) {
 		try {
-			System.out.println("이름 : " + userInfo2.get("name"));
-			System.out.println("이메일 : " + userInfo2.get("email"));
-			System.out.println("폰넘버 : " + userInfo2.get("mobile"));
 			return sqlSessionTemplate.insert("lee-mapper.naver_insert", userInfo2);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -109,8 +106,12 @@ public class MemberDAO {
 		return -1;
 		
 	}
+
 	
 
+//			System.out.println("이름 : " + userInfo2.get("name"));
+//			System.out.println("이메일 : " + userInfo2.get("email"));
+//			System.out.println("폰넘버 : " + userInfo2.get("mobile"));
 	
 
 

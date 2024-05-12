@@ -29,8 +29,8 @@
   		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active , k_nickname, k_email)
   		values(0, 0, 0, 0, 0, 0, 0, 0, 0, #{u_stopdate}, sysdate(), 0 , #{nickname}, #{email})
   	</insert>
-  	<select id="findnaver" parameterType="Map" resultType="mvo">
-  		select * from user_t where n_nickname = #{nickname} and n_email = #{email} and n_phone = #{mobile}
+  	<select id="findnaver" parameterType="String" resultType="mvo">
+  		select * from user_t where  n_email = #{email} 
   	</select>
   	<insert id="naver_insert" parameterType="Map">
 		insert into user_t (u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active , k_nickname, k_email, n_nickname, n_email, n_phone)
