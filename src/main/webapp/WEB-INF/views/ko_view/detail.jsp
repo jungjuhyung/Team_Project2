@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Detail</title>
+<title>상세페이지</title>
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/detail.css">

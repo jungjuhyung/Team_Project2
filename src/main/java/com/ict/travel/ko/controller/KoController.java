@@ -243,5 +243,13 @@ public class KoController {
 	public ModelAndView getTerms() {
 		return new ModelAndView("ko_view/footer_terms");
 	}
+	@RequestMapping("footer_location.do")
+	public ModelAndView getLoc() {
+		return new ModelAndView("ko_view/footer_location");
+	}
+	@RequestMapping("footer_email.do")
+	public ModelAndView getEmail() {
+		return new ModelAndView("ko_view/footer_email");
+	}
 
 }

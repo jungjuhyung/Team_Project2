@@ -20,26 +20,29 @@
 		<div class="f_wrapper">
 		
 			<div class="f_logo">
-				<img alt="" src="resources/ko_images/f_logo.png">
+				<a href="main_page.do">
+					<img alt="" src="resources/ko_images/f_logo.png">
+				</a>
 			</div>
 			
 			<div class="f_content">
 				<div class="f_nav">
 					<ul>
 						<li><a href="footer_terms.do">서비스이용약관</a></li>
-						<li>개인정보처리방침</li>
-						<li>위치정보이용약관</li>
-						<li>저작권보호정책</li>
-						<li>이메일무단수집거부</li>
+						<li><a href="https://www.pipc.go.kr/np/default/page.do?mCode=H010000000">개인정보처리방침</a></li>
+						<li><a href="footer_location.do">위치정보이용약관</a></li>
+						<li><a href="footer_email.do">이메일무단수집거부</a></li>
 					</ul>
 				</div>
 				<div class="f_info">
 					<div>
 						<span>파이브가이즈트래블가이드(주)</span><br>
-						<span>주소 : 서울특별시 마포구 백범로 23 | 대표전화 : 02-123-4567 | 이메일 : abc123@naver.com</span>
+						<span>주소 : 서울특별시 마포구 백범로 23 | 대표전화 : 02-555-5555 | 이메일 : fiveguys@ictedu.com</span>
 					</div>
 					<div>
-						<img alt="" src="resources/ko_images/ictedu.png">
+						<a href="https://ictedu.co.kr/index.php?main_page=home">
+							<img alt="" src="resources/ko_images/ictedu.png" >
+						</a>
 					</div>
 				</div>				
 			</div>
