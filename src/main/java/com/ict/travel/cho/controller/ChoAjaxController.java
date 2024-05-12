@@ -27,6 +27,7 @@ import com.ict.travel.cho.dao.DataFetcher;
 import com.ict.travel.cho.dao.PathPostVO;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.cho.dao.SearchVO;
 import com.ict.travel.cho.dao.TourapiParser;
 import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.cho.service.ChoService;
@@ -94,6 +95,7 @@ public class ChoAjaxController {
 		
 			// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
 			int pagecount = limit;
+			
 			int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title,type);
 			paging.setTotalRecord(count);
 			// 한 페이지에 20개
@@ -129,27 +131,45 @@ public class ChoAjaxController {
 			if(paging.getEndBlock() > paging.getTotalPage()) {
 				paging.setEndBlock(paging.getTotalPage());
 			}
+				
 			
-			List<ChoTourVO> choTourList = choService.getChoTourList(areaCode,sigunguCode,contentType,title,order,type,paging.getOffset(), paging.getNumPerPage());
+			List<SearchVO> searchVOList = choService.getSearchTotal(areaCode,sigunguCode,contentType,title,order,type,paging.getOffset(), paging.getNumPerPage());
 			
-			// 유저 로그인 상태일 때 찜 여부
-			if(uvo != null) {
-				List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
-				for (ChoTourVO k : choTourList) {
-					for (PlaceWishVO j : placeWishList) {
-						if(k.getContentid().equals(j.getContentid())) {
-							k.setUheart("1");
-							break;
+			if(type.equals("1")) {
+				// 유저 로그인 상태일 때 장소 찜 여부
+				if(uvo != null) {
+					List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+					for (SearchVO k : searchVOList) {
+						for (PlaceWishVO j : placeWishList) {
+							if(k.getContentid().equals(j.getContentid())) {
+								k.setUheart("1");
+								break;
+							}
 						}
 					}
 				}
+			} else {
+				// 유저 로그인 상태일 때 게시글 찜 여부
+				if(uvo != null) {
+					List<PathWishVO> pathWishList = choService.getpathWishList(uvo.getU_idx());	
+					for (SearchVO k : searchVOList) {
+						for (PathWishVO j : pathWishList) {
+							if(k.getPath_post_idx().equals(j.getPath_idx())) {
+								k.setUheart("1");
+								break;
+							}
+						}
+					}
+				}
+				
 			}
 
 			Map<String, Object> result = new HashMap<>();
 
-			result.put("choTourList", choTourList);
+			result.put("searchVOList", searchVOList);
 
 			result.put("paging", paging);
+			result.put("type", type);
 				Gson gson = new Gson();
 				String jsonString = gson.toJson(result);
 				return jsonString;
@@ -179,12 +199,12 @@ public class ChoAjaxController {
 	// 테마,지역별 장소 호출
 	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
 	@ResponseBody
-	public String searchAreaPlace(String areaCode, HttpSession session) {
+	public String searchAreaPlace(String areaCode, HttpSession session, String type) {
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
-		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like",0, 4);
-		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like",0, 4);
-		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like",0, 4);
+		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 4);
+		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 4);
+		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like","1",0, 4);
 		
 		Map<String, Object> result = new HashMap<>();
 
@@ -232,9 +252,9 @@ public class ChoAjaxController {
 	public String searchAreaPath(String areaCode, HttpSession session) {
 		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
 		
-		List<PathPostVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like",0, 4);
-		List<PathPostVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like",0, 4);
-		List<PathPostVO> restaurantList = choService.getChoTourPathList(areaCode, "999", "39",null,"like",0, 4);
+		List<PathPostVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like","2",0, 4);
+		List<PathPostVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like","2",0, 4);
+		List<PathPostVO> restaurantList = choService.getChoTourPathList(areaCode, "999", "39",null,"like","2",0, 4);
 		
 		Map<String, Object> result = new HashMap<>();
 

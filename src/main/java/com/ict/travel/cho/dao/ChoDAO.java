@@ -30,13 +30,27 @@ public class ChoDAO {
 	// 페이징 카운트
 	public int getTourListCount(String areaCode, String sigunguCode, String contentType, String title, String type) {
 		try {
-			Map<String, String> map = new HashMap<String, String>();
+			int res = 0;
+			int res2 = 0;
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("areaCode", areaCode);
 			map.put("sigunguCode", sigunguCode);
 			map.put("contentType", contentType);
 			map.put("title", title);
 			map.put("type", type);
-			return sqlSessionTemplate.selectOne("cho_mapper.tourListCount", map);
+			if (type.equals("1")) {
+				res = sqlSessionTemplate.selectOne("cho_mapper.tourListCount", map);
+			} else if(type.equals("2")) {
+				List<String> post_idxList = sqlSessionTemplate.selectList("cho_mapper.selectPostIdxList",map);
+				if(post_idxList.size() > 0) {
+					map.put("post_idxList", post_idxList);
+				}
+				res2 = sqlSessionTemplate.selectOne("cho_mapper.tourPathListCount", map);
+			} else {
+				res = sqlSessionTemplate.selectOne("cho_mapper.tourListCount", map);
+				res2 = sqlSessionTemplate.selectOne("cho_mapper.tourPathListCount", map);
+			}
+			return res + res2;
 		} catch (Exception e) {
 			System.out.println("검색 카운트" + e);
 		}
@@ -53,8 +67,10 @@ public class ChoDAO {
 			map.put("offset", offset );
 			map.put("limit", limit );
 			map.put("order", order );
-			map.put("type", type);
+			map.put("type", type );
+				
 			return sqlSessionTemplate.selectList("cho_mapper.selectTourList", map);
+				
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);
 		}
@@ -141,7 +157,7 @@ public class ChoDAO {
 	
 	// 경로 호출
 	public List<PathPostVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
-			String order, int offset, int limit) {
+			String order, String type, int offset, int limit) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("areaCode", areaCode);
@@ -151,6 +167,7 @@ public class ChoDAO {
 			map.put("offset", offset );
 			map.put("limit", limit );
 			map.put("order", order );
+			map.put("type", type );
 			return sqlSessionTemplate.selectList("cho_mapper.selectTourPathList", map);
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);
@@ -209,6 +226,38 @@ public class ChoDAO {
 			System.out.println(e);
 		}
 		return 0;
+	}
+
+	public List<SearchVO> getSearchTotal(String areaCode, String sigunguCode, String contentType, String title,
+			String order, String type, int offset, int limit) {
+		
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("areaCode", areaCode);
+			map.put("sigunguCode", sigunguCode);
+			map.put("contentType", contentType);
+			map.put("title", title);
+			map.put("offset", offset );
+			map.put("limit", limit );
+			map.put("order", order );
+		
+			if(type.equals("1")){
+				return sqlSessionTemplate.selectList("cho_mapper.selectSearchTourList", map);
+			} else if(type.equals("2")){
+				List<String> post_idxList = sqlSessionTemplate.selectList("cho_mapper.selectPostIdxList",map);
+				if(post_idxList.size() > 0) {
+					map.put("post_idxList", post_idxList);
+					System.out.println(title);
+				}
+				return sqlSessionTemplate.selectList("cho_mapper.selectSearchPathList", map);
+			}
+		
+			
+		
+		} catch (Exception e) {
+			System.out.println("지역 검색" + e);
+		}
+		return null;
 	}
 
 

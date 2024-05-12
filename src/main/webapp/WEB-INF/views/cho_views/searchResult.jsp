@@ -218,14 +218,18 @@
             },
             success: function(data) {
             	$('#place_wrapper').empty();
-            	
             	// 총 갯수 표시
             	getTotalRecord(data.paging)
-            	
+            	console.log(data)
             	// 검색된 배열의 JSON 요소들을 반복하면서 처리
-           	    for (let i = 0; i < data.choTourList.length; i++) {
-           	        let place = data.choTourList[i];
-           	        addPlace(place);
+           	    for (let i = 0; i < data.searchVOList.length; i++) {
+           	        if(data.type ==="1"){
+           	        	let place = data.searchVOList[i];
+           	        	addPlace(place);
+           	        } else{
+           	        	let path = data.searchVOList[i];
+           	        	addPath(path)
+           	        }
            	    }
             	// 페이징 처리
                 updatePagination(data.paging);
@@ -352,8 +356,33 @@
 	   	                    '</div>' +
    	                    '</div>';
    	    $('#place_wrapper').append(placeHTML);
-   
    	}
+   	
+   	// 경로
+   	function addPath(pathPost) {
+   		let originalTitle  = pathPost.title;
+   		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
+		let heartIcon = '';
+		if(pathPost.u_heart === "1") {
+		    heartIcon = '<span class="heart-state wish-added" data-path_post_idx="' + pathPost.path_post_idx + '">' + '♥' + '</span>';
+		} else { 
+		    heartIcon = '<span class="heart-state" data-path_post_idx="' + pathPost.path_post_idx + '">' + '♡' + '</span>';
+		}
+   	    let pathPostHTML = '<div class="place-box" >' +
+   	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
+   	                            '<img alt="' + pathPost.title + '" src="' + /* pathPost.firstimage */ "/resources/cho_images/cat.png" + '">' +
+   	                        '</div>' +
+   	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+pathPost.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
+   	                     			truncatedTitle + 
+   	                        '</div>' +
+   	                        '<div class="wish-box">' +
+	   	                        heartIcon + '<span class="heart-count">'  + pathPost.heart + '</span>'+ 
+	   	                    '</div>' +
+   	                    '</div>';
+   	    $('#place_wrapper').append(pathPostHTML);
+
+   	}
+   	
 	// 줄인 제목 전부 보기
    	function showFullTitle(element, originalTitle) {
    	    element.textContent = originalTitle;
@@ -375,8 +404,6 @@
 	<section class="section" >
 		<div class="areaSearchForm">
 			<select id="searchType" class = "searchSelect">
-				<option value="999">타입</option>
-				<option value="999">전체</option>
 				<option value="1">장소</option>
 				<option value="2">경로</option>
 			</select>

@@ -10,6 +10,7 @@ import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.PathPostVO;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.cho.dao.SearchVO;
 import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.lee.dao.MemberVO;
 
@@ -20,7 +21,7 @@ public class ChoServiceImpl implements ChoService{
 	
 	@Override
 	public List<ChoTourVO> getChoTourList(String areaCode, String sigunguCode, String contentType, String title, String order, String type, int offset, int limit) {
-		return choDAO.getChoTourList(areaCode, sigunguCode, contentType, title, order, offset, limit);
+		return choDAO.getChoTourList(areaCode, sigunguCode, contentType, title, order, type, offset, limit);
 	}
 	
 	@Override
@@ -55,8 +56,8 @@ public class ChoServiceImpl implements ChoService{
 	
 	@Override
 	public List<PathPostVO> getChoTourPathList(String areaCode, String sigunguCode, String contentType, String title,
-			String order, int offset, int limit) {
-		return choDAO.getChoTourPathList(areaCode, sigunguCode, contentType, title, order, offset, limit);
+			String order, String type, int offset, int limit) {
+		return choDAO.getChoTourPathList(areaCode, sigunguCode, contentType, title, order, type , offset, limit);
 	}
 	@Override
 	public List<PathWishVO> getpathWishList(String u_idx) {
@@ -71,4 +72,11 @@ public class ChoServiceImpl implements ChoService{
 	public int getPathWishRemove(String path_post_idx, String u_idx) {
 		return choDAO.getPathWishRemove(path_post_idx, u_idx);
 	}
+	
+	@Override
+	public List<SearchVO> getSearchTotal(String areaCode, String sigunguCode, String contentType, String title,
+			String order, String type, int offset, int limit) {
+		return choDAO.getSearchTotal(areaCode, sigunguCode, contentType, title, order, type, offset, limit);
+	}
+	
 }
