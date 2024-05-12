@@ -27,20 +27,27 @@
 	<input type="button" value="경로 초기화" onclick="path_del()">
 	<div id="wish_box">
 		<h2 id="wish_title">위시리스트</h2>
-		<c:forEach var="k" items="${marker_list}">
-			<div class="wishs">
-				<input class="chk_box" type="checkbox" name="chk" value="0">
-				<div><img src="${k.firstimage}"></div>
-				<p>${k.place_title}</p>
-				<input type="hidden" name="place_title" value="${k.place_title}">
-				<input type="hidden" name="mapx" value="${k.mapx}">
-				<input type="hidden" name="mapy" value="${k.mapy}">
-				<input type="hidden" name="contentid" value="${k.contentid}">
-				<input type="hidden" name="areacode" value="${k.areacode}">
-				<input type="hidden" name="sigungucode" value="${k.sigungucode}">
-				<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
-			</div>
-		</c:forEach>
+		<c:choose>
+			<c:when test="${empty marker_list}">
+				찜한 장소가 없습니다.
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="k" items="${marker_list}">
+					<div class="wishs">
+						<input class="chk_box" type="checkbox" name="chk" value="0">
+						<div><img src="${k.firstimage}"></div>
+						<p>${k.place_title}</p>
+						<input type="hidden" name="place_title" value="${k.place_title}">
+						<input type="hidden" name="mapx" value="${k.mapx}">
+						<input type="hidden" name="mapy" value="${k.mapy}">
+						<input type="hidden" name="contentid" value="${k.contentid}">
+						<input type="hidden" name="areacode" value="${k.areacode}">
+						<input type="hidden" name="sigungucode" value="${k.sigungucode}">
+						<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
+					</div>
+				</c:forEach>			
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<form action="recommend_write_ok" method="post" enctype="multipart/form-data">
 		<p>경로 유형</p>

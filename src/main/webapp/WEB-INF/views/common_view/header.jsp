@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,13 +32,21 @@
 					<a href="pathCategory">추천경로</a>
 				</li>
 				<li class="main">
-					<a href="">커뮤니티</a>
+					<a href="boardList">커뮤니티</a>
 				</li>
 			</ul>
 			<ul class="ko_util">
-				<li class="btn"><a href="login_go.do">로그인</a></li>
-				<li class="btn"><a href="agree_acc.do">회원가입</a></li>
-				<li class="btn"><a href="">고객센터</a></li>
+				<c:choose>
+					<c:when test="${empty memberUser}">						
+						<li class="btn"><a href="login_go.do">로그인</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="btn"><a href="logout">로그아웃</a></li>
+						<li class="btn"><a href="mypage">MyPage</a></li>
+					</c:otherwise>
+				</c:choose>
+				<li class="btn"><a href="agree_go.do">회원가입</a></li>
+				<li class="btn"><a href="getReportgo">고객센터</a></li>
 			</ul>
 		</nav>
 	</section>	

@@ -36,7 +36,7 @@ public class MarkerController {
 	@RequestMapping("recommend_write_go")
 	public ModelAndView recommend_write_go(HttpSession session) {
 		ModelAndView mv = new ModelAndView("jung_view/recommend_write");
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		List<WishListVO> marker_list = marService.getWishList(uvo.getU_idx());
 		mv.addObject("marker_list", marker_list);
 		return mv;
@@ -55,7 +55,7 @@ public class MarkerController {
 		String[] sigungucode = rcmvo.getSigungucode();
 		String[] contenttypeid = rcmvo.getContenttypeid();
 		String[] title = rcmvo.getTitle();
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		for (int i = 7; i < field.length; i++) {
 			try {
 				field[i].setAccessible(true);
@@ -126,7 +126,7 @@ public class MarkerController {
 	@RequestMapping("mypage")
 	public ModelAndView mypage(HttpSession session) {
 		ModelAndView mv = new ModelAndView("jung_view/mypage");
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 		return mv;
 	}

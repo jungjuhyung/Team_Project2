@@ -14,7 +14,7 @@ public class ChoController {
 	@GetMapping("searchResult")
 	public ModelAndView searchResult(HttpSession session) {
 		ModelAndView mv = new ModelAndView("cho_views/searchResult");
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}
@@ -24,7 +24,7 @@ public class ChoController {
 	@GetMapping("themaCategory")
 	public ModelAndView themaCategory(HttpSession session) {
 		ModelAndView mv = new ModelAndView("cho_views/themaCategory");
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}
@@ -34,7 +34,7 @@ public class ChoController {
 	@GetMapping("dbUpdateTest")
 	public ModelAndView dbUpdateTest(HttpSession session) {
 		ModelAndView mv = new ModelAndView("cho_views/dbUpdateTest");
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}
@@ -44,7 +44,7 @@ public class ChoController {
 	@GetMapping("pathCategory")
 	public ModelAndView pathCategory(HttpSession session) {
 		ModelAndView mv = new ModelAndView("cho_views/pathCategory");
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}

@@ -214,7 +214,7 @@ function reportWrite() {
 </script>
 </head>
 <body>
-<%@ include file="../header.jsp"%>
+<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 <div id="bigbox">
     <div id="list_maint">신고게시판</div>
     <div>

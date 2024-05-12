@@ -40,7 +40,7 @@ public class KoController {
 	public ModelAndView getKo(HttpSession session) {
 		ModelAndView mv = new ModelAndView("ko_view/main_page");
 		
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}
@@ -90,7 +90,7 @@ public class KoController {
 		//System.out.println("contentid : " + contentid);
 		//System.out.println("contenttypeid : " + contenttypeid);
 
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}

@@ -90,7 +90,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
 	<section style="width: 1300px; margin: 0 auto;">
 		<div class="ko_detail">
@@ -339,7 +339,7 @@
 		infowindow.open(map, marker);
 	</script>
 	
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 
 </body>
 </html>

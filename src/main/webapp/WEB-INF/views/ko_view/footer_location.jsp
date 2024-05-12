@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<%@ include file="../header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
 	<div id="terms">
 		<div>
@@ -129,7 +129,7 @@
 		</div>
 	</div>
 
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 	
 </body>
 </html>

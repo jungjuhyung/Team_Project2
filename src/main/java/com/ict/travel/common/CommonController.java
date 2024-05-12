@@ -17,13 +17,16 @@ public class CommonController {
 	private ChoService choService;
 	
 	@RequestMapping("/")
-	public ModelAndView test(HttpSession session) {
-		ModelAndView mv = new ModelAndView("test");
-		
-		MemberVO uvo = choService.getUserLogin("1");
-		
-		session.setAttribute("userVO", uvo);
-		
+	public ModelAndView firstpage(HttpSession session) {
+		ModelAndView mv = new ModelAndView("redirect:main_page.do");
+		return mv;
+	}
+	@RequestMapping("logout")
+	public ModelAndView logout(HttpSession session) {
+		ModelAndView mv = new ModelAndView("redirect:main_page.do");
+		session.removeAttribute("memberUser");
+		session.removeAttribute("u_id");
+		session.removeAttribute("u_idx");
 		return mv;
 	}
 }

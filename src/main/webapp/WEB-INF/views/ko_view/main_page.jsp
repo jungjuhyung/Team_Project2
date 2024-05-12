@@ -73,7 +73,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
 	<section style="margin: 0 auto; width: 1300px; min-height: 1750px;">
 		<div class="img_wrapper">
@@ -238,7 +238,7 @@
 	    
 	</script>
 	
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 
 </body>
 </html>

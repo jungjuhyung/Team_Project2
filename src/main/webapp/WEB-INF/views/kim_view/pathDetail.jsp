@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 	<div id="world">
 		<div id="reviewTitle">${kpostvo.path_post_title}</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>

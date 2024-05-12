@@ -185,7 +185,7 @@
 </script>
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 	<section>
 		<div class="swipe-Wrapper ">
 			<div class = "swiper mySwiper">
