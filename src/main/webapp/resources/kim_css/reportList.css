@@ -77,6 +77,15 @@ body{
 	width: 80%;
 	margin: 0 auto;
 	vertical-align: middle;
+	margin-bottom: 20px;
+}
+
+#listtable tr{
+	border-bottom: 1px solid black;	
+}
+#listtable tr td{
+	vertical-align: middle;
+
 }
 
 .list_title {

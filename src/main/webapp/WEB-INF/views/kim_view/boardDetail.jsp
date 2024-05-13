@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>자유게시판</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
-<link rel="stylesheet" href="resources/kim_css/boardWrite.css">
+<link rel="stylesheet" href="resources/kim_css/boardDetail.css">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -41,6 +41,7 @@ function commentDelete(f) {
 </head>
 
 <body>
+
 <form method="post">
 		<div class="container">
 			<div class="insert">
@@ -71,8 +72,10 @@ function commentDelete(f) {
 				<input type="hidden" name="board_idx" value="${boardvo.board_idx}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="location.href='boardList'"/>
+				<c:if test="${membervo.u_idx == boardvo.u_idx}">
 				<input class="but4" type="button" value="수정" onclick="boardUpdate(this.form)"/>
 				<input class="but4" type="button" value="삭제" onclick="boardDelete(this.form)"/>
+				</c:if>
 			</div>
 		</div>
 	</form>
@@ -81,32 +84,35 @@ function commentDelete(f) {
 	<%-- 댓글 출력 --%>
 	<div class="recomment">
 		<c:forEach var="k" items="${comment_list}">
-			<div >
+			<div>
 				<form method="post">
-				<div class="renick">
-					닉네임 
-				</div>
-			<div class="recontent">
-					<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
-				</div>
-			<div class="rebutton">
-					${k.regdate.substring(0,10)}
-					<!-- 실제은 로그인 성공 && 글쓴 사람만 삭제할 수 있어야 한다. -->
-					<input class="rewrite" type="button" value="삭제" onclick="commentDelete(this.form)">
-				</div>
-					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
-					<input type="hidden" name = "board_idx" value="${k.board_idx}" >
-					
+					<div class="renick">${boardvo.u_nickname}</div>
+					<div class="recontent">
+						<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
+					</div>
+						<div class="rebutton">${k.regdate.substring(0,10)}
+						<c:choose>
+							<c:when test="${membervo.u_idx == k.u_idx}">							
+								<input class="rewrite" type="button" value="삭제" onclick="commentDelete(this.form)">
+							</c:when>
+							<c:otherwise>
+								<span></span>
+							</c:otherwise>
+						</c:choose>
+						</div>
+						<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
+						<input type="hidden" name = "board_idx" value="${k.board_idx}" >
 				</form>
 			</div>
 		</c:forEach>
 	</div>	
 		<%-- 댓글 입력 --%>
+	<c:if test="${membervo.u_grade != null}">
 	<div class="recomment">
 		<form method="post">
 			<fieldset>
 			<div class="renick">
-				<span>닉네임 : ${boardvo.u_nickname}</span> 
+				<span>${boardvo.u_nickname}</span> 
 			</div>
 			<div class="recontent">
 				<textarea rows="3" cols="40" name="content"></textarea>
@@ -114,11 +120,13 @@ function commentDelete(f) {
 			<div class="rebutton">
 				<input class="rewrite" type="button" value="저장" onclick="commentInsert(this.form)">
 			</div>
+		
 				<!-- 댓글 저장시 어떤 원글의 댓글인지 저장해야 한다. -->
 				<input type="hidden" name = "board_idx" value="${boardvo.board_idx}" >
 			</fieldset>
 		</form>
 	</div>
+	</c:if>
 	<div id="empty-area">
 	</div>
 	

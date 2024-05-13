@@ -29,6 +29,7 @@ $(document).ready(function(){
 </head>
 
 <body>
+
 <form method="post" action="boardWriteOK">
 		<div class="container">
 			<div class="insert">
@@ -39,7 +40,7 @@ $(document).ready(function(){
 					</caption>
 					<tr>
 						<td class="menu">닉네임</td>
-						<td class="userin"></td>
+						<td class="userin">${membervo.u_nickname}</td>
 					</tr>
 					<tr>
 						<td class="menu">비밀번호</td>

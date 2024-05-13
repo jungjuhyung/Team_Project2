@@ -20,12 +20,17 @@ import com.ict.travel.common.Paging;
 import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.service.BoardService;
+import com.ict.travel.lee.dao.MemberVO;
+import com.ict.travel.lee.service.MemberService;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -80,13 +85,25 @@ public class BoardController {
 		List<BoardVO> boardlist = boardService.boardList(paging.getOffset(), paging.getNumPerPage());
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("paging", paging);
+		
+		HttpSession session = request.getSession();
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		mv.addObject("membervo", membervo);
+		
 		return mv;		
 	}
 	
 	
 	@GetMapping("boardWrite")
-	public ModelAndView boardWrite(HttpServletRequest request) {
+	public ModelAndView boardWrite(BoardVO boardvo, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("kim_view/boardWrite");
+		
+		HttpSession session = request.getSession();
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		mv.addObject("membervo", membervo);
+		
+		
+		
 		return mv;
 	}
 	
@@ -96,9 +113,12 @@ public class BoardController {
 			ModelAndView mv = new ModelAndView("redirect:boardList");
 			String pwd = passwordEncoder.encode(boardvo.getBoard_pw());
 			boardvo.setBoard_pw(pwd);
-			String u_idx = boardvo.getU_idx();
-			boardvo.setU_idx(u_idx);
-			
+		
+			HttpSession session = request.getSession();
+			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+			mv.addObject("membervo", membervo);
+			boardvo.setU_nickname(membervo.getU_nickname());
+			boardvo.setU_idx(membervo.getU_idx());
 			int result = boardService.boardWrite(boardvo);
 			if(result > 0) {
 				return mv;
@@ -112,15 +132,16 @@ public class BoardController {
 	}
 
 	@GetMapping("boardDetail")
-	public ModelAndView boardDetail(String board_idx, String cPage) {
+	public ModelAndView boardDetail(String board_idx, String cPage, HttpServletRequest request) {
 		try {
 			ModelAndView mv = new ModelAndView("kim_view/boardDetail");
 			int result = boardService.boardHitUpdate(board_idx);
 			BoardVO boardvo = boardService.boardDetail(board_idx);
+			HttpSession session = request.getSession();
+			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+			mv.addObject("membervo", membervo);
 			if (result>0 && boardvo !=null) {
-				
 				List<CommentVO> comment_list = boardService.commentList(board_idx);
-				System.out.println(comment_list);
 				mv.addObject("comment_list", comment_list);
 				mv.addObject("boardvo", boardvo);
 				mv.addObject("cPage", cPage);
@@ -212,9 +233,14 @@ public class BoardController {
 	
 	@PostMapping("commentInsert")
 	public ModelAndView CommentInsert(CommentVO commentvo, BoardVO boardvo,
-			@ModelAttribute("board_idx")String board_idx) {
+			@ModelAttribute("board_idx")String board_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("redirect:boardDetail");
 		boardvo.setBoard_idx(board_idx);;
+		HttpSession session = request.getSession();
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		mv.addObject("membervo", membervo);
+		commentvo.setU_idx(membervo.getU_idx());
+		commentvo.setU_nickname(membervo.getU_nickname());
 		int result = boardService.commentInsert(commentvo);
 		return mv;
 	}

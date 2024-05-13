@@ -28,5 +28,6 @@ public interface BoardService {
 	public int commentInsert(CommentVO commentvo);
 
 	public int commentDelete(String comment_idx);
+	
 
 }
