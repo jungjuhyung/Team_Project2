@@ -80,9 +80,9 @@ public class MarkerController {
 				byte[] in = f_main.getBytes();
 				File out = new File(path, f_name);
 				FileCopyUtils.copy(in, out);
-				rcvo.setU_idx(uvo.getU_idx());
-				rcvo.setU_id(uvo.getU_id());
 			}
+			rcvo.setU_idx(uvo.getU_idx());
+			rcvo.setU_id(uvo.getU_id());
 			int res_p = marService.recommendPostInsert(rcvo);
 		
 		for (int i = 0; i < contenttypeid.length; i++) {
