@@ -29,41 +29,69 @@
 				<p class="profile_email">이메일 : ${memberUser.u_email}</p>
 				<button class="update_button" type="button">회원 정보 수정</button>
 			</div>
+			<!-- 세로 밑줄 -->
 			<div class="profile_box_right">
 			</div>
 		</div>
 	</article>
 	<article>
 		<p>찜한 여행지</p>
-		<div>
-			<div>
-				<img src="">
-			</div>
-			<p></p>
-		</div>
+		<c:choose>
+			<c:when test="${empty wish_place}">
+				<p>찜한 여행지가 없습니다.</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="k" items="${wish_place}">
+					<div>
+						<div>
+							<img src="">
+						</div>
+						<p></p>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</article>
 	<article>
 		<p>찜한 추천 경로</p>
-		<div>
-			<div>
-				<img src="">
-			</div>
-			<p>경복궁</p>
-		</div>
+		<c:choose>
+			<c:when test="${empty wish_path}">
+				<p>찜한 추천 경로가 없습니다.</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="k" items="${wish_path}">
+					<div>
+						<div>
+							<img src="">
+						</div>
+						<p>서울 맛집 투어</p>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</article>
 	<article>
 		<p>내가 만든 여행 코스</p>
-		<div>
-			<div>
-				<img src="">
-			</div>
-			<p>내가 좋아하는 음식 투어</p>
-		</div>
+		<c:choose>
+			<c:when test="${empty my_recommend}">
+				<p>내가 만든 여행 코스가 없습니다.</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="k" items="${my_recommend}">
+					<div>
+						<div>
+							<img src="">
+						</div>
+						<p>내가 좋아하는 음식 투어</p>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 		<button type="button" onclick="recommend_write()">추천 경로 작성하기</button>
 	</article>
 	<article>
 		<p>내 게시물</p>
-		<div>
+		<%-- <div>
 			<p>자유 게시판</p>
 			<div class="free">
 				<span>작성자(닉네임)</span>
@@ -71,28 +99,46 @@
 				<span>댓글수</span>
 				<span>작성일자</span>
 			</div>
-			<div>
-				<span>라면먹는중</span>
-				<span>test title</span>
-				<span>6</span>
-				<span>2024-05-12</span>
-			</div>
-		</div>
-		<div>
-			<p>QnA 게시판</p>
-			<div class="qna">
+			<c:choose>
+				<c:when test="${empty }">
+					<p>작성한 자유 게시글이 없습니다.</p>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="" items="">
+						<div>
+							<span>라면먹는중</span>
+							<span>test title</span>
+							<span>6</span>
+							<span>2024-05-12</span>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</div> --%>
+		<%-- <div>
+			<p>신고 게시판</p>
+			<div class="re">
 				<span>작성자(닉네임)</span>
 				<span>제목</span>
 				<span>작성일자</span>
 				<span>답변 여부</span>
 			</div>
-			<div>
-				<span>라면먹는중</span>
-				<span>test title</span>
-				<span>2024-05-12</span>
-				<span>답변 완료</span>
-			</div>
-		</div>
+			<c:choose>
+				<c:when test="${empty }">
+					<p>작성한 신고 게시글이 없습니다.</p>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="" items="">
+						<div>
+							<span>라면먹는중</span>
+							<span>test title</span>
+							<span>6</span>
+							<span>2024-05-12</span>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</div> --%>
 	</article>
 </section>
 </body>
