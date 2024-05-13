@@ -7,6 +7,14 @@ public class PathWishVO {
 		return path_idx;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public void setPath_idx(String path_idx) {
 		this.path_idx = path_idx;
 	}
@@ -43,13 +51,6 @@ public class PathWishVO {
 		this.firstimage = firstimage;
 	}
 
-	public String gettitle() {
-		return title;
-	}
-
-	public void settitle(String title) {
-		this.title = title;
-	}
 
 	public String getRegdate() {
 		return regdate;

@@ -94,14 +94,14 @@
 	</select>
 	
 	<select id="selectSearchPathList" parameterType="Map" resultType="searchVO">
-		SELECT * FROM pathpost_t
+		SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid FROM pathpost_t
 			 <choose>
 				 <when test="post_idxList != null">
 		            WHERE path_post_idx IN 
 		            <foreach collection="post_idxList" item="path_post_idx" open="(" close=")" separator=",">
 		                #{path_post_idx}
 		            </foreach>
-		            AND title LIKE CONCAT('%', #{title}, '%')
+		            AND path_post_title LIKE CONCAT('%', #{title}, '%')
 				 </when>
 				 <otherwise>
 		            WHERE 1 = 0
@@ -187,7 +187,7 @@
 	
 	<!-- 경로 검색(지역,시군구,타입) -->
 	<select id="selectTourPathList" parameterType="Map" resultType="pathpostVO">
-		SELECT * FROM pathpost_t
+				SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid FROM pathpost_t
 		<where>
 			<if test="areaCode != 999">
 	            AND r_areaCode = #{areaCode}
@@ -196,7 +196,7 @@
 	            AND r_contenttypeid = #{contentType}
 	        </if>
 	        <if test="title != null">
-	            AND title LIKE CONCAT('%', #{title}, '%')
+	            AND path_post_title LIKE CONCAT('%', #{title}, '%')
 	        </if>
         </where>
         ORDER BY 
@@ -219,7 +219,7 @@
 	
 	<!-- 좋아요한 경로 게시판 선택  -->
 	<select id="selectPathWishOne" parameterType="String" resultType="pathWishVO">
-		SELECT * FROM pathpost_t WHERE path_post_idx = #{path_post_idx}
+		SELECT path_post_idx, u_idx, r_contenttypeid as contenttypeid, firstimage, path_post_title as title, regdate FROM pathpost_t WHERE path_post_idx = #{path_post_idx}
 	</select>
 	
 	<!-- 경로 좋아요 추가 -->
