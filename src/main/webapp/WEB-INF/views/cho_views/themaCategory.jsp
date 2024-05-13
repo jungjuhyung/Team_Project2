@@ -137,7 +137,7 @@
 		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '♡' + '</span>';
 		}
 			
-   	    let placeHTML = '<div class="place-box" >' +
+   	    let placeHTML = '<div class="place-box swiper-slide" >' +
    	                        '<div class="image-box" onclick="goProductDetail(' + place.contentid + ', ' + place.contenttypeid + ')">' +
    	                            '<img alt="' + place.title + '" src="' + place.firstimage + '">' +
    	                        '</div>' +
@@ -185,6 +185,27 @@
 	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
 	    });
 	});
+	document.addEventListener('DOMContentLoaded', function () {
+	    let mySwiper = new Swiper(".mySwiper2", {
+	    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
+	    	spaceBetween: 20, // 슬라이드 간의 간격  
+	        autoplay:{
+	        	loop: true, // 슬라이드 루프(무한 회전) 활성화
+	  		  	delay: 3000, // 시간 설정
+	            disableOnInteraction: false
+	        },
+	        pagination: { // 호출(pager) 여부          
+	        	el: ".swiper-pagination", //버튼을 담을 태그 설정          
+	        	clickable: true, // 버튼 클릭 여부        
+	        },
+	        navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev"
+	        },
+	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+	    });
+	});
+
 	
 </script>
 
@@ -213,6 +234,7 @@
 					<div id="area38" class="swipeAreaList swiper-slide" data-areacode="38"><img src="https://i.namu.wiki/i/HkFBzr8gGv3VoP7FWzdwFwXrSsv7svoL2RJcxEBHlOONJhpSYEIbxGSs6oQkRgI7VvokmZ93bc4rRT7U_7ry_ZG_rFon3-swjSS_ZeZzm2H2ZY8ye08bz5-zZtz2HuViU2fOXjhjg9TkwmkEOKF4yw.svg" ><span>   전남</span></div>
 					<div id="area39" class="swipeAreaList swiper-slide" data-areacode="39"><img src="https://i.namu.wiki/i/UxR-PNtgz8QRi4-YI4TrLpco0uHn0el5B7XVU7MQjRmzrg8-6b1suPoBF3fKqkpDKYxv8V2VkpqqlemErZHzDy_DwkjINeP1gdIrIe9FeRznPLakDm87XEW1GnOdR1qQ-fdXEMxtn0AUbfriexATqg.svg" ><span>   제주</span></div>
 				</div>
+				
 				<div class="swiper-button-prev"></div>
    				<div class="swiper-button-next"></div>
 			</div>
@@ -230,20 +252,28 @@
 		 <div id="thema-titleWrap" class="section"><div id="thema-title">우리 지역 핫플레이스</div> <div class = "SearchTitleView">상세 검색 하기</div></div>
 		 <div id = "hot-place-back">
 			 <div id = "hot-place-wrapper">
-			 	<div id = thema-wrapper>
-				 	<div class= "thema-box">
-				 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName"></span> 추천 관광지</h4>
-				 		<div id="touristPlace" class="place-Wrapper"> 
-				 		</div>
-				 	</div>
-				 	<div class= "thema-box">
-				 		<h4 id="party" class="thema-subtitle"><span class="areaName"></span> 추천 축제</h4>
-				 		<div id="partyPlace"  class="place-Wrapper "></div>
-				 	</div>
-				 	<div class= "thema-box" >
-				 		<h4 id="restaurant" class="thema-subtitle"><span class="areaName"></span> 추천 맛집</h4>
-				 		<div id="restaurantPlace"  class="place-Wrapper"></div>
-				 	</div>
+			 	<div id = "thema-wrapper" >
+					 	<div class= "thema-box mySwiper2">
+					 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName"></span> 추천 관광지</h4>
+					 		<div id="touristPlace" class="place-Wrapper swiper-wrapper"> </div>
+					 		<div class="swiper-pagination"></div>
+							<div class="swiper-button-prev"></div>
+			   				<div class="swiper-button-next"></div>
+					 	</div>
+					 	<div class= "thema-box mySwiper2">
+					 		<h4 id="party" class="thema-subtitle"><span class="areaName"></span> 추천 축제</h4>
+						 		<div id="partyPlace"  class="place-Wrapper swiper-wrapper"></div>
+						 		<div class="swiper-pagination"></div>
+								<div class="swiper-button-prev"></div>
+				   				<div class="swiper-button-next"></div>
+					 	</div>
+					 	<div class= "thema-box mySwiper2" >
+					 		<h4 id="restaurant" class="thema-subtitle"><span class="areaName"></span> 추천 맛집</h4>
+					 		<div id="restaurantPlace"  class="place-Wrapper swiper-wrapper"></div>
+					 			<div class="swiper-pagination"></div>
+								<div class="swiper-button-prev"></div>
+				   				<div class="swiper-button-next"></div>
+					 	</div>
 				 </div>
 			 </div>
 		 </div>

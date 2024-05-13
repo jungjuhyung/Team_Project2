@@ -37,7 +37,7 @@
 		                #{path_post_idx}
 		            </foreach>
 		            <if test="title != null">
-		                AND title LIKE CONCAT('%', #{title}, '%')
+		                AND path_post_title LIKE CONCAT('%', #{title}, '%')
 		            </if>
 		    	</when>
 		    	<otherwise>

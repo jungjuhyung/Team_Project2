@@ -202,9 +202,9 @@ public class ChoAjaxController {
 	public String searchAreaPlace(String areaCode, HttpSession session, String type) {
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
-		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 4);
-		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 4);
-		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like","1",0, 4);
+		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 10);
+		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 10);
+		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like","1",0, 10);
 		
 		Map<String, Object> result = new HashMap<>();
 
