@@ -11,9 +11,7 @@
 	href="resources/ko_css/detail.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -92,7 +90,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
-	<section style="width: 1300px; margin: 0 auto;">
+	<section class="detail_sec" style="width: 1300px; margin: 0 auto;">
 		<div class="ko_detail">
 
 			<div class="detail_main">
@@ -250,9 +248,7 @@
 
 			<div class="detail_content">
 				<h2>상세설명</h2>
-				<c:forTokens var="k" items="${itemVO.overview}" delims=".">
-					<li>${k}.</li>
-				</c:forTokens>
+				<p>${itemVO.overview}</p>
 			</div>
 
 			<hr>
@@ -270,14 +266,13 @@
 
 			<div class="detail_path">
 				<h2>해당장소 포함된 추천경로</h2>
-				<h4>&nbsp;&nbsp;&nbsp;=>현재는 tourapi 테이블 데이터</h4>
 				<div id="path_wrapper">
 					<c:forEach var="k" items="${path_list}">
 						<div class="path_box">
 							<div class="path_image">
 								<img alt="" src="${k.firstimage}">
 							</div>
-							<div class="path_text">${k.title}</div>
+							<div class="path_text">${k.path_post_title}</div>
 						</div>
 					</c:forEach>
 					<%-- 

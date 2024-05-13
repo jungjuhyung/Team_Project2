@@ -3,16 +3,15 @@ package com.ict.travel.ko.service;
 import java.util.List;
 
 import com.ict.travel.ko.dao.ItemVO;
-import com.ict.travel.ko.dao.KoVO;
+import com.ict.travel.ko.dao.KoPostVO;
 
 public interface KoService {
 	
-	List<KoVO> getAreaList(String areacode);
+	List<KoPostVO> getAreaList(String r_areacode);
 	
-	List<KoVO> getTemaList(String contenttypeid);
+	List<KoPostVO> getTemaList(String r_contenttypeid);
 	
-	List<KoVO> getPathList(String contentid);
-	//List<KoPathVO> getPathList(String contentid);
+	List<KoPostVO> getPathList(String contentid);
 	
 	ItemVO getPlaceDetail(String contentid);
 	

@@ -6,29 +6,21 @@
 <mapper namespace="ko">
 	
 	
-	<select id="area_list" parameterType="String" resultType="kovo">
-		select * from tourapi_t where areacode = #{areacode} limit 5
-		<!-- 나중에는 pathpost_t 에서 areacode 와 like 많은거 뽑아오게 -->
+	<select id="area_list" parameterType="String" resultType="kopost">
+		select * from pathpost_t where r_areacode = #{r_areacode} order by heart desc limit 5
 	</select>
 	
-	<select id="tema_list" parameterType="String" resultType="kovo">
-		select * from tourapi_t where contenttypeid = #{contenttypeid} limit 5
-		<!-- 나중에는 pathpost_t 에서 contenttypeid 와 like 많은거 뽑아오게 -->
+	<select id="tema_list" parameterType="String" resultType="kopost">
+		select * from pathpost_t where r_contenttypeid = #{r_contenttypeid} order by heart desc limit 5
 	</select>
 	
-	<!-- css 때문에 나중에 아래로 변경-->
-	<select id="path_list" parameterType="String" resultType="kovo">
-		select * from tourapi_t where areacode = 1 limit 4
-	</select>
-	<!-- 
-	<select id="path_list" parameterType="String" resultType="kopathvo">
+	<select id="path_list" parameterType="String" resultType="kopost">
 		select p.*
-		from pathmaker_t m , pathpost_t p
+		from pathmarker_t m , pathpost_t p
 		where m.path_post_idx = p.path_post_idx and m.contentid = #{contentid}
-		order by like desc
+		order by p.heart desc
 		limit 4
 	</select>
-	-->	
 	
 	<select id="place_detail" parameterType="String" resultType="ivo">
 		select * from tourapi_t where contentid = #{contentid}

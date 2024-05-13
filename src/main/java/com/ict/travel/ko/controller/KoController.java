@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,11 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.ko.dao.ItemVO;
-import com.ict.travel.ko.dao.KoPathVO;
+import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.KoVO;
 import com.ict.travel.ko.service.KoService;
 import com.ict.travel.lee.dao.MemberVO;
@@ -45,10 +43,14 @@ public class KoController {
 			mv.addObject("userLogin", "ok");
 		}
 		
-		List<KoVO> area_list = koService.getAreaList("1");
-		List<KoVO> tema_list = koService.getTemaList("12");
-
+		//	지역별 추천경로 가져오기
+		String r_areacode = "1";
+		List<KoPostVO> area_list = koService.getAreaList(r_areacode);
 		mv.addObject("area_list", area_list);
+		
+		// 테마별 추천경로 가져오기
+		String r_contenttypeid = "12";
+		List<KoPostVO> tema_list = koService.getTemaList(r_contenttypeid);
 		mv.addObject("tema_list", tema_list);
 
 		Map<String, String> area = new HashMap<String, String>();
@@ -110,7 +112,7 @@ public class KoController {
 		}
 		
 
-		List<KoVO> path_list = koService.getPathList(contentid);
+		List<KoPostVO> path_list = koService.getPathList(contentid);
 		// List<KoPathVO> path_list = koService.getPathList(contentid);
 		mv.addObject("path_list", path_list);
 

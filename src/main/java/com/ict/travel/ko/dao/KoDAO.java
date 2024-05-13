@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class KoDAO {
 
@@ -13,21 +14,17 @@ public class KoDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 
-	public List<KoVO> getAreaList(String areacode) {
-		return sqlSessionTemplate.selectList("ko.area_list", areacode);
+	public List<KoPostVO> getAreaList(String r_areacode) {
+		return sqlSessionTemplate.selectList("ko.area_list", r_areacode);
 	}
 
-	public List<KoVO> getTemaList(String contenttypeid) {
-		return sqlSessionTemplate.selectList("ko.tema_list", contenttypeid);
+	public List<KoPostVO> getTemaList(String r_contenttypeid) {
+		return sqlSessionTemplate.selectList("ko.tema_list", r_contenttypeid);
 	}
 
-	public List<KoVO> getPathList(String contentid) {
+	public List<KoPostVO> getPathList(String contentid) {
 		return sqlSessionTemplate.selectList("ko.path_list", contentid);
 	}
-	/*
-	 * public List<KoPathVO> getPathList(String contentid) { return
-	 * sqlSessionTemplate.selectList("ko.path_list", contentid); }
-	 */
 
 	public ItemVO getPlaceDetail(String contentid) {
 		return sqlSessionTemplate.selectOne("ko.place_detail", contentid);
