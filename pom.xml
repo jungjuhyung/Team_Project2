@@ -231,7 +231,12 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-
+		<!-- DeepL 번역기 API 연결  -->
+		<dependency>
+		  <groupId>com.deepl.api</groupId>
+		  <artifactId>deepl-java</artifactId>
+		  <version>1.5.0</version>
+		</dependency>
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -17,17 +17,17 @@
 			type : "post",
 			dataType : "json",
 			success : function(data) {
-				alert("¾÷µ¥ÀÌÆ® ¼º°ø")
+				alert("ì—…ë°ì´íŠ¸ ì„±ê³µ")
 			},
 			error : function() {
-				alert("½ÇÆĞ");
+				alert("ì‹¤íŒ¨");
 			}
 		});
 	}
 </script>
 </head>
 <body>
-	<input type="button" onclick="updateDB()" value = "DB µ¿±âÈ­">
+	<input type="button" onclick="updateDB()" value = "DB ë™ê¸°í™”">
 	
 </body>
 </html>
