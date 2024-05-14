@@ -4,6 +4,17 @@ body {
 	background-color: #F9F3FF;
 }
 
+.ko_detail {
+	margin-bottom: 50px;	
+}
+
+.detail_sec {
+	font-family: "Noto Sans KR", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: <weight>;
+	font-style: normal;
+}
+
 .detail_main {
 	margin: 20px;
 	display: grid;
@@ -36,7 +47,6 @@ body {
 	font-weight: bold;
 	margin-bottom: 10px;
 }
-
 
 .content_table {
 	border: 1px solid black;
@@ -204,5 +214,3 @@ body {
 	color: gray;
 	font-size: 16px;
 }
-
-

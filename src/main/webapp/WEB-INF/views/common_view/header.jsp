@@ -39,13 +39,13 @@
 				<c:choose>
 					<c:when test="${empty memberUser}">						
 						<li class="btn"><a href="login_go.do">로그인</a></li>
+						<li class="btn"><a href="agree_go.do">회원가입</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="btn"><a href="logout">로그아웃</a></li>
-						<li class="btn"><a href="mypage">MyPage</a></li>
+						<li class="btn"><a href="mypage">마이페이지</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="btn"><a href="agree_go.do">회원가입</a></li>
 				<li class="btn"><a href="getReportgo">고객센터</a></li>
 			</ul>
 		</nav>

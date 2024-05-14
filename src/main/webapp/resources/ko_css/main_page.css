@@ -48,7 +48,7 @@ body {
 	border-radius: 10px;
 	max-width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: fill;
 }
 
 .path_text {
@@ -62,14 +62,39 @@ body {
 	line-height: 40px;
 }
 
+.main_text {
+	font-family: "Noto Sans KR", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: bold;
+	font-style: normal;
+	font-size: 40px;
+	margin-top: 20px;
+}
+
 .path_button {
 	display: flex;
-	padding-bottom: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .path_button button {
-	padding: 10px;
-	margin: 0 10px 10px 0;
+	padding: 15px;
+	margin: 0 25px 10px 0;
+	border: none;
+	background-color: #46A15B;
+	color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 10px green;
+	font-family: "Gamja Flower", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	text-align: center;
+	font-size: 25px;
+}
+
+.path_button button:hover {
+	color: black;
+	cursor : pointer
 }
 
 /* 슬라이드 이미지 배경 */
@@ -117,19 +142,22 @@ body {
 .change {
 	display: none;
 	color: white;
-	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
 	padding-top: 200px;
 	line-height: 100px;
-	font-weight: bold;
 	text-align: center;
+	font-family: "Gamja Flower", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: bold;
+	font-style: normal;
 }
 
 .change p {
-	font-size: 90px;
+	font-size: 120px;
 }
 
 .change span {
-	font-size: 60px;
+	font-size: 70px;
 }
 
 

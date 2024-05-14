@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.ko.dao.ItemVO;
+import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.KoVO;
 import com.ict.travel.ko.service.KoService;
 import com.ict.travel.lee.dao.MemberVO;
@@ -60,7 +61,7 @@ public class KoAjaxController {
 					sb.append(line);
 				}
 				String result = sb.toString();
-				//System.out.println(result);
+				// System.out.println(result);
 				return result;
 			}
 		} catch (Exception e) {
@@ -99,7 +100,7 @@ public class KoAjaxController {
 					sb.append(line);
 				}
 				String result = sb.toString();
-				//System.out.println(result);
+				// System.out.println(result);
 				return result;
 			}
 		} catch (Exception e) {
@@ -110,24 +111,24 @@ public class KoAjaxController {
 
 	@Autowired
 	private KoService koService;
-	
-	//	메인 페이지 지역별
+
+	// 메인 페이지 지역별
 	@RequestMapping(value = "ko_ajax_area.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String koAreaList(String areacode) {
-		List<KoVO> area_list = koService.getAreaList(areacode);
+	public String koAreaList(String r_areacode) {
+		List<KoPostVO> area_list = koService.getAreaList(r_areacode);
 
 		Gson gson = new Gson();
 		String area_json = gson.toJson(area_list);
 
 		return area_json;
 	}
-	
-	//	메인 페이지 테마별
+
+	// 메인 페이지 테마별
 	@RequestMapping(value = "ko_ajax_tema.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String koTemaList(String contenttypeid) {
-		List<KoVO> tema_list = koService.getTemaList(contenttypeid);
+	public String koTemaList(String r_contenttypeid) {
+		List<KoPostVO> tema_list = koService.getTemaList(r_contenttypeid);
 
 		Gson gson = new Gson();
 		String tema_json = gson.toJson(tema_list);
@@ -142,14 +143,14 @@ public class KoAjaxController {
 	@RequestMapping(value = "placeWishAdd2", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getWishInsert2(String contentid, HttpSession session) {
-		//System.out.println("contentid : " + contentid);
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
-		
-		int result = choService.getPlaceWishAdd(contentid, uvo.getU_idx());
+		// System.out.println("contentid : " + contentid);
+		String u_idx = (String) session.getAttribute("u_idx");
+
+		int result = choService.getPlaceWishAdd(contentid, u_idx);
 		if (result > 0) {
 			ItemVO ivo = koService.getPlaceDetail(contentid);
 			String like = ivo.getHeart();
-			//System.out.println(like);
+			// System.out.println(like);
 			return like;
 		}
 		return null;
@@ -159,14 +160,14 @@ public class KoAjaxController {
 	@RequestMapping(value = "placeWishRemove2", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getWishDelete2(String contentid, HttpSession session) {
-		//System.out.println("contentid : " + contentid);
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		// System.out.println("contentid : " + contentid);
+		String u_idx = (String) session.getAttribute("u_idx");
 
-		int result = choService.getPlaceWishRemove(contentid, uvo.getU_idx());
+		int result = choService.getPlaceWishAdd(contentid, u_idx);
 		if (result > 0) {
 			ItemVO ivo = koService.getPlaceDetail(contentid);
 			String like = ivo.getHeart();
-			//System.out.println(like);
+			// System.out.println(like);
 			return like;
 		}
 		return null;

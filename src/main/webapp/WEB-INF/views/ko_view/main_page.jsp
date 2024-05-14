@@ -1,27 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Five Guys Travel Guide</title>
 <link rel="icon" href="/resources/ko_images/favicon.png">
-<link rel="stylesheet" type="text/css" href="resources/ko_css/main_page.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/ko_css/main_page.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-	function detail_go(contentid, contenttypeid) {
-		location.href = "ko_detail.do?contentid=" + contentid 
-						+ "&contenttypeid=" + contenttypeid;
+	function detail_go(path_post_idx) {
+		location.href = "ko_detail.do?path_post_idx=" + path_post_idx;
 	}
 	
 	function area_wish(areacode) {
 		console.log(areacode);
 		$.ajax({
 			url : "ko_ajax_area.do",
-			data : "areacode=" + areacode,
+			data : "r_areacode=" + areacode,
 			method : "post",
 			dataType : "json",
 			success : function(data) {
@@ -30,10 +39,14 @@
 				let content = "";
 				$.each(data, function(index, value) {
 					content += '<div class="path_box" onclick="detail_go(' 
-								+ value.contentid + ',' + value.contenttypeid + ')">' 
+								+ value.path_post_idx + ')">' 
 								+ '<div class="path_image">' 
-								+ '<img alt="" src="' + value.firstimage + '"></div>'
-								+ '<div class="path_text">' + value.title + '</div></div>';
+								+ '<img alt="" src="' + value.firstimage + '"></div>';
+					if (value.path_post_title.length >= 12) {
+						content += '<div class="path_text">' + value.path_post_title.substring(0,12) + '...</div></div>';
+					}else {
+						content += '<div class="path_text">' + value.path_post_title + '</div></div>';
+					}
 				})
 				$("#area_wrapper").append(content);
 			},
@@ -47,7 +60,7 @@
 		console.log(contenttypeid);
 		$.ajax({
 			url : "ko_ajax_tema.do",
-			data : "contenttypeid=" + contenttypeid,
+			data : "r_contenttypeid=" + contenttypeid,
 			method : "post",
 			dataType : "json",
 			success : function(data) {
@@ -56,13 +69,15 @@
 				let content = "";
 				$.each(data, function(index, value) {
 					content += '<div class="path_box" onclick="detail_go(' 
-								+ value.contentid + ',' + value.contenttypeid + ')">' 
-								+ '<div class="path_image">' 
-								+ '<img alt="" src="' + value.firstimage + '"></div>'
-								+ '<div class="path_text">' + value.title + '</div></div>';
+						+ value.path_post_idx + ')">' 
+						+ '<div class="path_image">' 
+						+ '<img alt="" src="' + value.firstimage + '"></div>';
+						if (value.path_post_title.length >= 12) {
+							content += '<div class="path_text">' + value.path_post_title.substring(0,12) + '...</div></div>';
+						}else {
+							content += '<div class="path_text">' + value.path_post_title + '</div></div>';
+						}
 				})
-				
-				
 				$("#tema_wrapper").append(content);
 			},
 			error : function() {
@@ -75,7 +90,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
-	<section style="margin: 0 auto; width: 1300px; min-height: 1750px;">
+	<section style="margin: 0 auto; width: 1300px; min-height: 1900px;">
 		<div class="img_wrapper">
 			<div class="img_slider2">
 				<c:forEach var="k" begin="1" end="10">
@@ -87,46 +102,46 @@
 			</div>
 			<div class="img_slider">
 				<div class="slide_box">
-						<div class="change">
-							<p>남산</p>
-							<span>서울타워와 벚꽃</span>					
-						</div>
-						<div class="change">
-							<p>고창</p>
-							<span>해바라기 밭</span>					
-						</div>
-						<div class="change">
-							<p>북한산</p>
-							<span>가을단풍 풍경</span>					
-						</div>
-						<div class="change">
-							<p>안동</p>
-							<span>하회마을 설경</span>					
-						</div>
-						<div class="change">
-							<p>평창</p>
-							<span>대관령 양떼목장</span>					
-						</div>
-						<div class="change">
-							<p>광화문</p>
-							<span>경복궁의 정문</span>					
-						</div>
-						<div class="change">
-							<p>아산</p>
-							<span>노란 은행나무길</span>					
-						</div>
-						<div class="change">
-							<p>광양</p>
-							<span>섬진강 매화 축제</span>					
-						</div>
-						<div class="change">
-							<p>한강</p>
-							<span>동작대교 야경</span>					
-						</div>
-						<div class="change">
-							<p>서울</p>
-							<span>아름다운 풍경</span>					
-						</div>
+					<div class="change">
+						<p>남산</p>
+						<span>서울타워와 벚꽃</span>
+					</div>
+					<div class="change">
+						<p>고창</p>
+						<span>해바라기 밭</span>
+					</div>
+					<div class="change">
+						<p>북한산</p>
+						<span>가을단풍 풍경</span>
+					</div>
+					<div class="change">
+						<p>안동</p>
+						<span>하회마을 설경</span>
+					</div>
+					<div class="change">
+						<p>평창</p>
+						<span>대관령 양떼목장</span>
+					</div>
+					<div class="change">
+						<p>광화문</p>
+						<span>경복궁의 정문</span>
+					</div>
+					<div class="change">
+						<p>아산</p>
+						<span>노란 은행나무길</span>
+					</div>
+					<div class="change">
+						<p>광양</p>
+						<span>섬진강 매화 축제</span>
+					</div>
+					<div class="change">
+						<p>한강</p>
+						<span>동작대교 야경</span>
+					</div>
+					<div class="change">
+						<p>서울</p>
+						<span>아름다운 풍경</span>
+					</div>
 				</div>
 				<c:forEach var="k" begin="1" end="10">
 					<div class="slider fade">
@@ -136,9 +151,10 @@
 				</c:forEach>
 			</div>
 		</div>
-		<hr>
-		<h2>지역별 추천경로(좋아요 높은거)</h2>
-		<h4>=>현재는 tourapi 테이블 데이터</h4>
+
+		<div class="main_text">
+			<h2>지역별 추천경로 BEST</h2>
+		</div>
 		<div class="path_button">
 			<c:forEach var="k" items="${area}">
 				<div>
@@ -148,18 +164,25 @@
 		</div>
 		<div id="area_wrapper">
 			<c:forEach var="k" items="${area_list}">
-				<div class="path_box"
-					onclick="detail_go(${k.contentid}, ${k.contenttypeid})">
+				<div class="path_box" onclick="detail_go(${k.path_post_idx})">
 					<div class="path_image">
 						<img alt="" src="${k.firstimage}">
 					</div>
-					<div class="path_text">${k.title}</div>
+					<c:choose>
+						<c:when test="${fn:length(k.path_post_title) >= 12}">
+							<div class="path_text">${fn:substring(k.path_post_title, 0, 12)}...</div>
+						</c:when>
+						<c:otherwise>
+							<div class="path_text">${k.path_post_title}</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</c:forEach>
 		</div>
-		<hr>
-		<h2>테마별 추천경로(좋아요 높은거)</h2>
-		<h4>=>현재는 tourapi 테이블 데이터</h4>
+
+		<div class="main_text">
+			<h2>테마별 추천경로 BEST</h2>
+		</div>
 		<div class="path_button">
 			<c:forEach var="k" items="${tema}">
 				<div>
@@ -169,12 +192,18 @@
 		</div>
 		<div id="tema_wrapper">
 			<c:forEach var="k" items="${tema_list}">
-				<div class="path_box"
-					onclick="detail_go(${k.contentid}, ${k.contenttypeid})">
+				<div class="path_box" onclick="detail_go(${k.path_post_idx})">
 					<div class="path_image">
 						<img alt="" src="${k.firstimage}">
 					</div>
-					<div class="path_text">${k.title}</div>
+					<c:choose>
+						<c:when test="${fn:length(k.path_post_title) >= 12}">
+							<div class="path_text">${fn:substring(k.path_post_title, 0, 12)}...</div>
+						</c:when>
+						<c:otherwise>
+							<div class="path_text">${k.path_post_title}</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</c:forEach>
 		</div>
@@ -237,7 +266,7 @@
 	    }
 	    
 	</script>
-	
+
 	<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 
 </body>
