@@ -185,9 +185,9 @@ public class ChoDAO {
 		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
-			PathWishVO placeVO = sqlSessionTemplate.selectOne("cho_mapper.selectPathWishOne", path_post_idx);
+			PathWishVO pathVO = sqlSessionTemplate.selectOne("cho_mapper.selectPathWishOne", path_post_idx);
 			map.put("u_idx", u_idx);
-			map.put("pathWishVO", placeVO);
+			map.put("pathWishVO", pathVO);
 			result += sqlSessionTemplate.insert("cho_mapper.pathWishAdd", map);
 			
 			if(result > 0) {

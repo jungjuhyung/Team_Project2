@@ -91,7 +91,7 @@ public class ChoAjaxController {
 			@RequestParam("type") String type,
 			HttpSession session) throws Exception {
 			
-			MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+			MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 			// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
 			int pagecount = limit;
@@ -180,7 +180,7 @@ public class ChoAjaxController {
 	@RequestMapping(value = "placeWishAdd", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getWishInsert(String contentid, HttpSession session) {
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		int result = choService.getPlaceWishAdd(contentid,uvo.getU_idx());
 		return String.valueOf(result);
 	}
@@ -189,7 +189,7 @@ public class ChoAjaxController {
 	@RequestMapping(value = "placeWishRemove", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getWishDelete(String contentid, HttpSession session) {
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 		int result = choService.getPlaceWishRemove(contentid,uvo.getU_idx());
 		
@@ -200,7 +200,7 @@ public class ChoAjaxController {
 	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String searchAreaPlace(String areaCode, HttpSession session, String type) {
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 4);
 		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 4);
@@ -250,7 +250,7 @@ public class ChoAjaxController {
 	@RequestMapping(value = "searchAreaPath", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String searchAreaPath(String areaCode, HttpSession session) {
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 		List<PathPostVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like","2",0, 4);
 		List<PathPostVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like","2",0, 4);
@@ -301,7 +301,7 @@ public class ChoAjaxController {
 	@RequestMapping(value = "pathWishAdd", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String pathWishadd(String path_post_idx, HttpSession session) {
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		int result = choService.getPathWishAdd(path_post_idx,uvo.getU_idx());
 		return String.valueOf(result);
 	}
@@ -310,7 +310,7 @@ public class ChoAjaxController {
 	@RequestMapping(value = "pathWishRemove", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String pathWishRemove(String path_post_idx, HttpSession session) {
-		MemberVO uvo = (MemberVO) session.getAttribute("userVO");
+		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 		int result = choService.getPathWishRemove(path_post_idx,uvo.getU_idx());
 		
