@@ -13,7 +13,8 @@ public class BoardDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	// ÆäÀÌÂ¡ Ã³¸® - ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö
+	
+	// ì „ì²´ í˜ì´ì§€
 	public int getTotalCount() {
 		try {
 			return sqlSessionTemplate.selectOne("board_t.boardCount");
@@ -22,7 +23,7 @@ public class BoardDAO {
 		}
 		return -1;
 	}
-	// ÆäÀÌÂ¡ Ã³¸®¸¦ À§ÇÑ ¸®½ºÆ®
+	// í˜ì´ì§•
 	public List<BoardVO> boardList(int offset, int limit) {
 		try {
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -35,7 +36,7 @@ public class BoardDAO {
 		return null;
 	}
 	
-	// ¸®½ºÆ®
+	// ë¦¬ìŠ¤íŠ¸
 	public List<BoardVO> boardList() {
 		try {
 			return sqlSessionTemplate.selectList("board_t.boardlist");
@@ -45,7 +46,7 @@ public class BoardDAO {
 		return null;
 	}
 	
-	// ÀÛ¼º
+	// ê¸€ì“°ê¸°
 	public int boardWrite(BoardVO boardvo) {
 		try {
 			return sqlSessionTemplate.insert("board_t.boardWrite", boardvo);
@@ -55,7 +56,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	// »ó¼¼º¸±â
+	// ìƒì„¸ë³´ê¸°
 	public BoardVO boardDetail(String board_idx) {
 		try {
 			return sqlSessionTemplate.selectOne("board_t.boardDetail", board_idx);
@@ -64,7 +65,7 @@ public class BoardDAO {
 		}
 		return null;
 	}
-	// »èÁ¦
+	// ì‚­ì œ
 	public int boardDelete(String board_idx) {
 		try {
 			return sqlSessionTemplate.update("board_t.boardDelete", board_idx);
@@ -73,7 +74,7 @@ public class BoardDAO {
 		}
 		return -1;
 	}
-	// ¾÷µ¥ÀÌÆ®
+	// ìˆ˜ì •
 	public int boardUpdate(BoardVO boardvo) {
 		try {
 			return sqlSessionTemplate.update("board_t.boardUpdate", boardvo);
@@ -82,7 +83,7 @@ public class BoardDAO {
 		}
 		return -1;
 	}
-	// Á¶È¸¼ö
+	// ì¡°íšŒìˆ˜
 	public int boardHitUpdate(String board_idx) {
 		try {
 			return sqlSessionTemplate.update("board_t.boardHitUpdate", board_idx);
@@ -92,7 +93,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	// ´ñ±Û
+	// ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸
 	public List<CommentVO> commentList(String board_idx) {
 		try {
 			return sqlSessionTemplate.selectList("board_t.commentList", board_idx);
@@ -102,7 +103,7 @@ public class BoardDAO {
 		return null;
 	}
 	
-	// ´ñ±Û ÀÛ¼º
+	// ëŒ“ê¸€ ì…ë ¥
 	public int commentInsert(CommentVO commentvo) {
 		try {
 			return sqlSessionTemplate.insert("board_t.commentInsert", commentvo);
@@ -112,7 +113,7 @@ public class BoardDAO {
 		return -1;
 	}
 
-	// ´ñ±Û »èÁ¦
+	// ëŒ“ê¸€ ì‚­ì œ
 	public int commentDelete(String comment_idx) {
 		try {
 			return sqlSessionTemplate.delete("board_t.commentDelete", comment_idx);

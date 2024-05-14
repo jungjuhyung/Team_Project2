@@ -75,6 +75,7 @@
 		    updatePagination(paging);
 		}
 		
+		
 		// 페이징 처리 함수
 		function updatePagination(paging) {
 	    let content = '';
@@ -201,9 +202,42 @@
 	    return parseInt($(".nowPage").attr("data-page"));
 	}
 
-	
+	 // 세션 정보 추출
+    function parseXML(xml) {
+        let xmlDoc = xml.responseXML;
+        let sessionInfo = xmlDoc.getElementsByTagName("sessionInfo")[0];
+        let userGrade = sessionInfo.getElementsByTagName("userGrade")[0].childNodes[0].nodeValue;
 
+        // 세션 정보 출력 (여기서는 콘솔에 출력)
+        console.log("userGrade: " + userGrade);
 
+        // 세션 정보를 이용한 버튼 표시
+        if (userGrade != null) {
+            document.getElementById("writeButton").style.display = "block";
+        }
+    }
+
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function() {
+        loadXML();
+    };
+
+    // XML 데이터를 가져오는 함수
+    function loadXML() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                parseXML(this);
+            }
+        };
+        xhttp.open("GET", "getReportList?page=1", true);
+        xhttp.send();
+    }
+
+    // 버튼 클릭 시 실행할 함수
+    function reportWrite() {
+        // 여기에 버튼 클릭 시 실행할 작업을 추가하세요.
+    }
 
 	
 </script>
@@ -221,7 +255,7 @@ function reportWrite() {
         <table id="listtable">
             <thead>
                 <tr class="list_title" style="width: 100%;">
-                    <th>번호</th><th>닉네임</th><th>제목</th><th>작성일자</th><th>답변여부</th>
+                    <th>번호</th><th>아이디</th><th>제목</th><th>작성일자</th><th>답변여부</th>
                 </tr>
             </thead>
             <tbody id="tbody" cl>
@@ -231,8 +265,9 @@ function reportWrite() {
     </div>
     <div class="board-list-paging"></div>
     <div id="bwbtn">
+    	<input type="hidden" id="userGrade" value="" />
     	<input type="hidden" name="cPage" value="${paging.nowPage}+${paging.endBlock}+ ${paging.beginBlock}+${paging.totalPage}">
-    	<input type="button" value="글쓰기" onclick="reportWrite()" />
+    	<button id="writeButton" style="display:none;" onclick="reportWrite()">글쓰기</button>
     </div>
 </div>
 </body>

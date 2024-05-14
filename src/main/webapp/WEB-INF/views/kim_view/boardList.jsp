@@ -187,7 +187,10 @@ $(".board-list-paging").html(content);
 			<!-- 페이지기법 -->
 		</table>
 		<div class="board-list-paging"></div>
+		
+		<c:if test="${membervo.u_grade != null}">
 		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" /></div>
+		</c:if>
 		<div id="empty-area">
 	</div>
 </body>

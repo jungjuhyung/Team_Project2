@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>신고게시판</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
-<link rel="stylesheet" href="resources/kim_css/reportWrite.css">
+<link rel="stylesheet" href="resources/kim_css/reportDetail.css">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -50,6 +50,7 @@ function reportConfirm(f) {
 </head>
 
 <body>
+
 <form method="post">
 		<div class="container">
 			<div class="insert">
@@ -84,15 +85,20 @@ function reportConfirm(f) {
 				<input type="hidden" name="report_idx" value="${reportvo.report_idx}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="getReportgo(this.form)"/>
-				<!-- 답변이 달리면 수정 삭제 불가 -->
+				<!-- 작성자만 수정 삭제  -->
 				<c:choose>
-					<c:when test="${reportvo.report_state ==0}">
+				<c:when test="${membervo.u_id == reportvo.u_id || membervo.u_id == null}">
 				<input class="but4" type="button" value="수정" onclick="reportUpdate(this.form)"/>
 				<input class="but4" type="button" value="삭제" onclick="reportDelete(this.form)"/>
-				<!-- 관리자 확인버튼 -->
-				<input class="but4" type="button" value="확인" onclick="reportConfirm(this.form)"/>
 				</c:when>
-			</c:choose>
+				<c:otherwise>
+					<!-- 버튼이 안떠야 하는데 -->
+				</c:otherwise>
+				</c:choose>
+				<!-- 관리자 확인버튼 -->
+				<%-- <c:if test="${membervo.u_grade == 1}"> --%>
+				<input class="but4" type="button" value="확인" onclick="reportConfirm(this.form)"/>
+				<%-- </c:if> --%>
 			</div>
 		</div>
 	</form>

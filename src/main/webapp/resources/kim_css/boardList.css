@@ -85,11 +85,15 @@
 	vertical-align: middle;
 }
 
-.content_css td{
+.content_css tr, td{
 	vertical-align: middle;
 	border-bottom: 1px solid black;
 	border-collapse: collapse;
 }
+.content_css td {
+    vertical-align: middle; /* 수직 가운데 정렬 */
+}
+
 
 .no { width: 10%}
 .u_nickname { 	width: 20% }
@@ -101,6 +105,7 @@
         height: 40px; 
     }
 
+
 #bwbtn{
 	border-radius: 10px;
 	display: inline-block;
@@ -109,7 +114,6 @@
 #empty-area{
 	height: 300px;
 }
-
 
 
 

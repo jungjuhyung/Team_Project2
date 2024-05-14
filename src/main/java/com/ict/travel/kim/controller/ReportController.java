@@ -3,6 +3,7 @@ package com.ict.travel.kim.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import com.ict.travel.common.Paging;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.kim.service.ReportService;
+import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MemberService;
 
 @RestController
@@ -38,6 +40,12 @@ public class ReportController {
 	public String getReportList(HttpServletRequest request,
 			@RequestParam("page") String page
 			) {
+		
+		HttpSession session = request.getSession();
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		
+		
+		
 		int count = reportService.getTotalCount();
 		paging.setTotalRecord(count);
 		
@@ -81,6 +89,16 @@ public class ReportController {
 			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			sb.append("<reports>");
 			
+			// 세션 정보 추가
+	        if (membervo != null) {
+	            sb.append("<sessionInfo>");
+	            sb.append("<userGrade>").append(membervo.getU_grade()).append("</userGrade>");
+	            // 다른 세션 정보들도 필요한 경우에 추가할 수 있습니다.
+	            sb.append("</sessionInfo>");
+	        }
+			
+			
+			
 			  // 페이징 정보 추가 1111111111111111
 			  sb.append("<paging>"); 
 			  sb.append("<nowPage>" + paging.getNowPage() + "</nowPage>"); 
@@ -101,6 +119,8 @@ public class ReportController {
 			
 			sb.append("</reports>");
 			return sb.toString();
+			
+			
 		}
 		return "fail";
 		
@@ -110,6 +130,12 @@ public class ReportController {
 	@GetMapping("reportWrite")
 	public ModelAndView reportWrite(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("kim_view/reportWrite");
+		
+		HttpSession session = request.getSession();
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		System.out.println("찍히니?"+membervo.getU_id());
+		mv.addObject("membervo", membervo);
+		
 		return mv;
 	}
 	
@@ -122,6 +148,14 @@ public class ReportController {
 			reportvo.setReport_pw(pwd);;
 			String u_idx = reportvo.getU_idx();
 			reportvo.setU_idx(u_idx);
+			
+			HttpSession session = request.getSession();
+			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+			mv.addObject("membervo", membervo);
+			reportvo.setU_id(membervo.getU_id());
+			reportvo.setU_idx(membervo.getU_idx());
+			
+			
 			ReportVO reportvo2 = reportService.baduser(bad_id);
 			if (reportvo2 == null) {
 			    // bad_id에 해당하는 정보가 없는 경우의 처리
@@ -146,10 +180,15 @@ public class ReportController {
 	}
 	
 	@GetMapping("reportDetail")
-	public ModelAndView reportDetail(String report_idx, String cPage) {
+	public ModelAndView reportDetail(String report_idx, String cPage, HttpServletRequest request) {
 		try {
 			ModelAndView mv = new ModelAndView("kim_view/reportDetail");
 			ReportVO reportvo = reportService.reportDetail(report_idx);
+			HttpSession session = request.getSession();
+			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+			mv.addObject("membervo", membervo);
+			reportvo.setReported_id(membervo.getU_idx());
+			reportvo.setReport_idx(membervo.getU_id());
 			if (reportvo !=null) {
 				
 				mv.addObject("reportvo", reportvo);

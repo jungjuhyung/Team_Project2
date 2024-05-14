@@ -25,6 +25,7 @@
 </script>
 </head>
 <body>
+
 	<form method="post">
 	<section id="wrap">
 		<div id="deletecon">
@@ -37,7 +38,7 @@
 			<input type="hidden" name="cPage" value="${cPage}">
 			<input type="hidden" name="report_cpw" value="${report_cpw}">
 			<input type="button" value="삭제" onclick="reportDeleteOK(this.form)">
-			<input type="button" value="취소" onclick="location.href='reportList'">
+			<input type="button" value="취소" onclick="location.href='getReportgo'">
 		</div>
 	</section>
 	</form>

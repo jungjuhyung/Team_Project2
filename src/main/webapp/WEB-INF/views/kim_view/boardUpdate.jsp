@@ -30,6 +30,7 @@ $(document).ready(function() {
 
 </head>
 <body>
+
 <form method="post" >
 		<div class="container">
 			<div class="insert">
