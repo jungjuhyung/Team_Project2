@@ -40,6 +40,7 @@
 	<update id="reportState" parameterType="String">
 		update report_t set report_state = 1 where report_idx = #{report_idx}
 	</update>
+	
 	<select id="baduser" resultType="reportvo">
 		select * from user_t where u_id = #{reported_id}
 	</select>

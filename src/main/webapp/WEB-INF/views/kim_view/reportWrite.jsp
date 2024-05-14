@@ -24,13 +24,12 @@ function getReportgo(f) {
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	<%-- let badid = "<%= request.getAttribute("badid") %>"; --%>
-	let badid = "${badid}";
-	console.log("badid 값:", badid);
-	if(badid == "fail"){
-		alert("신고하는 아이디가 없습니다.");
-		return;
-	}
+    let badid = "${badid}";
+    console.log("badid 값:", badid);
+    if(badid === "fail"){
+        alert("신고하는 아이디가 없습니다.");
+        return;
+    }
 });
 
 </script>

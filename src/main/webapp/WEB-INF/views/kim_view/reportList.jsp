@@ -53,6 +53,8 @@
 					    // 클릭한 보고서의 report_idx 값을 가져옴
 					    let reportIdx = $row.find("input[name='report_idx']").val();
 					    
+					    
+					    
 					    // reportDetail 페이지로 이동하면서 report_idx 값을 쿼리 문자열로 전달
 					    window.location.href = "reportDetail?report_idx=" + encodeURIComponent(reportIdx);
 					});

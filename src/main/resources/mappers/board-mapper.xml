@@ -49,6 +49,7 @@
 		select * from comment_t where board_idx = #{board_idx}
 	</select>
 	
+	
 	<insert id="commentInsert" parameterType="commentvo">
 		insert into comment_t (content, regdate, u_nickname, board_idx, u_idx)
 		values (#{content}, sysdate(), #{u_nickname}, #{board_idx}, #{u_idx})
@@ -60,8 +61,7 @@
 </mapper>
 
 
-
-
+	
 
 
 

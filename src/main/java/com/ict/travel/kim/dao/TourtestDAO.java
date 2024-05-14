@@ -12,9 +12,9 @@ public class TourtestDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public TourtestVO tourDetail(String path_marker_idx) {
+	public TourtestVO tourDetail(String path_post_idx) {
 		try {
-			return sqlSessionTemplate.selectOne("tourtest_t.tourDetail",path_marker_idx);
+			return sqlSessionTemplate.selectOne("tourtest_t.tourDetail",path_post_idx);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -29,5 +29,7 @@ public class TourtestDAO {
 		}
 		return null;
 	}
+
+	
 	
 }

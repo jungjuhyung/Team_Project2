@@ -176,10 +176,8 @@ public class BoardController {
 			BoardVO boardvo
 			) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("입력pw" + board_cpw);
 		BoardVO boardvo2 = boardService.boardDetail(board_idx);
 		String dpwd = boardvo2.getBoard_pw();
-		System.out.println("dbpw: " + dpwd );
 		if (! passwordEncoder.matches(board_cpw, dpwd)) {
 			mv.setViewName("kim_view/boardUpdate");
 			mv.addObject("boardvo", boardvo);

@@ -1,7 +1,7 @@
 package com.ict.travel.kim.dao;
 
 public class KpostVO {
-	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, like, areacode, contenttypeid;
+	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart, r_areacode, r_contenttypeid;
 
 	public String getPath_post_idx() {
 		return path_post_idx;
@@ -59,28 +59,29 @@ public class KpostVO {
 		this.regdate = regdate;
 	}
 
-	public String getLike() {
-		return like;
+	public String getHeart() {
+		return heart;
 	}
 
-	public void setLike(String like) {
-		this.like = like;
+	public void setHeart(String heart) {
+		this.heart = heart;
 	}
 
-	public String getAreacode() {
-		return areacode;
+	public String getR_areacode() {
+		return r_areacode;
 	}
 
-	public void setAreacode(String areacode) {
-		this.areacode = areacode;
+	public void setR_areacode(String r_areacode) {
+		this.r_areacode = r_areacode;
 	}
 
-	public String getContenttypeid() {
-		return contenttypeid;
+	public String getR_contenttypeid() {
+		return r_contenttypeid;
 	}
 
-	public void setContenttypeid(String contenttypeid) {
-		this.contenttypeid = contenttypeid;
+	public void setR_contenttypeid(String r_contenttypeid) {
+		this.r_contenttypeid = r_contenttypeid;
 	}
+
 	
 }

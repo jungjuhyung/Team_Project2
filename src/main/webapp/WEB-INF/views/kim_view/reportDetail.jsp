@@ -87,7 +87,7 @@ function reportConfirm(f) {
 				<input class="but4" type="button" value="목록" onclick="getReportgo(this.form)"/>
 				<!-- 작성자만 수정 삭제  -->
 				<c:choose>
-				<c:when test="${membervo.u_id == reportvo.u_id || membervo.u_id == null}">
+				<c:when test="${membervo.u_id == reportvo.u_id}">
 				<input class="but4" type="button" value="수정" onclick="reportUpdate(this.form)"/>
 				<input class="but4" type="button" value="삭제" onclick="reportDelete(this.form)"/>
 				</c:when>
