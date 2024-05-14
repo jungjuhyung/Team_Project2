@@ -26,32 +26,30 @@ html {
 }
 
 .login{
-	margin: 80px;
-	
+	margin: 100px;
+	width: 1200px;
+	height: 800px; 
 } 
 
 
 .login-form {
 	width: 450px;
 	height: 650px;
+	margin: 300px;
+	padding: 6px;
 	background-color: pink;
 	box-shadow: 3px 3px 10px #333;
 	
 }
 
 .login-form h2{
-	margin: 20px;
+	margin: 10px;
+	padding: 10px;
 	font-weight: bold;
 	font-size: 20px;
 }
-div {
-	margin: auto;
-	border-radius: 5px;
-	text-align: center;
-	padding: 20px;
-}
 
-input {
+.login-form input{
 	width: 80%;
 	margin: 10px;
 	padding: 10px;
@@ -59,6 +57,17 @@ input {
 	border-radius: 5px;
 	border: none;
 }
+/* div {
+	margin: auto;
+	border-radius: 5px;
+	text-align: center;
+	padding: 20px;
+} */
+
+
+/*  input {
+	
+} */
 
 .in {
 	margin-bottom: 10px;
@@ -74,18 +83,23 @@ input {
 	color: gray;
 } */
 
-a {
+/* a {
 	text-decoration: none;
 	color: #9B9B9B;
 	font-size: 12px;
-}
+} */
 
 #a1 {
 	margin: 30px;
+	margin-left: 70px;
 	color: white;
 	margin-bottom: 20px;
+	font-size:12px;
 }
-
+#a2 {
+	color: white;
+	font-size: 12px;
+}
 #a3 img {
 	margin: 10px;
 	width: 170px;

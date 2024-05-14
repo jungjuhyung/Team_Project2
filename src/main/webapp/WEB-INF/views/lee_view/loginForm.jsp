@@ -38,12 +38,12 @@
 
 	
 </script>
-
+<link rel="icon" href="/resources/ko_images/favicon.png">
 </head>
 
 <body>
 <!-- 수정요청 -->
-<%-- <%@ include file="../header.jsp"%> --%> 
+<%-- <%@ include file="/WEB-INF/views/common_view/header.jsp"%> --%>
 	<div class="login-container" style="width: 1300px; height:900px; margin: 0 auto;" >
 		<div class="login">
 			<form method="post">
@@ -54,18 +54,20 @@
 					<input type="submit" id="btn-signin"  value="Sign In" onclick="sign_in_go(this.form)">
 					<input type="submit" id="btn-signup" value="Sign Up" onclick="sign_up_go(this.form)"><br>
 				
-					<a id="a1" href="email_send.do">비밀번호를 잊어버리셨나요?</a><br>
+					<a id="a2" href="id_email_send.do">아이디 찾기</a>
+					<a id="a1" href="email_send.do">비밀번호 찾기</a>	<br>
 					<br>
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=acef18f41c74c70cc25d2050d26d4e94&redirect_uri=http://localhost:8090/kakaologin.do&response_type=code">
-					<img src="resources/lee_images/kakao_login.png"><br>
+					<img  src="resources/lee_images/kakao_login.png"><br>
 					</a>
 					<a id="a3" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=TRKMsvddX9k547J_e_XD&state=STATE_STRING&redirect_uri=http://localhost:8090/naverlogin.do">
-					<img  src="resources/lee_images/btnG_logIn.png">
+					<img   src="resources/lee_images/btnG_logIn.png">
 				</a>
 				</div>
 			</form>
 		</div>
-	<%-- <%@ include file="../footer.jsp"%> --%>
+	
 		</div>	
+		<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 </body>
 </html> 

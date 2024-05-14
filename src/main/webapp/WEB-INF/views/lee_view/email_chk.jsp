@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>받은 인증번호 넣어주세요</h2>
+	<h2>받은 비밀번호 넣어주세요</h2>
 	<form action="email_pass_ok.do" method="post">
 		<input type="text" name="authNumber" min="6" max="6"> 
-		<input type="submit" value="전송">
+		<input type="submit" value="확인">
 	</form>
 </body>
 </html>

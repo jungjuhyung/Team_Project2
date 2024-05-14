@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap')
+	;
+
+body{
+	background-image: url("../ko_images/bg.png");
+}
+.pw_form{
+width: 400px;
+height: 400px;
+margin: 450px;
+background-color: pink;
+box-shadow: 3px 3px 10px #333;
+	
+}
+.pw_form h2{
+	padding: 40px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	
+} 
+.pw_form input[type="email"]{
+	width: 80%;
+	height: 50px;
+	margin: 40px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none; 
+}
+.pw_form input[type="submit"]{
+	width:80%;
+	height: 50px;
+	margin-left: 40px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+
