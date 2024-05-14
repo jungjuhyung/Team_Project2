@@ -4,15 +4,18 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="recommend">
+	<!-- 유저 위시리스트 검색 -->
 	<select id="wish_list" parameterType="String" resultType="wishvo">
 		select * from placewish_t where u_idx = #{u_idx}
 	</select>
 	
+	<!-- 추천 경로 작성 정보 삽입 -->
 	<insert id="postInsert">
 	    INSERT INTO pathpost_t (u_idx, u_id, firstimage, path_post_title, path_post_content, r_areacode,r_contenttypeid,heart,regdate) 
 	    VALUES (#{u_idx}, #{u_id},#{firstimage},#{path_post_title},#{path_post_content}, #{r_areacode},#{r_contenttypeid},0,sysdate())
 	</insert>
 	
+	<!-- 추천 경로 작성 마커 정보 삽입 -->
 	<insert id="markerInsert">
 		<selectKey keyProperty="path_post_idx" resultType="String" order="BEFORE">
 			SELECT (IFNULL(MAX(path_post_idx),0)) as path_post_idx FROM pathpost_t
@@ -21,6 +24,7 @@
 	    VALUES (#{contentid}, #{path_post_idx},#{mapy},#{mapx},#{areacode}, #{sigungucode}, #{contenttypeid}, #{title}, sysdate())
 	</insert>
 	
+	<!-- 추천 경로 작성 마커 이미지 삽입 -->
 	<insert id="markerImgInsert">
 		<selectKey keyProperty="path_marker_idx" resultType="String" order="BEFORE">
 			SELECT (IFNULL(MAX(path_marker_idx),0)) as path_marker_idx FROM pathmarker_t
@@ -28,5 +32,15 @@
 	    INSERT INTO pathmarker_img_t (image_name, path_marker_idx) 
 	    VALUES (#{image_name}, #{path_marker_idx})
 	</insert>
+	
+	<!-- 찜한 추천 경로 검색 -->
+	<select id="path_wish" parameterType="String" resultType="pwvo">
+		select * from pathwish_t where u_idx = #{u_idx}
+	</select>
+	
+	<!-- 내가 작성한 경로 검색 -->
+	<select id="my_recommend" parameterType="String" resultType="rcvo">
+		select * from pathpost_t where u_idx = #{u_idx}
+	</select>
 </mapper>
 

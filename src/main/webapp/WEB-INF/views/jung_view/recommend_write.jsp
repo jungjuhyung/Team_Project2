@@ -21,6 +21,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 	<div>
 		<div id="map"></div>
 	</div>
