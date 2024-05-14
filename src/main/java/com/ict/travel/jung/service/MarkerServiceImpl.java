@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.jung.dao.BoardVO;
 import com.ict.travel.jung.dao.MarkerDAO;
 import com.ict.travel.jung.dao.MarkerImgVO;
 import com.ict.travel.jung.dao.PathWishVO;
 import com.ict.travel.jung.dao.RecommendMarkerOneVO;
 import com.ict.travel.jung.dao.RecommendVO;
+import com.ict.travel.jung.dao.ReportVO;
 import com.ict.travel.jung.dao.WishListVO;
 
 @Service
@@ -51,5 +53,17 @@ public class MarkerServiceImpl implements MarkerService {
 	@Override
 	public List<RecommendVO> getMyRecommend(String u_idx) {
 		return markerDAO.getMyRecommend(u_idx);
+	}
+	
+	// 내가 작성한 자유게시판 글
+	@Override
+	public List<BoardVO> getMyBoard(String u_idx) {
+		return markerDAO.getMyBoard(u_idx);
+	}
+	
+	// 내가 작성한 신고게시판 글
+	@Override
+	public List<ReportVO> getMyReport(String u_idx) {
+		return markerDAO.getMyReport(u_idx);
 	}
 }

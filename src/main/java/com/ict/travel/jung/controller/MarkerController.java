@@ -20,11 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.jung.dao.BoardVO;
 import com.ict.travel.jung.dao.MarkerImgVO;
 import com.ict.travel.jung.dao.PathWishVO;
 import com.ict.travel.jung.dao.RecommendMarkerOneVO;
 import com.ict.travel.jung.dao.RecommendMarkerVO;
 import com.ict.travel.jung.dao.RecommendVO;
+import com.ict.travel.jung.dao.ReportVO;
 import com.ict.travel.jung.dao.WishListVO;
 import com.ict.travel.jung.service.MarkerService;
 import com.ict.travel.lee.dao.MemberVO;
@@ -132,9 +134,13 @@ public class MarkerController {
 		List<WishListVO> wish_place = marService.getWishList(uvo.getU_idx());
 		List<PathWishVO> wish_path = marService.getPathWish(uvo.getU_idx());
 		List<RecommendVO> my_recommend = marService.getMyRecommend(uvo.getU_idx());
+		List<ReportVO> my_report = marService.getMyReport(uvo.getU_idx());
+		List<BoardVO> my_board = marService.getMyBoard(uvo.getU_idx());
 		mv.addObject("wish_place", wish_place);
 		mv.addObject("wish_path", wish_path);
 		mv.addObject("my_recommend", my_recommend);
+		mv.addObject("my_report", my_report);
+		mv.addObject("my_board", my_board);
 		return mv;
 	}
 }

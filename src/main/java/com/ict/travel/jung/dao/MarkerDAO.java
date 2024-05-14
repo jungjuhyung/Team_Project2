@@ -70,4 +70,24 @@ public class MarkerDAO {
 		}
 		return null;
 	}
+	
+	// 내가 작성한 자유게시판 글
+	public List<BoardVO> getMyBoard(String u_idx) {
+		try {
+			return sqlSessionTemplate.selectList("recommend.my_board", u_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	// 내가 작성한 신고게시판 글
+	public List<ReportVO> getMyReport(String u_idx) {
+		try {
+			return sqlSessionTemplate.selectList("recommend.my_report", u_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 }
