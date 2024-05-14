@@ -9,7 +9,7 @@
 
 
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" type="text/css" href="resources/ko_css/main_page.css"> -->
+<link rel="stylesheet" type="text/css" href="resources/ko_css/main_page.css"> 
 <link rel="stylesheet" type="text/css" href="resources/lee_css/loginForm.css">
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <script type="text/javascript">
@@ -43,7 +43,7 @@
 
 <body>
 <!-- 수정요청 -->
-<%-- <%@ include file="/WEB-INF/views/common_view/header.jsp"%> --%>
+ <%@ include file="/WEB-INF/views/common_view/header.jsp"%> 
 	<div class="login-container" style="width: 1300px; height:900px; margin: 0 auto;" >
 		<div class="login">
 			<form method="post">

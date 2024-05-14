@@ -27,8 +27,7 @@ html {
 
 .login{
 	margin: 100px;
-	width: 1200px;
-	height: 800px; 
+	height: 600px; 
 } 
 
 
@@ -36,7 +35,7 @@ html {
 	width: 450px;
 	height: 650px;
 	margin: 300px;
-	padding: 6px;
+	padding: 30px;
 	background-color: pink;
 	box-shadow: 3px 3px 10px #333;
 	

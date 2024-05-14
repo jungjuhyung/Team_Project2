@@ -11,6 +11,7 @@
 <link rel="icon" href="/resources/ko_images/favicon.png">
 </head>
 <body>
+ <%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 <div class="find-container" style="width: 1300px; height:900px; margin: 0 auto;">
 	<div class="pw_form">
 		<form action="email_send_ok.do" method="post">
