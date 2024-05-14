@@ -201,15 +201,15 @@ body {
     margin: 0 auto;
     position: relative;
 }
-.swipe-arealist {
+.swiper-wrapper {
     display: flex;
     position: relative;
 }
 .swiper{
-	width: 960px!important;
+	width: 820px!important;
 	margin-bottom: 20px;
 }
-.swiper-slide {
+.swipeAreaList {
    width: 100px!important;
    height: 100px!important;
    text-align: center;
@@ -226,7 +226,7 @@ body {
     border-radius: 50%;
     background-color: black;
     height: 80px;
-    object-fit: cover;
+    object-fit: fill;
 } 
 
 
@@ -253,12 +253,16 @@ body {
     border: 1px solid #666;
     margin-right: 20px;
 }
+#thema-wrapper{
+	width: 1300px;
+    margin: 0 auto;
+}
 #thema-titleWrap{
 	display:flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 20px auto; 
-	width: 1300px;
+	width: 960px;
 	padding-right: 50px;
 }
 #hot-place-back{
@@ -269,12 +273,16 @@ body {
 	width: 1300px;
 	padding: 10px;
 }
+
 .thema-box{
+	width: 1300px!important;
 	margin: 0 auto;
 }
 .place-Wrapper{
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
+	width: 200px;
+	height: 100%;
+	display: flex;
+	/* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */ /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
     gap: 10px; /* 그리드 간격 설정 */
 }
 
@@ -290,7 +298,11 @@ body {
 	font-size: 2rem;
 	font-weight: bold;
 }
-
+.mySwiper2{
+	width: 960px;
+	position: relative;
+    overflow: hidden;
+}
 .SearchTitleView{
 	font-size: 2rem;
 	font-weight: bold;
