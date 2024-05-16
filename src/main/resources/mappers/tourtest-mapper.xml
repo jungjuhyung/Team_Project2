@@ -2,22 +2,36 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="tourtest_t">
-	
-	
+
+
 	<select id="tourDetail" resultType="tourtestvo">
-		select  
+		select
 		title
 		from pathmarker_t where path_post_idx = #{path_post_idx}
 	</select>
-	
+
 	<select id="tourMaps" resultType="tourtestvo">
 		select mapy, mapx
-		from pathmarker_t where path_post_idx = #{path_post_idx}
+		from
+		pathmarker_t where path_post_idx = #{path_post_idx}
 	</select>
-	
-	
+
+	<select id="tourImg" resultType="tourtestvo">
+	    SELECT *
+	    FROM pathmarker_img_t
+	    WHERE path_marker_idx IN (
+	        SELECT path_marker_idx
+	        FROM pathmarker_t
+	        WHERE path_post_idx = #{path_post_idx}
+	    ) GROUP BY path_marker_idx
+	</select>
+
+	<select id="markerImgList" parameterType="String" resultType="tourtestvo">
+		SELECT * FROM pathmarker_img_t WHERE path_marker_idx = #{path_marker_idx}
+	</select>
+
 </mapper>
 
 

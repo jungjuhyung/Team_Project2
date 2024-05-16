@@ -27,6 +27,7 @@ function rcommentDelete(f) {
 	f.action="rcommentDelete";
 	f.submit();
 }
+console.log(${imglist});
 </script>
 <style type="text/css">
 .dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
@@ -49,43 +50,19 @@ function rcommentDelete(f) {
 			</div>
 		</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>
-		<div class="d_img">
-			<c:choose>
-				<c:when test="${empty imglist}">
-				<div class="in_div">이미지가 없음</div>
-				</c:when>
-				<c:otherwise>
-				<c:forEach var="k" items="${imglist}" varStatus="vs">
-					<div class="in_div">${k.img}</div>
-				</c:forEach>
-				</c:otherwise>
-			</c:choose>		
-		</div>
-		<div class="d_img">
-			<c:choose>
-				<c:when test="${empty imglist}">
-				<div class="in_div">이미지가 없음</div>
-				</c:when>
-				<c:otherwise>
-				<c:forEach var="k" items="${imglist}" varStatus="vs">
-					<div class="in_div">${k.img}</div>
-				</c:forEach>
-				</c:otherwise>
-			</c:choose>		
-		</div>
-		<div class="d_img">
-			<c:choose>
-				<c:when test="${empty imglist}">
-				<div class="in_div">이미지가 없음</div>
-				</c:when>
-				<c:otherwise>
-				<c:forEach var="k" items="${imglist}" varStatus="vs">
-					<div class="in_div">${k.img}</div>
-				</c:forEach>
-				</c:otherwise>
-			</c:choose>		
-		</div>
-		
+			
+	<c:forEach var="marker" items="${tourtestvoimg}">
+	    <h2>Path_marker_idx: ${marker.path_marker_idx}</h2>
+	    <ul>
+	        <c:forEach var="img" items="${marker.imgList}">
+	            <li>Marker_img: ${img.image_name}</li>
+	            <!-- 이미지 파일을 표시하는 부분 -->
+	           <img src="resources/rc_main_img/${img.image_name}"  style="width: 80px">
+	        </c:forEach>
+	    </ul>
+	</c:forEach>
+					
+
 		<div id="summer">
 			<textarea rows="10" cols="60" id="summernote" name="content">${kpostvo.path_post_content}</textarea>
 		</div>
@@ -183,7 +160,9 @@ for (let i = 0; i < mapyList.length; i++) {
     let mapx = mapxList[i];
     let title = marktitle[i];
     let latlng = new kakao.maps.LatLng(mapy, mapx); // 올바른 kakao.maps.LatLng 객체 생성
-
+    let distanceOverlay;
+    /* let content = '<div class="dotOverlay distanceInfo">총거리 <span class="number">' + distance + '</span>m</div>'; // 커스텀오버레이에 추가될 내용입니다 */
+        
  // 좌표를 콘솔에 출력
     console.log("좌표 추가:", latlng);
     
@@ -206,6 +185,7 @@ for (let i = 0; i < mapyList.length; i++) {
         removable: true
     });
 	
+    
     
     
     // 클로저를 사용하여 현재 인덱스를 이용하여 이벤트 핸들러를 정의합니다.

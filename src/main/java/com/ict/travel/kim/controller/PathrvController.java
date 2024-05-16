@@ -44,16 +44,27 @@ public class PathrvController {
 	        HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
-
 			mv.addObject("kpostvo", kpostvo);
+			List<TourtestVO> tourtestvoimg = tourtestService.tourImg(path_post_idx);
+			
+			for (TourtestVO marker : tourtestvoimg) {
+			    List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
+			    marker.setImgList(imgList);
+			}
+			mv.addObject("tourtestvoimg", tourtestvoimg);
+			/*
+			 List<TourtestVO> tourtestVOimg = tourtestService.getTourtestVOWithImagePaths();
+		     mv.addObject("tourtestvoimg", tourtestVOimg);
+			*/
 			if (!tourtestvo2.isEmpty()) {
 	        	
 	            List<CommentVO> comment_list = kpostService.rcommentList(path_post_idx);
 				mv.addObject("comment_list", comment_list);
-	            
 				List<String> marktitle = new ArrayList<>();
 	            List<Double> mapyList = new ArrayList<>();
 	            List<Double> mapxList = new ArrayList<>();
+				List<String> imglist = new ArrayList<>();
+
 	            for (int i = 0; i < tourtestvo2.size(); i++) {
 	                TourtestVO tourtestVO = tourtestvo2.get(i);
 	                TourtestVO tourtestVO4 = tourtestvo3.get(i);
@@ -64,10 +75,21 @@ public class PathrvController {
 	                mapyList.add(tourtestVO.getMapy());
 	                mapxList.add(tourtestVO.getMapx());
 	                marktitle.add(tourtestVO4.getTitle());
+	                
+	                
+	                
+					
+					 TourtestVO tourtestimg = tourtestvoimg.get(i); 
+					 mv.addObject("rimg" + (i + 1), tourtestimg.getImg_idx()); 
+					 imglist.add(tourtestimg.getImg_idx());
+					 
 	            }
 	            mv.addObject("mapyList", mapyList);
 	            mv.addObject("mapxList", mapxList);
 	            mv.addObject("marktitle", new Gson().toJson(marktitle));
+				mv.addObject("imglist", imglist);
+				
+				
 	            return mv;
 	        }
 	    } catch (Exception e) {

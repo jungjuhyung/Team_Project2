@@ -10,4 +10,10 @@ public interface TourtestService {
 	public List<TourtestVO> tourDetail(String path_post_idx);
 	
 	public List<TourtestVO> tourMaps(String path_post_idx);
+	
+	public List<TourtestVO> tourImg(String path_post_idx);
+
+	public List<TourtestVO> getImageListByMarkerId(String path_marker_idx);
+	
+	/* public List<TourtestVO> getTourtestVOWithImagePaths(); */
 }

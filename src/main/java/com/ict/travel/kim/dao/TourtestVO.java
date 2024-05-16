@@ -1,13 +1,50 @@
 package com.ict.travel.kim.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TourtestVO {
 	private String path_marker_idx, contentid, path_post_idx, regdate, areacode, sigungucode, contenttypeid, title;
 	
 	private double mapy, mapx;
+	
+	public List<TourtestVO> getImgList() {
+		return imgList;
+	}
+	public void setImgList(List<TourtestVO> imgList) {
+		this.imgList = imgList;
+	}
 
+	private String img_idx, image_name ;
+	List<TourtestVO> imgList;
+	
+	public void addImage(TourtestVO img) {
+        if (imgList == null) {
+            imgList = new ArrayList<>();
+        }
+        imgList.add(img);
+    }
 	public String getPath_marker_idx() {
 		return path_marker_idx;
 	}
+
+	public String getImg_idx() {
+		return img_idx;
+	}
+
+	public String getImage_name() {
+		return image_name;
+	}
+
+	public void setImage_name(String image_name) {
+		this.image_name = image_name;
+	}
+
+	public void setImg_idx(String img_idx) {
+		this.img_idx = img_idx;
+	}
+
+	
 
 	public void setPath_marker_idx(String path_marker_idx) {
 		this.path_marker_idx = path_marker_idx;

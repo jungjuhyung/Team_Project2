@@ -30,6 +30,26 @@ public class TourtestDAO {
 		return null;
 	}
 
+	public List<TourtestVO> tourImg(String path_post_idx) {
+		try {
+			return sqlSessionTemplate.selectList("tourtest_t.tourImg",path_post_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	public List<TourtestVO> getImageListByMarkerId(String path_marker_idx) {
+		try {
+			return sqlSessionTemplate.selectList("tourtest_t.markerImgList",path_marker_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	
+	
 	
 	
 }

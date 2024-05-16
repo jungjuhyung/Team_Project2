@@ -24,6 +24,20 @@ public class TourtestServiceImpl implements TourtestService {
 		return tourtestDAO.tourMaps(path_post_idx);
 	}
 
+	@Override
+	public List<TourtestVO> tourImg(String path_post_idx) {
+		return tourtestDAO.tourImg(path_post_idx);
+	}
+	@Override
+	public List<TourtestVO> getImageListByMarkerId(String path_marker_idx) {
+		return tourtestDAO.getImageListByMarkerId(path_marker_idx);
+	}
+	/*
+	@Override
+	public List<TourtestVO> getTourtestVOWithImagePaths() {
+		return tourtestDAO.getTourtestVOWithImagePaths();
+	}
+	*/
 	
 
 	
