@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
@@ -37,9 +38,9 @@ public class PathrvController {
 			HttpServletRequest request) {
 	    try {
 	        ModelAndView mv = new ModelAndView("kim_view/pathDetail");
-			/* TourtestVO tourtestvo = tourtestService.tourDetail(path_post_idx); */
 	        KpostVO kpostvo = kpostService.kpostDetail(path_post_idx);
 	        List<TourtestVO> tourtestvo2 = tourtestService.tourMaps(path_post_idx);
+	        List<TourtestVO> tourtestvo3 = tourtestService.tourDetail(path_post_idx); 
 	        HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
@@ -47,22 +48,26 @@ public class PathrvController {
 			mv.addObject("kpostvo", kpostvo);
 			if (!tourtestvo2.isEmpty()) {
 	        	
-				/* mv.addObject("tourtestvo", tourtestvo); */
-	            
 	            List<CommentVO> comment_list = kpostService.rcommentList(path_post_idx);
 				mv.addObject("comment_list", comment_list);
 	            
+				List<String> marktitle = new ArrayList<>();
 	            List<Double> mapyList = new ArrayList<>();
 	            List<Double> mapxList = new ArrayList<>();
 	            for (int i = 0; i < tourtestvo2.size(); i++) {
 	                TourtestVO tourtestVO = tourtestvo2.get(i);
+	                TourtestVO tourtestVO4 = tourtestvo3.get(i);
 	                mv.addObject("mapy" + (i + 1), tourtestVO.getMapy());
 	                mv.addObject("mapx" + (i + 1), tourtestVO.getMapx());
+	                mv.addObject("title" + (i + 1), tourtestVO4.getTitle());
+	                
 	                mapyList.add(tourtestVO.getMapy());
 	                mapxList.add(tourtestVO.getMapx());
+	                marktitle.add(tourtestVO4.getTitle());
 	            }
 	            mv.addObject("mapyList", mapyList);
 	            mv.addObject("mapxList", mapxList);
+	            mv.addObject("marktitle", new Gson().toJson(marktitle));
 	            return mv;
 	        }
 	    } catch (Exception e) {

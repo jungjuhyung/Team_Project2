@@ -8,12 +8,6 @@
 	
 	<select id="tourDetail" resultType="tourtestvo">
 		select  
-		path_marker_idx,
-		contentid,
-		regdate,
-		areacode,
-		sigungucode,
-		contenttypeid,
 		title
 		from pathmarker_t where path_post_idx = #{path_post_idx}
 	</select>

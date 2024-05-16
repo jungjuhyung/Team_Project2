@@ -187,15 +187,14 @@ public class ReportController {
 			HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
-			if(!membervo.getU_idx().equals(reportvo.getU_idx())) {
+			if(membervo == null || !membervo.getU_idx().equals(reportvo.getU_idx())) {
 				return new ModelAndView("redirect:getReportgo");
 				
 			}
-			System.out.println("왜 안와?");
 			if (reportvo !=null) {
 				
-				mv.addObject("reportvo", reportvo);
 				mv.addObject("membervo", membervo);
+				mv.addObject("reportvo", reportvo);
 				mv.addObject("cPage", cPage);
 				return mv;
 			}
