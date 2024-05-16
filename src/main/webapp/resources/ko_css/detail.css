@@ -174,18 +174,17 @@ body {
 }
 
 #path_wrapper {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 30px;
 	margin-top: 30px;
 }
 
 .path_box {
-	width: clac(20% - 10px);
 	margin-bottom: 20px;
 	text-align: center;
 	cursor: pointer;
-	border-radius: 30px;
+	border-radius: 20px;
 	transition: transform 0.2s ease;
 }
 
@@ -194,15 +193,10 @@ body {
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.path_image {
-	width: 220px;
-	height: 280px;
-}
 
 .path_image img {
-	border-radius: 10px;
-	max-width: 100%;
-	height: 100%;
+	border-radius: 20px 20px 0px 0px;
+	width: 100%;
 	object-fit: cover;
 }
 
