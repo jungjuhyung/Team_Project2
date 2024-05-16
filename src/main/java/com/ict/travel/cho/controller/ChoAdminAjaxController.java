@@ -7,10 +7,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.dao.DataFetcher;
 import com.ict.travel.cho.dao.TourapiParser;
 import com.ict.travel.cho.dao.TourapiVO;
@@ -25,7 +29,8 @@ public class ChoAdminAjaxController {
 	private TourapiParser tourapiParser;
 	@Autowired
 	private DataFetcher dataFetcher;
-	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	// 디비 최신화
 	@RequestMapping(value = "updateTest", produces = "application/json; charset=utf-8" )
 	@ResponseBody
@@ -66,7 +71,54 @@ public class ChoAdminAjaxController {
 		
         return "Success";
 	}
+	
+	
+	// 관리자 목록 불러오기
+	@RequestMapping(value = "getAdminList", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String getAdminList() throws Exception{
 		
-
+		List<AdminVO> adminList = choService.getAdminList();
+		
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(adminList);
+		return jsonString;
+		
+	}
+	
+	// 관리자 삭제하기
+	@RequestMapping(value = "adminDel", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String adminDel(@RequestParam("admin_idx") String admin_idx) throws Exception{
+		
+		int result = choService.adminDelete(admin_idx);
+		
+		return String.valueOf(result);
+		
+	}
+	
+	// 관리자 아이디 중복 체크
+	@RequestMapping(value = "adminIDChk", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String adminIDChk(String admin_id) {
+		if (admin_id == null ||admin_id.equals(""))
+			return "1";
+		else {
+			return choService.getLoginChk(admin_id);
+		}
+	}
+	// 관리자 아이디 생성
+	@RequestMapping(value = "AdminCreate", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String AdminCreate(AdminVO adminVO) {
+		System.out.println(adminVO.getAdmin_id());
+		System.out.println(adminVO.getAdmin_pwd());
+		System.out.println(adminVO.getAdmin_grade());
+		String pwd2 =  passwordEncoder.encode(adminVO.getAdmin_pwd()); 
+		adminVO.setAdmin_pwd(pwd2);
+		return choService.adminCreate(adminVO);
+	
+	}
+	
 	
 }

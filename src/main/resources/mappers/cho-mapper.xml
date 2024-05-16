@@ -277,6 +277,24 @@
 			 #{title}, #{zipcode}, 0, sysdate())
 	</insert>
 	
-
-	
+	<!-- 관리자 로그인 -->
+	<select id="selectAdminOne" parameterType="adminVO" resultType="adminVO">
+		SELECT * FROM admin_t WHERE admin_id = #{admin_id}
+	</select>
+	<!-- 관리자 목록 확인 -->
+	<select id="AdminList" resultType="adminVO">
+		SELECT admin_idx, admin_id, admin_grade, regdate FROM admin_t
+	</select>
+	<!-- 관리자 삭제 -->
+	<delete id="AdminDelete" parameterType="String">
+		DELETE FROM admin_t WHERE admin_idx = #{admin_idx}
+	</delete>
+	<!-- 관리자 아이디 체크 -->
+	<select id="AdminIDChk" parameterType="String" resultType="Int">
+		SELECT count(*) FROM admin_t WHERE admin_id = #{admin_id}
+	</select>
+	<!-- 관리자 생성  -->
+	<insert id="AdminCreate" parameterType="adminVO">
+		INSERT INTO admin_t(admin_id,admin_pwd,admin_grade) VALUES(#{admin_id}, #{admin_pwd},#{admin_grade})
+	</insert>
 </mapper>

@@ -2,6 +2,7 @@ package com.ict.travel.cho.service;
 
 import java.util.List;
 
+import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.PathPostVO;
 import com.ict.travel.cho.dao.PathWishVO;
@@ -27,6 +28,13 @@ public interface ChoService {
 	int getPathWishRemove(String path_post_idx, String u_idx);
 	List<SearchVO> getSearchTotal(String areaCode, String sigunguCode, String contentType, String title, String order,
 			String type, int offset, int limit);
+	// 관리자 로그인
+	AdminVO getAdminLogin(AdminVO adminVO);
+	// 관리자 목록확인
+	List<AdminVO> getAdminList();
+	int adminDelete(String admin_idx);
+	String getLoginChk(String admin_id);
+	String adminCreate(AdminVO adminVO);
 	
 
 }

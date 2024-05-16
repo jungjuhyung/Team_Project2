@@ -265,5 +265,54 @@ public class ChoDAO {
 		return null;
 	}
 
+	public AdminVO getAdminLogin(AdminVO adminVO) {
+		try {
+			return sqlSessionTemplate.selectOne("cho_mapper.selectAdminOne", adminVO);
+		} catch (Exception e) {
+			System.out.println("관리자 로그인 : " + e);
+		}
+		
+		
+		return null;
+	}
+
+	public List<AdminVO> getAdminList() {
+		try {
+			return sqlSessionTemplate.selectList("cho_mapper.AdminList");
+		} catch (Exception e) {
+			System.out.println("관리자 목록 확인 : " + e);
+		}
+		return null;
+	}
+
+	public int adminDelete(String admin_idx) {
+		try {
+			return sqlSessionTemplate.delete("cho_mapper.AdminDelete", admin_idx);
+		} catch (Exception e) {
+			System.out.println("관리자 삭제:" + e);
+		}
+		return 0;
+	}
+
+	public String getLoginChk(String admin_id) {
+		try {
+			int res = sqlSessionTemplate.selectOne("cho_mapper.AdminIDChk",admin_id);
+			return String.valueOf(res);
+		} catch (Exception e) {
+			System.out.println("관리자 id 중복체크 : " + e);
+		}
+		return null;
+	}
+
+	public String adminCreate(AdminVO adminVO) {
+		try {
+			int res = sqlSessionTemplate.insert("cho_mapper.AdminCreate", adminVO);
+			return String.valueOf(res);
+		} catch (Exception e) {
+			System.out.println("관리자 생성 : " + e);
+		}
+		return null;
+	}
+
 
 }

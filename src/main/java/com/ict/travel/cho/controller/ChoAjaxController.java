@@ -11,10 +11,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,13 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.ict.travel.cho.dao.ChoTourVO;
-import com.ict.travel.cho.dao.DataFetcher;
 import com.ict.travel.cho.dao.PathPostVO;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.dao.SearchVO;
-import com.ict.travel.cho.dao.TourapiParser;
-import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
 import com.ict.travel.lee.dao.MemberVO;
@@ -39,10 +32,6 @@ public class ChoAjaxController {
 	
 	@Autowired
 	private ChoService choService;
-	@Autowired
-	private TourapiParser tourapiParser;
-	@Autowired
-	private DataFetcher dataFetcher;
 	
 	@Autowired
 	private Paging paging;
