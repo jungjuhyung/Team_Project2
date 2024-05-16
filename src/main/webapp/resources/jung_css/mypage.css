@@ -78,8 +78,8 @@ body{
 }
 
 .with_box{
-	width: 200px;
-	height: 100px;
+	width: 200px!important;
+	height: 240px!important;
 	margin: 0px 10px;
 	display: flex;
 	flex-direction: column;
@@ -88,7 +88,8 @@ body{
 
 .with_img{
 	width: 200px;
-	height: 70px;
+	height: 160px;
+	object-fit: cover;
 }
 
 .with_title{
