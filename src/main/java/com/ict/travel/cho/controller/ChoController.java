@@ -30,16 +30,7 @@ public class ChoController {
 		}
 		return mv;
 	}
-	//DB 업데이트 
-	@GetMapping("dbUpdateTest")
-	public ModelAndView dbUpdateTest(HttpSession session) {
-		ModelAndView mv = new ModelAndView("cho_views/dbUpdateTest");
-		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
-		if(uvo !=null) {
-			mv.addObject("userLogin", "ok");
-		}
-		return mv;
-	}
+	
 	// 추천경로 카테고리
 	@GetMapping("pathCategory")
 	public ModelAndView pathCategory(HttpSession session) {
@@ -48,6 +39,24 @@ public class ChoController {
 		if(uvo !=null) {
 			mv.addObject("userLogin", "ok");
 		}
+		return mv;
+	}
+	
+	//DB 업데이트 
+		@GetMapping("dbUpdateTest")
+		public ModelAndView dbUpdateTest(HttpSession session) {
+			ModelAndView mv = new ModelAndView("cho_views/dbUpdateTest");
+			MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
+			if(uvo !=null) {
+				mv.addObject("userLogin", "ok");
+			}
+			return mv;
+		}
+	
+	// 검색 번역기
+	@GetMapping("translateTest")
+	public ModelAndView translateTest(HttpSession session) {
+		ModelAndView mv = new ModelAndView("cho_views/translateTest");
 		return mv;
 	}
 }

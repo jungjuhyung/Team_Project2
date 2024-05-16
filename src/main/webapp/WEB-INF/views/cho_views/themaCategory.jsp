@@ -27,7 +27,31 @@
 	    
 	    
     });
-	
+	function initializeSwiper1() {
+		let mySwiper = new Swiper(".mySwiper", {
+	    	slidesPerView: 9, // 한 번에 표시할 슬라이드 수
+	    	spaceBetween: 20, // 슬라이드 간의 간격  
+	        loop: true, // 슬라이드 루프(무한 회전) 활성화
+	        navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev"
+	        },
+	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+	    });
+	}
+	function initializeSwiper2() {
+		 let mySwiper = new Swiper(".mySwiper2", {
+		    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
+		    	spaceBetween: 20, // 슬라이드 간의 간격  
+		        loop: true, // 슬라이드 루프(무한 회전) 활성화
+		        navigation: {
+		            nextEl: ".swiper-button-next",
+		            prevEl: ".swiper-button-prev"
+		        },
+		        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+		});
+	}
+
 	//  찜 버튼 누르기
 	$(document).on("click", ".heart-state", function(e) {
 		let contentid = $(this).data("place_contentid");
@@ -120,6 +144,8 @@
           	        let place = data.restaurantList[i];
           	        addPlace2(place.contenttypeid,place);
           	    	}
+				initializeSwiper1();
+				initializeSwiper2();
 			},
 			error : function() {
 				alert("실패");
@@ -173,38 +199,6 @@
         location.href = "ko_detail.do?contentid=" + contentid + "&contenttypeid=" + contenttypeid;
     }
 	
-	document.addEventListener('DOMContentLoaded', function () {
-	    let mySwiper = new Swiper(".mySwiper", {
-	    	slidesPerView: 7, // 한 번에 표시할 슬라이드 수
-	    	spaceBetween: 20, // 슬라이드 간의 간격  
-	        loop: true, // 슬라이드 루프(무한 회전) 활성화
-	        navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev"
-	        },
-	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
-	    });
-	});
-	document.addEventListener('DOMContentLoaded', function () {
-	    let mySwiper = new Swiper(".mySwiper2", {
-	    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
-	    	spaceBetween: 20, // 슬라이드 간의 간격  
-	        autoplay:{
-	        	loop: true, // 슬라이드 루프(무한 회전) 활성화
-	  		  	delay: 3000, // 시간 설정
-	            disableOnInteraction: false
-	        },
-	        pagination: { // 호출(pager) 여부          
-	        	el: ".swiper-pagination", //버튼을 담을 태그 설정          
-	        	clickable: true, // 버튼 클릭 여부        
-	        },
-	        navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev"
-	        },
-	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
-	    });
-	});
 
 	
 </script>
@@ -256,21 +250,18 @@
 					 	<div class= "thema-box mySwiper2">
 					 		<h4 id="tourist" class="thema-subtitle" > <span class="areaName"></span> 추천 관광지</h4>
 					 		<div id="touristPlace" class="place-Wrapper swiper-wrapper"> </div>
-					 		<div class="swiper-pagination"></div>
 							<div class="swiper-button-prev"></div>
 			   				<div class="swiper-button-next"></div>
 					 	</div>
 					 	<div class= "thema-box mySwiper2">
 					 		<h4 id="party" class="thema-subtitle"><span class="areaName"></span> 추천 축제</h4>
 						 		<div id="partyPlace"  class="place-Wrapper swiper-wrapper"></div>
-						 		<div class="swiper-pagination"></div>
 								<div class="swiper-button-prev"></div>
 				   				<div class="swiper-button-next"></div>
 					 	</div>
 					 	<div class= "thema-box mySwiper2" >
 					 		<h4 id="restaurant" class="thema-subtitle"><span class="areaName"></span> 추천 맛집</h4>
 					 		<div id="restaurantPlace"  class="place-Wrapper swiper-wrapper"></div>
-					 			<div class="swiper-pagination"></div>
 								<div class="swiper-button-prev"></div>
 				   				<div class="swiper-button-next"></div>
 					 	</div>

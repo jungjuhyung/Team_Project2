@@ -168,6 +168,12 @@ public class ChoDAO {
 			map.put("limit", limit );
 			map.put("order", order );
 			map.put("type", type );
+			System.out.println(areaCode);
+			System.out.println(contentType);
+			List<PathPostVO> list = sqlSessionTemplate.selectList("cho_mapper.selectTourPathList", map);
+			for (PathPostVO k : list) {
+				System.out.println("제목: " + k.getTitle());
+			}
 			return sqlSessionTemplate.selectList("cho_mapper.selectTourPathList", map);
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);
