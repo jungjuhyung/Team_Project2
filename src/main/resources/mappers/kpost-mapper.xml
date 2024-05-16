@@ -10,6 +10,24 @@
 		select * from pathpost_t where path_post_idx = #{path_post_idx}
 	</select>
 	
+	
+	<select id="rcommentList" parameterType="String" resultType="commentvo">
+		select * from comment_t where path_post_idx = #{path_post_idx}
+	</select>
+
+	<insert id="rcommentInsert" parameterType="commentvo">
+		insert into comment_t (content, regdate, u_nickname, path_post_idx, u_idx)
+		values (#{content}, sysdate(), #{u_nickname}, #{path_post_idx}, #{u_idx})
+	</insert>
+	
+	<delete id="rcommentDelete" parameterType="String">
+		delete from comment_t where comment_idx = #{comment_idx}
+	</delete>
+	
+	
+	
+	
+	
 </mapper>
 
 

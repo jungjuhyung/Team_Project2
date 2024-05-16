@@ -7,7 +7,7 @@ import com.ict.travel.kim.dao.TourtestVO;
 
 public interface TourtestService {
 
-	public TourtestVO tourDetail(String path_marker_idx);
+	public List<TourtestVO> tourDetail(String path_post_idx);
 	
 	public List<TourtestVO> tourMaps(String path_post_idx);
 }

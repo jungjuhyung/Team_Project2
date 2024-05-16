@@ -133,7 +133,6 @@ public class ReportController {
 		
 		HttpSession session = request.getSession();
 		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
-		System.out.println("찍히니?"+membervo.getU_id());
 		mv.addObject("membervo", membervo);
 		
 		return mv;
@@ -155,14 +154,15 @@ public class ReportController {
 			reportvo.setU_id(membervo.getU_id());
 			reportvo.setU_idx(membervo.getU_idx());
 			
-			
 			ReportVO reportvo2 = reportService.baduser(bad_id);
 			if (reportvo2 == null) {
-			    // bad_id에 해당하는 정보가 없는 경우의 처리
-				System.out.println("왜안되닝");
-				mv.addObject("badid", "fail");
+				System.out.println("여기 와?");
+				mv.setViewName("kim_view/reportWrite");
 			    mv.addObject("reportvo", reportvo);
-			    return new ModelAndView("kim_view/reportWrite");
+			    mv.addObject("membervo", membervo);
+			    System.out.println(membervo.getU_id());
+			    mv.addObject("badid", "fail");
+			    return mv;
 			}
 			reportvo.setReported_idx(reportvo2.getU_idx());
 			
@@ -187,10 +187,13 @@ public class ReportController {
 			HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
-			reportvo.setReported_id(membervo.getU_idx());
-			reportvo.setReport_idx(membervo.getU_id());
+			if(membervo == null || !membervo.getU_idx().equals(reportvo.getU_idx())) {
+				return new ModelAndView("redirect:getReportgo");
+				
+			}
 			if (reportvo !=null) {
 				
+				mv.addObject("membervo", membervo);
 				mv.addObject("reportvo", reportvo);
 				mv.addObject("cPage", cPage);
 				return mv;

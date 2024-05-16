@@ -7,7 +7,9 @@
 	
 	
 	<select id="tourDetail" resultType="tourtestvo">
-		select * from pathmarker_t where path_marker_idx = #{path_marker_idx}
+		select  
+		title
+		from pathmarker_t where path_post_idx = #{path_post_idx}
 	</select>
 	
 	<select id="tourMaps" resultType="tourtestvo">

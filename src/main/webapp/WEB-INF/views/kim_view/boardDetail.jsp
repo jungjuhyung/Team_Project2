@@ -86,7 +86,7 @@ function commentDelete(f) {
 		<c:forEach var="k" items="${comment_list}">
 			<div>
 				<form method="post">
-					<div class="renick">${boardvo.u_nickname}</div>
+					<div class="renick">${k.u_nickname}</div>
 					<div class="recontent">
 						<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
 					</div>
@@ -112,7 +112,7 @@ function commentDelete(f) {
 		<form method="post">
 			<fieldset>
 			<div class="renick">
-				<span>${boardvo.u_nickname}</span> 
+				<span>${membervo.u_nickname}</span> 
 			</div>
 			<div class="recontent">
 				<textarea rows="3" cols="40" name="content"></textarea>
