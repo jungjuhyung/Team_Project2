@@ -31,13 +31,17 @@ public class ChoTranslatorAjax {
 			if (inputLang != null && !inputLang.isEmpty()) {
 			    sourceLang = inputLang;
 			}
+			String target = "ko";
+			if (targetLang != null && !targetLang.isEmpty()) {
+				target = targetLang;
+			}
 			String authKey = "2811cbde-4818-4a09-814a-a9640875abc2:fx"; // DeepL API 인증 키
 		    this.translator = new Translator(authKey);
 		    
 			Map<String, String> response = new HashMap<>();
 			
 			try {
-				TextResult result = translator.translateText(sourceText,sourceLang, targetLang) ;
+				TextResult result = translator.translateText(sourceText,sourceLang, target) ;
 				response.put("translatedText", result.getText());
 				System.out.println("번역한 글자 : " + result.getText());
 			} catch (Exception e) {

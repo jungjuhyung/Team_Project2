@@ -104,7 +104,6 @@
 				},
 			dataType : "json",
 			success : function(data) {
-				console.log(data)
 				$('.place-Wrapper').empty();
 				for (let i = 0; i < data.touristList.length; i++) {
 	          	        let pathPost = data.touristList[i];
@@ -118,6 +117,8 @@
 	          	        let pathPost = data.restaurantList[i];
 	          	        addPlace2(pathPost.r_contenttypeid,pathPost);
           	    	}
+				initializeSwiper1();
+				initializeSwiper2();
 			},
 			error : function() {
 				alert("실패");
@@ -171,10 +172,10 @@
         location.href = "pathReviewDetail?path_post_idx=" + path_post_idx;
     } 
 	
-	document.addEventListener('DOMContentLoaded', function () {
-	    let mySwiper = new Swiper(".mySwiper", {
-	    	slidesPerView: 8, // 한 번에 표시할 슬라이드 수
-	    	spaceBetween: 10, // 슬라이드 간의 간격  
+	function initializeSwiper1() {
+		let mySwiper = new Swiper(".mySwiper", {
+	    	slidesPerView: 9, // 한 번에 표시할 슬라이드 수
+	    	spaceBetween: 20, // 슬라이드 간의 간격  
 	        loop: true, // 슬라이드 루프(무한 회전) 활성화
 	        navigation: {
 	            nextEl: ".swiper-button-next",
@@ -182,20 +183,19 @@
 	        },
 	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
 	    });
-	});
-    
-	document.addEventListener('DOMContentLoaded', function () {
-	    let mySwiper = new Swiper(".mySwiper2", {
-	    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
-	    	spaceBetween: 20, // 슬라이드 간의 간격  
-	      	loop: true, // 슬라이드 루프(무한 회전) 활성화
-	        navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev"
-	        },
-	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
-	    });
-	});
+	}
+	function initializeSwiper2() {
+		 let mySwiper = new Swiper(".mySwiper2", {
+		    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
+		    	spaceBetween: 20, // 슬라이드 간의 간격  
+		        loop: true, // 슬라이드 루프(무한 회전) 활성화
+		        navigation: {
+		            nextEl: ".swiper-button-next",
+		            prevEl: ".swiper-button-prev"
+		        },
+		        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+		});
+	}
 </script>
 </head>
 <body>

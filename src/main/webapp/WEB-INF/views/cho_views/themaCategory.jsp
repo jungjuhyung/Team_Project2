@@ -27,7 +27,31 @@
 	    
 	    
     });
-	
+	function initializeSwiper1() {
+		let mySwiper = new Swiper(".mySwiper", {
+	    	slidesPerView: 9, // 한 번에 표시할 슬라이드 수
+	    	spaceBetween: 20, // 슬라이드 간의 간격  
+	        loop: true, // 슬라이드 루프(무한 회전) 활성화
+	        navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev"
+	        },
+	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+	    });
+	}
+	function initializeSwiper2() {
+		 let mySwiper = new Swiper(".mySwiper2", {
+		    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
+		    	spaceBetween: 20, // 슬라이드 간의 간격  
+		        loop: true, // 슬라이드 루프(무한 회전) 활성화
+		        navigation: {
+		            nextEl: ".swiper-button-next",
+		            prevEl: ".swiper-button-prev"
+		        },
+		        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+		});
+	}
+
 	//  찜 버튼 누르기
 	$(document).on("click", ".heart-state", function(e) {
 		let contentid = $(this).data("place_contentid");
@@ -120,6 +144,8 @@
           	        let place = data.restaurantList[i];
           	        addPlace2(place.contenttypeid,place);
           	    	}
+				initializeSwiper1();
+				initializeSwiper2();
 			},
 			error : function() {
 				alert("실패");
@@ -173,30 +199,6 @@
         location.href = "ko_detail.do?contentid=" + contentid + "&contenttypeid=" + contenttypeid;
     }
 	
-	document.addEventListener('DOMContentLoaded', function () {
-	    let mySwiper = new Swiper(".mySwiper", {
-	    	slidesPerView: 9, // 한 번에 표시할 슬라이드 수
-	    	spaceBetween: 20, // 슬라이드 간의 간격  
-	        loop: true, // 슬라이드 루프(무한 회전) 활성화
-	        navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev"
-	        },
-	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
-	    });
-	});
-	document.addEventListener('DOMContentLoaded', function () {
-	    let mySwiper = new Swiper(".mySwiper2", {
-	    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
-	    	spaceBetween: 20, // 슬라이드 간의 간격  
-	        loop: true, // 슬라이드 루프(무한 회전) 활성화
-	        navigation: {
-	            nextEl: ".swiper-button-next",
-	            prevEl: ".swiper-button-prev"
-	        },
-	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
-	    });
-	});
 
 	
 </script>
