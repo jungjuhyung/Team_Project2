@@ -1,10 +1,16 @@
 package com.ict.travel.ko.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 
 @Repository
@@ -29,6 +35,60 @@ public class KoDAO {
 	public ItemVO getPlaceDetail(String contentid) {
 		return sqlSessionTemplate.selectOne("ko.place_detail", contentid);
 	}
+	
+	public int popupInsert(PopupVO popvo) {
+		return sqlSessionTemplate.insert("ko.popup_insert", popvo);
+	}
 
+	public List<PopupVO> popupList(int offset, int limit) {
+		try {
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("offset", offset);
+			map.put("limit", limit);
+			return sqlSessionTemplate.selectList("ko.popup_list", map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+	public PopupVO popupOne() {
+		return sqlSessionTemplate.selectOne("ko.popup_one");
+	}
 
+	@Autowired
+	private DataSourceTransactionManager transactionManager;
+	
+	public int popupUpdate(String popup_idx) {
+		int result = 0;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			result += sqlSessionTemplate.update("ko.popup_update_off");
+			result += sqlSessionTemplate.update("ko.popup_update_on", popup_idx);
+			transactionManager.commit(status);
+			System.out.println("팝업이미지 변경 성공");
+			return result;
+		} catch (Exception e) {
+			transactionManager.rollback(status);
+			System.out.println("팝업이미지 변경 실패");
+		}
+		return -1;
+	}
+	
+	public int popupDelete(String popup_idx) {
+		return sqlSessionTemplate.delete("ko.popup_delete", popup_idx);
+	}
+	
+	public int getTotalCount() {
+		return sqlSessionTemplate.selectOne("ko.count");
+	}
+	
 }
+
+
+
+
+
+
+

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoDAO;
 import com.ict.travel.ko.dao.KoPostVO;
+import com.ict.travel.ko.dao.PopupVO;
 
 @Service
 public class KoServiceIple implements KoService{
@@ -35,5 +36,34 @@ public class KoServiceIple implements KoService{
 		return koDAO.getPlaceDetail(contentid);
 	}
 	
+	@Override
+	public int popupInsert(PopupVO popvo) {
+		return koDAO.popupInsert(popvo);
+	}
+	
+	@Override
+	public List<PopupVO> popupList(int offset, int limit) {
+		return koDAO.popupList(offset, limit);
+	}
+	
+	@Override
+	public PopupVO popupOne() {
+		return koDAO.popupOne();
+	}
+	
+	@Override
+	public int popupUpdate(String popup_idx) {
+		return koDAO.popupUpdate(popup_idx);
+	}
+	
+	@Override
+	public int popupDelete(String popup_idx) {
+		return koDAO.popupDelete(popup_idx);
+	}
+	
+	@Override
+	public int getTotalCount() {
+		return koDAO.getTotalCount();
+	}
 	
 }

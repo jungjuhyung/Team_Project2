@@ -11,6 +11,19 @@ body {
 	background-image: url(/resources/ko_images/bg.png);
 }
 
+/* 팝업 */
+#popup {
+	position:fixed; left:100px; top:200px; display: none; z-index:10;
+}
+
+.popup_img img {
+	max-height: 500px;
+}
+
+.popup_btn {
+	float: right;
+}
+
 /* 추천경로 리스트 */
 #area_wrapper {
 	display: flex;
