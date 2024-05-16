@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
 <script type="text/javascript">
 	function main_go() {
-		location.href = "main_page.do";
+		location.href = "/";
 	}
 </script>
 </head>

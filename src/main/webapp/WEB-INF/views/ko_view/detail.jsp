@@ -270,22 +270,11 @@
 					<c:forEach var="k" items="${path_list}">
 						<div class="path_box">
 							<div class="path_image">
-								<img alt="" src="${k.firstimage}">
+								<img alt="" src="/resources/rc_main_img/${k.firstimage}">
 							</div>
 							<div class="path_text">${k.path_post_title}</div>
 						</div>
 					</c:forEach>
-					<%-- 
-					<c:forEach var="k" items="${path_list}">
-						<div class="path_box"
-							onclick="path_detail(${k.path_post_idx})">
-							<div class="path_image">
-								<img alt="" src="${k.firstimage}">
-							</div>
-							<div class="path_text">${k.path_post_title}</div>
-						</div>
-					</c:forEach>
-					 --%>
 				</div>
 			</div>
 
