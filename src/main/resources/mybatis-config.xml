@@ -10,9 +10,10 @@
 	<typeAliases>
 		<typeAlias type="com.ict.travel.cho.dao.ChoTourVO" alias="choTourVO"/>
 		<typeAlias type="com.ict.travel.jung.dao.WishListVO" alias="wishvo"/>
-		<typeAlias type="com.ict.travel.jung.dao.RecommendMarkerVO" alias="rcmvo"/>
 		<typeAlias type="com.ict.travel.jung.dao.RecommendVO" alias="rcvo"/>
+		<typeAlias type="com.ict.travel.jung.dao.RecommendMarkerVO" alias="rcmvo"/>
 		<typeAlias type="com.ict.travel.jung.dao.MarkerImgVO" alias="mkivo"/>
+		<typeAlias type="com.ict.travel.jung.dao.PathWishVO" alias="pwvo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.ko.dao.ItemVO" alias="ivo"/>
 		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>

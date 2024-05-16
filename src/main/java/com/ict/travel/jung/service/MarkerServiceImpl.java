@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ict.travel.jung.dao.MarkerDAO;
 import com.ict.travel.jung.dao.MarkerImgVO;
+import com.ict.travel.jung.dao.PathWishVO;
 import com.ict.travel.jung.dao.RecommendMarkerOneVO;
 import com.ict.travel.jung.dao.RecommendVO;
 import com.ict.travel.jung.dao.WishListVO;
@@ -16,26 +17,39 @@ public class MarkerServiceImpl implements MarkerService {
 	@Autowired
 	private MarkerDAO markerDAO;
 	
+	// 내가 찜한 장소 가져오기
 	@Override
 	public List<WishListVO> getWishList(String u_idx) {
 		return markerDAO.getWishList(u_idx) ;
 	}
 
+	// 추천경로 작성 정보 삽입
 	@Override
 	public int recommendPostInsert(RecommendVO rcvo) {
 		return markerDAO.recommendPostInsert(rcvo);
 	}
 
+	// 추천경로 작성 마커 정보 삽입
 	@Override
 	public int recommendMarkerInsert(RecommendMarkerOneVO rcmvo) {
 		return markerDAO.recommendMarkerInsert(rcmvo);
 	}
-
+	
+	// 추천경로 작성 마커 이미지 삽입
 	@Override
 	public int recommendImgInsert(MarkerImgVO mkivo) {
 		return markerDAO.recommendImgInsert(mkivo);
 	}
 	
+	// 찜한 추천경로 가져오기
+	@Override
+	public List<PathWishVO> getPathWish(String u_idx) {
+		return markerDAO.getPathWish(u_idx);
+	}
 	
-
+	// 내가 작성한 추천경로 가져오기
+	@Override
+	public List<RecommendVO> getMyRecommend(String u_idx) {
+		return markerDAO.getMyRecommend(u_idx);
+	}
 }
