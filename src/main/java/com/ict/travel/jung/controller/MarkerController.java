@@ -138,6 +138,7 @@ public class MarkerController {
 		List<BoardVO> my_board = marService.getMyBoard(uvo.getU_idx());
 		mv.addObject("wish_place", wish_place);
 		mv.addObject("wish_path", wish_path);
+		System.out.println(wish_path);
 		mv.addObject("my_recommend", my_recommend);
 		mv.addObject("my_report", my_report);
 		mv.addObject("my_board", my_board);

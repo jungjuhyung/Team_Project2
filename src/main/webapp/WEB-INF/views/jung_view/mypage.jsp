@@ -37,135 +37,232 @@
 			</div>
 		</div>
 	</article>
-	<article>
-		<div class="with_list_box swiper mySwiper">
-			<div class="with_list_box_top">
-				<p>찜한 여행지</p>
-			</div>
-			<c:choose>
-				<c:when test="${empty wish_place}">
-					<p>찜한 여행지가 없습니다.</p>		
-				</c:when>
-				<c:otherwise>
-					<div class="with_list_box_bottom swiper-wrapper">
-						<c:forEach var="k" items="${wish_place}">
-							<div class="with_box swiper-slide">
-								<img src="${k.firstimage}" class="with_img">
-								<p class="with_title">
-									<c:choose>
-										<c:when test="${k.contenttypeid == 12}">
-											관광지
-										</c:when>
-										<c:when test="${k.contenttypeid == 15}">
-											문화시설
-										</c:when>
-										<c:when test="${k.contenttypeid == 39}">
-											음식점
-										</c:when>
-									</c:choose>
-								</p>
-								<p class="with_sub_title">
-									<c:choose>
-										<c:when test="${k.areacode == 1}">
-											서울
-										</c:when>
-										<c:when test="${k.contenttypeid == 2}">
-											인천
-										</c:when>
-										<c:when test="${k.contenttypeid == 3}">
-											대전
-										</c:when>
-										<c:when test="${k.contenttypeid == 4}">
-											대구
-										</c:when>
-										<c:when test="${k.contenttypeid == 5}">
-											광주
-										</c:when>
-										<c:when test="${k.contenttypeid == 6}">
-											부산
-										</c:when>
-										<c:when test="${k.contenttypeid == 7}">
-											울산
-										</c:when>
-										<c:when test="${k.contenttypeid == 8}">
-											세종특별자치시
-										</c:when>
-										<c:when test="${k.contenttypeid == 31}">
-											경기도
-										</c:when>
-										<c:when test="${k.contenttypeid == 32}">
-											강원특별자치도
-										</c:when>
-										<c:when test="${k.contenttypeid == 33}">
-											충청북도
-										</c:when>
-										<c:when test="${k.contenttypeid == 34}">
-											충청남도
-										</c:when>
-										<c:when test="${k.contenttypeid == 35}">
-											경상북도
-										</c:when>
-										<c:when test="${k.contenttypeid == 36}">
-											경상남도
-										</c:when>
-										<c:when test="${k.contenttypeid == 37}">
-											전북특별자치도
-										</c:when>
-										<c:when test="${k.contenttypeid == 38}">
-											전라남도
-										</c:when>
-										<c:when test="${k.contenttypeid == 39}">
-											제주도
-										</c:when>
-									</c:choose>
-								</p>
-								<p class="with_sub_title">
-									${k.place_title}
-								</p>
-							</div>
-						</c:forEach>
-					</div>
-				</c:otherwise>
-			</c:choose>
-			<div class="swiper-button-prev"></div>
-   			<div class="swiper-button-next"></div>
+	<article class="with_list_box swiper mySwiper">
+		<div class="with_list_box_top">
+			<p>찜한 여행지</p>
 		</div>
+		<c:choose>
+			<c:when test="${empty wish_place}">
+				<p>찜한 여행지가 없습니다.</p>		
+			</c:when>
+			<c:otherwise>
+				<div class="with_list_box_bottom swiper-wrapper">
+					<c:forEach var="k" items="${wish_place}">
+						<div class="with_box swiper-slide">
+							<img src="${k.firstimage}" class="with_img">
+							<p class="with_title">
+								<c:choose>
+									<c:when test="${k.contenttypeid == 12}">
+										관광지
+									</c:when>
+									<c:when test="${k.contenttypeid == 15}">
+										문화시설
+									</c:when>
+									<c:when test="${k.contenttypeid == 39}">
+										음식점
+									</c:when>
+								</c:choose>
+							</p>
+							<p class="with_sub_title">
+								<c:choose>
+									<c:when test="${k.areacode == 1}">
+										서울
+									</c:when>
+									<c:when test="${k.areacode == 2}">
+										인천
+									</c:when>
+									<c:when test="${k.areacode == 3}">
+										대전
+									</c:when>
+									<c:when test="${k.areacode == 4}">
+										대구
+									</c:when>
+									<c:when test="${k.areacode == 5}">
+										광주
+									</c:when>
+									<c:when test="${k.areacode == 6}">
+										부산
+									</c:when>
+									<c:when test="${k.areacode == 7}">
+										울산
+									</c:when>
+									<c:when test="${k.areacode == 8}">
+										세종특별자치시
+									</c:when>
+									<c:when test="${k.areacode == 31}">
+										경기도
+									</c:when>
+									<c:when test="${k.areacode == 32}">
+										강원특별자치도
+									</c:when>
+									<c:when test="${k.areacode == 33}">
+										충청북도
+									</c:when>
+									<c:when test="${k.areacode == 34}">
+										충청남도
+									</c:when>
+									<c:when test="${k.areacode == 35}">
+										경상북도
+									</c:when>
+									<c:when test="${k.areacode == 36}">
+										경상남도
+									</c:when>
+									<c:when test="${k.areacode == 37}">
+										전북특별자치도
+									</c:when>
+									<c:when test="${k.areacode == 38}">
+										전라남도
+									</c:when>
+									<c:when test="${k.areacode == 39}">
+										제주도
+									</c:when>
+								</c:choose>
+							</p>
+							<p class="with_sub_title">
+								${k.place_title}
+							</p>
+						</div>
+					</c:forEach>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		<div class="swiper-button-prev"></div>
+  		<div class="swiper-button-next"></div>
 	</article>
-	<article>
-		<p>찜한 추천 경로</p>
+	<article class="with_list_box swiper mySwiper">
+		<div class="with_list_box_top">
+			<p>찜한 추천 경로</p>
+		</div>
 		<c:choose>
 			<c:when test="${empty wish_path}">
-				<p>찜한 추천 경로가 없습니다.</p>
+				<p>찜한 추천 경로가 없습니다.</p>		
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="k" items="${wish_path}">
-					<div>
-						<div>
-							<img src="">
+				<div class="with_list_box_bottom swiper-wrapper">
+					<c:forEach var="k" items="${wish_path}">
+						<div class="with_box swiper-slide">
+							<img src="resources/rc_main_img/${k.firstimage}" class="with_img">
+							<p class="with_title">
+								<c:choose>
+									<c:when test="${k.r_contenttypeid == 12}">
+										관광지
+									</c:when>
+									<c:when test="${k.r_contenttypeid == 15}">
+										문화시설
+									</c:when>
+									<c:when test="${k.r_contenttypeid == 39}">
+										음식점
+									</c:when>
+									<c:when test="${k.r_contenttypeid == 99}">
+										종합
+									</c:when>
+								</c:choose>
+							</p>
+							<p class="with_sub_title">
+								${k.path_post_title}
+							</p>
 						</div>
-						<p>서울 맛집 투어</p>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</c:otherwise>
 		</c:choose>
+		<div class="swiper-button-prev"></div>
+  		<div class="swiper-button-next"></div>
 	</article>
-	<article>
-		<p>내가 만든 여행 코스</p>
+	<article class="with_list_box swiper mySwiper">
+		<div class="with_list_box_top">
+			<p>내가 작성한 경로</p>
+		</div>
 		<c:choose>
-			<c:when test="${empty my_recommend}">
-				<p>내가 만든 여행 코스가 없습니다.</p>
+			<c:when test="${empty wish_place}">
+				<p>내가 작성한 경로가 없습니다.</p>		
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="k" items="${my_recommend}">
-					<div>
-						<div>
-							<img src="">
+				<div class="with_list_box_bottom swiper-wrapper">
+					<c:forEach var="k" items="${my_recommend}">
+						<div class="with_box swiper-slide">
+							<img src="resources/rc_main_img/${k.firstimage}" class="with_img">
+							<p class="with_title">
+								<c:choose>
+									<c:when test="${k.r_contenttypeid == 12}">
+										관광지
+									</c:when>
+									<c:when test="${k.r_contenttypeid == 15}">
+										문화시설
+									</c:when>
+									<c:when test="${k.r_contenttypeid == 39}">
+										음식점
+									</c:when>
+									<c:when test="${k.r_contenttypeid == 99}">
+										종합
+									</c:when>
+								</c:choose>
+							</p>
+							<p class="with_sub_title">
+								<c:choose>
+									<c:when test="${k.r_areacode == 1}">
+										서울
+									</c:when>
+									<c:when test="${k.r_areacode == 2}">
+										인천
+									</c:when>
+									<c:when test="${k.r_areacode == 3}">
+										대전
+									</c:when>
+									<c:when test="${k.r_areacode == 4}">
+										대구
+									</c:when>
+									<c:when test="${k.r_areacode == 5}">
+										광주
+									</c:when>
+									<c:when test="${k.r_areacode == 6}">
+										부산
+									</c:when>
+									<c:when test="${k.r_areacode == 7}">
+										울산
+									</c:when>
+									<c:when test="${k.r_areacode == 8}">
+										세종특별자치시
+									</c:when>
+									<c:when test="${k.r_areacode == 31}">
+										경기도
+									</c:when>
+									<c:when test="${k.r_areacode == 32}">
+										강원특별자치도
+									</c:when>
+									<c:when test="${k.r_areacode == 33}">
+										충청북도
+									</c:when>
+									<c:when test="${k.r_areacode == 34}">
+										충청남도
+									</c:when>
+									<c:when test="${k.r_areacode == 35}">
+										경상북도
+									</c:when>
+									<c:when test="${k.r_areacode == 36}">
+										경상남도
+									</c:when>
+									<c:when test="${k.r_areacode == 37}">
+										전북특별자치도
+									</c:when>
+									<c:when test="${k.r_areacode == 38}">
+										전라남도
+									</c:when>
+									<c:when test="${k.r_areacode == 39}">
+										제주도
+									</c:when>
+								</c:choose>
+							</p>
+							<p class="with_sub_title">
+								${k.path_post_title}
+							</p>
 						</div>
-						<p>내가 좋아하는 음식 투어</p>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</c:otherwise>
 		</c:choose>
+		<div class="swiper-button-prev"></div>
+  		<div class="swiper-button-next"></div>
 		<button type="button" onclick="recommend_write()">추천 경로 작성하기</button>
 	</article>
 	<article>
@@ -238,7 +335,7 @@
 	            nextEl: ".swiper-button-next",
 	            prevEl: ".swiper-button-prev"
 	        },
-	        watchOverflow: true, // 슬라이드가 화면을 넘어갈 때의 처리 설정
+	        watchOverflow: true // 슬라이드가 화면을 넘어갈 때의 처리 설정
 	    });
 	});
 </script>

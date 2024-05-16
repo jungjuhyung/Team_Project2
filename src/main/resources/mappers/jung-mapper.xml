@@ -42,6 +42,10 @@
 	<select id="my_board" parameterType="String" resultType="bdvo">
 		select * from board_t where u_idx = #{u_idx}
 	</select>
+	<!-- 내가 작성한 추천경로글 -->
+	<select id="my_recommend" parameterType="String" resultType="rcvo">
+		select * from pathpost_t where u_idx = #{u_idx}
+	</select>
 	<!-- 내가 작성한 신고글 -->
 	<select id="my_report" parameterType="String" resultType="rpvo">
 		select * from report_t where u_idx = #{u_idx}
