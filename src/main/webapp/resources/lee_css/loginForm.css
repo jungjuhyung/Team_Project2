@@ -22,22 +22,25 @@ html {
 	background-image: url("../lee_images/loginbg.jpg");
 	background-size:cover;
 	background-position:center;
-	
 }
 
 .login{
 	margin: 100px;
-	height: 600px; 
+	margin-top: 0px;
+	position: absolute;
 } 
 
 
 .login-form {
-	width: 450px;
-	height: 650px;
-	margin: 300px;
+	width: 400px;
 	padding: 30px;
 	background-color: pink;
 	box-shadow: 3px 3px 10px #333;
+	margin: 0 auto;
+	position: absolute;
+	margin-left: 300px;
+	margin-top: 200px;
+	
 	
 }
 
@@ -73,9 +76,14 @@ html {
 }
 
 #btn-signin, #btn-signup {
-	background-color: black;
+	background-color: #F9F3FF;
 	margin-bottom: 10px;
-	color: white;
+}
+#btn-signin:hover{
+	color:pink;
+}
+#btn-signup:hover{
+	color: pink;
 }
 
 /* #btn-sigin:hover {
@@ -95,6 +103,7 @@ html {
 	margin-bottom: 20px;
 	font-size:12px;
 }
+
 #a2 {
 	color: white;
 	font-size: 12px;

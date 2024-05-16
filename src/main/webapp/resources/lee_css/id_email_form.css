@@ -10,13 +10,25 @@
 body{
 	background-image: url("../ko_images/bg.png");
 }
+.find-container{
+	background-image: url("../lee_images/loginbg.jpg");
+	background-size:cover;
+	background-position:center;
+}
 
+.id_sub{
+	margin: 100px;
+	margin-top: 0px;
+	position: absolute;
+}
 .id_form{
-width: 400px;
-height: 400px;
-margin: 450px;
-background-color: pink;
-box-shadow: 3px 3px 10px #333;
+	width: 400px;
+	height: 500px;
+	background-color: pink;
+	box-shadow: 3px 3px 10px #333;
+	position: absolute;
+	margin-left: 300px;
+	margin-top: 200px;
 	
 }
 .id_form h2{
@@ -50,9 +62,14 @@ box-shadow: 3px 3px 10px #333;
 .id_form input[type="button"]{
 	width:80%;
 	height: 50px;
+	background-color: #F9F3FF;
 	margin-bottom: 10px;
 	margin-left: 40px;
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+}
+
+.id_form input[type="button"]:hover{
+	color:pink;
 }

@@ -11,12 +11,24 @@
 body{
 	background-image: url("../ko_images/bg.png");
 }
+.find-container{
+	background-image: url("../lee_images/loginbg.jpg");
+	background-size:cover;
+	background-position:center;
+}
+.pw_sub{
+	margin: 100px;
+	margin-top: 0px;
+	position: absolute;
+}
 .pw_form{
-width: 400px;
-height: 400px;
-margin: 450px;
-background-color: pink;
-box-shadow: 3px 3px 10px #333;
+	width: 400px;
+	height: 500px;
+	background-color: pink;
+	box-shadow: 3px 3px 10px #333;
+	position: absolute;
+	margin-left: 300px;
+	margin-top: 200px;
 	
 }
 .pw_form h2{
@@ -38,6 +50,15 @@ box-shadow: 3px 3px 10px #333;
 .pw_form input[type="submit"]{
 	width:80%;
 	height: 50px;
+	margin-left: 40px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+.pw_form input[type="button"]{
+	width:80%;
+	height: 50px;
+	margin: 10px;
 	margin-left: 40px;
 	box-sizing: border-box;
 	border-radius: 5px;
