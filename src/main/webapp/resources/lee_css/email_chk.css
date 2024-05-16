@@ -1,0 +1,54 @@
+@charset "UTF-8";
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap')
+	;
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+body{
+	background-image: url("../ko_images/bg.png");
+}
+.pw-container{
+	text-align: center;
+	background-image: url("../lee_images/loginbg.jpg");
+	background-size:cover;
+	background-position:center;
+}
+.sendpw_form{
+	width: 400px;
+	height: 400px;
+	margin: 450px;
+	background-color: pink;
+	box-shadow: 3px 3px 10px #333;
+}
+
+.sendpw_form h2{
+	margin: 10px;
+	padding: 50px;
+	margin-bottom: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.sendpw_form input[type="text"]{
+	width: 80%;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.sendpw_form input[type="submit"]{
+	width:80%;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}

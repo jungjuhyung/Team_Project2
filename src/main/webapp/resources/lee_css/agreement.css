@@ -6,6 +6,7 @@
 html,
 body {
   height: 100%;
+  background-image: url("../ko_images/bg.png");
 }
 
 body {

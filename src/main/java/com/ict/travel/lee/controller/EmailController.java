@@ -45,6 +45,7 @@ public class EmailController {
 		return new ModelAndView("error");
 	}
 	
+	
 	// 비밀번호 찾기 - 이메일 전송
 	@PostMapping("email_send_ok.do")
 	public ModelAndView sendMailOK(String email, String u_id) {
@@ -95,6 +96,17 @@ public class EmailController {
 	public ModelAndView sentNumberOK() {
 		try {
 			ModelAndView mv = new ModelAndView("lee_view/loginForm");
+			return mv;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return new ModelAndView("error");
+	}
+	
+	@RequestMapping("id_email_send.do")
+	public ModelAndView sendid() {
+		try {
+			ModelAndView mv = new ModelAndView("lee_view/id_email_form");
 			return mv;
 		} catch (Exception e) {
 			System.out.println(e);

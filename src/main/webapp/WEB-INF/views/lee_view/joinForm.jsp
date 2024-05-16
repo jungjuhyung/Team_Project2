@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/lee_css/joinForm.css">
+<link rel="icon" href="/resources/ko_images/favicon.png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	
@@ -55,81 +56,57 @@ $(document).ready(function(){
 
 </head>
 <body>
-<div class="container" style="width: 1300px; margin: 0 auto;">
-        <form id="signup-form" method="post">
+<div class="join-container" style="width: 1300px; height:900px; margin: 0 auto;">
+	<div class="join_sub">
+        <form class="signup-form" method="post">
             <h2>회원가입</h2>
             <ul class="list-form"> 
             <li class="input-group">
-                <label for="u_id">아이디
-                	<input type="text" id="u_id" name="u_id" required>
-                </label>
-                
+               	<input type="text" id="u_id" name="u_id" placeholder="아이디" required >
             </li>
             <li class="input-group">
-                <label for="userpass">비밀번호
-                	<input type="password" id="u_pwd" name="u_pwd" required maxlength="8" autocomplete="off"><br>
-                	<span class="point">* 비밀번호는 총 8자까지 입력 가능</span>
-                </label>
-                
+               	<input type="password" id="u_pwd" name="u_pwd" placeholder="비밀번호(8자까지 입력 가능)" required maxlength="8" autocomplete="off"><br>
             </li>
             <li class="input-group">
-                <label for="userpasschk">비밀번호 확인
-                	<input type="password" id="u_pwd_chk" name="u_pwd_chk" placeholder="동일하게 입력해주세요." required autocomplete="off"><br>
-                	<span class="point successPwChk"></span>
-                	<input type="hidden" id="pwDoubleChk">
-                </label>
-                
+               	<input type="password" id="u_pwd_chk" name="u_pwd_chk" placeholder="비밀번호 확인" required autocomplete="off"><br>
+               	<span class="point successPwChk" style="font-size: 10px;"></span>
+               	<input type="hidden" id="pwDoubleChk" style="margin-right: 200px; ">
             </li>  
             <li class="input-group">
-                <label for="u_name">이름
-                	<input type="text" id="u_name" name="u_name" required>
-                </label>
-                
+               	<input type="text" id="u_name" name="u_name" placeholder="이름" required>
             </li>
             <li class="input-group">
-                <label for="dob">생년월일
-                	<input type="date" id="u_birth" name="u_birth" required>
-                </label>
-                
+               	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" required>
             </li>
             <li class="input-group">
-                <label for="u_email">이메일
-                	<input type="email" id="u_email" name="u_email" required>
-                </label>
+               	<input type="email" id="u_email" name="u_email" placeholder="이메일" required>
             </li>
             <li class="input-group">
-                <label for="u_gender">성별
                 	<select id="u_gender" name="u_gender" required>
 	                    <option value="">성별을 선택하세요</option>
 	                    <option value="male">남성</option>
 	                    <option value="female">여성</option>
 	                    <option value="other">기타</option>
                 	</select>
-                </label>
-                
             </li>
             <li class="input-group">
-                <label for="u_nickname">닉네임
-                	<input type="text" id="u_nickname" name="u_nickname" required>
-                </label>
+               	<input type="text" id="u_nickname" name="u_nickname" placeholder="닉네임" required>
             </li>
             <li class="input-group">
-                <label for="u_self">자기소개
-                	<input type="text" id="u_self" name="u_self" required>
-                </label>
+               	<input type="text" id="u_self" name="u_self" placeholder="자기소개" required>
             </li>
             
             </ul>
             <div class="btn">
-            <ul class="list-form2">
-            	<li>
-            		<input type="button" value="가입하기" onclick="join_success(this.form)">
-            		<input type="reset" value=" 취소">
-            	</li>
-            	
-            </ul>
+	            <ul class="list-form2">
+	            	<li>
+	            		<input type="button" id="btn_1" value="가입하기" onclick="join_success(this.form)">
+	            		<input type="reset" id="btn_2" value=" 취소">
+	            	</li>
+	            </ul>
             </div>
         </form>
+        </div>
     </div>
 <!-- <li class="join-container" style="width: 1300px; margin: 0 auto;">
 	<li class="join">

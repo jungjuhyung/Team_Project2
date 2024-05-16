@@ -5,12 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="resources/lee_css/email_chk.css">
 </head>
 <body>
-	<h2>받은 인증번호 넣어주세요</h2>
-	<form action="email_pass_ok.do" method="post">
-		<input type="text" name="authNumber" min="6" max="6"> 
-		<input type="submit" value="전송">
-	</form>
+ <%@ include file="/WEB-INF/views/common_view/header.jsp"%>
+<div class="pw-container" style="width: 1300px; height:900px; margin: 0 auto;">
+	<div class="sendpw_form">
+	<h2>받은 비밀번호 넣어주세요</h2>
+		<form action="email_pass_ok.do" method="post">
+			<input type="text" name="authNumber" min="6" max="6"> 
+			<input type="submit" value="확인">
+		</form>
+	</div>
+</div>
+<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 </body>
 </html>
