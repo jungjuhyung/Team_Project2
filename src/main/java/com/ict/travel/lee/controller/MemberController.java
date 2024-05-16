@@ -89,29 +89,20 @@ public class MemberController {
 			
 			MemberVO mvo2 = memberService.getLoginOK(mvo);
 			
-			if(! passwordEncoder.matches(mvo.getU_pwd(), mvo2.getU_pwd())) {
-				mv.setViewName("redirect:loginForm.do");
+			if( mvo2== null || ! passwordEncoder.matches(mvo.getU_pwd(), mvo2.getU_pwd())) {
+				String errorMessage = "비밀번호가 틀렸습니다. 다시 시도해주세요.";
+	            mv.addObject("errorMessage", errorMessage);
+				mv.setViewName("lee_view/loginForm");
 				return mv;
-			}else {
+			}
+			else {
 				session.setAttribute("memberUser", mvo2);
 				session.setAttribute("u_id", mvo2.getU_id());
 				session.setAttribute("u_idx", mvo2.getU_idx());
 				
-				if(mvo2 != null && mvo2.getU_id() != null) {
-					session.setAttribute("memberUser", mvo2);
-					session.setAttribute("u_id", mvo2.getU_idx());
-					session.setAttribute("u_idx", mvo2.getU_idx());
-					
-					String requestPage = (String) session.getAttribute("requestPage");
-					if (requestPage != null && !requestPage.isEmpty()) {
-                        session.removeAttribute("requestPage"); // 세션에서 요청한 페이지 정보 삭제
-                        return new ModelAndView("redirect:" + requestPage);
-                    } else {
-                        return new ModelAndView("redirect:main_page.do"); 
-                    }
-                } else {
-                    return new ModelAndView("redirect:loginForm.do");
-				}
+				return new ModelAndView("redirect:main_page.do"); 
+				
+
 			}
 		} catch (Exception e) {
 			return new ModelAndView("error");
@@ -120,27 +111,6 @@ public class MemberController {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

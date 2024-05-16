@@ -11,9 +11,12 @@
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <script type="text/javascript">
 	function backup(f) {
+		
 		f.action="backup.do";
 		f.submit();
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -26,7 +29,7 @@
 			<input type="email" name="email"
 				pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*"
 				title="이메일 양식" placeholder="이메일" > 
-			<input type="submit" value="전송">
+			<input type="submit"  value="전송">
 			<input type="button" onclick="backup(this.form)" value="돌아가기" >
 		</form>
 		

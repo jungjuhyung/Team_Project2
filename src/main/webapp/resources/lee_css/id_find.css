@@ -17,34 +17,51 @@ body{
 	background-position:center;
 }
 
-.id_find_st{
+.id_sub{
+	margin: 100px;
+	margin-top: 0px;
+	position: absolute;
+}
+
+.id_find_form{
 	width: 400px;
 	height: 400px;
-	margin: 450px;
+	margin-left: 300px;
+	margin-top: 200px;
+	border-radius: 10px;
+	position: absolute;
 	background-color: pink;
 	box-shadow: 3px 3px 10px #333;	
 }
 
-.id_find_st h2{
+.id_find_form h2{
 	padding: 40px;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
+	color: white;
 }
 
-.id_find_st li{
+.id_find_form li{
 	margin-left: 10px;
+	font-size: 20px;
+	font-weight: normal;
 }
 
 #back_to{
 	width:50%;
 	height: 50px;
-	margin-top: 20px;
+	margin-top: 30px;
 	margin-left: 40px;
 	margin: 10px;
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+	background-color: #F9F3FF;
+}
+
+#back_to:hover{
+	color: pink;	
 }
 #pw_to{
 	width:50%;
@@ -54,4 +71,8 @@ body{
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+	background-color: #F9F3FF;
+}
+#pw_to:hover{
+	color: pink;
 }

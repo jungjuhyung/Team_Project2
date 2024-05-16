@@ -31,20 +31,26 @@
 			return;
 		}
 		
+		
 		f.action = "login_go_ok.do";
 		f.submit();
 	}
+		
 	
 
 	
 </script>
-<link rel="icon" href="/resources/ko_images/favicon.png">
 </head>
 
 <body>
 <!-- 수정요청 -->
  <%@ include file="/WEB-INF/views/common_view/header.jsp"%> 
 	<div class="login-container" style="width: 1300px; height:900px; margin: 0 auto;" >
+	<c:if test="${not empty errorMessage}">
+        <script>
+            alert("${errorMessage}");
+        </script>
+    </c:if>
 		<div class="login">
 			<form method="post">
 				<div class="login-form">
@@ -54,7 +60,7 @@
 					<input type="submit" id="btn-signin"  value="Sign In" onclick="sign_in_go(this.form)">
 					<input type="submit" id="btn-signup" value="Sign Up" onclick="sign_up_go(this.form)"><br>
 				
-					<a id="a2" href="id_email_send.do">아이디 찾기</a>
+					<a id="a2" href="id_email_send.do">아이디 찾기 / </a>
 					<a id="a1" href="email_send.do">비밀번호 찾기</a>	<br>
 					<br>
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=acef18f41c74c70cc25d2050d26d4e94&redirect_uri=http://localhost:8090/kakaologin.do&response_type=code">
