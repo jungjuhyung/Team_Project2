@@ -48,5 +48,24 @@ public class KpostDAO {
 		}
 		return -1;
 	}
-
+	
+	public int ilikethis(KpostVO kpostvo) {
+		try {
+			return sqlSessionTemplate.insert("kpost_t.ilikethis", kpostvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
+	public int ihatethis(KpostVO kpostvo) {
+		try {
+			return sqlSessionTemplate.delete("kpost_t.ihatethis", kpostvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
+	
 }

@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.common.Paging;
 import com.ict.travel.kim.dao.CommentVO;
+import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
+import com.ict.travel.kim.service.KpostService;
 import com.ict.travel.kim.service.ReportService;
 import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MemberService;
@@ -35,6 +37,9 @@ public class ReportController {
 	@Autowired
 	private Paging paging;
 
+	@Autowired
+	private KpostService kpostService;
+	
 	@RequestMapping(value = "getReportList", produces = "text/xml; charset=utf-8")
 	@ResponseBody
 	public String getReportList(HttpServletRequest request,
@@ -295,7 +300,30 @@ public class ReportController {
 	
 	
 	
-
+	
+	
+	
+	// 추천경로 좋아요
+	@RequestMapping(value = "ilikethis", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String ilikethis(KpostVO kpostvo) {
+		int result = kpostService.ilikethis(kpostvo);
+		
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "ihatethis", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String ihatethis(KpostVO kpostvo) {
+		int result = kpostService.ihatethis(kpostvo);
+		
+		return String.valueOf(result);
+	}
+	
+	
+	
+	
+	
 	
 	
 }
