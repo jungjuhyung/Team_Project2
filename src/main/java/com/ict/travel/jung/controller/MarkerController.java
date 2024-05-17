@@ -48,7 +48,7 @@ public class MarkerController {
 	
 	@RequestMapping("recommend_write_ok")
 	public ModelAndView recommend_write_ok(RecommendVO rcvo, RecommendMarkerVO rcmvo, HttpServletRequest request, HttpSession session) {
-		ModelAndView mv = new ModelAndView("jung_view/test");
+		ModelAndView mv = new ModelAndView("redirect:pathCategory");
 		List<MultipartFile[]> marker_img = new ArrayList<MultipartFile[]>();
 		Field[] field = rcmvo.getClass().getDeclaredFields();
 		System.out.println(field);

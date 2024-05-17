@@ -43,7 +43,9 @@
 		</div>
 		<c:choose>
 			<c:when test="${empty wish_place}">
-				<p>찜한 여행지가 없습니다.</p>		
+				<div class="empty">
+					<p>찜한 여행지가 없습니다.</p>		
+				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="with_list_box_bottom swiper-wrapper">
@@ -135,7 +137,9 @@
 		</div>
 		<c:choose>
 			<c:when test="${empty wish_path}">
-				<p>찜한 추천 경로가 없습니다.</p>		
+				<div class="empty">
+					<p>찜한 추천 경로가 없습니다.</p>
+				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="with_list_box_bottom swiper-wrapper">
@@ -175,7 +179,9 @@
 		</div>
 		<c:choose>
 			<c:when test="${empty wish_place}">
-				<p>내가 작성한 경로가 없습니다.</p>		
+				<div class="empty">
+					<p>내가 작성한 경로가 없습니다.</p>
+				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="with_list_box_bottom swiper-wrapper">
@@ -265,64 +271,62 @@
   		<div class="swiper-button-next"></div>
 		<button type="button" onclick="recommend_write()">추천 경로 작성하기</button>
 	</article>
-	<article>
-		<p>내 게시물</p>
-		<div>
-			<p>자유 게시판</p>
-			<div class="free">
-				<span>작성자(닉네임)</span>
-				<span>제목</span>
-				<span>댓글수</span>
-				<span>작성일자</span>
-			</div>
-			<c:choose>
-				<c:when test="${empty my_board}">
-					<p>작성한 자유 게시글이 없습니다.</p>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="k" items="${empty my_board}">
-						<div>
-							<span>${k.u_nickname}</span>
-							<span>${k.board_title}</span>
-							<span>댓글수(6)</span>
-							<span>${k.regdate.substring(0,10)}</span>
-						</div>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+	<article class="comu_main">
+		<p class="comu_header">내 자유 게시판 글</p>
+		<div class="comu_menu">
+			<p>작성자(닉네임)</p>
+			<p>제목</p>
+			<p>댓글수</p>
+			<p>작성일자</p>
 		</div>
-			<p>신고 게시판</p>
-			<div class="re">
-				<span>작성자(닉네임)</span>
-				<span>제목</span>
-				<span>작성일자</span>
-				<span>답변 여부</span>
-			</div>
-			<c:choose>
-				<c:when test="${empty my_report}">
-					<p>작성한 신고 게시글이 없습니다.</p>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="k" items="${empty my_report}">
-						<div>
-							<span>${k.u_id}</span>
-							<span>${k.report_title}</span>
-							<span>${k.regdate.substring(0,10)}</span>
-							<span>
-								<c:choose>
-									<c:when test="${k.report_state == 0}">
-										신고 처리중
-									</c:when>
-									<c:when test="${k.report_state == 1}">
-										처리 완료
-									</c:when>
-								</c:choose>
-							</span>
-						</div>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+		<c:choose>
+			<c:when test="${empty my_board}">
+				<p class="write_empty">작성한 자유 게시글이 없습니다.</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="k" items="${my_board}">
+					<div class="write_main">
+						<p>${k.u_nickname}</p>
+						<p>${k.board_title}</p>
+						<p>댓글수(6)</p>
+						<p>${k.regdate.substring(0,10)}</p>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</article>
+	<article class="comu_main">
+		<p class="comu_header">내 신고내역</p>
+		<div class="comu_menu">
+			<p>작성자(닉네임)</p>
+			<p>제목</p>
+			<p>작성일자</p>
+			<p>답변 여부</p>
 		</div>
+		<c:choose>
+			<c:when test="${empty my_report}">
+				<p class="write_empty">문의한 신고 내역이 없습니다.</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="k" items="${my_report}">
+					<div class="write_main">
+						<p>${k.u_id}</p>
+						<p>${k.report_title}</p>
+						<p>${k.regdate.substring(0,10)}</p>
+						<p>
+							<c:choose>
+								<c:when test="${k.report_state == 0}">
+									신고 처리중
+								</c:when>
+								<c:when test="${k.report_state == 1}">
+									처리 완료
+								</c:when>
+							</c:choose>
+						</p>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</article>
 </section>
 <script type="text/javascript">
