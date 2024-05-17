@@ -26,6 +26,7 @@ body{
 	height: 500px;
 	background-color: pink;
 	box-shadow: 3px 3px 10px #333;
+	border-radius: 10px;
 	position: absolute;
 	margin-left: 300px;
 	margin-top: 200px;
@@ -36,6 +37,7 @@ body{
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
+	color: white;
 	
 } 
 .pw_form input[type="email"]{
@@ -51,9 +53,13 @@ body{
 	width:80%;
 	height: 50px;
 	margin-left: 40px;
+	background-color: #F9F3FF;
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+}
+.pw_form input[type="submit"]:hover{
+	color: pink;
 }
 .pw_form input[type="button"]{
 	width:80%;
@@ -61,8 +67,12 @@ body{
 	margin: 10px;
 	margin-left: 40px;
 	box-sizing: border-box;
+	background-color: #F9F3FF;
 	border-radius: 5px;
 	border: none;
+}
+.pw_form input[type="button"]:hover{
+	color: pink;
 }
 
 

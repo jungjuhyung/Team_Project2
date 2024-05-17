@@ -27,7 +27,7 @@
   	</select>
   	<insert id="kakao_insert" parameterType="Map">
   		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active , k_nickname, k_email)
-  		values(0, 0, 0, 0, 0, 0, 0, 0, 0, #{u_stopdate}, sysdate(), 0 , #{nickname}, #{email})
+  		values(#{id}, 0, 0, 0, 0, 0, 0, 0, 0, #{u_stopdate}, sysdate(), 0 , #{nickname}, #{email})
   	</insert>
   	<select id="findnaver" parameterType="String" resultType="mvo">
   		select * from user_t where  n_email = #{email} 

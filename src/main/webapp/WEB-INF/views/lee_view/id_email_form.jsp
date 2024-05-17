@@ -40,8 +40,10 @@
 <body>
  <%@ include file="/WEB-INF/views/common_view/header.jsp"%> 
 <div class="find-container" style="width: 1300px; height:900px; margin: 0 auto;">
+
 	<div class="id_sub">
 	<div class="id_form">
+	
 			<form method="post">
 				 <h2>아이디 찾기</h2>
 					<input type="text" id="u_name" name="u_name" placeholder="이름"><br>

@@ -131,13 +131,17 @@ public class MemberServiceImpl implements MemberService{
 			JsonElement element = parser.parse(result);
 			
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+//			String id = element.getAsJsonObject().get("id").getAsString();
+//			System.out.println("+++++++++++++++++++++++++" + id);
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			System.out.println("뭔데1");
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+//			System.out.println(id);
 			System.out.println("뭔데2");
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
+//			userInfo.put("id", id);
 			System.out.println("nickname@@@@@@@@@ : " + nickname);
 			System.out.println("email@@@@@@@@@@ : " + email);
 		} catch (Exception e) {

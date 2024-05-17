@@ -35,6 +35,7 @@ body {
 	background-color: pink;
 	box-shadow:3px 3px 10px #333;
 	margin-left: 200px;
+	border-radius: 10px;
 }
 .signup-form label{
 	text-align: left;
@@ -88,18 +89,29 @@ body {
 	border: none;
 }
 
-button {
-    width: 50%;
+#btn_1 {
+    width: 80%;
     margin: 10px;
     padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #F9F3FF;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
+#btn_2 {
+	width: 60%;
+	margin: 10px;
+	padding: 10px;
+    margin-left: 90px;
+    padding: 10px;
+    background-color: #F9F3FF;
+    border: none;
+    border-radius: 5px;
+}
 
-
-button:hover {
-    background-color: #0056b3;
+#btn_1:hover {
+	color: pink;    
+}
+#btn_2:hover{
+	color: pink;
 }

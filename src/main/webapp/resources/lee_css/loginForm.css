@@ -36,6 +36,7 @@ html {
 	padding: 30px;
 	background-color: pink;
 	box-shadow: 3px 3px 10px #333;
+	border-radius: 10px;
 	margin: 0 auto;
 	position: absolute;
 	margin-left: 300px;
@@ -47,6 +48,7 @@ html {
 .login-form h2{
 	margin: 10px;
 	padding: 10px;
+	color: white;
 	font-weight: bold;
 	font-size: 20px;
 }
@@ -59,17 +61,7 @@ html {
 	border-radius: 5px;
 	border: none;
 }
-/* div {
-	margin: auto;
-	border-radius: 5px;
-	text-align: center;
-	padding: 20px;
-} */
 
-
-/*  input {
-	
-} */
 
 .in {
 	margin-bottom: 10px;
@@ -86,27 +78,24 @@ html {
 	color: pink;
 }
 
-/* #btn-sigin:hover {
-	color: gray;
-} */
-
-/* a {
-	text-decoration: none;
-	color: #9B9B9B;
-	font-size: 12px;
-} */
 
 #a1 {
-	margin: 30px;
-	margin-left: 70px;
 	color: white;
 	margin-bottom: 20px;
 	font-size:12px;
 }
 
+#a1:hover{
+	color:gray;
+}
 #a2 {
+	margin-left: 130px;
 	color: white;
 	font-size: 12px;
+	
+}
+#a2:hover{
+	color: gray;
 }
 #a3 img {
 	margin: 10px;

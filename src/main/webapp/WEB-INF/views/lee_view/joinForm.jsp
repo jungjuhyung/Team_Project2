@@ -47,9 +47,51 @@ $(document).ready(function(){
     });
 });
     function join_success(f) {
+    	if(u_id.value == ""){
+    		alert("아이디를 입력해주세요.");
+    		f.u_id.focus();
+    		return;
+    	}
+    	if(u_pwd.value == "" && u_pwd_chk.value == ""){
+    		alert("비밀번호를 입력해주세요.");
+    		f.u_pwd.focus();
+    		return;
+    	}
+    	if(u_name.value == ""){
+    		alert("이름을 입력해주세요.");
+    		f.u_name.focus();
+    		return;
+    	}
+    	if(u_birth.value == ""){
+    		alert("생년월일을 입력해주세요.");
+    		f.u_birth.focus();
+    		return;
+    	}
+    	if(u_email.value == ""){
+    		alert("이메일을 입력해주세요.");
+    		f.u_email.focus();
+    		return;
+    	}
+    	if(u_gender.value == ""){
+    		alert("성별을 선택해주세요.");
+    		f.u_gender.focus();
+    		return;
+    	}
+    	if(u_nickname.value == ""){
+    		alert("닉네임을 입력해주세요.");
+    		f.u_nickname.focus();
+    		return;
+    	}
+    	if(u_self.value == ""){
+    		alert("자기소개를 작성해주세요.");
+    		f.u_self.focus();
+    		return;
+    	}
+    	
 		f.action="join_success_go.do";
 		f.submit();
     }
+    
 		
 	
 </script>

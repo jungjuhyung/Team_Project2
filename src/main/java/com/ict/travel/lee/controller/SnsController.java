@@ -31,25 +31,25 @@ public class SnsController {
 	}
 
 	@RequestMapping("kakaologin.do")
-	public ModelAndView kakaoLogin(HttpServletRequest request, String code) {
+	public ModelAndView kakaoLogin(HttpServletRequest request, String code, HttpSession session) {
 		System.out.println("#######" + code);
 		
 		String access_Token = memberService.getAccessToken(code);
 		MemberVO userInfo = memberService.getUserInfo(access_Token);
-		
+		session.setAttribute("memberUser", userInfo);
 		System.out.println("###access_Token### : " + access_Token);
 		
 		
 		return new ModelAndView("ko_view/main_page");
 	}
 	@RequestMapping("naverlogin.do")
-	public ModelAndView naverLogin(HttpServletRequest request, String code, String state) {
+	public ModelAndView naverLogin(HttpServletRequest request, String code, String state, HttpSession session) {
 		System.out.println("#####" + code);
 		System.out.println("#### state : " + state);
 		
 		String access_Token = memberService.getNaverToken(code, state);
 		MemberVO userInfo2 = memberService.getUserNaver(access_Token);
-		
+		session.setAttribute("memberUser", userInfo2);
 		System.out.println("#####url : " + access_Token);
 		
 		

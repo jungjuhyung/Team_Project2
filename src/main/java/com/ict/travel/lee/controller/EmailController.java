@@ -38,6 +38,7 @@ public class EmailController {
 	public ModelAndView sendMail() {
 		try {
 			ModelAndView mv = new ModelAndView("lee_view/email_form");
+			
 			return mv;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -119,11 +120,15 @@ public class EmailController {
 	public ModelAndView getFindId(MemberVO mvo) {
 			ModelAndView mv = new ModelAndView();
 			List<MemberVO> list = memberService.getFindId(mvo);
-			if(list != null) {
+			
+			if(list != null ) {
+//				
 				mv.addObject("list", list);
 				mv.setViewName("lee_view/id_find");
 				return mv;
-			}
+			} 
+			
+			
 		return new ModelAndView("error");
 	}
 	@PostMapping("backup.do")
