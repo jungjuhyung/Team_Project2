@@ -17,6 +17,8 @@
 		<typeAlias type="com.ict.travel.jung.dao.BoardVO" alias="bdvo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.ko.dao.ItemVO" alias="ivo"/>
+		<typeAlias type="com.ict.travel.ko.dao.KoPostVO" alias="kopost"/>
+		<typeAlias type="com.ict.travel.ko.dao.PopupVO" alias="popvo"/>
 		<typeAlias type="com.ict.travel.lee.dao.MemberVO" alias="mvo"/>
 		<typeAlias type="com.ict.travel.kim.dao.BoardVO" alias="boardvo"/>
 		<typeAlias type="com.ict.travel.kim.dao.ReportVO" alias="reportvo"/>
