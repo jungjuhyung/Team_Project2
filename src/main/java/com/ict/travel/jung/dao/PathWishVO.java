@@ -1,7 +1,7 @@
 package com.ict.travel.jung.dao;
 
 public class PathWishVO {
-	private String path_idx, path_post_idx, u_idx, contenttypeid, firstimage, title, regdate;
+	private String path_idx, path_post_idx, u_idx, contenttypeid, firstimage, path_post_title, regdate;
 
 	public String getPath_idx() {
 		return path_idx;
@@ -43,12 +43,12 @@ public class PathWishVO {
 		this.firstimage = firstimage;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getPath_post_title() {
+		return path_post_title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setPath_post_title(String path_post_title) {
+		this.path_post_title = path_post_title;
 	}
 
 	public String getRegdate() {
