@@ -30,6 +30,7 @@
 		<typeAlias type="com.ict.travel.cho.dao.PathWishVO" alias="pathWishVO"/>
 		<typeAlias type="com.ict.travel.cho.dao.SearchVO" alias="searchVO"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoPostVO" alias="kopost"/>
+		<typeAlias type="com.ict.travel.ko.dao.PopupVO" alias="popvo"/>
 	</typeAliases>
 	<mappers>
  		<mapper resource="mappers/board-mapper.xml" />

@@ -88,30 +88,56 @@
 	}
 </script>
 
-<style type="text/css">
-.main_notice_pop .btn_close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 1;
-        }
-</style>
+<script>
 
-
+	$(function() {
+		popupcookie = document.cookie;
+		if (popupcookie.indexOf("popup=done") < 0) {
+			document.getElementById('popup').style.display = "block";
+		}else {
+			document.getElementById('popup').style.display = "none";
+		}
+	})
+	
+	function setCookie(name, value, expiredays) {
+		let today = new Date();
+		today.setDate(today.getDate() + expiredays);
+		document.cookie = name + "=" + escape(value) + "; path=/; expires=" + today;
+	}
+	
+	function close_popup() {
+		document.getElementById('popup').style.display = "none";
+		document.cookie = 'oneclose=done; path=/; expires=1';
+	}
+	
+	function close_today() {
+		setCookie("popup", "done", 1);
+		document.getElementById('popup').style.display = "none";
+	}
+	
+	function change_img() {
+		location.href = "popup_img.do"
+	}
+	
+</script>
 
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
 	<section style="margin: 0 auto; width: 1300px; min-height: 1900px;">
-
+		
 		<!-- 팝업 공지사항 -->
-    <div class="main_notice_pop" name="popup1" style="position:fixed; left:100px; top:200px; display:none; z-index:999;">
-        <div style="width: 300px;height:300px; background-color: white;">팝업창 입니다</div>         
-        <a href="#" class="btn_close">x</a> <br> 
-        <input type="checkbox" name="today_close1" />오늘만 이 창을 열지 않음
-    </div> 
-    
+	    <div id="popup">
+	        <div class="popup_img">
+	        	<img alt="" src="/resources/popup_img/${popvo.f_name}">
+	        </div>         
+	        <div class="popup_btn">
+	        	<button type="button" onclick="change_img()">팝업사진 변경하기</button>
+	        	<button type="button" onclick="close_today()">오늘하루보지않기</button>
+	        	<button type="button" onclick="close_popup()">닫기</button>
+	        </div>
+	    </div> 
     
 		<div class="img_wrapper">
 			<div class="img_slider2">
@@ -289,68 +315,6 @@
 	    
 	</script>
 	
-	<!-- 팝업창 -->
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            // 팝업창에 주어진 이름을 변수로 던져 저장된 쿠키가 있는지 확인 
-            var popup1 = getCookie('popup1');
-
-            // 변수가 없을경우 팝업 출력 
-            if (!popup1) {
-                popUpAction('popup1');
-            }
-        });
-
-        // 쿠키 가져오기 
-        function getCookie(name) {
-            var nameOfCookie = name + "=";
-            var x = 0;
-            while (x <= document.cookie.length) {
-                var y = (x + nameOfCookie.length);
-
-                if (document.cookie.substring(x, y) == nameOfCookie) {
-                    if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
-                        endOfCookie = document.cookie.length;
-                    return unescape(document.cookie.substring(y, endOfCookie));
-                }
-
-                x = document.cookie.indexOf(" ", x) + 1;
-
-                if (x == 0) break;
-            }
-
-            return "";
-        } // 24시간 기준 쿠키 설정하기 
-
-        // expiredays 후의 클릭한 시간까지 쿠키 설정 
-        function setCookie24(name, value, expiredays) {
-            var todayDate = new Date();
-
-            todayDate.setDate(todayDate.getDate() + expiredays);
-
-            document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
-        }
-
-        // 팝업출력
-        function popUpAction(name) {
-            // name으로 해당 팝업창 열기 
-            $("div[name=" + name + "]").fadeIn();
-        }
-
-        // 닫기버튼 클릭 이벤트 
-        $('.btn_close').click(function () {
-            $(this).parent('.main_notice_pop').fadeOut();
-
-            // 오늘하루 보지않기 체크 확인 
-            if ($("input:checkbox[name=today_close1]").is(":checked") == true) {
-                setCookie24('popup1', "done", 1);
-            }
-
-            // name으로 해당 팝업창 닫기 
-            $(this).parent("div[name=" + name + "]").fadeOut();
-        }) 
-    </script>
 
 	<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 
