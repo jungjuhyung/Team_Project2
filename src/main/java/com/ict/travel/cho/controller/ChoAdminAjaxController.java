@@ -31,6 +31,7 @@ public class ChoAdminAjaxController {
 	private DataFetcher dataFetcher;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
 	// 디비 최신화
 	@RequestMapping(value = "updateTest", produces = "application/json; charset=utf-8" )
 	@ResponseBody
@@ -65,11 +66,12 @@ public class ChoAdminAjaxController {
         List<TourapiVO> PartyVoList = tourapiParser.parseJsonToVO(itemArray1.toString());
         List<TourapiVO> restaurantVoList = tourapiParser.parseJsonToVO(itemArray3.toString());
 
+        System.out.println("디비 업데이트 시작");
         choService.dataUpdate(touristVoList);
 		choService.dataUpdate(PartyVoList);
 		choService.dataUpdate(restaurantVoList);
-		
-        return "Success";
+		System.out.println("디비 업데이트 완료");
+        return "1";
 	}
 	
 	
@@ -108,16 +110,31 @@ public class ChoAdminAjaxController {
 		}
 	}
 	// 관리자 아이디 생성
-	@RequestMapping(value = "AdminCreate", produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "adminCreate", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String AdminCreate(AdminVO adminVO) {
-		System.out.println(adminVO.getAdmin_id());
-		System.out.println(adminVO.getAdmin_pwd());
-		System.out.println(adminVO.getAdmin_grade());
+	public String adminCreate(AdminVO adminVO) {
 		String pwd2 =  passwordEncoder.encode(adminVO.getAdmin_pwd()); 
 		adminVO.setAdmin_pwd(pwd2);
 		return choService.adminCreate(adminVO);
+	}
 	
+	// 관리자 디테일 불러오기
+	@RequestMapping(value = "adminDetail", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String adminDetail(String admin_idx) throws Exception{
+		
+		AdminVO adminDetail = choService.getAdminDetail(admin_idx);
+		
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(adminDetail);
+		return jsonString;
+		
+	}
+	// 관리자 디테일 불러오기
+	@RequestMapping(value = "adminUpdate", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String adminUpdate(AdminVO adminVO) throws Exception{
+		return choService.getAdminUpdate(adminVO);
 	}
 	
 	

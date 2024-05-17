@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.travel.cho.dao.AdminVO;
+import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MailService;
 import com.ict.travel.lee.service.MemberService;
@@ -20,7 +22,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
-	
+	@Autowired
+	private ChoService choService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -85,7 +88,25 @@ public class MemberController {
 	public ModelAndView getLoginOK(HttpServletRequest request, MemberVO mvo) {
 		try {
 			HttpSession session = request.getSession();
-			ModelAndView mv = new ModelAndView();
+			ModelAndView mv = new ModelAndView("redirect:main_page.do");
+			AdminVO adminVO = new AdminVO();
+			adminVO.setAdmin_id(mvo.getU_id());
+			adminVO.setAdmin_pwd(mvo.getU_pwd());
+			AdminVO adminVO2 = choService.getAdminLogin(adminVO);
+			if(adminVO2 != null) {
+			
+				if(! passwordEncoder.matches(adminVO.getAdmin_pwd(), adminVO2.getAdmin_pwd())) {
+					mv.setViewName("redirect:adminLogin");
+					return mv;
+				}else  {
+					session.setAttribute("adminUser", adminVO2);
+					session.setAttribute("u_id", adminVO2.getAdmin_id());
+					session.setAttribute("u_idx", adminVO2.getAdmin_idx());
+					session.setAttribute("u_grade", adminVO2.getAdmin_grade());
+					System.out.println(1);
+					return mv;
+				}
+			}
 			
 			MemberVO mvo2 = memberService.getLoginOK(mvo);
 			

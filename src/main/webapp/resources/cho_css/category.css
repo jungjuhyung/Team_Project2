@@ -1,15 +1,16 @@
 @charset "UTF-8";
 @import "../common_css/reset.css";
 body {
-    background-image: url(/resources/ko_images/bg.png);
+  background-image: url(/resources/ko_images/bg.png);
 }
 * {
   box-sizing: border-box;
 }
-.section{
-	margin: 0 auto; 
-	width: 1300px;
+.section {
+  margin: 0 auto;
+  width: 1300px;
 }
+
 /* 검색 폼 */
 .areaSearchForm {
   width: 1000px;
@@ -21,7 +22,7 @@ body {
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius:3%
+  border-radius: 3%;
   cursor: pointer; /* 커서 모양 설정 */
   text-align: center;
 }
@@ -30,16 +31,17 @@ body {
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius:3%
+  border-radius: 3%;
 }
 
 /* 결과 보기 옵션 */
-#viewLimit, #orderOption{
+#viewLimit,
+#orderOption {
   width: 130px;
   height: 20px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius:3%
+  border-radius: 3%;
   cursor: pointer; /* 커서 모양 설정 */
   text-align: center;
 }
@@ -50,7 +52,7 @@ body {
   height: 35px;
   border: 2px solid black;
   font-size: 16px;
-  border-radius:3%
+  border-radius: 3%;
   background-color: white; /* 버튼 배경색 */
   color: black; /* 글자색 */
   cursor: pointer; /* 커서 모양 설정 */
@@ -61,7 +63,6 @@ body {
   color: white; /* 호버 시 글자색 변경 */
   border: none;
 }
-
 
 /* 검색 결과 옵션 */
 #resultOption {
@@ -119,8 +120,8 @@ body {
   font-size: 16px;
   margin-bottom: 10px;
 }
-.heart{
-	margin-right: 10px;
+.heart {
+  margin-right: 10px;
 }
 /* 페이징 */
 .board-list-paging {
@@ -149,13 +150,13 @@ body {
 .nowPage {
   background-color: gray;
 }
-.pagination .nowPageInput{
-	margin-left:0;
-	margin-right:10px;
-	width: 40px;
+.pagination .nowPageInput {
+  margin-left: 0;
+  margin-right: 10px;
+  width: 40px;
 }
 
-.pageMoveForm{
+.pageMoveForm {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -179,140 +180,136 @@ body {
   cursor: pointer; /* 커서 모양 설정 */
   transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 transition */
 }
-.heart-state{
-	margin-right: 10px;
-	font-size: 30px;
-    vertical-align: middle;
+.heart-state {
+  margin-right: 10px;
+  font-size: 30px;
+  vertical-align: middle;
 }
 .wish-added {
-	font-size : 16px;
-	
+  font-size: 16px;
 }
-.heart-count{
-	font-size: 30px;
+.heart-count {
+  font-size: 30px;
 }
-.heart-state:hover{
-	cursor: pointer;
+.heart-state:hover {
+  cursor: pointer;
 }
 
 /***********테마CSS***************/
- .swipe-Wrapper {
-    width: 960px;
-    margin: 0 auto;
-    position: relative;
+.swipe-Wrapper {
+  width: 960px;
+  margin: 0 auto;
+  position: relative;
 }
 .swiper-wrapper {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
-.swiper{
-	width: 820px!important;
-	margin-bottom: 20px;
+.swiper {
+  width: 820px !important;
+  margin-bottom: 20px;
 }
 .swipeAreaList {
-   width: 100px!important;
-   height: 100px!important;
-   text-align: center;
-   font-size: 18px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   text-align: center;
+  width: 100px !important;
+  height: 100px !important;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .swipeAreaList img {
-    width: 75px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: black;
-    height: 80px;
-    object-fit: fill;
-} 
-
+  width: 75px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: black;
+  height: 80px;
+  object-fit: fill;
+}
 
 .swipeAreaList:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.areaName{
-	font-size: 36px;
-	font-weight: bold;
-	margin-top: 10px;
-	margin-bottom: 10px;
+.areaName {
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-.swipe-MainContent-Wrapper{
-	position:relative;
-	display: flex;
+.swipe-MainContent-Wrapper {
+  position: relative;
+  display: flex;
 }
-.swipe-MainContent{
-	width: 300px;
-	height: 300px;
-	background-color: #fff;
-	padding: 30px;
-    border-radius: 5px;
-    border: 1px solid #666;
-    margin-right: 20px;
+.swipe-MainContent {
+  width: 300px;
+  height: 300px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  border: 1px solid #666;
+  margin-right: 20px;
 }
-#thema-wrapper{
-	width: 1300px;
-    margin: 0 auto;
+#thema-wrapper {
+  width: 1300px;
+  margin: 0 auto;
 }
-#thema-titleWrap{
-	display:flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 20px auto; 
-	width: 960px;
-	padding-right: 50px;
+#thema-titleWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  width: 960px;
+  padding-right: 50px;
 }
-#hot-place-back{
-	background-color: #f4f5f7;
+#hot-place-back {
+  background-color: #f4f5f7;
 }
-#hot-place-wrapper{
-	margin: 0 auto; 
-	width: 1300px;
-	padding: 10px;
+#hot-place-wrapper {
+  margin: 0 auto;
+  width: 1300px;
+  padding: 10px;
 }
 
-.thema-box{
-	width: 1300px!important;
-	margin: 0 auto;
+.thema-box {
+  width: 1300px !important;
+  margin: 0 auto;
 }
-.place-Wrapper{
-	width: 200px;
-	height: 100%;
-	display: flex;
-	/* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */ /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
-    gap: 10px; /* 그리드 간격 설정 */
+.place-Wrapper {
+  width: 200px;
+  height: 100%;
+  display: flex;
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */ /* 자동으로 그리드 항목을 가로로 정렬하고, 최소 200px의 너비를 갖게 함 */
+  gap: 10px; /* 그리드 간격 설정 */
 }
 
 #searchResultWrapper summary {
   list-style-type: none;
-  font-size: 
 }
-.thema-subtitle{
-	font-size: 1.5rem;
+.thema-subtitle {
+  font-size: 1.5rem;
 }
 #thema-title {
-	width: 400px;
-	font-size: 2rem;
-	font-weight: bold;
+  width: 400px;
+  font-size: 2rem;
+  font-weight: bold;
 }
-.mySwiper2{
-	width: 960px;
-	position: relative;
-    overflow: hidden;
+.mySwiper2 {
+  width: 960px;
+  position: relative;
+  overflow: hidden;
 }
-.SearchTitleView{
-	font-size: 2rem;
-	font-weight: bold;
-	border-radius: 15px;
-	border: 1px solid rgba(0,0,0,0.1);
-	padding: 5px;
- 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+.SearchTitleView {
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
-.SearchTitleView:hover{
-   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-   cursor: pointer;
+.SearchTitleView:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
-
