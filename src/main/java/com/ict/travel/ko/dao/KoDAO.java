@@ -12,6 +12,8 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.ict.travel.lee.dao.MemberVO;
+
 
 @Repository
 public class KoDAO {
@@ -81,7 +83,24 @@ public class KoDAO {
 	}
 	
 	public int getTotalCount() {
-		return sqlSessionTemplate.selectOne("ko.count");
+		return sqlSessionTemplate.selectOne("ko.popup_count");
+	}
+	
+	
+	public int getTotalUser() {
+		return sqlSessionTemplate.selectOne("ko.user_count");
+	}
+	
+	public List<MemberVO> getUserList(int offset, int limit) {
+		try {
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("offset", offset);
+			map.put("limit", limit);
+			return sqlSessionTemplate.selectList("ko.user_list", map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
 	}
 	
 }

@@ -27,8 +27,8 @@
 	</select>
 	
 	<insert id="popup_insert" parameterType="popvo">
-		insert into popup_t (subject, f_name, regdate) 
-		values (#{subject}, #{f_name}, sysdate())
+		insert into popup_t (u_id, subject, f_name, regdate) 
+		values (#{u_id}, #{subject}, #{f_name}, sysdate())
 	</insert>
 	
 	<select id="popup_list" parameterType="Map" resultType="popvo">
@@ -55,9 +55,18 @@
 		delete from popup_t where popup_idx = #{popup_idx}
 	</delete>
 	
-	<select id="count" resultType="int">
+	<select id="popup_count" resultType="int">
 		select count(*) from popup_t
 	</select>
+	
+	<select id="user_count" resultType="int">
+		select count(*) from user_t
+	</select>
+	
+	<select id="user_list" parameterType="Map" resultType="mvo">
+		select * from user_t limit #{limit} offset #{offset}
+	</select>
+	
 	 
 </mapper>
 

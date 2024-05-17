@@ -1,39 +1,105 @@
 @charset "UTF-8";
 
+body {
+	background-color: #F9F3FF;
+}
+
 .popup {
+	display: flex;
 }
 
-.popup_form ul {
-	width: 60%;
+.popup_form {
+	width: 400px;
 	margin: 0 auto;
+	margin-top: 200px;
 }
 
-.popup_form li {
-	list-style-type: none;
+.popup_form h2 {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.pop_btn {
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: pink;
+	color: black;
+	font-weight: bold;
+}
+
+.pop_btn:hover{
+	background-color: black;
+	color: pink;
+	cursor: pointer;
+}
+
+.popup_form table {
+	margin: 0 auto;
+	border: black 1px solid;
+	border-collapse: collapse;
+}
+.popup_form th {
+	padding: 10px;
+	font-weight: bold;
+	background-color: pink;
+	font-size: 1.1em;
+	text-align: center;
+	margin: 10px;
+	border: black 1px solid;
+}
+.popup_form td {
+	padding: 10px;
+	vertical-align: middle;
+	border: black 1px solid;
+}
+.pop_title {
+	width: 90%;
 }
 
 .popup_table {
-	width: 60%;
+	width: 700px;	
+}
+
+.popup_table table{
 	border: black 2px solid;
 	margin: 30px auto;
 	border-collapse: collapse;
 }
 
-.popup_table th, td {
+.popup_table th {
 	border: black 2px solid;
 	text-align: center;
 	padding: 10px;
-}
-
-.popup_table th {
 	font-weight: bold;
 	background-color: pink;
 	font-size: 1.1em;
 }
-
-.popup_table img {
+.popup_table td {
+	border: black 2px solid;
+	padding: 10px;
 	vertical-align: middle;
 }
+
+/*  */
+#content_table table{
+	border: none;
+	margin: 0 auto;
+}
+#content_table td{
+	border: none;
+	padding: 5px;
+}
+#content_table th{
+	border: none;
+	text-align: left;
+	padding: 5px;
+	font-weight: bold;
+	background-color: #F9F3FF;
+}
+
 
 /* paging */
 .popup_page {
@@ -44,6 +110,7 @@
 
 ol.paging {
 	list-style: none;
+	margin-left: 40px;
 }
 
 ol.paging li {
@@ -57,12 +124,13 @@ ol.paging li a {
 	color: black;
 	font-weight: bold;
 	text-decoration: none;
+	
 }
 
 ol.paging li a:hover {
 	background: skyblue;
-	color: white;
 	font-weight: bold;
+	color: white;
 }
 
 .disable {

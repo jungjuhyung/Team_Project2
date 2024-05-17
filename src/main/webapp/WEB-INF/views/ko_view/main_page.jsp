@@ -24,7 +24,7 @@
 
 <script type="text/javascript">
 	function detail_go(path_post_idx) {
-		location.href = "ko_detail.do?path_post_idx=" + path_post_idx;
+		location.href = "pathReviewDetail?path_post_idx=" + path_post_idx;
 	}
 	
 	function area_wish(areacode) {
@@ -107,7 +107,6 @@
 	
 	function close_popup() {
 		document.getElementById('popup').style.display = "none";
-		document.cookie = 'oneclose=done; path=/; expires=1';
 	}
 	
 	function close_today() {
@@ -117,6 +116,10 @@
 	
 	function change_img() {
 		location.href = "popup_img.do"
+	}
+	
+	function user_list() {
+		location.href = "user_list.do"
 	}
 	
 </script>
@@ -133,7 +136,8 @@
 	        	<img alt="" src="/resources/popup_img/${popvo.f_name}">
 	        </div>         
 	        <div class="popup_btn">
-	        	<button type="button" onclick="change_img()">팝업사진 변경하기</button>
+	        	<button type="button" onclick="user_list()">유저관리</button>
+	        	<button type="button" onclick="change_img()">팝업변경</button>
 	        	<button type="button" onclick="close_today()">오늘하루보지않기</button>
 	        	<button type="button" onclick="close_popup()">닫기</button>
 	        </div>

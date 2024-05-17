@@ -15,11 +15,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-	/* 
+
 	function path_detail(path_post_idx) {
-		location.href = "경로게시판 글로 이동?path_post_idx=" + path_post_idx; 
+		location.href = "pathReviewDetail?path_post_idx=" + path_post_idx; 
 	}
-	 */
 
 	$(document).on("click", ".heart-state", function(e) {
 		let contentid = $(this).val();
@@ -268,7 +267,7 @@
 				<h2>해당장소 포함된 추천경로</h2>
 				<div id="path_wrapper">
 					<c:forEach var="k" items="${path_list}">
-						<div class="path_box">
+						<div class="path_box" onclick="path_detail(${k.path_post_idx})">
 							<div class="path_image">
 								<img alt="" src="/resources/rc_main_img/${k.firstimage}">
 							</div>

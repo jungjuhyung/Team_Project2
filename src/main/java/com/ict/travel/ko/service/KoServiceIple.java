@@ -9,6 +9,7 @@ import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoDAO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PopupVO;
+import com.ict.travel.lee.dao.MemberVO;
 
 @Service
 public class KoServiceIple implements KoService{
@@ -64,6 +65,16 @@ public class KoServiceIple implements KoService{
 	@Override
 	public int getTotalCount() {
 		return koDAO.getTotalCount();
+	}
+	
+	@Override
+	public int getTotalUser() {
+		return koDAO.getTotalUser();
+	}
+	
+	@Override
+	public List<MemberVO> getUserList(int offset, int limit) {
+		return koDAO.getUserList(offset, limit);
 	}
 	
 }
