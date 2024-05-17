@@ -9,11 +9,11 @@ public interface MemberService {
 	
 	public int getSignUp(MemberVO mvo) throws Exception;
 
-	public MemberVO getLoginOK(MemberVO mvo) throws Exception;
+	public MemberVO getLoginOK(MemberVO mvo);
 
 	public MemberVO getFindPW(String email);
 	
-	public int PassUpdate(MemberVO mvo);
+	public int PassUpdate(MemberVO memberVO);
 
 	public List<MemberVO> getFindId(MemberVO mvo);
 
@@ -26,6 +26,8 @@ public interface MemberService {
 	public String getNaverToken(String code, String state);
 	
 	public MemberVO getUserNaver(String access_Token);
+
+
 
 
 	

@@ -40,10 +40,21 @@ body{
 	color: white;
 	
 } 
+.pw_form input[type="text"]{
+	width: 80%;
+	height: 50px;
+	margin-left: 40px;
+	margin-bottom: 20px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none; 
+}
 .pw_form input[type="email"]{
 	width: 80%;
 	height: 50px;
-	margin: 40px;
+	margin-left: 40px;
+	margin-bottom: 20px;
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius: 5px;

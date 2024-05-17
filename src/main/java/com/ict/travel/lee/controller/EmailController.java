@@ -48,51 +48,107 @@ public class EmailController {
 	
 	
 	// 비밀번호 찾기 - 이메일 전송
-	@PostMapping("email_send_ok.do")
-	public ModelAndView sendMailOK(String email, String u_id) {
-		try {
-			System.out.println("1");
-			System.out.println(email);
-			System.out.println(u_id);
-			MemberVO mvo = memberService.getFindPW(email);
-			System.out.println(mvo.getU_email());
-			if(mvo != null) {
-				// 임시 번호 만들기
-				Random random = new Random();
-				// 1000000 => 숫2ㅏ 6자리
-				String randomNumber = String.valueOf(random.nextInt(1000000) % 1000000);
-				System.out.println("안되니1");
-				if(randomNumber.length() <6) {
-					int substract = 6 - randomNumber.length();
-					StringBuffer sb = new StringBuffer();
-					for(int i = 0; i< substract; i++) {
-						sb.append("0");
+//	@PostMapping("email_send_ok.do")
+//	public ModelAndView sendMailOK(MemberVO memberVO ,String email) {
+//		ModelAndView mv = new ModelAndView();
+//		MemberVO memberVO2 = memberService.getLoginOK(memberVO);
+//		System.out.println("1");
+//		try {
+//			if(memberVO2 != null && memberVO2.getU_id().equals(memberVO.getU_id()) && memberVO2.getU_email().equals(memberVO.getU_email())) {
+//				// 임시 번호 만들기
+//				Random random = new Random();
+//				// 1000000 => 숫2ㅏ 6자리
+//				String randomNumber = String.valueOf(random.nextInt(1000000) % 1000000);
+//				System.out.println("2");
+//				if(randomNumber.length() <6) {
+//					int substract = 6 - randomNumber.length();
+//					StringBuffer sb = new StringBuffer();
+//					for(int i = 0; i< substract; i++) {
+//						sb.append("0");
+//						System.out.println("3");
+//					}
+//					sb.append(randomNumber);
+//					randomNumber = sb.toString();
+//					System.out.println("4");
+//				}
+//				// 임시번호 서버에 출력
+//				System.out.println("임시번호 : " + randomNumber);
+//				String pwd = passwordEncoder.encode(randomNumber);
+//				memberVO2.setU_pwd(pwd);
+//				
+//				int result = memberService.PassUpdate(memberVO2);
+//				System.out.println(result);
+//				if(result > 0) {
+//					mailService.sendEmail(randomNumber, memberVO2.getU_email());
+//					mv.addObject("msg", "메일 보내기성공");
+//					mv.setViewName("lee_view/loginForm");
+//					return mv;
+//				}
+//			}
+//			System.out.println("5");
+//			mv.addObject("msg", "안감");
+//			mv.setViewName("lee_view/email_form");
+//			return mv;
+//		} catch (Exception e) {
+//			System.out.println("메일전송 오류 캐치 : "+e);
+//		}
+//		return null;
+//	}
+	// 비밀번호 찾기 - 이메일 전송
+		@PostMapping("email_send_ok.do")
+		public ModelAndView sendMailOK(String email, String u_id) {
+			ModelAndView mv = new ModelAndView();
+			try {
+				System.out.println("1");
+				System.out.println(email);
+				System.out.println(u_id);
+				MemberVO mvo = memberService.getFindPW(email);
+				System.out.println(mvo.getU_email());
+				if(mvo != null) {
+					// 임시 번호 만들기
+					Random random = new Random();
+					// 1000000 => 숫2ㅏ 6자리
+					String randomNumber = String.valueOf(random.nextInt(1000000) % 1000000);
+					System.out.println("안되니1");
+					if(randomNumber.length() <6) {
+						int substract = 6 - randomNumber.length();
+						StringBuffer sb = new StringBuffer();
+						for(int i = 0; i< substract; i++) {
+							sb.append("0");
+						}
+						sb.append(randomNumber);
+						randomNumber = sb.toString();
+						System.out.println("안됨!");
 					}
-					sb.append(randomNumber);
-					randomNumber = sb.toString();
-					System.out.println("안됨!");
+					// 임시번호 서버에 출력
+					System.out.println("임시번호 : " + randomNumber);
+					String pwd = passwordEncoder.encode(randomNumber);
+					mvo.setU_pwd(pwd);
+					mvo.setU_id(mvo.getU_id());
+					
+					int result = memberService.PassUpdate(mvo);
+					System.out.println(result);
+					if(result > 0) {
+						mailService.sendEmail(randomNumber, email);
+						mv.addObject("msg", "메일보내기 성공");
+						mv.setViewName("lee_view/loginForm");
+//						return new ModelAndView("lee_view/email_chk");
+						return mv;
+					}
+					
 				}
-				// 임시번호 서버에 출력
-				System.out.println("임시번호 : " + randomNumber);
-				String pwd = passwordEncoder.encode(randomNumber);
-				mvo.setU_pwd(pwd);
-				mvo.setU_id(mvo.getU_id());
-				
-				int result = memberService.PassUpdate(mvo);
-				System.out.println(result);
-				if(result > 0) {
-					mailService.sendEmail(randomNumber, email);
-					return new ModelAndView("lee_view/email_chk");
-				}
+				mv.addObject("msg", "안감");
+				mv.setViewName("lee_view/email_form");
+				return mv;
+			} catch (Exception e) {
+				System.out.println("2");
+				System.out.println(e);
 				
 			}
-		} catch (Exception e) {
-			System.out.println("2");
-			System.out.println(e);
+			System.out.println("안되니3");
+			return mv;
 		}
-		System.out.println("안되니3");
-		return null;
-	}
+	
 	@PostMapping("email_pass_ok.do")
 	public ModelAndView sentNumberOK() {
 		try {
@@ -103,6 +159,7 @@ public class EmailController {
 		}
 		return new ModelAndView("error");
 	}
+	@PostMapping("")
 	
 	@RequestMapping("id_email_send.do")
 	public ModelAndView sendid() {
@@ -121,15 +178,21 @@ public class EmailController {
 			ModelAndView mv = new ModelAndView();
 			List<MemberVO> list = memberService.getFindId(mvo);
 			
-			if(list != null ) {
-//				
+			if(list != null && !list.isEmpty()) {
+				
 				mv.addObject("list", list);
 				mv.setViewName("lee_view/id_find");
 				return mv;
-			} 
+			} else {
+				mv.addObject("message", "다시 입력해주세요.");
+				mv.setViewName("lee_view/id_find");
+				
+			}
+			return mv;
 			
 			
-		return new ModelAndView("error");
+			
+		
 	}
 	@PostMapping("backup.do")
 	public ModelAndView backEmailFomr() {

@@ -16,6 +16,12 @@
 		f.submit();
 	}
 	
+	let msg ="${msg}";
+	function msg() {
+		if (msg !== "") {
+			alert(msg);
+		}
+	}
 	
 </script>
 </head>
@@ -26,12 +32,14 @@
 	<div class="pw_form">
 		<form action="email_send_ok.do" method="post">
 		<h2>비밀번호 찾기</h2>
+			 <input type="text" id="u_id" name="u_id" placeholder="아이디"><br>
 			<input type="email" name="email"
 				pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*"
 				title="이메일 양식" placeholder="이메일" > 
 			<input type="submit"  value="전송">
 			<input type="button" onclick="backup(this.form)" value="돌아가기" >
 		</form>
+		
 		
 	</div>
 	</div>	

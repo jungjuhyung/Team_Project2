@@ -26,7 +26,7 @@ public class MemberDAO {
 	}
 	
 	// 로그인
-	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
+	public MemberVO getLoginOK(MemberVO mvo) {
 		try {
 			return sqlSessionTemplate.selectOne("lee-mapper.login", mvo);
 		} catch (Exception e) {
@@ -44,12 +44,13 @@ public class MemberDAO {
 		return null;
 	}
 	
+	
 	// 비밀번호 변경
-	public int PassUpdate(MemberVO mvo) {
+	public int PassUpdate(MemberVO memberVO) {
 		try {
-			return sqlSessionTemplate.update("lee-mapper.passUpdate", mvo);
+			return sqlSessionTemplate.update("lee-mapper.pass_update", memberVO);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("err : "+e);
 		}
 		return -1;
 	}
@@ -106,6 +107,10 @@ public class MemberDAO {
 		return -1;
 		
 	}
+
+	
+
+	
 
 	
 

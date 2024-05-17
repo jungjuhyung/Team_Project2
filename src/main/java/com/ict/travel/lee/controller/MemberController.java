@@ -97,7 +97,7 @@ public class MemberController {
             if(adminVO2 != null) {
 
                 if(! passwordEncoder.matches(adminVO.getAdmin_pwd(), adminVO2.getAdmin_pwd())) {
-                    mv.setViewName("redirect:adminLogin");
+                    mv.setViewName("redirect:loginForm.do");
                     return mv;
                 }else  {
                     session.setAttribute("adminUser", adminVO2);

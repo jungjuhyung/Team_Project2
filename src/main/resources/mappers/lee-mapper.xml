@@ -14,10 +14,10 @@
   	<select id="findPwd" parameterType="String" resultType="mvo">
   		select * from user_t where u_email = #{u_email}
   	</select>
-  	<update id="passUpdate" parameterType="mvo">
-  		update user_t set
-  		u_pwd = #{u_pwd}
-  		where u_email = #{u_email}
+  	<update id="pass_update" parameterType="mvo">
+  		update user_t 
+  		set u_pwd = #{u_pwd}
+  		where u_email = #{u_email} and u_id = #{u_id}
   	</update>
   	<select id="findId" resultType="mvo">
   		select * from user_t where u_name = #{u_name} and  u_email = #{u_email}
