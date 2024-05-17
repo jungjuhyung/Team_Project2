@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.dao.ChoDAO;
 import com.ict.travel.cho.dao.ChoTourVO;
 import com.ict.travel.cho.dao.PathPostVO;
@@ -79,4 +80,25 @@ public class ChoServiceImpl implements ChoService{
 		return choDAO.getSearchTotal(areaCode, sigunguCode, contentType, title, order, type, offset, limit);
 	}
 	
+	@Override
+	public AdminVO getAdminLogin(AdminVO adminVO) {
+		return choDAO.getAdminLogin(adminVO);
+	}
+	@Override
+	public List<AdminVO> getAdminList() {
+		return choDAO.getAdminList();
+	}
+	@Override
+	public int adminDelete(String admin_idx) {
+		return choDAO.adminDelete(admin_idx);
+	}
+	@Override
+	public String getLoginChk(String admin_id) {
+		return choDAO.getLoginChk(admin_id);
+	}
+	@Override
+	public String adminCreate(AdminVO adminVO) {
+		return choDAO.adminCreate(adminVO);
+	}
 }
+
