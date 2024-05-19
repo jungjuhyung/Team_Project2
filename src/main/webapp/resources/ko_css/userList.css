@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+/* 테이블 */
+
+.user_table {
+	width: 80%;
+	margin: 0 auto;	
+}
+
+.user_table h2 {
+	text-align: center;
+	font-size: 30px;
+	margin-top: 30px;
+}
+
+.user_table table{
+	border: black 2px solid;
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+
+.user_table th {
+	border: black 2px solid;
+	text-align: center;
+	padding: 10px;
+	font-weight: bold;
+	background-color: pink;
+	font-size: 1.1em;
+}
+.user_table td {
+	border: black 2px solid;
+	padding: 10px;
+	vertical-align: middle;
+}
+
+/*  */
+.user_btn {
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: pink;
+	color: black;
+	font-weight: bold;
+}
+
+.user_btn:hover{
+	background-color: black;
+	color: pink;
+	cursor: pointer;
+}
+
+
+/* paging */
+.user_page {
+	margin: 0 auto;
+	width: 300px;
+	height: 100px;
+}
+
+ol.paging {
+	list-style: none;
+	margin: 0 auto;
+	width: 200px;
+}
+
+ol.paging li {
+	margin-right: 10px;
+	float: left;
+}
+
+ol.paging li a {
+	display: block;
+	padding: 3px 7px;
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+	
+}
+
+ol.paging li a:hover {
+	background: skyblue;
+	font-weight: bold;
+	color: white;
+}
+
+.disable {
+	padding: 3px 7px;
+	color: silver;
+}
+
+.now {
+	padding: 3px 7px;
+	background: pink;
+	color: white;
+	font-weight: bold;
+}
+
+</style>
