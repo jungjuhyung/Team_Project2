@@ -35,6 +35,16 @@ public class KpostServiceImpl implements KpostService{
 		return kpostDAO.rcommentDelete(comment_idx);
 	}
 
+	@Override
+	public int ilikethis(KpostVO kpostvo) {
+		return kpostDAO.ilikethis(kpostvo);
+	}
+
+	@Override
+	public int ihatethis(KpostVO kpostvo) {
+		return kpostDAO.ihatethis(kpostvo);
+	}
+
 	
 	
 

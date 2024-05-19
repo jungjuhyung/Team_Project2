@@ -77,5 +77,6 @@ $(document).ready(function(){
         });
     });
 </script>
+<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 </body>
 </html>

@@ -88,5 +88,6 @@ $(document).ready(function() {
     	f.submit();
     }
 </script>
+<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 </body>
 </html>

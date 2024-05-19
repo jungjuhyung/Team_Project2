@@ -272,5 +272,7 @@ function reportWrite() {
     	<button id="writeButton" style="display:none;" onclick="reportWrite()">글쓰기</button>
     </div>
 </div>
+	<div id="empty-area" ></div>
+<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 </body>
 </html>

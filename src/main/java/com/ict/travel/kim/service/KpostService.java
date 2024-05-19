@@ -14,4 +14,9 @@ public interface KpostService {
 	public int rcommentInsert(CommentVO commentvo);
 
 	public int rcommentDelete(String comment_idx);
+	
+	public int ilikethis(KpostVO kpostvo);
+
+	public int ihatethis(KpostVO kpostvo);
+	
 }

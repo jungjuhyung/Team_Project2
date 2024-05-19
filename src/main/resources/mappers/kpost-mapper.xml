@@ -24,9 +24,14 @@
 		delete from comment_t where comment_idx = #{comment_idx}
 	</delete>
 	
+	<insert id="ilikethis" parameterType="kpostvo">
+		insert into pathwish_t (path_post_idx, u_idx, firstimage, r_contenttypeid, path_post_title, regdate)
+		values(#{path_post_idx}, #{u_idx}, #{firstimage}, #{r_contenttypeid}, #{path_post_title}, sysdate())
+	</insert>
 	
-	
-	
+	<delete id="ihatethis" parameterType="kpostvo">
+		delete from pathwish_t where path_post_idx = #{path_idx}
+	</delete>
 	
 </mapper>
 

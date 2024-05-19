@@ -46,16 +46,11 @@ public class PathrvController {
 			mv.addObject("membervo", membervo);
 			mv.addObject("kpostvo", kpostvo);
 			List<TourtestVO> tourtestvoimg = tourtestService.tourImg(path_post_idx);
-			
 			for (TourtestVO marker : tourtestvoimg) {
 			    List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
 			    marker.setImgList(imgList);
 			}
 			mv.addObject("tourtestvoimg", tourtestvoimg);
-			/*
-			 List<TourtestVO> tourtestVOimg = tourtestService.getTourtestVOWithImagePaths();
-		     mv.addObject("tourtestvoimg", tourtestVOimg);
-			*/
 			if (!tourtestvo2.isEmpty()) {
 	        	
 	            List<CommentVO> comment_list = kpostService.rcommentList(path_post_idx);
@@ -89,7 +84,6 @@ public class PathrvController {
 	            mv.addObject("marktitle", new Gson().toJson(marktitle));
 				mv.addObject("imglist", imglist);
 				
-				
 	            return mv;
 	        }
 	    } catch (Exception e) {
@@ -114,9 +108,9 @@ public class PathrvController {
 	
 	@PostMapping("rcommentInsert")
 	public ModelAndView CommentInsert(CommentVO commentvo, KpostVO kpostvo,
-			@ModelAttribute("past_post_idx")String past_post_idx, HttpServletRequest request) {
+			@ModelAttribute("path_post_idx")String path_post_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("redirect:pathReviewDetail");
-		kpostvo.setPath_post_idx(past_post_idx);;
+		kpostvo.setPath_post_idx(path_post_idx);;
 		HttpSession session = request.getSession();
 		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 		mv.addObject("membervo", membervo);
@@ -131,7 +125,7 @@ public class PathrvController {
 	}
 	
 	@PostMapping("rcommentDelete")
-	public ModelAndView getCommentDelete(String comment_idx, @ModelAttribute("past_post_idx")String past_post_idx) {
+	public ModelAndView getCommentDelete(String comment_idx, @ModelAttribute("path_post_idx")String path_post_idx) {
 		ModelAndView mv = new ModelAndView("redirect:pathReviewDetail");
 		int result = kpostService.rcommentDelete(comment_idx);
 		return mv;

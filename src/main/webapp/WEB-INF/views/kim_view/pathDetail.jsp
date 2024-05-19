@@ -27,18 +27,51 @@ function rcommentDelete(f) {
 	f.action="rcommentDelete";
 	f.submit();
 }
-console.log(${imglist});
+function ilikethis() {
+    // 여기에 전송할 데이터를 변수에 담거나, 직접 지정하세요
+    var dataToSend = {
+        path_post_idx: "${kpostvo.path_post_idx}",
+        u_idx: "${kpostvo.u_idx}",
+        firstimage: "${kpostvo.firstimage}",
+        r_contenttypeid: "${kpostvo.r_contenttypeid}",
+        path_post_title: "${kpostvo.path_post_title}"
+    };
+
+    $.ajax({
+        url: 'ilikethis', 
+        type: 'POST', 
+        data: dataToSend, 
+        success: function(response) {
+        	alert("좋아요를 눌렀습니다.")
+        },
+        error: function() {
+        	alert("실패.")
+        }
+    });
+}
+function ihatethis() {
+    // 여기에 전송할 데이터를 변수에 담거나, 직접 지정하세요
+    var dataToSend = {
+        path_post_idx: "${kpostvo.path_post_idx}",
+        u_idx: "${kpostvo.u_idx}",
+        firstimage: "${kpostvo.firstimage}",
+        r_contenttypeid: "${kpostvo.r_contenttypeid}",
+        path_post_title: "${kpostvo.path_post_title}"
+    };
+
+    $.ajax({
+        url: 'ihatethis', 
+        type: 'POST', 
+        data: dataToSend, 
+        success: function(response) {
+        	alert("좋아요를 취소했습니다.")
+        },
+        error: function() {
+        	alert("실패.")
+        }
+    });
+}
 </script>
-<style type="text/css">
-.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
-.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
-.dotOverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
-.number {font-weight:bold;color:#ee6152;}
-.dotOverlay:after {content:'';position:absolute;margin-left:-6px;left:50%;bottom:-8px;width:11px;height:8px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white_small.png')}
-.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
-.distanceInfo .label {display:inline-block;width:50px;}
-.distanceInfo:after {content:none;}
-</style>
 </head>
 <body>
 	<div id="world">
@@ -51,29 +84,47 @@ console.log(${imglist});
 		</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>
 			
-	<c:forEach var="marker" items="${tourtestvoimg}">
-	    <h2>Path_marker_idx: ${marker.path_marker_idx}</h2>
-	    <ul>
-	        <c:forEach var="img" items="${marker.imgList}">
-	            <li>Marker_img: ${img.image_name}</li>
-	            <!-- 이미지 파일을 표시하는 부분 -->
-	           <img src="resources/rc_main_img/${img.image_name}"  style="width: 80px">
-	        </c:forEach>
-	    </ul>
-	</c:forEach>
-					
-
+	<div class="d_img">
+		<c:forEach var="marker" items="${tourtestvoimg}">
+		    <h2>Path_marker_idx: ${marker.path_marker_idx}</h2>
+		    <ul>
+		        <c:forEach var="img" items="${marker.imgList}">
+		            <div class="in_div">
+		            <li>Marker_img: ${img.image_name}</li>
+		            <!-- 이미지 파일을 표시하는 부분 -->
+		           <img class="div_img" src="resources/rc_main_img/${img.image_name}"  style="width: 80px">
+		        	</div>
+		        </c:forEach>
+		    </ul>
+		</c:forEach>
+	</div>					
+		<div id="empty-area"></div>
 		<div id="summer">
 			<textarea rows="10" cols="60" id="summernote" name="content">${kpostvo.path_post_content}</textarea>
 		</div>
 		<div>
-			<button type="button">수정</button>
-			<button type="button">삭제</button>
+		<c:choose>
+			<c:when test="${membervo.u_idx == kpostvo.u_idx}">	
+				<button type="button">수정</button>
+				<button type="button">삭제</button>
+			</c:when>
+			<c:otherwise>
+				<span></span>
+			</c:otherwise>
+		</c:choose>
 		</div>
-		<button type="button">추천</button>
-		<button type="button">비추천</button>
-		<button type="button">스크랩</button>
-		
+		<%-- 
+		<c:if test="${membervo.u_grade != null}">
+			<c:choose>
+			<c:when test="${membervo.u_heart == '1' }">
+				<button type="button" onclick="ihatethis()">취소(찜)</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" onclick="ilikethis()">좋아요(찜)</button>
+			</c:otherwise>
+			</c:choose>
+		</c:if>
+		 --%>
 		<%-- 댓글 출력 --%>
 	<div class="recomment">
 		<c:forEach var="k" items="${comment_list}">
@@ -134,7 +185,7 @@ console.log(${imglist});
 			$('#summernote').summernote('disable');
 		});
 	</script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3f599c1d6971197a01e6600cd397224a"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3f599c1d6971197a01e6600cd397224a&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'); // 지도를 표시할 div
 var mapOption = {
@@ -196,6 +247,7 @@ for (let i = 0; i < mapyList.length; i++) {
     })(marker, infowindow);
 }
 
+
 // 지도에 표시할 선을 생성합니다
 var polyline = new kakao.maps.Polyline({
     path: linePath,
@@ -209,22 +261,13 @@ var polyline = new kakao.maps.Polyline({
 // 지도에 선을 표시합니다 
 polyline.setMap(map);  
 
-//마커 간의 거리를 저장할 변수 초기화
-var totalDistance = 0;
+var totalDistance = polyline.getLength(); // getLength() 메서드로 폴리라인의 길이를 계산합니다.
 
-// 마커 간의 거리를 계산하기 위해 반복문 사용
-for (let i = 0; i < linePath.length - 1; i++) {
-    // 현재 좌표와 다음 좌표 간의 거리 계산하여 더하기
-    let distance = kakao.maps.geometry.distance(linePath[i], linePath[i + 1]);
-    totalDistance += distance;
-}
-
-// 거리 값을 HTML 컨텐츠 생성 함수에 전달하여 거리 정보 표시
-var distanceContent = getTimeHTML(totalDistance);
-console.log(distanceContent); // 콘솔에 거리 정보 출력
 
 // HTML Content를 만들어 리턴하는 함수입니다
 function getTimeHTML(distance) {
+	// 총거리 소수점제거
+	distance = Math.round(distance); 
     // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
     var walkTime = distance / 67 | 0;
     var walkHour = '', walkMin = '';
@@ -260,6 +303,24 @@ function getTimeHTML(distance) {
 
     return content;
 }
+ 
+//거리 값을 HTML 컨텐츠 생성 함수에 전달하여 거리 정보 표시
+ var distanceContent = getTimeHTML(totalDistance);
+ console.log(distanceContent); // 콘솔에 거리 정보 출력
+
+ //HTML Content를 표시할 위치 지정 (여기서는 첫 번째 마커 위치로 설정)
+ var position = linePath[0]; // 거리를 표시할 위치를 첫 번째 마커로 설정
+
+ // 커스텀 오버레이 생성
+ var distanceOverlay = new kakao.maps.CustomOverlay({
+     position: position,
+     content: distanceContent,
+     xAnchor: 0.5,
+     yAnchor: 1.5
+ });
+
+ // 지도에 커스텀 오버레이 표시
+ distanceOverlay.setMap(map);
 
 </script>
 <%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
