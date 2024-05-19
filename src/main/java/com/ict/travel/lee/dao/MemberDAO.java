@@ -26,7 +26,7 @@ public class MemberDAO {
 	}
 	
 	// 로그인
-	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
+	public MemberVO getLoginOK(MemberVO mvo) {
 		try {
 			return sqlSessionTemplate.selectOne("lee-mapper.login", mvo);
 		} catch (Exception e) {
@@ -35,21 +35,25 @@ public class MemberDAO {
 		return null;
 	}
 	// 비밀번호 찾기(이메일로 전송)
-	public MemberVO getFindPW(String email) {
+	public MemberVO getFindPW(String u_id, String email) {
 		try {
-			return sqlSessionTemplate.selectOne("lee-mapper.findPwd", email);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("u_id", u_id);
+			map.put("email", email);
+			return sqlSessionTemplate.selectOne("lee-mapper.findPwd", map);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
 	}
 	
+	
 	// 비밀번호 변경
-	public int PassUpdate(MemberVO mvo) {
+	public int PassUpdate(MemberVO memberVO) {
 		try {
-			return sqlSessionTemplate.update("lee-mapper.passUpdate", mvo);
+			return sqlSessionTemplate.update("lee-mapper.pass_update", memberVO);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("err : "+e);
 		}
 		return -1;
 	}
@@ -106,6 +110,12 @@ public class MemberDAO {
 		return -1;
 		
 	}
+
+	
+
+	
+
+	
 
 	
 

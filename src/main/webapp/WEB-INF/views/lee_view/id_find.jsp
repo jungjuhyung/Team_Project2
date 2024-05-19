@@ -31,7 +31,9 @@
 	        		</c:forEach>
 	        	</c:otherwise>
 	        </c:choose>
-	         	<!-- <input type="button" value="비밀번호 찾기" onclick="pw_send.do()"> -->
+	        <c:if test="${not empty message }">
+	        	<div class="error-message">${message}</div>
+	        </c:if>
 	    </form>
 	          <form action="backup.do" method="post">
 	         	<input type="submit" id="back_to" value="돌아가기" >

@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,17 +31,18 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberVO getLoginOK(MemberVO mvo) throws Exception {
+	public MemberVO getLoginOK(MemberVO mvo) {
 		return memberDAO.getLoginOK(mvo);
 	}
 
 	@Override
-	public MemberVO getFindPW(String email) {
-		return memberDAO.getFindPW(email);
+	public MemberVO getFindPW(String u_id, String email) {
+		return memberDAO.getFindPW(u_id, email);
 	}
+	
 	@Override
-	public int PassUpdate(MemberVO mvo) {
-		return memberDAO.PassUpdate(mvo);
+	public int PassUpdate(MemberVO memberVO) {
+		return memberDAO.PassUpdate(memberVO);
 	}
 
 	@Override
@@ -274,13 +276,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 
-
 	
 
-
-
-
-	
 
 	
 	

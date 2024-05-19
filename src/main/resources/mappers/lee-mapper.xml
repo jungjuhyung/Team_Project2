@@ -11,13 +11,13 @@
   	<select id="login" parameterType="mvo" resultType="mvo">
   		select * from user_t where u_id = #{u_id}
   	</select>
-  	<select id="findPwd" parameterType="String" resultType="mvo">
-  		select * from user_t where u_email = #{u_email}
+  	<select id="findPwd" parameterType="Map" resultType="mvo">
+  		select * from user_t where u_id = #{u_id} and u_email = #{email}
   	</select>
-  	<update id="passUpdate" parameterType="mvo">
-  		update user_t set
-  		u_pwd = #{u_pwd}
-  		where u_email = #{u_email}
+  	<update id="pass_update" parameterType="mvo">
+  		update user_t 
+  		set u_pwd = #{u_pwd}
+  		where u_email = #{u_email} and u_id = #{u_id}
   	</update>
   	<select id="findId" resultType="mvo">
   		select * from user_t where u_name = #{u_name} and  u_email = #{u_email}
@@ -35,6 +35,6 @@
   	<insert id="naver_insert" parameterType="Map">
 		insert into user_t (u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active , k_nickname, k_email, n_nickname, n_email, n_phone)
 		values(1, 1, 1, 1, 1, 1, 1, 1, 1, #{u_stopdate}, sysdate(), 0, "정보없음", "정보없음", #{name}, #{email}, #{mobile}) 	
-  	</insert>
+  	</insert> 
   	
   </mapper>

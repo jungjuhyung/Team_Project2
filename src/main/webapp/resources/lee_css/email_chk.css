@@ -15,11 +15,19 @@ body{
 	background-size:cover;
 	background-position:center;
 }
+.pw_sub_1{
+	margin: 100px;
+	margin-top: 0px;
+	position: absolute;
+}
 .sendpw_form{
 	width: 400px;
-	height: 400px;
-	margin: 450px;
+	height: 500px;
+	position: absolute;
+	border-radius: 10px;
 	background-color: pink;
+	margin-left: 320px;
+	margin-top: 200px;
 	box-shadow: 3px 3px 10px #333;
 }
 
@@ -27,6 +35,7 @@ body{
 	margin: 10px;
 	padding: 50px;
 	margin-bottom: 20px;
+	color: white;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
@@ -48,7 +57,11 @@ body{
 	height: 50px;
 	margin-bottom: 10px;
 	margin-left: 10px;
+	background-color: #F9F3FF;
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+}
+.sendpw_form input[type="submit"]:hover{
+	color: pink;
 }

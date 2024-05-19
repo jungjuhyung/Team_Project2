@@ -25,11 +25,11 @@ body{
 	width: 400px;
 	height: 500px;
 	background-color: pink;
-	box-shadow: 3px 3px 10px #333;
 	border-radius: 10px;
 	position: absolute;
 	margin-left: 300px;
 	margin-top: 200px;
+	box-shadow: 3px 3px 10px #333;
 	
 }
 .id_form h2{

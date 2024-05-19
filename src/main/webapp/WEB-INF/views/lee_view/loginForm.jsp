@@ -35,7 +35,7 @@
 		f.action = "login_go_ok.do";
 		f.submit();
 	}
-		
+	
 	
 
 	
