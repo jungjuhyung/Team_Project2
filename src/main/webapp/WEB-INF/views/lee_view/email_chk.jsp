@@ -11,15 +11,17 @@
 <body>
  <%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 <div class="pw-container" style="width: 1300px; height:900px; margin: 0 auto;">
-	<div class="sendpw_form">
-	<h2>받은 비밀번호 넣어주세요</h2>
-		<c:if test="${not empty message }">
-			<div>${message}</div>
-		</c:if>
-		<form action="email_pass_ok.do" method="post">
-			<input type="text" name="authNumber" min="6" max="6"> 
-			<input type="submit" value="확인">
-		</form>
+	<div class="pw_sub_1">
+		<div class="sendpw_form">
+		<h2>받은 비밀번호 넣어주세요</h2>
+			<c:if test="${not empty message }">
+				<div>${message}</div>
+			</c:if>
+			<form action="email_pass_ok.do" method="post">
+				<input type="text" name="authNumber" min="6" max="6"> 
+				<input type="submit" value="확인">
+			</form>
+		</div>
 	</div>
 </div>
 <%@ include file="/WEB-INF/views/common_view/footer.jsp"%>

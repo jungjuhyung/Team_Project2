@@ -16,33 +16,38 @@
 		f.submit();
 	}
 	
-	let msg ="${msg}";
-	function msg() {
-		if (msg !== "") {
-			alert(msg);
+	let message ="${msg}";
+	function showMessage() {
+		if (message !== "") {
+			alert(message);
+			console.log("1234");
+			if(message === ""){
+				alert(message);
+			}
 		}
+		console.log("1234------------");
 	}
-	
+	showMessage();
 </script>
 </head>
-<body>
+<body >
  <%@ include file="/WEB-INF/views/common_view/header.jsp"%>
-<div class="find-container" style="width: 1300px; height:900px; margin: 0 auto;">
-<div class="pw_sub">
-	<div class="pw_form">
-		<form action="email_send_ok.do" method="post">
-		<h2>비밀번호 찾기</h2>
-			 <input type="text" id="u_id" name="u_id" placeholder="아이디"><br>
-			<input type="email" name="email"
-				pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*"
-				title="이메일 양식" placeholder="이메일" > 
-			<input type="submit"  value="전송">
-			<input type="button" onclick="backup(this.form)" value="돌아가기" >
-		</form>
-		
-		
-	</div>
-	</div>	
+	<div class="find-container" style="width: 1300px; height: 900px; margin: 0 auto;">
+		<div class="pw_sub">
+			<div class="pw_form">
+				<form action="email_send_ok.do" method="post">
+					<h2>비밀번호 찾기</h2>
+					<input type="text" id="u_id" name="u_id" placeholder="아이디"><br>
+					<input type="email" name="email"
+						pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*"
+						title="이메일 양식" placeholder="이메일"> <input type="submit"
+						value="전송"> <input type="button"
+						onclick="backup(this.form)" value="돌아가기">
+				</form>
+
+
+			</div>
+		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 </body>

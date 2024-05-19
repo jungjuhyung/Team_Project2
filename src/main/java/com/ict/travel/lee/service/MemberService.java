@@ -11,7 +11,7 @@ public interface MemberService {
 
 	public MemberVO getLoginOK(MemberVO mvo);
 
-	public MemberVO getFindPW(String email);
+	public MemberVO getFindPW(String u_id, String email);
 	
 	public int PassUpdate(MemberVO memberVO);
 

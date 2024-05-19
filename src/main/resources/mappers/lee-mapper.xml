@@ -11,8 +11,8 @@
   	<select id="login" parameterType="mvo" resultType="mvo">
   		select * from user_t where u_id = #{u_id}
   	</select>
-  	<select id="findPwd" parameterType="String" resultType="mvo">
-  		select * from user_t where u_email = #{u_email}
+  	<select id="findPwd" parameterType="Map" resultType="mvo">
+  		select * from user_t where u_id = #{u_id} and u_email = #{email}
   	</select>
   	<update id="pass_update" parameterType="mvo">
   		update user_t 

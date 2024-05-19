@@ -47,6 +47,9 @@ $(document).ready(function(){
     });
 });
     function join_success(f) {
+    	var email = document.getElementById("u_email").value;
+    	var emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+(\.[a-zA-Z]+)?$/;
+    	
     	if(u_id.value == ""){
     		alert("아이디를 입력해주세요.");
     		f.u_id.focus();
@@ -70,7 +73,10 @@ $(document).ready(function(){
     	if(u_email.value == ""){
     		alert("이메일을 입력해주세요.");
     		f.u_email.focus();
-    		return;
+    		return false;
+    	}else if(!emailPattern.test(email)){
+    		alert("이메일 형식이 아닙니다.");
+    		return false;
     	}
     	if(u_gender.value == ""){
     		alert("성별을 선택해주세요.");
@@ -121,7 +127,8 @@ $(document).ready(function(){
                	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" required>
             </li>
             <li class="input-group">
-               	<input type="email" id="u_email" name="u_email" placeholder="이메일" required>
+               	<input type="email" id="u_email" name="u_email" pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" 
+               	placeholder="이메일" required>
             </li>
             <li class="input-group">
                 	<select id="u_gender" name="u_gender" required>
@@ -150,42 +157,6 @@ $(document).ready(function(){
         </form>
         </div>
     </div>
-<!-- <li class="join-container" style="width: 1300px; margin: 0 auto;">
-	<li class="join">
-		<form method="post" >
-			<li class="join-form">
-				<h2>회원가입</h2>
-				<hr>
-					<li class="join-form2">
-						<label>아이디</label>
-							<input type="text" name="u_id" placeholder="아이디" required><br>
-	                    <label>비밀번호</label>						
-							<input type="password" name="u_pwd" placeholder="비밀번호" required><br>
-						<label>이름</label>	
-							<input type="text" name="u_name" placeholder="이름" required><br>
-						<label>생년월일</label>	
-						
-							<input type="text" name="u_birth" placeholder="생년월일" required><br>
-						
-						<label>이메일</label>	
-							<input type="email" name="u_email" placeholder="이메일" required><br>
-						<label>아이디</label>	
-							<input type="text" name="u_id" placeholder="이메일 인증번호" required><br>
-						<label>남</label>	
-						<select></select>
-							<input type="radio" name="u_gender"  required><br>
-							<input type="radio" name="u_gender"  required><br>
-						<label>닉네임</label>	
-							<input type="text" name="u_nickname" placeholder="닉네임" required>
-					</li>
-					<li>
-						<input type="button" value="회원가입" onclick="join_success(this.form)">
-						<input type="reset" value="취소">
-					</li>
-			</li>
-		</form>
-	</li>
-</li> -->
 
 </body>
 </html>

@@ -36,8 +36,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberVO getFindPW(String email) {
-		return memberDAO.getFindPW(email);
+	public MemberVO getFindPW(String u_id, String email) {
+		return memberDAO.getFindPW(u_id, email);
 	}
 	
 	@Override
