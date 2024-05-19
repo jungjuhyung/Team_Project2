@@ -14,6 +14,9 @@
 <script src="resources/jung_summernote/summernote-lite.js"></script>
 <script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
+<!-- 슬라이드 이벤트 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <style type="text/css">
 	/* summernote toolbar 수정 */
     .note-btn-group{width: auto;}
@@ -22,76 +25,112 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
-	<div>
-		<div id="map"></div>
-	</div>
-	<input type="button" value="경로 초기화" onclick="path_del()">
-	<div id="wish_box">
-		<h2 id="wish_title">위시리스트</h2>
+<section id="recommend">
+	<article class="map_total">
+		<div class="wish_title">
+			<p>나만의 지도</p>
+		</div>
+		<div id="map_div">
+			<div id="map"></div>
+			<input id="map_reset" type="button" value="경로 초기화" onclick="path_del()">
+		</div>
+	</article>
+	<article class="wish_list_box swiper mySwiper">
+		<div class="wish_title">
+			<p>위시리스트</p>
+		</div>
 		<c:choose>
 			<c:when test="${empty marker_list}">
-				찜한 장소가 없습니다.
+				<div class="empty">
+					<p>찜한 추천 경로가 없습니다.</p>
+				</div>
 			</c:when>
 			<c:otherwise>
-				<c:forEach var="k" items="${marker_list}">
-					<div class="wishs">
-						<input class="chk_box" type="checkbox" name="chk" value="0">
-						<div><img src="${k.firstimage}"></div>
-						<p>${k.place_title}</p>
-						<input type="hidden" name="place_title" value="${k.place_title}">
-						<input type="hidden" name="mapx" value="${k.mapx}">
-						<input type="hidden" name="mapy" value="${k.mapy}">
-						<input type="hidden" name="contentid" value="${k.contentid}">
-						<input type="hidden" name="areacode" value="${k.areacode}">
-						<input type="hidden" name="sigungucode" value="${k.sigungucode}">
-						<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
-					</div>
-				</c:forEach>			
+				<div class="swiper-wrapper wish_box">
+					<c:forEach var="k" items="${marker_list}">
+						<div class="wishs swiper-slide">
+							<div>
+								<input class="chk_box" type="checkbox" name="chk" value="0">
+								<img src="${k.firstimage}">
+							</div>
+							<p>${k.place_title}</p>
+							<input type="hidden" name="place_title" value="${k.place_title}">
+							<input type="hidden" name="mapx" value="${k.mapx}">
+							<input type="hidden" name="mapy" value="${k.mapy}">
+							<input type="hidden" name="contentid" value="${k.contentid}">
+							<input type="hidden" name="areacode" value="${k.areacode}">
+							<input type="hidden" name="sigungucode" value="${k.sigungucode}">
+							<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
+						</div>
+					</c:forEach>
+				</div>			
 			</c:otherwise>
 		</c:choose>
-	</div>
-	<form action="recommend_write_ok" method="post" enctype="multipart/form-data">
-		<p>경로 유형</p>
-			<input type="radio" name="r_contenttypeid" value="12">관광지
-			<input type="radio" name="r_contenttypeid" value="15">문화시설
-			<input type="radio" name="r_contenttypeid" value="39">음식
-			<input type="radio" name="r_contenttypeid" value="99">종합
-		<p>경로 지역</p>
-		<select name="r_areacode">
-			<option value="1">서울</option>
-			<option value="2">인천</option>
-			<option value="3">대전</option>
-			<option value="4">대구</option>
-			<option value="5">광주</option>
-			<option value="6">부산</option>
-			<option value="7">울산</option>
-			<option value="8">세종시</option>
-			<option value="31">경기도</option>
-			<option value="32">강원도</option>
-			<option value="33">충청북도</option>
-			<option value="34">충청남도</option>
-			<option value="35">경상북도</option>
-			<option value="36">경상남도</option>
-			<option value="37">전라북도</option>
-			<option value="38">전라남도</option>
-			<option value="39">제주도</option>
-		</select>
-		<p>
-			<label>메인 이미지 : </label>
-			<input type="file" name="f_main">
-		</p>
-		<div id="upload_box">
+		<div class="swiper-button-prev"></div>
+ 		<div class="swiper-button-next"></div>
+	</article>
+	<article>
+		<div class="wish_title">
+			<p>경로 정보</p>
 		</div>
-		<div>
-			<label>본글 제목 : </label>
-			<input type="text" name="path_post_title">
-		</div>
-		<div class="container">
-	  		<textarea class="summernote" name="path_post_content"></textarea>    
-		</div>
-		<input type="submit" value="작성하기">
-	</form>
-
+		<form id="submit_form" action="recommend_write_ok" method="post" enctype="multipart/form-data">
+			<p>경로 유형</p>
+				<input type="radio" name="r_contenttypeid" value="12">관광지
+				<input type="radio" name="r_contenttypeid" value="15">문화시설
+				<input type="radio" name="r_contenttypeid" value="39">음식
+				<input type="radio" name="r_contenttypeid" value="99">종합
+			<p>경로 지역</p>
+			<select name="r_areacode">
+				<option value="1">서울</option>
+				<option value="2">인천</option>
+				<option value="3">대전</option>
+				<option value="4">대구</option>
+				<option value="5">광주</option>
+				<option value="6">부산</option>
+				<option value="7">울산</option>
+				<option value="8">세종시</option>
+				<option value="31">경기도</option>
+				<option value="32">강원도</option>
+				<option value="33">충청북도</option>
+				<option value="34">충청남도</option>
+				<option value="35">경상북도</option>
+				<option value="36">경상남도</option>
+				<option value="37">전라북도</option>
+				<option value="38">전라남도</option>
+				<option value="39">제주도</option>
+			</select>
+			<p>
+				<label>메인 이미지 : </label>
+				<input type="file" name="f_main">
+			</p>
+			<div id="upload_box">
+			</div>
+			<div>
+				<label>본글 제목 : </label>
+				<input type="text" name="path_post_title">
+			</div>
+			<div class="container">
+		  		<textarea class="summernote" name="path_post_content"></textarea>    
+			</div>
+			<input type="submit" value="작성하기">
+		</form>
+	</article>
+</section>
+<!-- 위시리스트 슬라이드 처리 -->
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+	    let mySwiper = new Swiper(".mySwiper", {
+	    	slidesPerView: 4, // 한 번에 표시할 슬라이드 수
+	    	spaceBetween: 10, // 슬라이드 간의 간격  
+	        loop: true, // 슬라이드 루프(무한 회전) 활성화
+	        navigation: {
+	            nextEl: ".swiper-button-next",
+	            prevEl: ".swiper-button-prev"
+	        },
+	        watchOverflow: true // 슬라이드가 화면을 넘어갈 때의 처리 설정
+	    });
+	});
+</script>
 <!-- 섬머노트 스크립트 -->
 <script>
 $('.summernote').summernote({
