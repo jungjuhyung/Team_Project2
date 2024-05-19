@@ -25,7 +25,6 @@ public class MemberController {
 	@Autowired
 	private ChoService choService;
 	
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -90,23 +89,24 @@ public class MemberController {
 		try {
 			HttpSession session = request.getSession();
 			ModelAndView mv = new ModelAndView("redirect:main_page.do");
-            AdminVO adminVO = new AdminVO();
-            adminVO.setAdmin_id(mvo.getU_id());
-            adminVO.setAdmin_pwd(mvo.getU_pwd());
-            AdminVO adminVO2 = choService.getAdminLogin(adminVO);
-            if(adminVO2 != null) {
-
-                if(! passwordEncoder.matches(adminVO.getAdmin_pwd(), adminVO2.getAdmin_pwd())) {
-                    mv.setViewName("redirect:loginForm.do");
-                    return mv;
-                }else  {
-                    session.setAttribute("adminUser", adminVO2);
-                    session.setAttribute("u_id", adminVO2.getAdmin_id());
-                    session.setAttribute("u_idx", adminVO2.getAdmin_idx());
-                    session.setAttribute("u_grade", adminVO2.getAdmin_grade());
-                    return mv;
-                }
-            }
+			AdminVO adminVO = new AdminVO();
+			adminVO.setAdmin_id(mvo.getU_id());
+			adminVO.setAdmin_pwd(mvo.getU_pwd());
+			AdminVO adminVO2 = choService.getAdminLogin(adminVO);
+			if(adminVO2 != null) {
+			
+				if(! passwordEncoder.matches(adminVO.getAdmin_pwd(), adminVO2.getAdmin_pwd())) {
+					mv.setViewName("redirect:adminLogin");
+					return mv;
+				}else  {
+					session.setAttribute("adminUser", adminVO2);
+					session.setAttribute("u_id", adminVO2.getAdmin_id());
+					session.setAttribute("u_idx", adminVO2.getAdmin_idx());
+					session.setAttribute("u_grade", adminVO2.getAdmin_grade());
+					System.out.println(1);
+					return mv;
+				}
+			}
 			
 			MemberVO mvo2 = memberService.getLoginOK(mvo);
 			

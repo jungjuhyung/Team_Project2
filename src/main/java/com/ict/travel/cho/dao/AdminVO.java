@@ -1,7 +1,32 @@
 package com.ict.travel.cho.dao;
 
 public class AdminVO {
-	private String admin_idx, admin_id, admin_pwd, admin_grade, regdate;
+	private String admin_idx, admin_id, admin_pwd, admin_grade, admin_state, admin_note, regdate, updatetime;
+	
+	public String getAdmin_state() {
+		return admin_state;
+	}
+
+	public String getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
+	}
+
+	public void setAdmin_state(String admin_state) {
+		this.admin_state = admin_state;
+	}
+
+
+	public String getAdmin_note() {
+		return admin_note;
+	}
+
+	public void setAdmin_note(String admin_note) {
+		this.admin_note = admin_note;
+	}
 
 	public String getAdmin_idx() {
 		return admin_idx;

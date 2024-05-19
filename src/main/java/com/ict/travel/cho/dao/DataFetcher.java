@@ -29,7 +29,6 @@ public class DataFetcher {
             } else {
                 rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
             }
-            System.out.println(rd);
             
             String line;
             while ((line = rd.readLine()) != null) {

@@ -271,8 +271,6 @@ public class ChoDAO {
 		} catch (Exception e) {
 			System.out.println("관리자 로그인 : " + e);
 		}
-		
-		
 		return null;
 	}
 
@@ -310,6 +308,25 @@ public class ChoDAO {
 			return String.valueOf(res);
 		} catch (Exception e) {
 			System.out.println("관리자 생성 : " + e);
+		}
+		return null;
+	}
+
+	public AdminVO getAdminDetail(String admin_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("cho_mapper.AdminDetail", admin_idx);
+		} catch (Exception e) {
+			System.out.println("관리자 디테일 : " + e);
+		}
+		return null;
+	}
+
+	public String getAdminUpdate(AdminVO adminVO) {
+		try {
+			int res = sqlSessionTemplate.update("cho_mapper.AdminUpdate", adminVO);
+			return String.valueOf(res);
+		} catch (Exception e) {
+			System.out.println("관리자 수정 :" + e);
 		}
 		return null;
 	}

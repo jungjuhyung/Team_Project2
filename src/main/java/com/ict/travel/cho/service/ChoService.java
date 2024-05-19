@@ -35,6 +35,8 @@ public interface ChoService {
 	int adminDelete(String admin_idx);
 	String getLoginChk(String admin_id);
 	String adminCreate(AdminVO adminVO);
+	AdminVO getAdminDetail(String admin_idx);
+	String getAdminUpdate(AdminVO adminVO);
 	
 
 }

@@ -100,5 +100,13 @@ public class ChoServiceImpl implements ChoService{
 	public String adminCreate(AdminVO adminVO) {
 		return choDAO.adminCreate(adminVO);
 	}
+	@Override
+	public AdminVO getAdminDetail(String admin_idx) {
+		return choDAO.getAdminDetail(admin_idx);
+	}
+	@Override
+	public String getAdminUpdate(AdminVO adminVO) {
+		return choDAO.getAdminUpdate(adminVO);
+	}
 }
 

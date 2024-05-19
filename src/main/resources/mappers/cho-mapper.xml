@@ -283,7 +283,11 @@
 	</select>
 	<!-- 관리자 목록 확인 -->
 	<select id="AdminList" resultType="adminVO">
-		SELECT admin_idx, admin_id, admin_grade, regdate FROM admin_t
+		SELECT * FROM admin_t
+	</select>
+	<!-- 관리자 목록 확인 -->
+	<select id="AdminDetail" parameterType="String" resultType="adminVO">
+		SELECT * FROM admin_t WHERE admin_idx = #{admin_idx}
 	</select>
 	<!-- 관리자 삭제 -->
 	<delete id="AdminDelete" parameterType="String">
@@ -291,10 +295,27 @@
 	</delete>
 	<!-- 관리자 아이디 체크 -->
 	<select id="AdminIDChk" parameterType="String" resultType="Int">
-		SELECT count(*) FROM admin_t WHERE admin_id = #{admin_id}
+		SELECT COUNT(*) 
+		FROM (
+			SELECT admin_id AS id 
+			FROM admin_t 
+			WHERE admin_id = #{admin_id} 
+			UNION ALL 
+			SELECT u_id AS id 
+			FROM user_t 
+			WHERE u_id = #{admin_id} 
+		) AS idchk
 	</select>
 	<!-- 관리자 생성  -->
 	<insert id="AdminCreate" parameterType="adminVO">
-		INSERT INTO admin_t(admin_id,admin_pwd,admin_grade) VALUES(#{admin_id}, #{admin_pwd},#{admin_grade})
+		INSERT INTO admin_t(admin_id,admin_pwd,admin_grade,admin_note,admin_state) VALUES(#{admin_id}, #{admin_pwd},#{admin_grade},#{admin_note},1)
 	</insert>
+	<!-- 관리자 업데이트 -->
+	<update id="AdminUpdate" parameterType="adminVO">
+		UPDATE admin_t 
+		SET admin_grade=#{admin_grade}, 
+		admin_state = #{admin_state}, 
+		admin_note = #{admin_note} 
+		WHERE admin_id = #{admin_id} 	
+	</update>
 </mapper>
