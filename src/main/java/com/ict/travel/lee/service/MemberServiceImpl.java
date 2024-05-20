@@ -29,7 +29,9 @@ public class MemberServiceImpl implements MemberService{
 	public int getSignUp(MemberVO mvo) throws Exception {
 		return memberDAO.getSignUp(mvo);
 	}
-
+	
+	
+	
 	@Override
 	public MemberVO getLoginOK(MemberVO mvo) {
 		return memberDAO.getLoginOK(mvo);
@@ -106,7 +108,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public  MemberVO getUserInfo(String access_Token){
-		
+		ModelAndView mv = new ModelAndView();
 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
@@ -136,28 +138,33 @@ public class MemberServiceImpl implements MemberService{
 //			String id = element.getAsJsonObject().get("id").getAsString();
 //			System.out.println("+++++++++++++++++++++++++" + id);
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			System.out.println("뭔데1");
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-//			System.out.println(id);
-			System.out.println("뭔데2");
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
-//			userInfo.put("id", id);
 			System.out.println("nickname@@@@@@@@@ : " + nickname);
 			System.out.println("email@@@@@@@@@@ : " + email);
+			
+			MemberVO mvo = memberDAO.findkakao(userInfo);
+			System.out.println("S : " + mvo);
+			if(mvo == null) {
+				MemberVO mvo2 = new MemberVO();
+				
+				mvo2.setU_nickname(nickname);
+				mvo2.setU_email(email);
+				
+				return mvo2;
+				
+			}else {
+				return mvo;
+			}
+			
 		} catch (Exception e) {
 			System.out.println(e);
+			return null;
 		}
-		MemberVO mvo = memberDAO.findkakao(userInfo);
-		System.out.println("S : " + mvo);
-		if(mvo==null) {
-			memberDAO.kakaoinsert(userInfo);
-			return memberDAO.findkakao(userInfo);
-			
-		}else {
-			return mvo;
-		}
+
+		
 		
 	}
 
@@ -263,18 +270,24 @@ public class MemberServiceImpl implements MemberService{
 			MemberVO mvo2 = memberDAO.findnaver(userInfo2);
 			System.out.println("S : " + mvo2);
 			if(mvo2 == null) {
-				memberDAO.naverinsert(userInfo2);
+				MemberVO mvo = new MemberVO();
+				mvo.setU_name(name);
+				mvo.setU_email(email);
 				
-				return memberDAO.findnaver(userInfo2);
+				return mvo;
 				
 			}else {
 				return mvo2;
 			}
 		} catch (Exception e) {
+			System.out.println("3");
 			System.out.println(e);
 			return null;
 		}
 	}
+
+
+	
 
 	
 

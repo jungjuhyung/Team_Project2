@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.service.ChoService;
@@ -64,8 +66,10 @@ public class MemberController {
 			String u_gender = request.getParameter("u_gender");
 			String u_nickname = request.getParameter("u_nickname");
 			String u_self = request.getParameter("u_self");
-			
+			String n_status = request.getParameter("n_status");
+			String k_status = request.getParameter("k_status");
 			String u_pwd2 = passwordEncoder.encode(u_pwd);
+	        
 			MemberVO mvo1 = new MemberVO();
 			mvo1.setU_id(u_id);
 			mvo1.setU_pwd(u_pwd2);
@@ -75,6 +79,8 @@ public class MemberController {
 			mvo1.setU_gender(u_gender);
 			mvo1.setU_nickname(u_nickname);
 			mvo1.setU_self(u_self);
+			mvo1.setN_status(n_status);
+			mvo1.setK_status(k_status);
 			int result = memberService.getSignUp(mvo1);
 			System.out.println(result);
 			return mv;
@@ -83,6 +89,7 @@ public class MemberController {
 		}
 		return new ModelAndView("error");
 	}
+	
 	
 	@RequestMapping("login_go_ok.do")
 	public ModelAndView getLoginOK(HttpServletRequest request, MemberVO mvo) {
@@ -102,7 +109,7 @@ public class MemberController {
 					session.setAttribute("adminUser", adminVO2);
 					session.setAttribute("u_id", adminVO2.getAdmin_id());
 					session.setAttribute("u_idx", adminVO2.getAdmin_idx());
-					session.setAttribute("u_grade", adminVO2.getAdmin_grade());
+					session.setAttribute("admin_grade", adminVO2.getAdmin_grade());
 					System.out.println(1);
 					return mv;
 				}

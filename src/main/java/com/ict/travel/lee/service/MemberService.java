@@ -8,7 +8,7 @@ import com.ict.travel.lee.dao.MemberVO;
 public interface MemberService {
 	
 	public int getSignUp(MemberVO mvo) throws Exception;
-
+	
 	public MemberVO getLoginOK(MemberVO mvo);
 
 	public MemberVO getFindPW(String u_id, String email);

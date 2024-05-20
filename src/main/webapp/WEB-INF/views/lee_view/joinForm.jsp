@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,8 @@
 <script type="text/javascript">
 	
 $(document).ready(function(){
+	
+	
     // 비밀번호와 비밀번호 확인란의 값을 비교하여 일치 여부를 확인하는 함수
     function checkPasswordMatch() {
         var password = $('#u_pwd').val(); // 비밀번호 입력란의 값
@@ -98,10 +101,19 @@ $(document).ready(function(){
 		f.submit();
     }
     
-		
+    
+
 	
 </script>
-
+<c:if test="${not empty userInfo}">
+<script type="text/javascript">
+	var email = "${userInfo.email}";
+	var nickname = "${userInfo.nickname}";
+	
+	document.getElemenyById("u_email").value = email;
+	document.getElemenyById("u_nickname").value = nickname;
+</script>
+</c:if>
 </head>
 <body>
 <div class="join-container" style="width: 1300px; height:900px; margin: 0 auto;">
@@ -111,6 +123,8 @@ $(document).ready(function(){
             <ul class="list-form"> 
             <li class="input-group">
                	<input type="text" id="u_id" name="u_id" placeholder="아이디" required >
+               	<button type="button" onclick="checkId()">중복체크</button>
+               	<span id="idCheckResult" style="font-size: 10px; color: red;"></span>
             </li>
             <li class="input-group">
                	<input type="password" id="u_pwd" name="u_pwd" placeholder="비밀번호(8자까지 입력 가능)" required maxlength="8" autocomplete="off"><br>
@@ -120,16 +134,48 @@ $(document).ready(function(){
                	<span class="point successPwChk" style="font-size: 10px;"></span>
                	<input type="hidden" id="pwDoubleChk" style="margin-right: 200px; ">
             </li>  
-            <li class="input-group">
-               	<input type="text" id="u_name" name="u_name" placeholder="이름" required>
-            </li>
-            <li class="input-group">
-               	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" required>
-            </li>
-            <li class="input-group">
-               	<input type="email" id="u_email" name="u_email" pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" 
-               	placeholder="이메일" required>
-            </li>
+            <c:choose>
+            	<c:when test="${not empty  mvo}">
+		            <li class="input-group">
+		               	<input type="text" id="u_name" name="u_name" value="${mvo.u_name }" readonly>
+		               	<input type="hidden" name="n_status" value="1">
+		               	<input type="hidden" name="k_status" value="0">
+		            </li>
+		            <li class="input-group">
+               			<input type="text" id="u_nickname" name="u_nickname" placeholder="닉네임" required>
+            		</li>
+		            <li class="input-group">
+		               	<input type="email" id="u_email" name="u_email" value="${mvo.u_email }" readonly>
+		            </li>
+            	</c:when>
+            	<c:when test="${not empty mvo2 }">
+            		<li class="input-group">
+		               	<input type="text" id="u_name" name="u_name" placeholder="이름" required>
+		            </li>
+		            <li class="input-group">
+               			<input type="text" id="u_nickname" name="u_nickname" value="${mvo2.u_nickname}" readonly>
+               			<input type="hidden" name="n_status" value="0">
+		               	<input type="hidden" name="k_status" value="1">
+            		</li>
+		            <li class="input-group">
+		               	<input type="email" id="u_email" name="u_email" value="${mvo2.u_email }" readonly>
+		            </li>
+            	</c:when>
+            	<c:otherwise>
+		            <li class="input-group">
+		               	<input type="text" id="u_name" name="u_name" placeholder="이름" required>
+		               	<input type="hidden" name="n_status" value="0">
+		               	<input type="hidden" name="k_status" value="0">
+		            </li>
+		            <li class="input-group">
+               			<input type="text" id="u_nickname" name="u_nickname" placeholder="닉네임" required>
+            		</li>
+		            <li class="input-group">
+		               	<input type="email" id="u_email" name="u_email" pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" 
+		               	placeholder="이메일" required>
+		            </li>
+            	</c:otherwise>
+            </c:choose>
             <li class="input-group">
                 	<select id="u_gender" name="u_gender" required>
 	                    <option value="">성별을 선택하세요</option>
@@ -138,9 +184,10 @@ $(document).ready(function(){
 	                    <option value="other">기타</option>
                 	</select>
             </li>
+            
             <li class="input-group">
-               	<input type="text" id="u_nickname" name="u_nickname" placeholder="닉네임" required>
-            </li>
+		               	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" required>
+		            </li>
             <li class="input-group">
                	<input type="text" id="u_self" name="u_self" placeholder="자기소개" required>
             </li>

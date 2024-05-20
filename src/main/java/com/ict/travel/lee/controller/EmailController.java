@@ -94,7 +94,7 @@ public class EmailController {
 //		}
 //		return null;
 //	}
-	// 비밀번호 찾기 - 이메일 전송
+	// 비밀번호 찾기 - 이메일 전송 
 	@PostMapping("email_send_ok.do")
 	public ModelAndView sendMailOK(String u_id, String email) {
 		ModelAndView mv = new ModelAndView();
