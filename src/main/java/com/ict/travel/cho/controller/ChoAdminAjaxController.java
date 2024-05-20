@@ -1,7 +1,8 @@
 package com.ict.travel.cho.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,6 +20,7 @@ import com.ict.travel.cho.dao.DataFetcher;
 import com.ict.travel.cho.dao.TourapiParser;
 import com.ict.travel.cho.dao.TourapiVO;
 import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.common.Paging;
 
 @RestController
 public class ChoAdminAjaxController {
@@ -31,6 +33,8 @@ public class ChoAdminAjaxController {
 	private DataFetcher dataFetcher;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private Paging paging;
 	
 	// 디비 최신화
 	@RequestMapping(value = "updateTest", produces = "application/json; charset=utf-8" )
@@ -78,12 +82,51 @@ public class ChoAdminAjaxController {
 	// 관리자 목록 불러오기
 	@RequestMapping(value = "getAdminList", produces = "application/json; charset=utf-8" )
 	@ResponseBody
-	public String getAdminList() throws Exception{
+	public String getAdminList(String page, String text) throws Exception{
+		// 한 페이지에 관리자 10명
+		int pagecount = 10;
+		int count = choService.getAdminListCount(text);
+		paging.setTotalRecord(count);
+		// 한 페이지에 10개
+		paging.setNumPerPage(pagecount);
 		
-		List<AdminVO> adminList = choService.getAdminList();
+		// 전체 페이지의 수
+		if (paging.getTotalRecord() < paging.getNumPerPage()) {
+			paging.setTotalPage(1);
+		} else {
+			paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+			if (((paging.getTotalRecord()*1.0) / paging.getNumPerPage()) % 2 != 0) {
+				paging.setTotalPage(paging.getTotalPage() + 1);
+			}
+		}
+		// 현재 페이지 구하기
+		String cPage = page;
+		if (cPage == null) {
+			paging.setNowPage(1);
+		}else {
+			paging.setNowPage(Integer.parseInt(cPage));
+		}
 		
+		// 오라클 = begin, end
+		// offset구하기 limit * 현재페이지-1
+		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() -1 ));
+		
+		paging.setBeginBlock(
+				(int)(((paging.getNowPage()-1)/paging.getPagePerBlock()) * paging.getPagePerBlock() + 1)
+				);
+		
+		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock()-1);
+		
+		if(paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+		
+		List<AdminVO> adminList = choService.getAdminList(text, paging.getOffset(), paging.getNumPerPage());
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("adminList", adminList);
+		result.put("paging", paging);
 		Gson gson = new Gson();
-		String jsonString = gson.toJson(adminList);
+		String jsonString = gson.toJson(result);
 		return jsonString;
 		
 	}

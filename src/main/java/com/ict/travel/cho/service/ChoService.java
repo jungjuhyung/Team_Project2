@@ -31,12 +31,13 @@ public interface ChoService {
 	// 관리자 로그인
 	AdminVO getAdminLogin(AdminVO adminVO);
 	// 관리자 목록확인
-	List<AdminVO> getAdminList();
+	List<AdminVO> getAdminList(String text, int offset, int limit);
 	int adminDelete(String admin_idx);
 	String getLoginChk(String admin_id);
 	String adminCreate(AdminVO adminVO);
 	AdminVO getAdminDetail(String admin_idx);
 	String getAdminUpdate(AdminVO adminVO);
+	int getAdminListCount(String text);
 	
 
 }

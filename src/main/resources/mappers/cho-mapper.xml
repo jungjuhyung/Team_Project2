@@ -187,7 +187,7 @@
 	
 	<!-- 경로 검색(지역,시군구,타입) -->
 	<select id="selectTourPathList" parameterType="Map" resultType="pathpostVO">
-				SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid FROM pathpost_t
+		SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid FROM pathpost_t
 		<where>
 			<if test="areaCode != 999">
 	            AND r_areaCode = #{areaCode}
@@ -281,9 +281,22 @@
 	<select id="selectAdminOne" parameterType="adminVO" resultType="adminVO">
 		SELECT * FROM admin_t WHERE admin_id = #{admin_id}
 	</select>
+	<!-- 관리자 카운트 -->
+	<select id="AdminCount" parameterType="String" resultType="Int">
+		SELECT COUNT(*) FROM admin_t 
+		<if test="text != null and text != ''">
+         WHERE (admin_id LIKE CONCAT('%', #{text}, '%')) 
+         OR (admin_note LIKE CONCAT('%', #{text}, '%'))
+    	</if>
+	</select>
 	<!-- 관리자 목록 확인 -->
-	<select id="AdminList" resultType="adminVO">
+	<select id="AdminList" parameterType="Map" resultType="adminVO">
 		SELECT * FROM admin_t
+		<if test="text != null and text != ''">
+         WHERE (admin_id LIKE CONCAT('%', #{text}, '%')) 
+         OR (admin_note LIKE CONCAT('%', #{text}, '%'))
+    	</if>
+		LIMIT #{limit} OFFSET #{offset} 
 	</select>
 	<!-- 관리자 목록 확인 -->
 	<select id="AdminDetail" parameterType="String" resultType="adminVO">
@@ -318,4 +331,5 @@
 		admin_note = #{admin_note} 
 		WHERE admin_id = #{admin_id} 	
 	</update>
+	
 </mapper>

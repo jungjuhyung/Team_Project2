@@ -17,7 +17,7 @@
 		// 지역 누르면 실행
 	    $(".swipeAreaList").click(function() {
 	       areaCode = $(this).attr('data-areacode')
-	       areaName = $(this).find('span').text();
+	       areaName = $(this).find('p').text();
 	       searchAreaPlace(areaCode,areaName)
 	    });   
 	    $(".SearchTitleView").click(function() {
@@ -79,7 +79,7 @@
 				dataType : "text",
 				success : function(data) {
 					$(tag).addClass("wish-added");
-					$(tag).text("♥");
+					$(tag).html('<img src="resources/ko_images/heart_on3.png">');
 					alert("좋아요를 눌렀습니다.")
 					if(areaCode === "" || areaName ===""){
 						areaCode = "1";
@@ -105,7 +105,7 @@
 					},
 				dataType : "text",
 				success : function(data) {
-					$(tag).text("♡");
+					 $(tag).html('<img src="resources/ko_images/heart_off2.png">');
 					$(tag).removeClass("wish-added");
 					alert("좋아요를 취소하셨습니다.")
 					if(areaCode === "" || areaName ===""){
@@ -158,9 +158,9 @@
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
 		let heartIcon = '';
 		if(place.uheart === "1") {
-		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '♥' + '</span>';
+		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '<img src="resources/ko_images/heart_on3.png" >' + '</span>';
 		} else {
-		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '♡' + '</span>';
+		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '<img src="resources/ko_images/heart_off2.png" >' + '</span>';
 		}
 			
    	    let placeHTML = '<div class="place-box swiper-slide" >' +
