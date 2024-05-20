@@ -49,6 +49,21 @@
 	cursor: pointer;
 }
 
+.user_btn2 {
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: skyblue;
+	color: black;
+	font-weight: bold;
+}
+
+.user_btn2:hover{
+	background-color: black;
+	color: skyblue;
+	cursor: pointer;
+}
+
 
 /* paging */
 .user_page {

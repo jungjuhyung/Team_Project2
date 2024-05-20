@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -337,7 +342,6 @@ public class KoController {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:popup_img.do");
 			String path = session.getServletContext().getRealPath("/resources/popup_img");
-
 			String u_id = (String) session.getAttribute("u_id");
 			popvo.setU_id(u_id);
 

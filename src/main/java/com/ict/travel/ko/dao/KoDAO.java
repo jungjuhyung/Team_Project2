@@ -91,6 +91,10 @@ public class KoDAO {
 		return sqlSessionTemplate.selectOne("ko.user_count");
 	}
 	
+	public List<MemberVO> getUserList() {
+		return sqlSessionTemplate.selectList("ko.user_total");
+	}
+	
 	public List<MemberVO> getUserList(int offset, int limit) {
 		try {
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -101,6 +105,10 @@ public class KoDAO {
 			// TODO: handle exception
 		}
 		return null;
+	}
+	
+	public int getStopUpdate(String u_idx) {
+		return sqlSessionTemplate.update("ko.stop_update", u_idx);
 	}
 	
 }

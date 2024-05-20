@@ -35,6 +35,11 @@ public interface KoService {
 	//	유저관리
 	int getTotalUser();
 	
+	
+	List<MemberVO> getUserList();
+	
 	List<MemberVO> getUserList(int offset, int limit);
+	
+	int getStopUpdate(String u_idx);
 	
 }

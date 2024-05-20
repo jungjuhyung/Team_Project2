@@ -73,8 +73,18 @@ public class KoServiceIple implements KoService{
 	}
 	
 	@Override
+	public List<MemberVO> getUserList() {
+		return koDAO.getUserList();
+	}
+	
+	@Override
 	public List<MemberVO> getUserList(int offset, int limit) {
 		return koDAO.getUserList(offset, limit);
+	}
+	
+	@Override
+	public int getStopUpdate(String u_idx) {
+		return koDAO.getStopUpdate(u_idx);
 	}
 	
 }
