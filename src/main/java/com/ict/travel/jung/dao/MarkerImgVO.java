@@ -2,7 +2,7 @@ package com.ict.travel.jung.dao;
 
 
 public class MarkerImgVO {
-	private String img_idx, image_name, path_marker_idx;
+	private String img_idx, image_name, path_marker_idx, img_status;
 	public String getImg_idx() {
 		return img_idx;
 	}
@@ -26,5 +26,15 @@ public class MarkerImgVO {
 	public void setPath_marker_idx(String path_marker_idx) {
 		this.path_marker_idx = path_marker_idx;
 	}
+
+	public String getImg_status() {
+		return img_status;
+	}
+
+	public void setImg_status(String img_status) {
+		this.img_status = img_status;
+	}
+	
+	
 
 }

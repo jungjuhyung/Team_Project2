@@ -3,7 +3,7 @@ package com.ict.travel.jung.dao;
 import org.springframework.web.multipart.MultipartFile;
 
 public class RecommendMarkerVO {
-	String[] mapx, mapy, contentid,areacode,sigungucode,contenttypeid, title;
+	String[] mapx, mapy, contentid,areacode,sigungucode,contenttypeid, title,ex_img;
 	MultipartFile[] marker0;
 	MultipartFile[] marker1;
 	MultipartFile[] marker2;
@@ -19,6 +19,12 @@ public class RecommendMarkerVO {
 	
 	public String[] getTitle() {
 		return title;
+	}
+	public String[] getEx_img() {
+		return ex_img;
+	}
+	public void setEx_img(String[] ex_img) {
+		this.ex_img = ex_img;
 	}
 	public void setTitle(String[] title) {
 		this.title = title;

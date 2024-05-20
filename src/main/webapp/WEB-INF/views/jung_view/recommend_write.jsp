@@ -52,22 +52,23 @@
 							<div>
 								<input class="chk_box" type="checkbox" name="chk" value="0">
 								<img src="${k.firstimage}">
+								<p>${k.place_title}</p>
+								<input type="hidden" name="place_title" value="${k.place_title}">
+								<input type="hidden" name="mapx" value="${k.mapx}">
+								<input type="hidden" name="mapy" value="${k.mapy}">
+								<input type="hidden" name="contentid" value="${k.contentid}">
+								<input type="hidden" name="areacode" value="${k.areacode}">
+								<input type="hidden" name="sigungucode" value="${k.sigungucode}">
+								<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
+								<input type="hidden" name="ex_img" value="${k.firstimage}">
 							</div>
-							<p>${k.place_title}</p>
-							<input type="hidden" name="place_title" value="${k.place_title}">
-							<input type="hidden" name="mapx" value="${k.mapx}">
-							<input type="hidden" name="mapy" value="${k.mapy}">
-							<input type="hidden" name="contentid" value="${k.contentid}">
-							<input type="hidden" name="areacode" value="${k.areacode}">
-							<input type="hidden" name="sigungucode" value="${k.sigungucode}">
-							<input type="hidden" name="contenttypeid" value="${k.contenttypeid}">
 						</div>
 					</c:forEach>
-				</div>			
+				</div>	
+				<div class="swiper-button-prev"></div>
+ 				<div class="swiper-button-next"></div>		
 			</c:otherwise>
 		</c:choose>
-		<div class="swiper-button-prev"></div>
- 		<div class="swiper-button-next"></div>
 	</article>
 	<article>
 		<div class="wish_title">
@@ -78,7 +79,7 @@
 				<input type="radio" name="r_contenttypeid" value="12">관광지
 				<input type="radio" name="r_contenttypeid" value="15">문화시설
 				<input type="radio" name="r_contenttypeid" value="39">음식
-				<input type="radio" name="r_contenttypeid" value="99">종합
+				<input type="radio" name="r_contenttypeid" value="99" checked>종합
 			<p>경로 지역</p>
 			<select name="r_areacode">
 				<option value="1">서울</option>
@@ -107,7 +108,7 @@
 			</div>
 			<div>
 				<label>본글 제목 : </label>
-				<input type="text" name="path_post_title">
+				<input type="text" name="path_post_title" required>
 			</div>
 			<div class="container">
 		  		<textarea class="summernote" name="path_post_content"></textarea>    
@@ -168,7 +169,7 @@ let index = 0; // 지도에서 마커 선택시 순서 표시 변수
 let upload_idx = 0; // 마커 표시에 따른 upload name변수 이름 지정
 
 // 마커 생성 함수
-function marker(position,contentid,areacode,sigungucode,contenttypeid) {
+function marker(position,contentid,areacode,sigungucode,contenttypeid,ex_img) {
 	// 마커 이미지
 	let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 	    
@@ -195,14 +196,15 @@ function marker(position,contentid,areacode,sigungucode,contenttypeid) {
 	    	infos.push(infowindow)
 	    	infowindow.open(map, marker);
     		line_draw(marker)
-    		div_create(marker,contentid,areacode,sigungucode,contenttypeid)
+    		div_create(marker,contentid,areacode,sigungucode,contenttypeid,ex_img)
 		});
 	    markers.push(marker)
 	    map.setCenter(position.latlng);
 }
 // 마커 사진 업로드 div생성 function
-function div_create(marker,contentid,areacode,sigungucode,contenttypeid) {
-    var divElement = $('<div></div>', {
+function div_create(marker,contentid,areacode,sigungucode,contenttypeid, ex_img) {
+    console.log(2,ex_img)
+	var divElement = $('<div></div>', {
         class: 'markers'
     });
     let span = $('<span></span>',{
@@ -250,6 +252,11 @@ function div_create(marker,contentid,areacode,sigungucode,contenttypeid) {
         name: 'contenttypeid',
         value : contenttypeid
     });
+    let inputEx_img = $('<input/>', {
+        type: 'hidden',
+        name: 'ex_img',
+        value : ex_img
+    });
 
 	divElement.append(span)
 	divElement.append(inputFile)
@@ -260,6 +267,7 @@ function div_create(marker,contentid,areacode,sigungucode,contenttypeid) {
 	divElement.append(inputAreacode)
 	divElement.append(inputSigungucode)
 	divElement.append(inputContenttypeid)
+	divElement.append(inputEx_img)
 	upload_idx += 1;
 	$("#upload_box").append(divElement)
 }
@@ -297,13 +305,15 @@ $(".chk_box").change(function() {
 		let areacode = $(this).next().next().next().next().next().next().next().val()
 		let sigungucode = $(this).next().next().next().next().next().next().next().next().val()
 		let contenttypeid = $(this).next().next().next().next().next().next().next().next().next().val()
+		let ex_img = $(this).next().next().next().next().next().next().next().next().next().next().val()
         let position = 
             {
         		title: $(this).next().next().next().val(), 
                 latlng: new kakao.maps.LatLng(x, y)
             }
 	if ($(this).prop("checked")) {
-        marker(position,contentid,areacode,sigungucode,contenttypeid)
+		console.log(1,ex_img)
+        marker(position,contentid,areacode,sigungucode,contenttypeid,ex_img)
     } else {
         marker_del(position)
     }

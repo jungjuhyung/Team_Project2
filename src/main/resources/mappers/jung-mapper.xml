@@ -11,8 +11,8 @@
 	
 	<!-- 추천 경로 작성 정보 삽입 -->
 	<insert id="postInsert">
-	    INSERT INTO pathpost_t (u_idx, u_id, firstimage, path_post_title, path_post_content, r_areacode,r_contenttypeid,heart,regdate) 
-	    VALUES (#{u_idx}, #{u_id},#{firstimage},#{path_post_title},#{path_post_content}, #{r_areacode},#{r_contenttypeid},0,sysdate())
+	    INSERT INTO pathpost_t (u_idx, u_id, firstimage, path_post_title, path_post_content, r_areacode,r_contenttypeid,heart,img_status,regdate) 
+	    VALUES (#{u_idx}, #{u_id},#{firstimage},#{path_post_title},#{path_post_content}, #{r_areacode},#{r_contenttypeid},0,#{img_status},sysdate())
 	</insert>
 	
 	<!-- 추천 경로 작성 마커 정보 삽입 -->
@@ -29,8 +29,8 @@
 		<selectKey keyProperty="path_marker_idx" resultType="String" order="BEFORE">
 			SELECT (IFNULL(MAX(path_marker_idx),0)) as path_marker_idx FROM pathmarker_t
 	    </selectKey>
-	    INSERT INTO pathmarker_img_t (image_name, path_marker_idx) 
-	    VALUES (#{image_name}, #{path_marker_idx})
+	    INSERT INTO pathmarker_img_t (image_name, path_marker_idx, img_status)
+	    VALUES (#{image_name}, #{path_marker_idx},#{img_status})
 	</insert>
 	
 	<!-- 찜한 추천 경로 검색 -->

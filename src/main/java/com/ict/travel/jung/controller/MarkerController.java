@@ -5,6 +5,7 @@ package com.ict.travel.jung.controller;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +52,6 @@ public class MarkerController {
 		ModelAndView mv = new ModelAndView("redirect:pathCategory");
 		List<MultipartFile[]> marker_img = new ArrayList<MultipartFile[]>();
 		Field[] field = rcmvo.getClass().getDeclaredFields();
-		System.out.println(field);
 		String[] mapx = rcmvo.getMapx();
 		String[] mapy = rcmvo.getMapy();
 		String[] contentid = rcmvo.getContentid();
@@ -59,10 +59,15 @@ public class MarkerController {
 		String[] sigungucode = rcmvo.getSigungucode();
 		String[] contenttypeid = rcmvo.getContenttypeid();
 		String[] title = rcmvo.getTitle();
+		String[] ex_img = rcmvo.getEx_img();
+		for (String k : ex_img) {
+			System.out.println("img:"+k);
+		}
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
-		for (int i = 7; i < field.length; i++) {
+		for (int i = 8; i < field.length; i++) {
 			try {
 				field[i].setAccessible(true);
+				System.out.println("ttt"+field[i].get(rcmvo));
 				marker_img.add((MultipartFile[])field[i].get(rcmvo));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -72,12 +77,14 @@ public class MarkerController {
 			String path = request.getSession().getServletContext().getRealPath("resources/rc_main_img");
 			MultipartFile f_main = rcvo.getF_main();
 			if (f_main.isEmpty()) {
-				rcvo.setFirstimage("");
+				rcvo.setFirstimage(ex_img[0]);
+				rcvo.setImg_status("1");
 			}else {
 				// 파일 이름 지정
 				UUID uuid = UUID.randomUUID();
 				String f_name = uuid.toString()+"_"+f_main.getOriginalFilename();
 				rcvo.setFirstimage(f_name);
+				rcvo.setImg_status("0");
 				// 파일 업로드(복사)
 				byte[] in = f_main.getBytes();
 				File out = new File(path, f_name);
@@ -103,12 +110,13 @@ public class MarkerController {
 					String path2 = request.getSession().getServletContext().getRealPath("/resources/rc_marker_img");
 					MarkerImgVO mkivo = new MarkerImgVO();
 					if(k.isEmpty()) {
-						mkivo.setImage_name("");
+						mkivo.setImage_name(ex_img[i]);
+						mkivo.setImg_status("1");
 					}else {
 						UUID uuid = UUID.randomUUID();
 						String f_name = uuid.toString()+"_"+k.getOriginalFilename();
 						mkivo.setImage_name(f_name);
-						
+						mkivo.setImg_status("0");
 						byte[] in = k.getBytes();
 						File out = new File(path, f_name);
 						FileCopyUtils.copy(in, out);

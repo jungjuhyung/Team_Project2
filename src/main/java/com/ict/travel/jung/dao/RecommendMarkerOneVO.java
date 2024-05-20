@@ -3,8 +3,6 @@ package com.ict.travel.jung.dao;
 public class RecommendMarkerOneVO {
 	private String path_maker_idx, path_post_idx, mapx, mapy, regdate,
 	contentid, areacode, sigungucode, contenttypeid, title;
-
-	
 	
 	public String getTitle() {
 		return title;

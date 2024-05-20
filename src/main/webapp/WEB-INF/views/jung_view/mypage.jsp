@@ -127,10 +127,10 @@
 						</div>
 					</c:forEach>
 				</div>
+				<div class="swiper-button-prev"></div>
+  				<div class="swiper-button-next"></div>	
 			</c:otherwise>
 		</c:choose>
-		<div class="swiper-button-prev"></div>
-  		<div class="swiper-button-next"></div>
 	</article>
 	<article class="with_list_box swiper mySwiper">
 		<div class="with_list_box_top">
@@ -169,10 +169,10 @@
 						</div>
 					</c:forEach>
 				</div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
 			</c:otherwise>
 		</c:choose>
-		<div class="swiper-button-prev"></div>
-  		<div class="swiper-button-next"></div>
 	</article>
 	<article class="with_list_box swiper mySwiper">
 		<div class="with_list_box_top">
@@ -266,10 +266,10 @@
 						</div>
 					</c:forEach>
 				</div>
+				<div class="swiper-button-prev"></div>
+ 				<div class="swiper-button-next"></div>
 			</c:otherwise>
 		</c:choose>
-		<div class="swiper-button-prev"></div>
-  		<div class="swiper-button-next"></div>
 		<button type="button" onclick="recommend_write()">추천 경로 작성하기</button>
 	</article>
 	<article class="comu_main">

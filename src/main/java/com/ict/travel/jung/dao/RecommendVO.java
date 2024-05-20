@@ -3,7 +3,13 @@ package com.ict.travel.jung.dao;
 import org.springframework.web.multipart.MultipartFile;
 
 public class RecommendVO {
-	private String path_post_idx, u_idx, u_id, r_areacode,firstimage, path_post_title, path_post_content, regdate, r_contenttypeid, heart;
+	private String path_post_idx, u_idx, u_id, r_areacode,firstimage, path_post_title, path_post_content, regdate, r_contenttypeid, heart,img_status;
+	public String getImg_status() {
+		return img_status;
+	}
+	public void setImg_status(String img_status) {
+		this.img_status = img_status;
+	}
 	MultipartFile f_main;
 	public String getPath_post_idx() {
 		return path_post_idx;
@@ -73,7 +79,6 @@ public class RecommendVO {
 	public void setPath_post_title(String path_post_title) {
 		this.path_post_title = path_post_title;
 	}
-	
-	
+		
 	
 }
