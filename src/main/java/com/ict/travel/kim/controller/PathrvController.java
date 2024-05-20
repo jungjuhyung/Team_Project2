@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.cho.dao.PathWishVO;
+import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.TourtestVO;
@@ -33,6 +34,9 @@ public class PathrvController {
 	@Autowired
 	private KpostService kpostService;
 		
+	@Autowired
+	private ChoService choService;
+	
 	@RequestMapping("pathReviewDetail")
 	public ModelAndView pathReviewDetail(@RequestParam("path_post_idx") String path_post_idx,
 			HttpServletRequest request) {
@@ -44,8 +48,20 @@ public class PathrvController {
 	        HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
-			mv.addObject("kpostvo", kpostvo);
 			List<TourtestVO> tourtestvoimg = tourtestService.tourImg(path_post_idx);
+			
+			if(membervo != null) {
+				List<PathWishVO> pathWishList = choService.getpathWishList(membervo.getU_idx());	
+					for (PathWishVO j : pathWishList) {
+						if(kpostvo.getPath_post_idx().equals(j.getPath_post_idx())) {
+							
+							kpostvo.setU_heart("1");
+							break;
+						}
+					}
+			}
+			mv.addObject("kpostvo", kpostvo);
+			
 			for (TourtestVO marker : tourtestvoimg) {
 			    List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
 			    marker.setImgList(imgList);
@@ -72,7 +88,6 @@ public class PathrvController {
 	                marktitle.add(tourtestVO4.getTitle());
 	                
 	                
-	                
 					
 					 TourtestVO tourtestimg = tourtestvoimg.get(i); 
 					 mv.addObject("rimg" + (i + 1), tourtestimg.getImg_idx()); 
@@ -83,7 +98,6 @@ public class PathrvController {
 	            mv.addObject("mapxList", mapxList);
 	            mv.addObject("marktitle", new Gson().toJson(marktitle));
 				mv.addObject("imglist", imglist);
-				
 	            return mv;
 	        }
 	    } catch (Exception e) {

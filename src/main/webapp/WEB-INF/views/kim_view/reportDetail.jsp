@@ -14,8 +14,9 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
     
 <script type="text/javascript">
 function getReportgo(f) {
@@ -50,7 +51,7 @@ function reportConfirm(f) {
 </head>
 
 <body>
-
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post">
 		<div class="container">
 			<div class="insert">
@@ -96,9 +97,7 @@ function reportConfirm(f) {
 				</c:otherwise>
 				</c:choose>
 				<!-- 관리자 확인버튼 -->
-				<%-- <c:if test="${membervo.u_grade == 1}"> --%>
 				<input class="but4" type="button" value="확인" onclick="reportConfirm(this.form)"/>
-				<%-- </c:if> --%>
 			</div>
 		</div>
 	</form>

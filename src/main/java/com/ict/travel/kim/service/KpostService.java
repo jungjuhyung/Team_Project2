@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
+import com.ict.travel.lee.dao.MemberVO;
 
 public interface KpostService {
 	
@@ -15,8 +16,15 @@ public interface KpostService {
 
 	public int rcommentDelete(String comment_idx);
 	
-	public int ilikethis(KpostVO kpostvo);
+	public int ilikethis(MemberVO membervo, KpostVO kpostvo);
 
-	public int ihatethis(KpostVO kpostvo);
+	public int ilikehit(KpostVO kpostvo);
+
+	public int ihatethis(MemberVO membervo, KpostVO kpostvo);
+	
+	public int ihatehit(KpostVO kpostvo);
+	
+	public KpostVO pathTable(String path_post_idx);
+	
 	
 }

@@ -14,8 +14,9 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <script type="text/javascript">
 function getReportgo(f) {
 	f.action="getReportgo";
@@ -36,7 +37,7 @@ $(document).ready(function(){
 </head>
 
 <body>
-
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post" action="reportWriteOK">
 		<div class="container">
 			<div class="insert">

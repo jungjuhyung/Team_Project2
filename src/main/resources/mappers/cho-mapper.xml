@@ -178,6 +178,7 @@
 	<delete id="placeWishRemove" parameterType="Map">
 		DELETE FROM placewish_t WHERE contentid = #{placeWishVO.contentid} AND u_idx = #{u_idx}
 	</delete>
+	
 	<!-- 삭제된 장소 wish heart 감소 -->
 	<update id="placeRemoveHeart" parameterType="String">
 		UPDATE tourapi_t SET heart = heart - 1 WHERE contentid = #{contentid}

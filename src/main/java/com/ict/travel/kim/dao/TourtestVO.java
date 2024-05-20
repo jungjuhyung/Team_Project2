@@ -15,7 +15,7 @@ public class TourtestVO {
 		this.imgList = imgList;
 	}
 
-	private String img_idx, image_name ;
+	private String img_idx, image_name, img_status ;
 	List<TourtestVO> imgList;
 	
 	public void addImage(TourtestVO img) {
@@ -24,6 +24,12 @@ public class TourtestVO {
         }
         imgList.add(img);
     }
+	public String getImg_status() {
+		return img_status;
+	}
+	public void setImg_status(String img_status) {
+		this.img_status = img_status;
+	}
 	public String getPath_marker_idx() {
 		return path_marker_idx;
 	}

@@ -204,6 +204,8 @@
 	    return parseInt($(".nowPage").attr("data-page"));
 	}
 
+	
+	/* 
 	 // 세션 정보 추출
     function parseXML(xml) {
         let xmlDoc = xml.responseXML;
@@ -218,7 +220,9 @@
             document.getElementById("writeButton").style.display = "block";
         }
     }
-
+ 
+	 
+	 
     // 페이지 로드 시 실행되는 함수
     window.onload = function() {
         loadXML();
@@ -240,7 +244,7 @@
     function reportWrite() {
         // 여기에 버튼 클릭 시 실행할 작업을 추가하세요.
     }
-
+    */
 	
 </script>
 <script type="text/javascript">
@@ -266,11 +270,15 @@ function reportWrite() {
         </table>
     </div>
     <div class="board-list-paging"></div>
+    
     <div id="bwbtn">
-    	<input type="hidden" id="userGrade" value="" />
+    	<input type="hidden" id="membervoValue" value="${membervo}" />
     	<input type="hidden" name="cPage" value="${paging.nowPage}+${paging.endBlock}+ ${paging.beginBlock}+${paging.totalPage}">
-    	<button id="writeButton" style="display:none;" onclick="reportWrite()">글쓰기</button>
+    	<c:if test="${membervo != null}">
+    	<button onclick="reportWrite()">글쓰기</button>
+    	</c:if>
     </div>
+    
 </div>
 	<div id="empty-area" ></div>
 <%@ include file="/WEB-INF/views/common_view/footer.jsp"%>

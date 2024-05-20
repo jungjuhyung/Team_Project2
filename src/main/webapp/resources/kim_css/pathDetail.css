@@ -5,24 +5,7 @@
 	margin: auto;
 	margin-top : 160px;
 }
-.d_img{
-	width: 100%;
-	height: 200px;
-	border: 1px solid black;
-	margin-top: 20px;	
 
-}
-.in_div{
-	width : 33.3333%;
-	height : 100%;
-	border: 1px solid black;
-	float: left;
-	
-}
-.div_img {
-	height : 100%;
-	width: 100%;
-}
 #summer{
 	margin-top: 30px;
 }
@@ -99,9 +82,29 @@
     border-bottom: 1px solid black;
   }
 
+    .d_img ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* 이미지 박스 사이의 간격 조정 */
+    }
 
+    .d_img .in_div {
+        flex: 1 1 100px; /* 최소 너비를 100px로 설정하고, flex-grow와 flex-shrink를 설정 */
+        display: flex;
+        justify-content: center; /* 이미지 중앙 정렬 */
+        align-items: center;     /* 이미지 중앙 정렬 */
+        height: 150px; /* 원하는 높이 설정 */
+        overflow: hidden; /* 이미지가 박스를 벗어나지 않도록 설정 */
+    }
 
-
+    .d_img .in_div img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 이미지가 박스를 가득 채우도록 설정 */
+    }
 
 
 

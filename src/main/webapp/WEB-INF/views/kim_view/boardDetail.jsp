@@ -14,8 +14,9 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
     
 <script type="text/javascript">
 function boardUpdate(f) {
@@ -41,7 +42,7 @@ function commentDelete(f) {
 </head>
 
 <body>
-
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post">
 		<div class="container">
 			<div class="insert">
@@ -107,7 +108,7 @@ function commentDelete(f) {
 		</c:forEach>
 	</div>	
 		<%-- 댓글 입력 --%>
-	<c:if test="${membervo.u_grade != null}">
+	<c:if test="${membervo != null}">
 	<div class="recomment">
 		<form method="post">
 			<fieldset>

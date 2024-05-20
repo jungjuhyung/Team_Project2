@@ -14,8 +14,9 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <!-- include summernote css/js-->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <script type="text/javascript">
 function rcommentInsert(f) {
 	console.log="${kpostvo.path_post_idx}";
@@ -28,7 +29,6 @@ function rcommentDelete(f) {
 	f.submit();
 }
 function ilikethis() {
-    // 여기에 전송할 데이터를 변수에 담거나, 직접 지정하세요
     var dataToSend = {
         path_post_idx: "${kpostvo.path_post_idx}",
         u_idx: "${kpostvo.u_idx}",
@@ -40,40 +40,48 @@ function ilikethis() {
     $.ajax({
         url: 'ilikethis', 
         type: 'POST', 
-        data: dataToSend, 
+        data: dataToSend,
         success: function(response) {
-        	alert("좋아요를 눌렀습니다.")
+            alert("좋아요를 눌렀습니다.");
+            var likeButton = $("#likeButton");
+            likeButton.text("취소(찜)");
+            likeButton.attr("onclick", "ihatethis()");
         },
         error: function() {
-        	alert("실패.")
+            alert("실패.");
         }
     });
 }
+
 function ihatethis() {
-    // 여기에 전송할 데이터를 변수에 담거나, 직접 지정하세요
     var dataToSend = {
         path_post_idx: "${kpostvo.path_post_idx}",
         u_idx: "${kpostvo.u_idx}",
         firstimage: "${kpostvo.firstimage}",
         r_contenttypeid: "${kpostvo.r_contenttypeid}",
-        path_post_title: "${kpostvo.path_post_title}"
+        path_post_title: "${kpostvo.path_post_title}",
+        path_idx: "${kpostvo.path_idx}"
     };
 
     $.ajax({
         url: 'ihatethis', 
         type: 'POST', 
-        data: dataToSend, 
+        data: dataToSend,
         success: function(response) {
-        	alert("좋아요를 취소했습니다.")
+            alert("좋아요를 취소했습니다.");
+            var likeButton = $("#likeButton");
+            likeButton.text("좋아요(찜)");
+            likeButton.attr("onclick", "ilikethis()");
         },
         error: function() {
-        	alert("실패.")
+            alert("실패.");
         }
     });
 }
 </script>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 	<div id="world">
 		<div id="infoUser">
 			<div id="reviewTitle">${kpostvo.path_post_title}</div>
@@ -86,14 +94,23 @@ function ihatethis() {
 			
 	<div class="d_img">
 		<c:forEach var="marker" items="${tourtestvoimg}">
-		    <h2>Path_marker_idx: ${marker.path_marker_idx}</h2>
+		    <%-- <h2>Path_marker_idx: ${marker.path_marker_idx}</h2> --%>
 		    <ul>
 		        <c:forEach var="img" items="${marker.imgList}">
-		            <div class="in_div">
-		            <li>Marker_img: ${img.image_name}</li>
+		            <%-- <li>Marker_img: ${img.image_name}</li> --%>
 		            <!-- 이미지 파일을 표시하는 부분 -->
-		           <img class="div_img" src="resources/rc_main_img/${img.image_name}"  style="width: 80px">
-		        	</div>
+ 		            <c:choose>
+		            <c:when test="${img.img_status == 0}">
+		            <li class="in_div">
+		           <img class="div_img" src="resources/rc_main_img/${img.image_name}">
+		        	</li>
+		        	</c:when>
+		        	<c:otherwise>
+					<li class="in_div">
+		           <img class="div_img" src="${img.image_name}"  style="width: 80px">
+		        	</li>
+		        	</c:otherwise>
+		        	</c:choose>
 		        </c:forEach>
 		    </ul>
 		</c:forEach>
@@ -113,18 +130,20 @@ function ihatethis() {
 			</c:otherwise>
 		</c:choose>
 		</div>
-		<%-- 
-		<c:if test="${membervo.u_grade != null}">
-			<c:choose>
-			<c:when test="${membervo.u_heart == '1' }">
-				<button type="button" onclick="ihatethis()">취소(찜)</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" onclick="ilikethis()">좋아요(찜)</button>
-			</c:otherwise>
-			</c:choose>
+		
+		<c:if test="${membervo != null}">
+		    <div id="likeButtonContainer">
+		        <c:choose>
+		            <c:when test="${kpostvo.u_heart == '1' }">
+		                <button type="button" id="likeButton" onclick="ihatethis()">취소(찜)</button>
+		            </c:when>
+		            <c:otherwise>
+		                <button type="button" id="likeButton" onclick="ilikethis()">좋아요(찜)</button>
+		            </c:otherwise>
+		        </c:choose>
+		    </div>
 		</c:if>
-		 --%>
+	
 		<%-- 댓글 출력 --%>
 	<div class="recomment">
 		<c:forEach var="k" items="${comment_list}">
@@ -151,7 +170,7 @@ function ihatethis() {
 		</c:forEach>
 	</div>	
 		<%-- 댓글 입력 --%>
-	<c:if test="${membervo.u_grade != null}">
+	<c:if test="${membervo != null}">
 	<div class="recomment">
 		<form method="post">
 			<fieldset>
@@ -178,9 +197,11 @@ function ihatethis() {
 		// 메인화면 페이지 로드 함수
 		$(document).ready(function() {
 			$('#summernote').summernote({
-				placeholder : '내용을 작성하세요',
-				height : 400,
-				maxHeight : 400
+				 lang: "ko-KR",
+					height: 300,
+					minHeight: null,
+					maxHeight: null,
+				    focus: true,
 			});
 			$('#summernote').summernote('disable');
 		});
@@ -203,7 +224,6 @@ var marktitle = JSON.parse('<%= request.getAttribute("marktitle") %>');
 
 // mapxList 출력
 mapxList.forEach(function(value) {
-    console.log(value);
 });
 
 for (let i = 0; i < mapyList.length; i++) {
@@ -215,7 +235,6 @@ for (let i = 0; i < mapyList.length; i++) {
     /* let content = '<div class="dotOverlay distanceInfo">총거리 <span class="number">' + distance + '</span>m</div>'; // 커스텀오버레이에 추가될 내용입니다 */
         
  // 좌표를 콘솔에 출력
-    console.log("좌표 추가:", latlng);
     
     positions.push({
         title: '',
