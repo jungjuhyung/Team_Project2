@@ -53,7 +53,8 @@ a {
 	padding-left: 20px;
 	line-height: 30px;
 	display: grid;
-	grid-template-columns: 7fr 3fr;
+	grid-gap: 10px;
+	grid-template-columns: 7.3fr 2.7fr;
 }
 
 .f_info img {

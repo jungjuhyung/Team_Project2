@@ -63,18 +63,24 @@
 		select count(*) from user_t
 	</select>
 	
-	<select id="user_total" resultType="mvo">
-		select * from user_t where u_active = 1
+	<select id="stop_user" resultType="uservo">
+		select * from user_t where u_state = 1
 	</select>
 	
-	<select id="user_list" parameterType="Map" resultType="mvo">
+	<select id="user_list" parameterType="Map" resultType="uservo">
 		select * from user_t limit #{limit} offset #{offset}
 	</select>
 	
-	<update id="stop_update" parameterType="String">
+	<update id="stop_state" parameterType="String">
 		update user_t 
-		set u_active = 0
+		set u_state = 0 , u_stopdate = null
 		where u_idx = #{u_idx}
+	</update>
+	
+	<update id="stop_update" parameterType="Map">
+		update user_t
+		set u_stopdate = DATE_ADD(sysdate(), INTERVAL #{stop_days} DAY) , u_state = 1
+		where u_idx = #{u_idx} 
 	</update>
 	 
 </mapper>

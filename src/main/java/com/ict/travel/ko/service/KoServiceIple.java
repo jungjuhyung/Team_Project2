@@ -9,6 +9,7 @@ import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoDAO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PopupVO;
+import com.ict.travel.ko.dao.UserVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Service
@@ -73,18 +74,23 @@ public class KoServiceIple implements KoService{
 	}
 	
 	@Override
-	public List<MemberVO> getUserList() {
-		return koDAO.getUserList();
+	public List<UserVO> getStopUser() {
+		return koDAO.getStopUser();
 	}
 	
 	@Override
-	public List<MemberVO> getUserList(int offset, int limit) {
+	public List<UserVO> getUserList(int offset, int limit) {
 		return koDAO.getUserList(offset, limit);
 	}
 	
 	@Override
-	public int getStopUpdate(String u_idx) {
-		return koDAO.getStopUpdate(u_idx);
+	public int getStopState(String u_idx) {
+		return koDAO.getStopState(u_idx);
+	}
+	
+	@Override
+	public int getStopUpdate(String stop_days, String u_idx) {
+		return koDAO.getStopUpdate(stop_days, u_idx);
 	}
 	
 }
