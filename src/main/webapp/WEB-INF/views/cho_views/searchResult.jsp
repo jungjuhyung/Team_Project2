@@ -401,6 +401,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/sideBar.jsp"%>
 	<section class="section" >
 		<div class="areaSearchForm">
 			<select id="searchType" class = "searchSelect">
