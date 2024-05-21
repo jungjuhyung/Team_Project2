@@ -58,6 +58,10 @@ function getReportgo(f) {
 						<td class="userin"><input type="password" id="report_cpw" name="report_cpw" />
 					</tr>
 					<tr>
+						<td class="menu">불량유저ID</td>
+						<td class="userin">${reportvo.reported_id}</td>
+					</tr>
+					<tr>
 						<td class="menu">제목</td>
 						<td class="userin"><input type="text" id="report_title" name="report_title" value="${reportvo.report_title }">
 						

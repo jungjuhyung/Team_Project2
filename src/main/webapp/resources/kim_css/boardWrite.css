@@ -1,18 +1,18 @@
 @charset "UTF-8";
 
-div.container {
-	padding-top: 160px;	
+.boardcontainer {
+	padding-top: 30px;	
 }
 
 
-caption {
+.boardcaption {
 	font-size: 2em;
 	font-weight: bold;	
 	margin-bottom: 20px;
 	text-align: left;
 }
 
-div.create {
+.boardcreate {
 	width: 800px;
 	text-align: center;
 	padding: 30px;
@@ -20,18 +20,20 @@ div.create {
 	margin: auto;
 }
 
-table {
+.boardtable{
 	width: 900px;
 	border-top: 3px solid black;
 	margin: 0px auto;
 }
 
-td {
+.boardtabletd {
+	border-bottom: 1px dotted black;
+}
+.boardtr{
 	border-bottom: 1px dotted black;
 }
 
-
-.menu {
+.menu { 
 	background-color: #e8e8e8;
 	padding: 10px;
 	text-align: left;
@@ -41,6 +43,7 @@ td {
 
 .userin {
 	text-align: left;
+	justify-content: center;
 	padding: 5px;
 }
 

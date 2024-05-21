@@ -21,6 +21,21 @@
 		insert into board_t (board_title, u_nickname, content, regdate, hit, u_idx, board_pw)
 		values (#{board_title}, #{u_nickname}, #{content}, sysdate(), 0, #{u_idx}, #{board_pw})
 	</insert>
+	<update id="boardscore" parameterType="boardvo">
+		update user_t set u_exp = u_exp + 10
+		where u_idx = #{u_idx}
+	</update>
+	<select id="userinfo" parameterType="boardvo" resultType="mvo">
+		select * from user_t where u_idx = #{u_idx}
+	</select>
+	<update id="levelup" parameterType="boardvo" >
+		update user_t 
+		set u_exp = 0, 
+			u_lev = u_lev + 1
+		where u_idx = #{u_idx}
+	</update>
+	
+	
 	
 	<select id="boardDetail" resultType="boardvo">
 		select * from board_t where board_idx = #{board_idx}

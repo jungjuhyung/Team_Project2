@@ -78,6 +78,21 @@ function ihatethis() {
         }
     });
 }
+
+function openModal(src) {
+	console.log("Modal opened with source:", src); // 디버깅 로그 추가
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+    modal.style.display = "block";
+    modalImg.src = src;
+}
+
+function closeModal() {
+	console.log("Modal closed"); // 디버깅 로그 추가
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
 </script>
 </head>
 <body>
@@ -91,31 +106,42 @@ function ihatethis() {
 			</div>
 		</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>
+		
 			
-	<div class="d_img">
-		<c:forEach var="marker" items="${tourtestvoimg}">
-		    <%-- <h2>Path_marker_idx: ${marker.path_marker_idx}</h2> --%>
-		    <ul>
-		        <c:forEach var="img" items="${marker.imgList}">
-		            <%-- <li>Marker_img: ${img.image_name}</li> --%>
-		            <!-- 이미지 파일을 표시하는 부분 -->
- 		            <c:choose>
-		            <c:when test="${img.img_status == 0}">
-		            <li class="in_div">
-		           <img class="div_img" src="resources/rc_main_img/${img.image_name}">
-		        	</li>
-		        	</c:when>
-		        	<c:otherwise>
-					<li class="in_div">
-		           <img class="div_img" src="${img.image_name}"  style="width: 80px">
-		        	</li>
-		        	</c:otherwise>
-		        	</c:choose>
-		        </c:forEach>
-		    </ul>
-		</c:forEach>
-	</div>					
-		<div id="empty-area"></div>
+	 <div class="d_img">
+    <div class="image-slider">
+        <div class="slider-wrapper">
+            <c:forEach var="marker" items="${tourtestvoimg}">
+                <c:forEach var="img" items="${marker.imgList}">
+                    <c:choose>
+                        <c:when test="${img.img_status == 0}">
+                            <img class="div_img" src="resources/rc_main_img/${img.image_name}" onclick="openModal(this.src)">
+                        </c:when>
+                        <c:otherwise>
+                            <img class="div_img" src="${img.image_name}"  onclick="openModal(this.src)">
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </c:forEach>
+        </div>
+        <button class="prev-btn" onclick="moveSlider(-1)">&#10094;</button>
+        <button class="next-btn" onclick="moveSlider(1)">&#10095;</button>
+    </div>
+</div>
+
+    
+    
+    
+    
+		<!-- Modal Structure -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script src="scripts.js"></script>
+		
+		<div class="empty-area"></div>
 		<div id="summer">
 			<textarea rows="10" cols="60" id="summernote" name="content">${kpostvo.path_post_content}</textarea>
 		</div>
@@ -130,20 +156,22 @@ function ihatethis() {
 			</c:otherwise>
 		</c:choose>
 		</div>
-		
+		<div class="empty-area"></div>
 		<c:if test="${membervo != null}">
 		    <div id="likeButtonContainer">
 		        <c:choose>
 		            <c:when test="${kpostvo.u_heart == '1' }">
-		                <button type="button" id="likeButton" onclick="ihatethis()">취소(찜)</button>
+		                <button type="button" id="likeButton" onclick="ihatethis()"
+		                style="background-color: red;">취소(찜)</button>
 		            </c:when>
 		            <c:otherwise>
-		                <button type="button" id="likeButton" onclick="ilikethis()">좋아요(찜)</button>
+		                <button type="button" id="likeButton" onclick="ilikethis()"
+		                style="background-color: blue;">좋아요(찜)</button>
 		            </c:otherwise>
 		        </c:choose>
 		    </div>
 		</c:if>
-	
+	<div class="empty-area"></div>
 		<%-- 댓글 출력 --%>
 	<div class="recomment">
 		<c:forEach var="k" items="${comment_list}">
@@ -201,7 +229,6 @@ function ihatethis() {
 					height: 300,
 					minHeight: null,
 					maxHeight: null,
-				    focus: true,
 			});
 			$('#summernote').summernote('disable');
 		});

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.dao.PathPostVO;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
@@ -56,8 +57,6 @@ public class ReportController {
 		
 		HttpSession session = request.getSession();
 		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
-		System.out.println("mvo : " + membervo);
-		
 		
 		int count = reportService.getTotalCount();
 		paging.setTotalRecord(count);
@@ -102,13 +101,6 @@ public class ReportController {
 			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			sb.append("<reports>");
 			
-			// 세션 정보 추가
-			if (membervo != null) {
-			    sb.append("<sessionInfo>");
-			    sb.append("<userId>" + membervo.getU_idx() + "</userId>");
-			    // 다른 멤버 변수들도 필요한 경우 추가
-			    sb.append("</sessionInfo>");
-			}
 			
 			
 			  // 페이징 정보 추가 1111111111111111
@@ -168,11 +160,9 @@ public class ReportController {
 			
 			ReportVO reportvo2 = reportService.baduser(bad_id);
 			if (reportvo2 == null) {
-				System.out.println("여기 와?");
 				mv.setViewName("kim_view/reportWrite");
 			    mv.addObject("reportvo", reportvo);
 			    mv.addObject("membervo", membervo);
-			    System.out.println(membervo.getU_id());
 			    mv.addObject("badid", "fail");
 			    return mv;
 			}
@@ -199,9 +189,12 @@ public class ReportController {
 			HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
+			AdminVO adminvo = (AdminVO) session.getAttribute("adminUser");
+			if(adminvo == null ) {
 			if(membervo == null || !membervo.getU_idx().equals(reportvo.getU_idx())) {
 				return new ModelAndView("redirect:getReportgo");
 				
+			}
 			}
 			if (reportvo !=null) {
 				

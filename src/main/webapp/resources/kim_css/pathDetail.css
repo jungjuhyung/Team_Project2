@@ -1,16 +1,17 @@
 @charset "UTF-8";
+
 #world{
 	text-align: center;
 	width: 1200px;
 	margin: auto;
-	margin-top : 160px;
+	margin-top : 40px;
 }
 
 #summer{
 	margin-top: 30px;
 }
 #empty-area{
-	height: 100px;
+	height: 15px;
 }
 
 #infoUser {
@@ -28,85 +29,233 @@
     margin-bottom: 30px; 
 }
 
+.empty-area{
+	height: 30px;
+}
+
 #reviewTitle {
     font-size: 60px;
     font-weight: bold;
     border-bottom: 1px solid black;
+    text-align: center; /* 제목을 가운데 정렬 */
+    margin-bottom: 20px; /* 제목 아래 여백 추가 */
 }
 
 #reviewUser, #reviewDate {
-    width: 50%; 
+    width: 50%;
     display: inline-block;
-    text-align: center; 
+    text-align: center;
     font-size: 25px;
 }
 
+.recomment {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 800px;
+    margin: 0 auto;
+    background-color: #f8f8f8; /* 배경색 추가 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+}
 
-.recomment{
-	display: flex;
-	flex-direction:  column;
-	flex-wrap: nowrap;
-	padding: 30px;
-	width: 800px;
-	margin: 0 auto;
-	justify-content: center;
+.recomment > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* 세로 가운데 정렬 */
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd; /* 댓글 간 구분선 */
 }
-.renick{
-	float: left;
-	height: 30px;
-	justify-content: center;
-	margin-right: 20px;
-	margin-top: 7px;
-	width: 12%;
+
+.recomment > div:last-child {
+    border-bottom: none; /* 마지막 댓글 구분선 제거 */
 }
-.recontent{
-	float: left;
-	height: 30px;
-	padding-top: 1px;
-	margin: 0px;
-	justify-content: center;
-	width: 50%;
+
+.renick {
+    flex: 0 0 20%;
+    font-weight: bold;
+    margin-right: 20px;
+    text-align: center; /* 닉네임을 가운데 정렬 */
 }
-.rebutton{
-	float: right;
-	height: 30px;
-	justify-content: center;
-	margin-top: 10px;
-	
+
+.recontent {
+    flex: 1;
+    margin-right: 20px;
 }
- textarea {
+
+.rebutton {
+    flex: 0 0 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* 가운데 정렬 */
+}
+
+textarea {
     width: 100%;
-    height: 26px;
+    height: auto;
     resize: none;
+    border: 1px solid #ddd; /* 입력 필드 테두리 */
+    border-radius: 5px; /* 입력 필드 모서리 둥글게 */
+    padding: 10px;
+    font-size: 14px;
+}
+
+input.rewrite {
+    padding: 5px 10px;
     border: none;
-    border-bottom: 1px solid black;
-  }
+    background-color: #007bff; /* 기본 버튼 배경색 */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-    .d_img ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px; /* 이미지 박스 사이의 간격 조정 */
-    }
+input.rewrite:hover {
+    background-color: #0056b3; /* 호버 상태 배경색 */
+}
 
-    .d_img .in_div {
-        flex: 1 1 100px; /* 최소 너비를 100px로 설정하고, flex-grow와 flex-shrink를 설정 */
-        display: flex;
-        justify-content: center; /* 이미지 중앙 정렬 */
-        align-items: center;     /* 이미지 중앙 정렬 */
-        height: 150px; /* 원하는 높이 설정 */
-        overflow: hidden; /* 이미지가 박스를 벗어나지 않도록 설정 */
-    }
+input.rewrite:active {
+    background-color: #004085; /* 클릭 상태 배경색 */
+}
 
-    .d_img .in_div img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* 이미지가 박스를 가득 채우도록 설정 */
-    }
+/* 이미지 스타일 CSS */
+/* ul 스타일 설정 */
+.d_img {
+    overflow: hidden; /* 가로로 넘치는 이미지들을 숨깁니다. */
+    border: 1px solid #ddd; /* 테두리 설정 */
+    border-radius: 5px; /* 모서리를 둥글게 설정 */
+    padding: 5px; /* 내부 패딩 설정 */
+    background-color: #f9f9f9; /* 배경색 설정 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 그림자 설정 */
+    width: 100%; /* 리스트 아이템의 너비 설정 */
+    height: 100%; /* 리스트 아이템의 높이 설정 */
+    display: flex; /* 아이템 내에서의 정렬을 위해 flex 사용 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
 
 
+/* 이미지 스타일 설정 */
+.d_img .div_img {
+    width: 100%; /* 이미지를 div 너비에 맞게 조절 */
+    height: 100%; /* 높이를 div 높이에 맞게 조절 */
+    object-fit: cover; /* 이미지가 잘려도 영역을 채우도록 설정 */
+    cursor: pointer; /* 클릭 가능한 커서 설정 */
+}
+.div_img {
+    flex: 0 0 auto; /* 이미지가 자동으로 확장되지 않도록 합니다. */
+    height: 200px; /* 이미지의 높이를 자동으로 설정하여 비율을 유지합니다. */
+    max-width: 25%; /* 이미지 최대 너비를 설정하여 4개가 한 줄에 보이도록 합니다. */
+    margin-right: 10px; /* 이미지 간 간격을 조정합니다. */
+    scroll-snap-align: start; /* 이미지가 스크롤될 때 왼쪽 끝에 정렬됩니다. */
+}
+
+
+.image-slider {
+    display: flex; /* Flexbox를 사용하여 이미지들을 가로로 정렬합니다. */
+    overflow-x: auto; /* 가로로 넘치는 이미지를 스크롤할 수 있도록 합니다. */
+    scroll-snap-type: x mandatory; /* 이미지 스크롤 시 스냅 효과를 적용하여 부드럽게 이동합니다. */
+    -webkit-overflow-scrolling: touch; /* 모바일 장치에서 부드러운 스크롤을 지원합니다. */
+}
+
+.slider-wrapper {
+    display: flex; /* Flexbox를 사용하여 이미지들을 가로로 정렬합니다. */
+    flex-direction: row; /* 가로로 정렬합니다. */
+    flex-wrap: nowrap; /* 한 줄에 표시하고 넘치는 부분은 숨깁니다. */
+    scroll-snap-type: x mandatory; /* 이미지 스크롤 시 스냅 효과를 적용하여 부드럽게 이동합니다. */
+}
+
+.prev-btn, .next-btn {
+    position: absolute; /* 절대적 위치 지정 */
+    top: 50%; /* 상단 여백을 설정합니다. */
+    transform: translateY(-50%); /* 수직 정렬을 위해 요소를 위로 이동시킵니다. */
+    background: transparent; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    font-size: 24px; /* 버튼 아이콘 크기 설정 */
+    cursor: pointer; /* 커서를 포인터로 변경하여 버튼을 클릭 가능하게 합니다. */
+}
+
+.prev-btn {
+    left: 0; /* 왼쪽에 배치합니다. */
+}
+
+.next-btn {
+    right: 0; /* 오른쪽에 배치합니다. */
+}
+
+
+
+
+
+
+
+/* 라이트 박스 Modal 스타일 설정 */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 고정 위치 */
+    z-index: 1; /* 최상위 표시 */
+    padding-top: 60px; /* 상단 여백 */
+    left: 0;
+    top: 0;
+    width: 90%; /* 전체 너비 */
+    height: 90%; /* 전체 높이 */
+    overflow: auto; /* 스크롤 가능 */
+    background-color: rgb(0,0,0); /* 배경 색상 */
+    background-color: rgba(0,0,0,0.9); /* 투명도 적용된 배경 색상 */
+}
+
+
+/* 라이트 박스 Modal 이미지 스타일 */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 70%;
+    max-width: 700px;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #ff0000;
+    font-size: 200px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/* 좋아요 버튼 CSS */
+#likeButtonContainer {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 20px; /* 위쪽 여백 */
+}
+
+/* 버튼 스타일 */
+#likeButton {
+    color: white; /* 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px 20px; /* 패딩 */
+    font-size: 16px; /* 글꼴 크기 */
+    cursor: pointer; /* 마우스 커서 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+}
 
 
 
@@ -169,7 +318,45 @@
 
 
 
+.d_img {
+    overflow: hidden; /* 가로로 넘치는 이미지들을 숨깁니다. */
+}
 
+.image-slider {
+    display: flex; /* Flexbox를 사용하여 이미지들을 가로로 정렬합니다. */
+    overflow-x: auto; /* 가로로 넘치는 이미지를 스크롤할 수 있도록 합니다. */
+    scroll-snap-type: x mandatory; /* 이미지 스크롤 시 스냅 효과를 적용하여 부드럽게 이동합니다. */
+    -webkit-overflow-scrolling: touch; /* 모바일 장치에서 부드러운 스크롤을 지원합니다. */
+}
+
+.slider-wrapper {
+    display: flex; /* Flexbox를 사용하여 이미지들을 가로로 정렬합니다. */
+    scroll-snap-type: x mandatory; /* 이미지 스크롤 시 스냅 효과를 적용하여 부드럽게 이동합니다. */
+}
+
+.div_img {
+    flex: 0 0 auto; /* 이미지가 자동으로 확장되지 않도록 합니다. */
+    width: 25%; /* 이미지 너비를 25%로 설정하여 4개가 한 줄에 보이도록 합니다. */
+    scroll-snap-align: start; /* 이미지가 스크롤될 때 왼쪽 끝에 정렬됩니다. */
+}
+
+.prev-btn, .next-btn {
+    position: absolute; /* 절대적 위치 지정 */
+    top: 50%; /* 상단 여백을 설정합니다. */
+    transform: translateY(-50%); /* 수직 정렬을 위해 요소를 위로 이동시킵니다. */
+    background: transparent; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    font-size: 24px; /* 버튼 아이콘 크기 설정 */
+    cursor: pointer; /* 커서를 포인터로 변경하여 버튼을 클릭 가능하게 합니다. */
+}
+
+.prev-btn {
+    left: 0; /* 왼쪽에 배치합니다. */
+}
+
+.next-btn {
+    right: 0; /* 오른쪽에 배치합니다. */
+}
 
 
 

@@ -1,16 +1,31 @@
 @charset "UTF-8";
 
-.container {
-	padding-top: 160px;	
+.boardcontainer {
+	padding-top: 30px;	
 }
-caption {
+
+#boardtable{
+	width: 900px;
+	border-top: 3px solid black;
+	margin: 0px auto;
+}
+
+.boardtabletd {
+	border-bottom: 1px dotted black;
+}
+
+.boardtr{
+	border-bottom: 1px dotted black;
+}
+
+.boardcaption {
 	font-size: 2em;
 	font-weight: bold;	
 	margin-bottom: 20px;
 	text-align: left;
 }
 
-div.create {
+.boardcreate {
 	width: 800px;
 	text-align: center;
 	padding: 30px;
@@ -18,16 +33,9 @@ div.create {
 	margin: auto;
 }
 
-#boardtable {
-	width: 900px;
-	border-top: 3px solid black;
-	margin: 0px auto;
-	border-bottom: 1px solid black;
-}
 
-#boardtable td{
-	border-bottom: 1px dotted black;
-}
+
+
 
 .menu {
 	background-color: #e8e8e8;

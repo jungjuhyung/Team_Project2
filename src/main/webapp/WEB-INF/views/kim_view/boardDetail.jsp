@@ -44,23 +44,23 @@ function commentDelete(f) {
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post">
-		<div class="container">
+		<div class="boardcontainer">
 			<div class="insert">
 
 				<table id="boardtable">
-					<caption>
+					<caption class="boardcaption">
 						<h2>자유게시판</h2>
 					</caption>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">닉네임</td>
 						<td class="userin">${boardvo.u_nickname}</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">제목</td>
 						<td class="userin">${boardvo.board_title }
 						</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content" readonly>${boardvo.content }</textarea>
 						</td>
@@ -69,7 +69,7 @@ function commentDelete(f) {
 
 			</div>
 
-			<div class="create">
+			<div class="boardcreate">
 				<input type="hidden" name="board_idx" value="${boardvo.board_idx}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="location.href='boardList'"/>
