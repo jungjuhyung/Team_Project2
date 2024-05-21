@@ -6,15 +6,22 @@ import java.util.List;
 import com.ict.travel.lee.dao.MemberVO;
 
 public interface MemberService {
+	// 아이디 중복체크
+	public String getIdChk(String u_id);
 	
+	// 회원가입
 	public int getSignUp(MemberVO mvo) throws Exception;
 	
+	// 로그인
 	public MemberVO getLoginOK(MemberVO mvo);
 
+	// 비밀번호 찾기
 	public MemberVO getFindPW(String u_id, String email);
 	
+	// 임시비밀번호
 	public int PassUpdate(MemberVO memberVO);
-
+	
+	// 아이디 찾기
 	public List<MemberVO> getFindId(MemberVO mvo);
 
 	// 카카오 로그인
@@ -26,6 +33,12 @@ public interface MemberService {
 	public String getNaverToken(String code, String state);
 	
 	public MemberVO getUserNaver(String access_Token);
+	
+	
+	public int getMemberUp(MemberVO mvo);
+
+	
+
 
 
 

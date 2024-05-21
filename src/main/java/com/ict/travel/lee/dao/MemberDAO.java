@@ -17,6 +17,22 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	// 아이디 중복 체크
+	public String getIdChk(String u_id) {
+		try {
+			int result = sqlSessionTemplate.selectOne("lee-mapper.idchk", u_id);
+			
+			if(result > 0) {
+				return "0";
+				
+			}
+			return "1";
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
 	// 회원가입
 	public int getSignUp(MemberVO mvo) {
 		try {
@@ -77,8 +93,8 @@ public class MemberDAO {
 			int result = sqlSessionTemplate.selectOne("lee-mapper.findkakao", userInfo);
 			if(result > 0) {
 				result = sqlSessionTemplate.update("lee-mapper.kakaoUp", userInfo);
-				MemberVO mvo = sqlSessionTemplate.selectOne("lee-mapper.select2", userInfo);
-				return mvo;
+				MemberVO mvo2 = sqlSessionTemplate.selectOne("lee-mapper.select2", userInfo);
+				return mvo2;
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -128,7 +144,16 @@ public class MemberDAO {
 		return -1;
 		
 	}
-
+	
+	// 회원 정보 수정
+	public int getMemberUp(MemberVO mvo) {
+		try {
+			return sqlSessionTemplate.update("lee-mapper.member_up", mvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
 	
 
 	

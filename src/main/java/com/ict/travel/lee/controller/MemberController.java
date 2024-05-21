@@ -52,6 +52,13 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping(value = "getIdChk.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getIdChk(String u_id) {
+		String result = memberService.getIdChk(u_id);
+		return result;
+	}
+	
 	@RequestMapping("join_success_go.do")
 	public ModelAndView getSignUp(MemberVO mvo, HttpServletRequest request) {
 		try {

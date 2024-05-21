@@ -24,34 +24,52 @@ import com.ict.travel.lee.dao.MemberVO;
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
-
+	
+	// 회원정보 수정
+	@Override
+	public int getMemberUp(MemberVO mvo) {
+		return memberDAO.getMemberUp(mvo);
+	}
+	
+	// 아이디 중복체크
+	@Override
+	public String getIdChk(String u_id) {
+		return memberDAO.getIdChk(u_id);
+		
+	}
+	
+	// 회원가입
 	@Override
 	public int getSignUp(MemberVO mvo) throws Exception {
 		return memberDAO.getSignUp(mvo);
 	}
 	
 	
-	
+	// 로그인
 	@Override
 	public MemberVO getLoginOK(MemberVO mvo) {
 		return memberDAO.getLoginOK(mvo);
 	}
-
+	
+	// 비밀번호 찾기
 	@Override
 	public MemberVO getFindPW(String u_id, String email) {
 		return memberDAO.getFindPW(u_id, email);
 	}
 	
+	// 임시비밀번호
 	@Override
 	public int PassUpdate(MemberVO memberVO) {
 		return memberDAO.PassUpdate(memberVO);
 	}
-
+	
+	// 아이디 찾기
 	@Override
 	public List<MemberVO> getFindId(MemberVO mvo) {
 		return memberDAO.getFindId(mvo);
 	}
 	
+	// 카카오
 	@Override
 	public String getAccessToken (String authorize_code) {
 		String access_Token = "";
@@ -105,7 +123,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return access_Token;
 	}
-
+	
+	// 카카오
 	@Override
 	public  MemberVO getUserInfo(String access_Token){
 		ModelAndView mv = new ModelAndView();
@@ -167,7 +186,8 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 	}
-
+	
+	// 네이버
 	@Override
 	public String getNaverToken(String code, String state) {
 		String access_Token = "";
@@ -223,7 +243,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return access_Token;
 	}
-
+	
+	// 네이버
 	@Override
 	public MemberVO getUserNaver(String access_Token) {
 		HashMap<String, Object> userInfo2 = new HashMap<String, Object>();
@@ -285,12 +306,6 @@ public class MemberServiceImpl implements MemberService{
 			return null;
 		}
 	}
-
-
-	
-
-	
-
 
 	
 	

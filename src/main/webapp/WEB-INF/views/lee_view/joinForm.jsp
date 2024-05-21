@@ -12,12 +12,44 @@
 <script type="text/javascript">
 	
 $(document).ready(function(){
-	
+	  $("#u_id").keyup(function() {
+			$.ajax({
+				url : "getIdChk.do",
+				data : "u_id=" + $("#u_id").val(),
+				method : "post",
+				dataType : "text",
+				success : function(data) {
+					let u_id = $("#u_id").val();
+					//console.log(data);
+					
+					if(data == '1' && u_id){
+						$("#btn_1").removeAttr("disabled");
+						$("#id_chk").text("사용가능").css('color' , 'green');
+					}else if(data == '0'){
+						$("#btn_1").attr("disabled", "disabled");
+						$("#id_chk").text("사용불가").css('color' , 'red');
+					}else if(!u_id){
+						$("#btn_1").attr("disabled", "disabled");
+						$("#id_chk").text("");
+					}
+				},
+				error : function() {
+					alert("읽기 실패");
+				}
+			});
+		});
 	
     // 비밀번호와 비밀번호 확인란의 값을 비교하여 일치 여부를 확인하는 함수
     function checkPasswordMatch() {
         var password = $('#u_pwd').val(); // 비밀번호 입력란의 값
         var confirmPassword = $('#u_pwd_chk').val(); // 비밀번호 확인란의 값
+        
+        if(password === "" && confirmPassword === ""){
+        	$('.successPwChk').text("");
+        	$('#pwDoubleChk').text("");
+        	return;
+        }
+        
         var passwordMatch = (password === confirmPassword); // 비밀번호 일치 여부
         
         // 비밀번호 일치 여부에 따라 메시지를 표시합니다.
@@ -27,7 +59,7 @@ $(document).ready(function(){
         } else {
             $('.successPwChk').text('비밀번호가 일치하지 않습니다.').css('color', 'red');
             $('#pwDoubleChk').val('not matched'); // 비밀번호 일치 여부를 hidden 필드에 저장
-        }
+        } 
     }
 
     // 비밀번호 입력란 또는 확인란에서 입력 값이 변경될 때마다 비밀번호 일치 여부를 확인합니다.
@@ -101,19 +133,12 @@ $(document).ready(function(){
 		f.submit();
     }
     
-    
+  
 
 	
 </script>
-<c:if test="${not empty userInfo}">
-<script type="text/javascript">
-	var email = "${userInfo.email}";
-	var nickname = "${userInfo.nickname}";
-	
-	document.getElemenyById("u_email").value = email;
-	document.getElemenyById("u_nickname").value = nickname;
-</script>
-</c:if>
+
+
 </head>
 <body>
 <div class="join-container" style="width: 1300px; height:900px; margin: 0 auto;">
@@ -123,14 +148,15 @@ $(document).ready(function(){
             <ul class="list-form"> 
             <li class="input-group">
                	<input type="text" id="u_id" name="u_id" placeholder="아이디" required >
-               	<button type="button" onclick="checkId()">중복체크</button>
+               	<br><span id="id_chk" style="font-size: 10px;"></span>
+               <!-- 	<button type="button" onclick="checkId()">중복체크</button> -->
                	<span id="idCheckResult" style="font-size: 10px; color: red;"></span>
             </li>
             <li class="input-group">
                	<input type="password" id="u_pwd" name="u_pwd" placeholder="비밀번호(8자까지 입력 가능)" required maxlength="8" autocomplete="off"><br>
             </li>
             <li class="input-group">
-               	<input type="password" id="u_pwd_chk" name="u_pwd_chk" placeholder="비밀번호 확인" required autocomplete="off"><br>
+               	<input type="password" id="u_pwd_chk" name="u_pwd_chk" placeholder="비밀번호 확인" required maxlength="8" autocomplete="off"><br>
                	<span class="point successPwChk" style="font-size: 10px;"></span>
                	<input type="hidden" id="pwDoubleChk" style="margin-right: 200px; ">
             </li>  
@@ -148,7 +174,7 @@ $(document).ready(function(){
 		               	<input type="email" id="u_email" name="u_email" value="${mvo.u_email }" readonly>
 		            </li>
             	</c:when>
-            	<c:when test="${not empty mvo2 }">
+            	<c:when test="${not empty mvo2}">
             		<li class="input-group">
 		               	<input type="text" id="u_name" name="u_name" placeholder="이름" required>
 		            </li>
@@ -181,7 +207,6 @@ $(document).ready(function(){
 	                    <option value="">성별을 선택하세요</option>
 	                    <option value="male">남성</option>
 	                    <option value="female">여성</option>
-	                    <option value="other">기타</option>
                 	</select>
             </li>
             
@@ -196,7 +221,7 @@ $(document).ready(function(){
             <div class="btn">
 	            <ul class="list-form2">
 	            	<li>
-	            		<input type="button" id="btn_1" value="가입하기" onclick="join_success(this.form)">
+	            		<input type="button" id="btn_1" value="가입하기" onclick="join_success(this.form)" disabled>
 	            		<input type="reset" id="btn_2" value=" 취소">
 	            	</li>
 	            </ul>
