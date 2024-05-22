@@ -5,6 +5,7 @@ import java.util.List;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PopupVO;
+import com.ict.travel.ko.dao.UserVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 public interface KoService {
@@ -35,6 +36,13 @@ public interface KoService {
 	//	유저관리
 	int getTotalUser();
 	
-	List<MemberVO> getUserList(int offset, int limit);
+	
+	List<UserVO> getStopUser();
+	
+	List<UserVO> getUserList(int offset, int limit);
+	//	정지 상태 변경
+	int getStopState(String u_idx);
+	//	정지하기
+	int getStopUpdate(String stop_days, String u_idx);
 	
 }

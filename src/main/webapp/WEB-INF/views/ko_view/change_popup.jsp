@@ -54,8 +54,8 @@
 
 			<form method="post" enctype="multipart/form-data">
 				<table>
-					<tr><th>제목</th><td><input class="pop_title" type="text" /></td></tr>
-					<tr><th>사진</th><td><input type="file" /></td></tr>
+					<tr><th>제목</th><td><input class="pop_title" type="text" name="subject" /></td></tr>
+					<tr><th>사진</th><td><input type="file" name="file" /></td></tr>
 					<tr><td colspan="2" style="text-align: center;">
 						<input class="pop_btn" type="button" value="추가하기"
 						onclick="save_go(this.form)"> 

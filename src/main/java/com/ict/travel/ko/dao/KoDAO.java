@@ -91,7 +91,11 @@ public class KoDAO {
 		return sqlSessionTemplate.selectOne("ko.user_count");
 	}
 	
-	public List<MemberVO> getUserList(int offset, int limit) {
+	public List<UserVO> getStopUser() {
+		return sqlSessionTemplate.selectList("ko.stop_user");
+	}
+	
+	public List<UserVO> getUserList(int offset, int limit) {
 		try {
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("offset", offset);
@@ -101,6 +105,17 @@ public class KoDAO {
 			// TODO: handle exception
 		}
 		return null;
+	}
+	
+	public int getStopState(String u_idx) {
+		return sqlSessionTemplate.update("ko.stop_state", u_idx);
+	}
+	
+	public int getStopUpdate(String stop_days, String u_idx) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("u_idx", u_idx);
+		map.put("stop_days", stop_days);
+		return sqlSessionTemplate.update("ko.stop_update", map);
 	}
 	
 }

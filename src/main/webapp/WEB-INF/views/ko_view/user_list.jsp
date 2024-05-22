@@ -10,13 +10,31 @@
 
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css" href="resources/ko_css/userList.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+	
+	function reset_go(u_idx) {
+		location.href = "stop_reset.do?u_idx="+u_idx;		
+	}
+	
+	function stop_go(u_idx, vs) {
+		let stop_days = $('input[name=stop_days'+vs+']:checked').val();
+		location.href = "stop_update.do?u_idx="+u_idx+"&stop_days="+stop_days;
+	}
+
+	function board_go(f) {
+		
+	}
+
+</script>
 
 </head>
 <body>
 
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
-	<section style="margin: 0 auto; width: 1300px;">
+	<section style="margin: 0 auto; width: 1300px; min-height: 700px;">
 
 
 		<div class="user_table">
@@ -34,15 +52,15 @@
 				</thead>
 				<tbody>
 
-					<c:forEach var="k" items="${user_list}">
+					<c:forEach var="k" items="${user_list}" varStatus="vs">
 						<tr>
+							<td>
+								${k.u_name}(${k.u_id})
+							</td>
 							<td><c:choose>
-									<c:when test="${k.u_nickname == '0'}">${k.k_nickname}(${k.k_email.split('@')[0]})</c:when>
-									<c:when test="${k.u_nickname == '1'}">${k.n_nickname}(${k.n_email.split('@')[0]})</c:when>
-									<c:otherwise>${k.u_name}(${k.u_id})</c:otherwise>
-								</c:choose></td>
-							<td><c:choose>
-									<c:when test="${k.u_active == '1'}">정지</c:when>
+									<c:when test="${k.u_state == '1'}">
+										<b><span style="color: red;">정지</span></b>
+									</c:when>
 									<c:otherwise>원활</c:otherwise>
 								</c:choose></td>
 							<td><c:choose>
@@ -56,20 +74,39 @@
 										<jsp:useBean id="now" class="java.util.Date" />
 										<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
 											integerOnly="true" var="nowDate"></fmt:parseNumber>
-										<!-- 정지날짜 -->
+										<!-- 정지만료날짜 -->
 										<fmt:parseDate value="${k.u_stopdate}" pattern="yyyy-MM-dd"
 											var="stop"></fmt:parseDate>
 										<fmt:parseNumber value="${stop.time / (1000*60*60*24)}"
 											integerOnly="true" var="stopDate"></fmt:parseNumber>
-										${nowDate - stopDate}일
+										${stopDate - nowDate}일
 									</c:otherwise>
 								</c:choose></td>
-							<td><input type="radio" name="stop_radio" value="30">30일
-								<input type="radio" name="stop_radio" value="90">90일</td>
-							<td><input type="button" class="user_btn" value="정지하기" onclick="stop_go()">
+							<td><c:choose>
+									<c:when test="${k.u_state == '1'}">
+										<b><span style="color: skyblue;">해제하려면 버튼을 눌러주세요</span></b>
+									</c:when>
+									<c:otherwise>
+										<input type="radio" name="stop_days${vs.count}" value="30" checked>30일
+										<input type="radio" name="stop_days${vs.count}" value="90">90일
+										<input type="radio" name="stop_days${vs.count}" value="9999">영구정지
+									</c:otherwise>
+								</c:choose>
 							</td>
-							<td><input type="button" class="user_btn" value="작성글로 이동"
-								onclick="board_go()"></td>
+							<td>
+								<c:choose>
+									<c:when test="${k.u_state == '1'}">
+										<input type="button" class="user_btn2" value="해제하기" onclick="reset_go(${k.u_idx})">
+									</c:when>
+									<c:otherwise>
+										<input type="button" class="user_btn" value="정지하기" onclick="stop_go(${k.u_idx}, ${vs.count})">
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>
+								<input type="button" class="user_btn" value="작성글로 이동"
+											onclick="board_go()">
+							</td>
 						</tr>
 					</c:forEach>
 

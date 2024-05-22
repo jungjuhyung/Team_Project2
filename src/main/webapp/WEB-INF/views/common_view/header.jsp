@@ -37,6 +37,10 @@
 			</ul>
 			<ul class="ko_util">
 				<c:choose>
+					<c:when test="${adminUser != null }">
+						<li class="btn"><a href="logout">로그아웃</a></li>
+						<li class="btn"><a href="#">관리페이지</a></li>
+					</c:when>
 					<c:when test="${empty memberUser}">						
 						<li class="btn"><a href="login_go.do">로그인</a></li>
 						<li class="btn"><a href="agree_go.do">회원가입</a></li>

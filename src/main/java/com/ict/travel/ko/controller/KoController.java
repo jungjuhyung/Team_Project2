@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +37,7 @@ import com.ict.travel.common.Paging;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PopupVO;
+import com.ict.travel.ko.dao.UserVO;
 import com.ict.travel.ko.service.KoService;
 import com.ict.travel.lee.dao.MemberVO;
 
@@ -337,7 +343,6 @@ public class KoController {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:popup_img.do");
 			String path = session.getServletContext().getRealPath("/resources/popup_img");
-
 			String u_id = (String) session.getAttribute("u_id");
 			popvo.setU_id(u_id);
 
@@ -441,15 +446,52 @@ public class KoController {
 			paging.setEndBlock(paging.getTotalPage());
 		}
 
-		// 5.
+		// 5. 정지만료날짜가 현재날짜와 같거나 크면 정상으로 바꿔주자
+		List<UserVO> stop_user = koService.getStopUser();
+		if (stop_user != null) {
+			for (UserVO k : stop_user) {
+				String stopdate = k.getU_stopdate();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+				LocalDateTime stop = LocalDateTime.parse(stopdate, formatter);
+				LocalDateTime now = LocalDateTime.now();
+				if (stop.isBefore(now)) {
+					int result = koService.getStopState(k.getU_idx());
+				}
+			}
+		}
+		
+		// 6.
 		// DB 갔다오기
-		List<MemberVO> user_list = koService.getUserList(paging.getOffset(), paging.getNumPerPage());
+		List<UserVO> user_list = koService.getUserList(paging.getOffset(), paging.getNumPerPage());
 		if (user_list != null) {
 			mv.addObject("user_list", user_list);
 			mv.addObject("paging", paging);
 			return mv;
 		}
 
+		return new ModelAndView("common_view/error");
+	}
+	
+	@RequestMapping("stop_update.do")
+	public ModelAndView stopUpdate(String stop_days, String u_idx) {
+		ModelAndView mv = new ModelAndView("redirect: user_list.do");
+		//System.out.println(stop_days);
+		//System.out.println(u_idx);
+		
+		int result = koService.getStopUpdate(stop_days, u_idx);
+		if (result > 0) {
+			return mv;
+		}
+		return new ModelAndView("common_view/error");
+	}
+	
+	@RequestMapping("stop_reset.do")
+	public ModelAndView stopReset(String u_idx) {
+		ModelAndView mv = new ModelAndView("redirect: user_list.do");
+		int result = koService.getStopState(u_idx);
+		if (result > 0) {
+			return mv;
+		}
 		return new ModelAndView("common_view/error");
 	}
 
