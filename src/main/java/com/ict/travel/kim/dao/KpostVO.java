@@ -1,10 +1,18 @@
 package com.ict.travel.kim.dao;
 
 public class KpostVO {
-	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart, r_areacode, r_contenttypeid, u_nickname;
+	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart, r_areacode, r_contenttypeid, u_nickname, u_lev;
 
 	public String getU_nickname() {
 		return u_nickname;
+	}
+
+	public String getU_lev() {
+		return u_lev;
+	}
+
+	public void setU_lev(String u_lev) {
+		this.u_lev = u_lev;
 	}
 
 	public void setU_nickname(String u_nickname) {

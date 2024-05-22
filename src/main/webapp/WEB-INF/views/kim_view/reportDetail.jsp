@@ -53,27 +53,27 @@ function reportConfirm(f) {
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post">
-		<div class="container">
+		<div class="reportcontainer">
 			<div class="insert">
 
 				<table id="reporttable">
 					<caption>
 						<h2>신고게시판</h2>
 					</caption>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">아이디</td>
-						<td class="userin">${reportvo.u_id}</td>
+						<td class="userin">${reportvo.u_id}(${reportvo.u_lev})</td>
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">불량유저ID</td>
 						<td class="userin">${reportvo.reported_id}</td>
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">제목</td>
 						<td class="userin">${reportvo.report_title }
 						</td>
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content" readonly>${reportvo.content }</textarea>
 						</td>
@@ -82,7 +82,7 @@ function reportConfirm(f) {
 
 			</div>
 
-			<div class="create">
+			<div class="reportcreate">
 				<input type="hidden" name="report_idx" value="${reportvo.report_idx}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="getReportgo(this.form)"/>

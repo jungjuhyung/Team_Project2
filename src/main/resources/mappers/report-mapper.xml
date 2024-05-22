@@ -23,9 +23,17 @@
 	</insert>
 	
 	<select id="reportDetail" resultType="reportvo">
-		select * from report_t where report_idx = #{report_idx}
+	    select r.*, u.u_lev
+	    from report_t r
+	    inner join user_t u on r.u_idx = u.u_idx
+	    where r.report_idx = #{board_idx}
 	</select>
 	
+	<!-- 
+	<select id="reportDetail" resultType="reportvo">
+		select * from report_t where report_idx = #{report_idx}
+	</select>
+	 -->
 	<delete id="reportDelete">
 		delete from report_t where report_idx = #{report_idx}
 	</delete>

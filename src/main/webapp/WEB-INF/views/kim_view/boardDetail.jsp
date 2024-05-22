@@ -53,7 +53,7 @@ function commentDelete(f) {
 					</caption>
 					<tr class="boardtr">
 						<td class="menu">닉네임</td>
-						<td class="userin">${boardvo.u_nickname}</td>
+						<td class="userin">${boardvo.u_nickname}(${boardvo.u_lev})</td>
 					</tr>
 					<tr class="boardtr">
 						<td class="menu">제목</td>
@@ -87,7 +87,7 @@ function commentDelete(f) {
 		<c:forEach var="k" items="${comment_list}">
 			<div>
 				<form method="post">
-					<div class="renick">${k.u_nickname}</div>
+					<div class="renick">${k.u_nickname}(${k.u_lev})</div>
 					<div class="recontent">
 						<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
 					</div>
@@ -113,7 +113,7 @@ function commentDelete(f) {
 		<form method="post">
 			<fieldset>
 			<div class="renick">
-				<span>${membervo.u_nickname}</span> 
+				<span>${membervo.u_nickname}(${membervo.u_lev})</span> 
 			</div>
 			<div class="recontent">
 				<textarea rows="3" cols="40" name="content"></textarea>

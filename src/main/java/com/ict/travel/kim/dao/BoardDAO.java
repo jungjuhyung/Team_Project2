@@ -51,12 +51,18 @@ public class BoardDAO {
 	// 글쓰기
 	public int boardWrite(BoardVO boardvo) {
 		try {
-			sqlSessionTemplate.update("board_t.boardscore", boardvo);
-			MemberVO mvo = sqlSessionTemplate.selectOne("board_t.userinfo", boardvo);
-			/*
-			 * if (mvo.getu_exp == 100) { sqlSessionTemplate.update("board_t.levelup", mvo);
-			 * }
-			 */
+			sqlSessionTemplate.update("board_t.boardscore", boardvo.getU_idx());
+			MemberVO mvo = sqlSessionTemplate.selectOne("board_t.userinfo", boardvo.getU_idx());
+			try {
+				 if (Integer.parseInt(mvo.getU_exp()) >= 100 ) { sqlSessionTemplate.update("board_t.levelup", mvo);
+				  
+				 }
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			 
+			 
 			return sqlSessionTemplate.insert("board_t.boardWrite", boardvo);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -104,6 +110,7 @@ public class BoardDAO {
 	// 댓글 리스트
 	public List<CommentVO> commentList(String board_idx) {
 		try {
+			
 			return sqlSessionTemplate.selectList("board_t.commentList", board_idx);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -114,6 +121,17 @@ public class BoardDAO {
 	// 댓글 입력
 	public int commentInsert(CommentVO commentvo) {
 		try {
+			sqlSessionTemplate.update("board_t.commentscore", commentvo.getU_idx());
+			MemberVO mvo = sqlSessionTemplate.selectOne("board_t.userinfo", commentvo.getU_idx());
+			try {
+				 if (Integer.parseInt(mvo.getU_exp()) >= 100 ) { sqlSessionTemplate.update("board_t.levelup", mvo);
+				  
+				 }
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		
 			return sqlSessionTemplate.insert("board_t.commentInsert", commentvo);
 		} catch (Exception e) {
 			System.out.println(e);

@@ -33,28 +33,28 @@ $(document).ready(function() {
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post" >
-		<div class="container">
+		<div class="boardcontainer">
 			<div class="insert">
 
-				<table>
+				<table class="boardtable">
 					<caption>
 						<h2>자유게시판</h2>
 					</caption>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">닉네임</td>
 						<td class="userin">${boardvo.u_nickname}</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">비밀번호</td>
 						<td class="userin"><input type="password" id="board_cpw" name="board_cpw" />
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">제목</td>
 						<td class="userin"><input type="text" id="board_title" name="board_title" value="${boardvo.board_title }">
 						
 						</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content">${boardvo.content }</textarea>
 						</td>
@@ -63,7 +63,7 @@ $(document).ready(function() {
 
 			</div>
 
-			<div class="create">
+			<div class="boardcreate">
 				<input type="hidden" name="board_idx" value="${board_idx}">
 				<input type="hidden" name="board_cpw" value="${board_cpw}">
 				<input type="hidden" name="cPage" value="${cPage}">

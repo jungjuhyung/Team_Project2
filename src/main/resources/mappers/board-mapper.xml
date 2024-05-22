@@ -21,30 +21,38 @@
 		insert into board_t (board_title, u_nickname, content, regdate, hit, u_idx, board_pw)
 		values (#{board_title}, #{u_nickname}, #{content}, sysdate(), 0, #{u_idx}, #{board_pw})
 	</insert>
-	<update id="boardscore" parameterType="boardvo">
+	<update id="boardscore" parameterType="String">
 		update user_t set u_exp = u_exp + 10
 		where u_idx = #{u_idx}
 	</update>
-	<select id="userinfo" parameterType="boardvo" resultType="mvo">
+	<update id="commentscore" parameterType="String">
+		update user_t set u_exp = u_exp + 5
+		where u_idx = #{u_idx}
+	</update>
+	<select id="userinfo" parameterType="String" resultType="mvo">
 		select * from user_t where u_idx = #{u_idx}
 	</select>
 	<update id="levelup" parameterType="boardvo" >
 		update user_t 
-		set u_exp = 0, 
+		set u_exp = u_exp - 100, 
 			u_lev = u_lev + 1
 		where u_idx = #{u_idx}
 	</update>
 	
+	<select id="boardDetail" resultType="boardvo">
+	    select b.*, u.u_lev
+	    from board_t b
+	    inner join user_t u on b.u_idx = u.u_idx
+	    where b.board_idx = #{board_idx}
+	</select>
 	
-	
+	 
+	<!-- 
 	<select id="boardDetail" resultType="boardvo">
 		select * from board_t where board_idx = #{board_idx}
 	</select>
-	<!-- 
-	<delete id="boardDelete">
-		delete from board_t where board_idx = #{board_idx}
-	</delete>
 	 -->
+	
 	<update id="boardDelete" parameterType="String">
 		update board_t set active = 1 where board_idx = #{board_idx}
 	</update>
@@ -61,10 +69,16 @@
 	</update>
 	
 	<select id="commentList" parameterType="String" resultType="commentvo">
+	    select c.*, u.u_lev
+	    from comment_t c
+	    inner join user_t u on c.u_idx = u.u_idx
+	    where c.board_idx = #{board_idx}
+	</select>
+	<!-- 
+	<select id="commentList" parameterType="String" resultType="commentvo">
 		select * from comment_t where board_idx = #{board_idx}
 	</select>
-	
-	
+		 -->
 	<insert id="commentInsert" parameterType="commentvo">
 		insert into comment_t (content, regdate, u_nickname, board_idx, u_idx)
 		values (#{content}, sysdate(), #{u_nickname}, #{board_idx}, #{u_idx})

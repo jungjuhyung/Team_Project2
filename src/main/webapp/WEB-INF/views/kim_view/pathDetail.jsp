@@ -44,8 +44,9 @@ function ilikethis() {
         success: function(response) {
             alert("좋아요를 눌렀습니다.");
             var likeButton = $("#likeButton");
-            likeButton.text("취소(찜)");
+            likeButton.html("&#x1F44E; 취소"); // 👎 취소
             likeButton.attr("onclick", "ihatethis()");
+            likeButton.css("background-color", "red"); // 버튼 색상 변경
         },
         error: function() {
             alert("실패.");
@@ -70,8 +71,9 @@ function ihatethis() {
         success: function(response) {
             alert("좋아요를 취소했습니다.");
             var likeButton = $("#likeButton");
-            likeButton.text("좋아요(찜)");
+            likeButton.html("&#x1F44D; 좋아요"); // 👍 좋아요
             likeButton.attr("onclick", "ilikethis()");
+            likeButton.css("background-color", "blue"); // 버튼 색상 변경
         },
         error: function() {
             alert("실패.");
@@ -82,7 +84,7 @@ function ihatethis() {
 function openModal(src) {
 	console.log("Modal opened with source:", src); // 디버깅 로그 추가
     var modal = document.getElementById("myModal");
-    var modalImg = document.getElementById("img01");
+    var modalImg = document.getElementById("rbimg01");
     modal.style.display = "block";
     modalImg.src = src;
 }
@@ -101,12 +103,12 @@ function closeModal() {
 		<div id="infoUser">
 			<div id="reviewTitle">${kpostvo.path_post_title}</div>
 			<div id="reviewUserDate">
-				<div id="reviewUser">글쓴이 : ${kpostvo.u_id}</div>
-				<div id="reviewDate">작성날짜 : ${kpostvo.regdate.substring(0,10)}</div>
+				<div id="reviewUser">작성자 : ${kpostvo.u_nickname}(${kpostvo.u_lev})</div>
+				<div id="reviewDate">작성날짜 : ${kpostvo.regdate.substring(2,19)}</div>
 			</div>
 		</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>
-		
+		<div class="empty-area"></div>
 			
 	 <div class="d_img">
     <div class="image-slider">
@@ -135,8 +137,8 @@ function closeModal() {
     
 		<!-- Modal Structure -->
     <div id="myModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="img01">
+        <span class="rboxclose" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="rbimg01">
     </div>
 
     <script src="scripts.js"></script>
@@ -145,11 +147,12 @@ function closeModal() {
 		<div id="summer">
 			<textarea rows="10" cols="60" id="summernote" name="content">${kpostvo.path_post_content}</textarea>
 		</div>
+		<div class="empty-area"></div>
 		<div>
 		<c:choose>
 			<c:when test="${membervo.u_idx == kpostvo.u_idx}">	
-				<button type="button">수정</button>
-				<button type="button">삭제</button>
+				<button class="reportbtn" type="button">수정</button>
+				<button class="reportbtn" type="button">삭제</button>
 			</c:when>
 			<c:otherwise>
 				<span></span>
@@ -161,12 +164,10 @@ function closeModal() {
 		    <div id="likeButtonContainer">
 		        <c:choose>
 		            <c:when test="${kpostvo.u_heart == '1' }">
-		                <button type="button" id="likeButton" onclick="ihatethis()"
-		                style="background-color: red;">취소(찜)</button>
+		                <button type="button" id="hateButton" onclick="ihatethis()">&#x1F44E; 취소</button>
 		            </c:when>
 		            <c:otherwise>
-		                <button type="button" id="likeButton" onclick="ilikethis()"
-		                style="background-color: blue;">좋아요(찜)</button>
+		                <button type="button" id="likeButton" onclick="ilikethis()">&#x1F44D; 좋아요</button>
 		            </c:otherwise>
 		        </c:choose>
 		    </div>
@@ -177,11 +178,11 @@ function closeModal() {
 		<c:forEach var="k" items="${comment_list}">
 			<div>
 				<form method="post">
-					<div class="renick">${k.u_nickname}</div>
+					<div class="renick">${k.u_nickname}(${k.u_lev})</div>
 					<div class="recontent">
 						<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
 					</div>
-						<div class="rebutton">${k.regdate.substring(0,19)}
+					<div class="rebutton">${k.regdate.substring(2,19)}
 						<c:choose>
 							<c:when test="${membervo.u_idx == k.u_idx}">							
 								<input class="rewrite" type="button" value="삭제" onclick="rcommentDelete(this.form)">
@@ -190,20 +191,25 @@ function closeModal() {
 								<span></span>
 							</c:otherwise>
 						</c:choose>
-						</div>
-						<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
-						<input type="hidden" name = "path_post_idx" value="${k.path_post_idx}" >
+					</div>
+					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
+					<input type="hidden" name = "path_post_idx" value="${k.path_post_idx}" >
 				</form>
 			</div>
 		</c:forEach>
 	</div>	
+	
+	<c:if test="${membervo == null}">
+		<div class="empty-area"></div>
+	</c:if>	
+	
 		<%-- 댓글 입력 --%>
 	<c:if test="${membervo != null}">
 	<div class="recomment">
 		<form method="post">
 			<fieldset>
 			<div class="renick">
-				<span>${membervo.u_nickname}</span> 
+				<span>${membervo.u_nickname}(${membervo.u_lev})</span> 
 			</div>
 			<div class="recontent">
 				<textarea rows="3" cols="40" name="content"></textarea>
@@ -278,7 +284,7 @@ for (let i = 0; i < mapyList.length; i++) {
 
     // 인포윈도우 생성
     var infowindow = new kakao.maps.InfoWindow({
-        content: (i + 1)+'.' + title +' '  ,
+    	content: '<div class="custom-infowindow">' + (i + 1) + '. ' + title + '</div>',
         removable: true
     });
 	
