@@ -17,7 +17,7 @@
 		// 지역 누르면 실행
 	    $(".swipeAreaList").click(function() {
 	       areaCode = $(this).attr('data-areacode')
-	       areaName = $(this).find('span').text();
+	       areaName = $(this).find('p').text();
 	       searchAreaPath(areaCode,areaName)
 	    });   
 	    $(".SearchTitleView").click(function() {
@@ -53,7 +53,7 @@
 				dataType : "text",
 				success : function(data) {
 					$(tag).addClass("wish-added");
-					$(tag).text("♥");
+					$(tag).html('<img src="resources/ko_images/heart_on3.png">');
 					alert("좋아요를 눌렀습니다.")
 					if(areaCode === "" || areaName ===""){
 						areaCode = "1";
@@ -78,7 +78,7 @@
 					},
 				dataType : "text",
 				success : function(data) {
-					$(tag).text("♡");
+					$(tag).html('<img src="resources/ko_images/heart_off2.png">');
 					$(tag).removeClass("wish-added");
 					alert("좋아요를 취소하셨습니다.")
 					if(areaCode === "" || areaName ===""){
@@ -104,6 +104,7 @@
 				},
 			dataType : "json",
 			success : function(data) {
+				console.log(data)
 				$('.place-Wrapper').empty();
 				for (let i = 0; i < data.touristList.length; i++) {
 	          	        let pathPost = data.touristList[i];
@@ -131,9 +132,9 @@
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
 		let heartIcon = '';
 		if(pathPost.u_heart === "1") {
-		    heartIcon = '<span class="heart-state wish-added" data-path_post_idx="' + pathPost.path_post_idx + '">' + '♥' + '</span>';
+		    heartIcon = '<span class="heart-state wish-added" data-path_post_idx="' + pathPost.path_post_idx + '">' + '<img src="resources/ko_images/heart_on3.png" >' + '</span>';
 		} else { 
-		    heartIcon = '<span class="heart-state" data-path_post_idx="' + pathPost.path_post_idx + '">' + '♡' + '</span>';
+		    heartIcon = '<span class="heart-state" data-path_post_idx="' + pathPost.path_post_idx + '">' + '<img src="resources/ko_images/heart_off2.png" >' + '</span>';
 		}
    	    let pathPostHTML = '<div class="place-box swiper-slide" >' +
    	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ')">' +
@@ -200,6 +201,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common_view/sideBar.jsp"%>
 	<section>
 		<div class="swipe-Wrapper ">
 			<div class = "swiper mySwiper">

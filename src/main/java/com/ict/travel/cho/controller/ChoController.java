@@ -67,9 +67,9 @@ public class ChoController {
 		}
 	
 	// 검색 번역기
-	@GetMapping("translateTest")
+	@GetMapping("sideBar")
 	public ModelAndView translateTest(HttpSession session) {
-		ModelAndView mv = new ModelAndView("cho_views/translateTest");
+		ModelAndView mv = new ModelAndView("cho_views/sideBar");
 		return mv;
 	}
 	

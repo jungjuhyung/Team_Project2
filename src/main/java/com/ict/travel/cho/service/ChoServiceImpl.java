@@ -85,8 +85,8 @@ public class ChoServiceImpl implements ChoService{
 		return choDAO.getAdminLogin(adminVO);
 	}
 	@Override
-	public List<AdminVO> getAdminList() {
-		return choDAO.getAdminList();
+	public List<AdminVO> getAdminList(String text, int offset, int limit) {
+		return choDAO.getAdminList(text, offset, limit);
 	}
 	@Override
 	public int adminDelete(String admin_idx) {
@@ -107,6 +107,10 @@ public class ChoServiceImpl implements ChoService{
 	@Override
 	public String getAdminUpdate(AdminVO adminVO) {
 		return choDAO.getAdminUpdate(adminVO);
+	}
+	@Override
+	public int getAdminListCount(String text) {
+		return choDAO.getAdminListCount(text);
 	}
 }
 

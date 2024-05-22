@@ -168,8 +168,6 @@ public class ChoDAO {
 			map.put("limit", limit );
 			map.put("order", order );
 			map.put("type", type );
-			System.out.println(areaCode);
-			System.out.println(contentType);
 			List<PathPostVO> list = sqlSessionTemplate.selectList("cho_mapper.selectTourPathList", map);
 			for (PathPostVO k : list) {
 				System.out.println("제목: " + k.getTitle());
@@ -274,9 +272,13 @@ public class ChoDAO {
 		return null;
 	}
 
-	public List<AdminVO> getAdminList() {
+	public List<AdminVO> getAdminList(String text, int offset, int limit) {
 		try {
-			return sqlSessionTemplate.selectList("cho_mapper.AdminList");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("text", text);
+			map.put("offset", offset);
+			map.put("limit", limit);
+			return sqlSessionTemplate.selectList("cho_mapper.AdminList", map);
 		} catch (Exception e) {
 			System.out.println("관리자 목록 확인 : " + e);
 		}
@@ -329,6 +331,15 @@ public class ChoDAO {
 			System.out.println("관리자 수정 :" + e);
 		}
 		return null;
+	}
+
+	public int getAdminListCount(String text) {
+		try {
+			return sqlSessionTemplate.selectOne("cho_mapper.AdminCount", text);
+		} catch (Exception e) {
+			System.out.println("관리자 cnt :" + e);
+		}
+		return 0;
 	}
 
 

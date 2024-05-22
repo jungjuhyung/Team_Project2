@@ -9,10 +9,18 @@
 <title>Insert title here</title>
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link href="resources/jung_css/mypage.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="resources/cho_css/category.css">
 <script type="text/javascript">
 	$(document).ready(function() {
 		getList();
+		
+		// 검색 엔터 처리
+		document.querySelector('#adminSearchText').addEventListener('keypress', function(e) {
+		    if (e.key === 'Enter') {
+		        e.preventDefault(); // 기본 제출 동작 방지
+		        document.querySelector('#adminSearchButton').click(); // SearchButton 클릭
+		    }
+		});
 		
 		/* 가입 버튼 누름 */
 		$("#join_btn").click(function() {
@@ -31,6 +39,7 @@
 				},
 				dataType : "json",
 				success : function(data) {
+					$('.modal_box3').fadeOut();
 					if(data == "0"){
 						alert("가입실패")
 					}else if (data == "1") {
@@ -39,6 +48,7 @@
 				},
 				error: function() {
 					alert("전송 실패")
+					$('.modal_box3').fadeOut();
 				}
 			})
 		});
@@ -81,20 +91,31 @@
 		})
 	});
 	
-	// 모달창 여닫기
+	// 관리자 수정 여닫기
 	$(document).on('click', '.admindtailbtn', function(){
         $('.modal_box').fadeIn(100);
+        $('.modal_box3').fadeOut();
     });
-	
 	$(document).on('click', '#closeModal', function(){
         $('.modal_box').fadeOut();
     });
 	
+	// DB 갱신 열기
 	$(document).on('click', '#DBupDate', function(){
         $('.modal_box2').fadeIn(100);
+        $('.modal_box').fadeOut();
+        $('.modal_box3').fadeOut();
         updateDB();
     });
-	
+	// 관리자 생성 열기
+	$(document).on('click', '#CreateAdmin', function(){
+        $('.modal_box3').fadeIn(100);
+        $('.modal_box2').fadeOut();
+        $('.modal_box').fadeOut();
+    });
+	$(document).on('click', '#closeModal2', function(){
+        $('.modal_box3').fadeOut();
+    });
 	
 	/* 모달에서 수정 버튼 누름 */
 	 $(document).on('click', '#updateAdmin', function() {
@@ -125,18 +146,21 @@
 	
 		
 	/* 관리자 목록 불러오기 */
-	function getList() {
+	function getList(page) {
+		let text = $("#adminSearchText").val()
 		$.ajax({
 			url: "getAdminList",
 			method : "post",
+			data:{
+				page:page,
+				text:text
+				},
 			dataType : "json",
 			success : function(data) {
 				$("#adminInfo").empty();
-				console.log(data);
 				let tableBody = document.getElementById("adminInfo");
-				
-				for (let i = 0; i < data.length; i++) {
-					let admin = data[i];
+				for (let i = 0; i < data.adminList.length; i++) {
+					let admin = data.adminList[i];
 					let grade = "일반 관리자";
 					
 					if(admin.admin_grade == 2){
@@ -161,6 +185,9 @@
 		                         "<td>" + admin.regdate.substring(0, 10) + "</td>" +
 		                      "</tr>";
 					$("#adminInfo").append(row);
+					
+					// 페이징 처리
+					updatePagination(data.paging);
 				}
 			},
 			
@@ -168,6 +195,76 @@
 				alert("읽기 실패")
 			}
 		});
+	}
+	
+	// 페이지 번호 클릭 이벤트 처리
+	$(document).on("click", ".pagination li.page-item", function(e) {
+	    e.preventDefault();
+	    let page = parseInt($(this).attr('data-page'));
+	    getList(page); // 해당 페이지 검색 실행
+	});
+	
+	// 관리자 검색
+	$(document).on("click", "#adminSearchButton", function(e) {
+	    getList();
+	});
+	
+	
+	// 현재 페이지 구하는 함수
+	function getCurrentPage() {
+	    return parseInt($(".nowPage").attr("data-page"));
+	}
+	
+	function getTotalRecord(paging){
+		
+		let totalRecordHtml = '검색 결과('+paging.totalRecord+')'
+		
+        $('#resultCount').html(totalRecordHtml);
+	}
+	
+	// 페이징 처리 함수
+	function updatePagination(paging) {
+    let content = '';
+    content += '<input type="hidden" class="nowPage" data-page="' + paging.nowPage + '">';
+    content += '<ol class="pagination" id="pagination">';
+    if (paging.beginBlock > 1) {
+        content += '<li class="page-item" data-page="' + 1 + '"> 1 </li>';
+    }
+    if (paging.beginBlock > 1) {
+        content += '<li class="page-item" data-page="' + (paging.beginBlock - 1) + '"> ... </li>';
+    }
+
+    // 페이지 번호를 표시할 개수
+    const pageNumberDisplay = paging.pagePerBlock;
+
+    // 현재 페이지 번호를 기준으로 앞뒤로 표시할 페이지 개수 계산
+    let startPage = Math.max(paging.nowPage - Math.floor(pageNumberDisplay / 2), 1);
+    let endPage = Math.min(startPage + pageNumberDisplay - 1, paging.totalPage);
+
+    // 보정된 시작 페이지 번호 계산
+    startPage = Math.max(endPage - pageNumberDisplay + 1, 1);
+
+    // 중앙에 오도록 현재 페이지 번호를 위치시키기 위한 변수 설정
+    let centerIndex = Math.floor(pageNumberDisplay / 2);
+
+ 	
+    // 페이지 번호를 표시하는 부분 수정
+    for (let i = startPage; i <= endPage; i++) {
+    	content += '<li class="page-item" data-page="' + i + '">' + i + '</li>';
+	}
+    
+	if(paging.nowPage < (paging.totalPage-2)){
+	    if (paging.endBlock < paging.totalPage) {
+	        content += '<li class="page-item" data-page="' + (paging.endBlock + 1) + '"> ... </li>';
+	    }
+	    if (paging.endBlock < paging.totalPage) {
+	        content += '<li class="page-item totalPage" data-page="' + paging.totalPage + '"> '+ paging.totalPage +' </li>';
+	    }
+    }
+  
+    content += '</ol>';
+
+    $(".board-list-paging").html(content);
 	}
 	/* 관리자 삭제하기 */
 	function adminDel(admin_idx) {
@@ -177,7 +274,7 @@
 			data: {admin_idx: admin_idx}, 
 			dataType : "json",
 			success : function(data) {
-				getList();
+				getList(getCurrentPage());
 			},
 			error: function() {
 				alert("읽기 실패")
@@ -339,11 +436,13 @@ textarea {
 input[type="text"],
 input[type="password"],
 select {
-    width: calc(100% - 22px); /* 패딩을 고려한 너비 조정 */
+    width: 100%; /* 패딩을 고려한 너비 조정 */
     padding: 10px;
     box-sizing: border-box;
 }
-
+#adminSearchText{
+	width: 30%;
+}
 .span {
     color: red;
 }
@@ -372,11 +471,13 @@ select {
 /* 모달창 */
 .modal_box{
 	width: 500px;
-	height: 800px;
 	margin: 0 auto;
 	padding: 20px;
 	text-align: center;
 	background-color: azure;
+    border: 2px solid #CCCCCC; /* 연한 회색 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 3%;
 	display: flex;
 	flex-flow: column;
 	position: absolute;
@@ -388,11 +489,32 @@ select {
 }
 .modal_box2{
 	width: 500px;
-	height: 400px;
 	margin: 0 auto;
 	padding: 20px;
 	text-align: center;
 	background-color: azure;
+    border: 2px solid #CCCCCC; /* 연한 회색 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 3%;
+	display: flex;
+	flex-flow: column;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 999;
+	display: none;
+}
+
+.modal_box3{
+	width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	text-align: center;
+	background-color: azure;/* 배경색 흰색 */
+    border: 2px solid #CCCCCC; /* 연한 회색 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 3%;
 	display: flex;
 	flex-flow: column;
 	position: absolute;
@@ -431,6 +553,7 @@ select {
 		<article>
 			<div class = "adminH1">DB 기능</div>
 			<input type="button" class= "adminMangeBtn" id="DBupDate" value = "DB 동기화">
+			<input type="button" class= "adminMangeBtn"  id="CreateAdmin" value = "관리자 생성">
 		</article>
 	
 	
@@ -452,54 +575,64 @@ select {
 				<tbody id = "adminInfo">	
 				</tbody>
 			</table>
-		</article>
-		<br>
-		<!-- 관리자 추가  -->
-		<article id="adminCreate" class = "adminArticle">
-			<div class="adminH1">관리자 생성</div>
-			<div>
-				<table id= "adminJoinForm" >
-					<tbody>
-						<tr>
-							<td> 아이디 </td>
-							<td>
-								<input type="text" size="14" name="admin_id" id="admin_id">
-							</td>
-						</tr>
-						<tr>
-							<td> 비밀번호 </td>
-							<td><input type="password" size="8" name="admin_pwd" id="admin_pwd"></td>
-						</tr>
-						<tr>
-							<td> 관리자 등급 <br> (일반 관리자 = 1, 고급 관리자 = 2)</td>
-							<td>
-								<select name="admin_grade" id= "admin_grade">
-									<option value="1">일반 관리자</option>
-									<option value="2">고급 관리자</option>
-								</select> 
-							</td>
-						</tr>
-						<tr>
-							<td> 비고 </td>
-							<td><textarea name="admin_note" id ="admin_note" rows="10" cols="50"></textarea> </td>
-						</tr>
-					</tbody>
-						<tr>
-							<td>
-								<input type="button" class="adminMangeBtn" value="유효성검사" onclick="ValChk()"><br>
-							</td>
-							<td>
-								<span class ="span">유효성 검사를 해주세요.</span>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="3">
-								<button type="button" class="adminMangeBtn" id="join_btn" disabled>생성하기</button>
-							</td>
-						</tr>
-				</table>
+			<!-- 페이징 표시 -->
+			<div class="board-list-paging"></div>
+			<!-- 페이지 이동 -->
+			<div class="pageMoveForm">
+				<input type="text" id="adminSearchText" class ="SearchText" placeholder="아이디 또는 비고를 검색하세요.">
+				<input type="button" value="검색" id="adminSearchButton" class = "adminMangeBtn" >
 			</div>
 		</article>
+		<br>
+		
+		
+		<!-- 관리자 추가  -->
+		<div class = "modalwrap">
+			<div class="modal_box3">
+					<div class="adminH1">관리자 생성</div>
+						<table id= "adminJoinForm" >
+							<tbody>
+								<tr>
+									<td> 아이디 </td>
+									<td>
+										<input type="text" size="14" name="admin_id" id="admin_id">
+									</td>
+								</tr>
+								<tr>
+									<td> 비밀번호 </td>
+									<td><input type="password" size="8" name="admin_pwd" id="admin_pwd"></td>
+								</tr>
+								<tr>
+									<td> 관리자 등급 <br> (일반 관리자 = 1, 고급 관리자 = 2)</td>
+									<td>
+										<select name="admin_grade" id= "admin_grade">
+											<option value="1">일반 관리자</option>
+											<option value="2">고급 관리자</option>
+										</select> 
+									</td>
+								</tr>
+								<tr>
+									<td> 비고 </td>
+									<td><textarea name="admin_note" id ="admin_note" rows="10" cols="50"></textarea> </td>
+								</tr>
+							</tbody>
+								<tr>
+									<td>
+										<input type="button" class="adminMangeBtn" value="유효성검사" onclick="ValChk()"><br>
+									</td>
+									<td>
+										<span class ="span">유효성 검사를 해주세요.</span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">
+										<button id="closeModal2" class = "adminMangeBtn">닫기</button>			
+										<button type="button" class="adminMangeBtn" id="join_btn" disabled>생성하기</button>
+									</td>
+								</tr>
+						</table>
+			</div>
+		</div>
 	</section>
 	
 	
@@ -534,6 +667,7 @@ select {
 								<td><textarea rows="10" cols="30" style="resize: none;" id= "modal_admin_note"></textarea> </td>
 							</tr>
 							<tr>
+
 								<td>수정일자</td>
 								<td id="modal_admin_updatetime"></td>
 							</tr>
