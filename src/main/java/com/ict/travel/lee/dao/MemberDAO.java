@@ -144,9 +144,16 @@ public class MemberDAO {
 		return -1;
 		
 	}
+	public MemberVO getMemberUpDetail(String u_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("lee-mapper.memdetail", u_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
-	// 회원 정보 수정
-	public int getMemberUp(MemberVO mvo) {
+	public int getMemberUpOk(MemberVO mvo) {
 		try {
 			return sqlSessionTemplate.update("lee-mapper.member_up", mvo);
 		} catch (Exception e) {
@@ -154,6 +161,8 @@ public class MemberDAO {
 		}
 		return -1;
 	}
+	
+	
 	
 
 	

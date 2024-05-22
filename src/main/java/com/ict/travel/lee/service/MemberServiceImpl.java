@@ -27,10 +27,14 @@ public class MemberServiceImpl implements MemberService{
 	
 	// 회원정보 수정
 	@Override
-	public int getMemberUp(MemberVO mvo) {
-		return memberDAO.getMemberUp(mvo);
+	public MemberVO getMemberUpDetail(String u_idx) {
+		return memberDAO.getMemberUpDetail(u_idx);
 	}
 	
+	@Override
+	public int getMemberUpOk(MemberVO mvo) {
+		return memberDAO.getMemberUpOk(mvo);
+	}
 	// 아이디 중복체크
 	@Override
 	public String getIdChk(String u_id) {
@@ -306,6 +310,12 @@ public class MemberServiceImpl implements MemberService{
 			return null;
 		}
 	}
+
+	
+
+	
+
+	
 
 	
 	
