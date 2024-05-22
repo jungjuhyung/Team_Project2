@@ -205,7 +205,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
-	<%@ include file="/WEB-INF/views/common_view/sideBar.jsp"%>
+	<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
 	<section>
 		<div class="swipe-Wrapper ">
 			<div class = "swiper mySwiper">
