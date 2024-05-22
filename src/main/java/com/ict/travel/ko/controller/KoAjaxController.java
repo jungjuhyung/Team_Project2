@@ -21,6 +21,7 @@ import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.KoVO;
+import com.ict.travel.ko.dao.UserVO;
 import com.ict.travel.ko.service.KoService;
 import com.ict.travel.lee.dao.MemberVO;
 
@@ -135,6 +136,7 @@ public class KoAjaxController {
 
 		return tema_json;
 	}
+
 
 	@Autowired
 	private ChoService choService;

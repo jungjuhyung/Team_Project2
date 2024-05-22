@@ -26,6 +26,8 @@
 		select * from tourapi_t where contentid = #{contentid}
 	</select>
 	
+	<!-- ======================================================================== -->
+	
 	<insert id="popup_insert" parameterType="popvo">
 		insert into popup_t (u_id, subject, f_name, regdate) 
 		values (#{u_id}, #{subject}, #{f_name}, sysdate())
@@ -59,8 +61,14 @@
 		select count(*) from popup_t
 	</select>
 	
+	<!-- ======================================================================== -->
+	
 	<select id="user_count" resultType="int">
 		select count(*) from user_t
+	</select>
+	
+	<select id="search_count" parameterType="String" resultType="int">
+		select count(*) from user_t where u_name like concat('%', #{search}, '%')
 	</select>
 	
 	<select id="stop_user" resultType="uservo">
@@ -69,6 +77,10 @@
 	
 	<select id="user_list" parameterType="Map" resultType="uservo">
 		select * from user_t limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="user_search" parameterType="pvo" resultType="uservo">
+		select * from user_t where u_name like concat('%', #{search}, '%') limit #{limit} offset #{offset}
 	</select>
 	
 	<update id="stop_state" parameterType="String">
@@ -82,6 +94,29 @@
 		set u_stopdate = DATE_ADD(sysdate(), INTERVAL #{stop_days} DAY) , u_state = 1
 		where u_idx = #{u_idx} 
 	</update>
+	
+	<!-- ======================================================================== -->
+	
+	<select id="user_detail" parameterType="String" resultType="uservo">
+		select * from user_t where u_idx = #{u_idx}
+	</select>
+	
+	<select id="board_count" parameterType="String" resultType="int">
+		select count(*) from board_t where u_idx = #{u_idx}
+	</select>
+	
+	<select id="board_list" parameterType="Map" resultType="boardvo">
+		select * from board_t where u_idx = #{u_idx} limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="report_count" parameterType="String" resultType="int">
+		select count(*) from report_t where u_idx = #{u_idx}
+	</select>
+	
+	<select id="report_list" parameterType="Map" resultType="reportvo">
+		select * from report_t where u_idx = #{u_idx} limit #{limit} offset #{offset}
+	</select>
+	
 	 
 </mapper>
 
