@@ -13,7 +13,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		getList(1);
-		
+		console.log("${adminUser}")
 		function getList(page) {
 			$("#tbody").empty()
 			$.ajax({
@@ -43,27 +43,33 @@
 						tbody += "</tr>";
 					});
 					$("#tbody").append(tbody);
-		
-					$("body").on("click", ".report-title-link", function(event) {
-					    event.preventDefault();
-
-					    // 클릭한 보고서의 행(tr 요소)을 찾기
-					    let $row = $(this).closest("tr");
-
-					    // 클릭한 보고서의 report_idx 값을 가져옴
-					    let reportIdx = $row.find("input[name='report_idx']").val();
-					    
-					    
-					    
-					    // reportDetail 페이지로 이동하면서 report_idx 값을 쿼리 문자열로 전달
-					    window.location.href = "reportDetail?report_idx=" + encodeURIComponent(reportIdx);
-					});
+					if("${adminUser}" === "") {
+					
+					}else{
+						
+					}
+					
 				},
 				error : function(){
 					alert("실패 역")
 				}
 			});	
 		}
+		$("body").on("click", ".report-title-link", function(event) {
+		    event.preventDefault();
+
+		    // 클릭한 보고서의 행(tr 요소)을 찾기
+		    let $row = $(this).closest("tr");
+
+		    // 클릭한 보고서의 report_idx 값을 가져옴
+		    let reportIdx = $row.find("input[name='report_idx']").val();
+		    
+		    
+		    
+		    // reportDetail 페이지로 이동하면서 report_idx 값을 쿼리 문자열로 전달
+		    window.location.href = "reportDetail?report_idx=" + encodeURIComponent(reportIdx);
+		});
+					
 		function processXML(xml) {
 		    // XML에서 페이징 정보 추출
 		    let paging = {
@@ -204,49 +210,14 @@
 	    return parseInt($(".nowPage").attr("data-page"));
 	}
 
-	 // 세션 정보 추출
-    function parseXML(xml) {
-        let xmlDoc = xml.responseXML;
-        let sessionInfo = xmlDoc.getElementsByTagName("sessionInfo")[0];
-        let userGrade = sessionInfo.getElementsByTagName("userGrade")[0].childNodes[0].nodeValue;
-
-        // 세션 정보 출력 (여기서는 콘솔에 출력)
-        console.log("userGrade: " + userGrade);
-
-        // 세션 정보를 이용한 버튼 표시
-        if (userGrade != null) {
-            document.getElementById("writeButton").style.display = "block";
-        }
-    }
-
-    // 페이지 로드 시 실행되는 함수
-    window.onload = function() {
-        loadXML();
-    };
-
-    // XML 데이터를 가져오는 함수
-    function loadXML() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                parseXML(this);
-            }
-        };
-        xhttp.open("GET", "getReportList?page=1", true);
-        xhttp.send();
-    }
-
-    // 버튼 클릭 시 실행할 함수
-    function reportWrite() {
-        // 여기에 버튼 클릭 시 실행할 작업을 추가하세요.
-    }
-
+	
 	
 </script>
 <script type="text/javascript">
 function reportWrite() {
 	location.href="reportWrite";
 }
+console.log(${adminUser});
 </script>
 </head>
 <body>
@@ -266,11 +237,14 @@ function reportWrite() {
         </table>
     </div>
     <div class="board-list-paging"></div>
+    
     <div id="bwbtn">
-    	<input type="hidden" id="userGrade" value="" />
     	<input type="hidden" name="cPage" value="${paging.nowPage}+${paging.endBlock}+ ${paging.beginBlock}+${paging.totalPage}">
-    	<button id="writeButton" style="display:none;" onclick="reportWrite()">글쓰기</button>
+    	<c:if test="${memberUser != null}">
+    	<button onclick="reportWrite()">글쓰기</button>
+    	</c:if>
     </div>
+    
 </div>
 	<div id="empty-area" ></div>
 <%@ include file="/WEB-INF/views/common_view/footer.jsp"%>

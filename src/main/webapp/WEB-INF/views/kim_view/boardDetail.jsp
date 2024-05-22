@@ -14,8 +14,9 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
     
 <script type="text/javascript">
 function boardUpdate(f) {
@@ -41,25 +42,25 @@ function commentDelete(f) {
 </head>
 
 <body>
-
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post">
-		<div class="container">
+		<div class="boardcontainer">
 			<div class="insert">
 
 				<table id="boardtable">
-					<caption>
+					<caption class="boardcaption">
 						<h2>자유게시판</h2>
 					</caption>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">닉네임</td>
 						<td class="userin">${boardvo.u_nickname}</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">제목</td>
 						<td class="userin">${boardvo.board_title }
 						</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content" readonly>${boardvo.content }</textarea>
 						</td>
@@ -68,7 +69,7 @@ function commentDelete(f) {
 
 			</div>
 
-			<div class="create">
+			<div class="boardcreate">
 				<input type="hidden" name="board_idx" value="${boardvo.board_idx}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="location.href='boardList'"/>
@@ -107,7 +108,7 @@ function commentDelete(f) {
 		</c:forEach>
 	</div>	
 		<%-- 댓글 입력 --%>
-	<c:if test="${membervo.u_grade != null}">
+	<c:if test="${membervo != null}">
 	<div class="recomment">
 		<form method="post">
 			<fieldset>

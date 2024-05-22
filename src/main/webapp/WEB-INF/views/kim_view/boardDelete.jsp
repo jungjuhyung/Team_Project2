@@ -26,7 +26,7 @@
 </script>
 </head>
 <body>
-
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 	<form method="post">
 	<section id="wrap">
 		<div id="deletecon">

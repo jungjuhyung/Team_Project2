@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostDAO;
 import com.ict.travel.kim.dao.KpostVO;
+import com.ict.travel.lee.dao.MemberVO;
 
 @Service
 public class KpostServiceImpl implements KpostService{
@@ -36,14 +37,32 @@ public class KpostServiceImpl implements KpostService{
 	}
 
 	@Override
-	public int ilikethis(KpostVO kpostvo) {
-		return kpostDAO.ilikethis(kpostvo);
+	public int ilikethis(MemberVO membervo, KpostVO kpostvo) {
+		return kpostDAO.ilikethis(membervo, kpostvo);
+	}
+	
+	@Override
+	public int ilikehit(KpostVO kpostvo) {
+		return kpostDAO.ilikehit(kpostvo);
 	}
 
 	@Override
-	public int ihatethis(KpostVO kpostvo) {
-		return kpostDAO.ihatethis(kpostvo);
+	public int ihatethis(MemberVO membervo, KpostVO kpostvo) {
+		return kpostDAO.ihatethis(membervo, kpostvo);
 	}
+	
+	@Override
+	public int ihatehit(KpostVO kpostvo) {
+		return kpostDAO.ihatehit(kpostvo);
+	}
+
+	@Override
+	public KpostVO pathTable(String path_post_idx) {
+		return kpostDAO.pathTable(path_post_idx);
+	}
+
+	
+
 
 	
 	

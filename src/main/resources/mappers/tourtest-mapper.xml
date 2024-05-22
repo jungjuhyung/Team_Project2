@@ -31,7 +31,9 @@
 	<select id="markerImgList" parameterType="String" resultType="tourtestvo">
 		SELECT * FROM pathmarker_img_t WHERE path_marker_idx = #{path_marker_idx}
 	</select>
-
+	
+	
+	
 </mapper>
 
 

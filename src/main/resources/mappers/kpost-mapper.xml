@@ -24,14 +24,28 @@
 		delete from comment_t where comment_idx = #{comment_idx}
 	</delete>
 	
-	<insert id="ilikethis" parameterType="kpostvo">
+	<insert id="ilikethis" parameterType="map">
 		insert into pathwish_t (path_post_idx, u_idx, firstimage, r_contenttypeid, path_post_title, regdate)
-		values(#{path_post_idx}, #{u_idx}, #{firstimage}, #{r_contenttypeid}, #{path_post_title}, sysdate())
+		values(#{kpostvo.path_post_idx}, #{membervo.u_idx}, #{kpostvo.firstimage}, #{kpostvo.r_contenttypeid}, #{kpostvo.path_post_title}, sysdate())
 	</insert>
 	
-	<delete id="ihatethis" parameterType="kpostvo">
-		delete from pathwish_t where path_post_idx = #{path_idx}
+	<update id="ilikehit" parameterType="kpostvo">
+		update pathpost_t set heart = heart + 1 where path_post_idx = #{path_post_idx}
+	</update>
+	
+	<delete id="ihatethis" parameterType="map">
+	    delete from pathwish_t 
+	    where path_post_idx = #{kpostvo.path_post_idx} 
+	    and u_idx = #{membervo.u_idx}
 	</delete>
+	
+	<update id="ihatehit" parameterType="kpostvo">
+		update pathpost_t set heart = heart - 1 where path_post_idx = #{path_post_idx}
+	</update>
+	
+	<select id="pathtable" resultType="kpostvo">
+		select * from pathwish_t where path_post_idx = #{path_post_idx}
+	</select>
 	
 </mapper>
 

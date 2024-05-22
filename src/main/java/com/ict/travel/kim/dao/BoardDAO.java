@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.travel.lee.dao.MemberVO;
+
 @Repository
 public class BoardDAO {
 
@@ -49,6 +51,12 @@ public class BoardDAO {
 	// 글쓰기
 	public int boardWrite(BoardVO boardvo) {
 		try {
+			sqlSessionTemplate.update("board_t.boardscore", boardvo);
+			MemberVO mvo = sqlSessionTemplate.selectOne("board_t.userinfo", boardvo);
+			/*
+			 * if (mvo.getu_exp == 100) { sqlSessionTemplate.update("board_t.levelup", mvo);
+			 * }
+			 */
 			return sqlSessionTemplate.insert("board_t.boardWrite", boardvo);
 		} catch (Exception e) {
 			System.out.println(e);

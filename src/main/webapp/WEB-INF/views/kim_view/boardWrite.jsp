@@ -13,8 +13,9 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+ <script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <script type="text/javascript">
 $(document).ready(function(){
 	let pwdchk = "${pwdchk}";
@@ -29,29 +30,29 @@ $(document).ready(function(){
 </head>
 
 <body>
-
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post" action="boardWriteOK">
-		<div class="container">
+		<div class="boardcontainer">
 			<div class="insert">
 
-				<table>
-					<caption>
+				<table class="boardtable">
+					<caption class="boardcaption">
 						<h2>자유게시판</h2>
 					</caption>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">닉네임</td>
 						<td class="userin">${membervo.u_nickname}</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">비밀번호</td>
 						<td class="userin"><input type="password" id="board_pw" name="board_pw" />
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">제목</td>
 						<td class="userin"><input type="text" id="board_title" name="board_title">
 						</td>
 					</tr>
-					<tr>
+					<tr class="boardtr">
 						<td class="menu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content"></textarea>
 						</td>
@@ -60,7 +61,7 @@ $(document).ready(function(){
 
 			</div>
 
-			<div class="create">
+			<div class="boardcreate">
 				<input class="but4" type="submit" value="등록하기">
 				<input class="but4" type="button" value="취소하기" onclick="location.href='boardList'"> 
 

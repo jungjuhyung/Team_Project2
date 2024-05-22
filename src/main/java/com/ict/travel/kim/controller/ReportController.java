@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.travel.cho.dao.AdminVO;
+import com.ict.travel.cho.dao.PathPostVO;
+import com.ict.travel.cho.dao.PathWishVO;
+import com.ict.travel.cho.dao.PlaceWishVO;
+import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
@@ -24,6 +29,7 @@ import com.ict.travel.kim.service.KpostService;
 import com.ict.travel.kim.service.ReportService;
 import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MemberService;
+import com.jcraft.jsch.Session;
 
 @RestController
 public class ReportController {
@@ -33,6 +39,9 @@ public class ReportController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private ChoService choService;
 	
 	@Autowired
 	private Paging paging;
@@ -48,8 +57,6 @@ public class ReportController {
 		
 		HttpSession session = request.getSession();
 		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
-		
-		
 		
 		int count = reportService.getTotalCount();
 		paging.setTotalRecord(count);
@@ -93,14 +100,6 @@ public class ReportController {
 			StringBuffer sb = new StringBuffer();
 			sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			sb.append("<reports>");
-			
-			// 세션 정보 추가
-	        if (membervo != null) {
-	            sb.append("<sessionInfo>");
-	            sb.append("<userGrade>").append(membervo.getU_grade()).append("</userGrade>");
-	            // 다른 세션 정보들도 필요한 경우에 추가할 수 있습니다.
-	            sb.append("</sessionInfo>");
-	        }
 			
 			
 			
@@ -161,11 +160,9 @@ public class ReportController {
 			
 			ReportVO reportvo2 = reportService.baduser(bad_id);
 			if (reportvo2 == null) {
-				System.out.println("여기 와?");
 				mv.setViewName("kim_view/reportWrite");
 			    mv.addObject("reportvo", reportvo);
 			    mv.addObject("membervo", membervo);
-			    System.out.println(membervo.getU_id());
 			    mv.addObject("badid", "fail");
 			    return mv;
 			}
@@ -192,9 +189,12 @@ public class ReportController {
 			HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
+			AdminVO adminvo = (AdminVO) session.getAttribute("adminUser");
+			if(adminvo == null ) {
 			if(membervo == null || !membervo.getU_idx().equals(reportvo.getU_idx())) {
 				return new ModelAndView("redirect:getReportgo");
 				
+			}
 			}
 			if (reportvo !=null) {
 				
@@ -306,18 +306,23 @@ public class ReportController {
 	// 추천경로 좋아요
 	@RequestMapping(value = "ilikethis", produces = "text/plain; charset=utf-8")
 	@ResponseBody
-	public String ilikethis(KpostVO kpostvo) {
-		int result = kpostService.ilikethis(kpostvo);
-		
-		return String.valueOf(result);
-	}
+	public String ilikethis(KpostVO kpostvo, HttpSession session) {
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		int result = kpostService.ilikethis(membervo, kpostvo);
+		int res = kpostService.ilikehit(kpostvo);
 	
+		return String.valueOf(result + res);
+	}
+	// 좋아요 취소
 	@RequestMapping(value = "ihatethis", produces = "text/plain; charset=utf-8")
 	@ResponseBody
-	public String ihatethis(KpostVO kpostvo) {
-		int result = kpostService.ihatethis(kpostvo);
+	public String ihatethis(KpostVO kpostvo, HttpSession session) {
+		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
+		int result = kpostService.ihatethis(membervo, kpostvo);
+		int res = kpostService.ihatehit(kpostvo);
 		
-		return String.valueOf(result);
+		
+		return String.valueOf(result + res);
 	}
 	
 	
