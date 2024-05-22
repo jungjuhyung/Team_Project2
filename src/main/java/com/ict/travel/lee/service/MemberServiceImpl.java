@@ -24,32 +24,52 @@ import com.ict.travel.lee.dao.MemberVO;
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
-
+	
+	// 회원정보 수정
+	@Override
+	public int getMemberUp(MemberVO mvo) {
+		return memberDAO.getMemberUp(mvo);
+	}
+	
+	// 아이디 중복체크
+	@Override
+	public String getIdChk(String u_id) {
+		return memberDAO.getIdChk(u_id);
+		
+	}
+	
+	// 회원가입
 	@Override
 	public int getSignUp(MemberVO mvo) throws Exception {
 		return memberDAO.getSignUp(mvo);
 	}
-
+	
+	
+	// 로그인
 	@Override
 	public MemberVO getLoginOK(MemberVO mvo) {
 		return memberDAO.getLoginOK(mvo);
 	}
-
+	
+	// 비밀번호 찾기
 	@Override
 	public MemberVO getFindPW(String u_id, String email) {
 		return memberDAO.getFindPW(u_id, email);
 	}
 	
+	// 임시비밀번호
 	@Override
 	public int PassUpdate(MemberVO memberVO) {
 		return memberDAO.PassUpdate(memberVO);
 	}
-
+	
+	// 아이디 찾기
 	@Override
 	public List<MemberVO> getFindId(MemberVO mvo) {
 		return memberDAO.getFindId(mvo);
 	}
 	
+	// 카카오
 	@Override
 	public String getAccessToken (String authorize_code) {
 		String access_Token = "";
@@ -103,10 +123,11 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return access_Token;
 	}
-
+	
+	// 카카오
 	@Override
 	public  MemberVO getUserInfo(String access_Token){
-		
+		ModelAndView mv = new ModelAndView();
 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
@@ -136,31 +157,37 @@ public class MemberServiceImpl implements MemberService{
 //			String id = element.getAsJsonObject().get("id").getAsString();
 //			System.out.println("+++++++++++++++++++++++++" + id);
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			System.out.println("뭔데1");
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-//			System.out.println(id);
-			System.out.println("뭔데2");
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
-//			userInfo.put("id", id);
 			System.out.println("nickname@@@@@@@@@ : " + nickname);
 			System.out.println("email@@@@@@@@@@ : " + email);
+			
+			MemberVO mvo = memberDAO.findkakao(userInfo);
+			System.out.println("S : " + mvo);
+			if(mvo == null) {
+				MemberVO mvo2 = new MemberVO();
+				
+				mvo2.setU_nickname(nickname);
+				mvo2.setU_email(email);
+				
+				return mvo2;
+				
+			}else {
+				return mvo;
+			}
+			
 		} catch (Exception e) {
 			System.out.println(e);
+			return null;
 		}
-		MemberVO mvo = memberDAO.findkakao(userInfo);
-		System.out.println("S : " + mvo);
-		if(mvo==null) {
-			memberDAO.kakaoinsert(userInfo);
-			return memberDAO.findkakao(userInfo);
-			
-		}else {
-			return mvo;
-		}
+
+		
 		
 	}
-
+	
+	// 네이버
 	@Override
 	public String getNaverToken(String code, String state) {
 		String access_Token = "";
@@ -216,7 +243,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return access_Token;
 	}
-
+	
+	// 네이버
 	@Override
 	public MemberVO getUserNaver(String access_Token) {
 		HashMap<String, Object> userInfo2 = new HashMap<String, Object>();
@@ -263,21 +291,21 @@ public class MemberServiceImpl implements MemberService{
 			MemberVO mvo2 = memberDAO.findnaver(userInfo2);
 			System.out.println("S : " + mvo2);
 			if(mvo2 == null) {
-				memberDAO.naverinsert(userInfo2);
+				MemberVO mvo = new MemberVO();
+				mvo.setU_name(name);
+				mvo.setU_email(email);
 				
-				return memberDAO.findnaver(userInfo2);
+				return mvo;
 				
 			}else {
 				return mvo2;
 			}
 		} catch (Exception e) {
+			System.out.println("3");
 			System.out.println(e);
 			return null;
 		}
 	}
-
-	
-
 
 	
 	

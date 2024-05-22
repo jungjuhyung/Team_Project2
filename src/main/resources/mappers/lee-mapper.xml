@@ -4,10 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="lee-mapper">
+  	<select id="idchk" parameterType="String" resultType="int">
+  		select count(*) from user_t where u_id = #{u_id}
+  	</select>
+  	
   	<insert id="insert" parameterType="mvo">
-  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active)
-  		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0)
+  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp)
+  		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0, #{k_status}, #{n_status})
   	</insert>
+  	
   	<select id="login" parameterType="mvo" resultType="mvo">
   		select * from user_t where u_id = #{u_id}
   	</select>
@@ -22,19 +27,40 @@
   	<select id="findId" resultType="mvo">
   		select * from user_t where u_name = #{u_name} and  u_email = #{u_email}
   	</select>
-  	<select id="findkakao" parameterType="Map" resultType="mvo">
-  		select * from user_t where k_nickname = #{nickname} and k_email = #{email}
+  	<select id="findkakao" parameterType="Map" resultType="int">
+  		select * from user_t where u_email = #{email} and u_nickname = #{nickname} 
+  	</select>
+  	<update id="kakaoUp" parameterType="Map">
+  		update user_t
+  		set k_status = 1
+  		where u_email = #{email}
+  	</update>
+  	<select id="select2" parameterType="Map" resultType="mvo">
+  		select * from user_t where u_email = #{email}
   	</select>
   	<insert id="kakao_insert" parameterType="Map">
-  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active , k_nickname, k_email)
-  		values(#{id}, 0, 0, 0, 0, 0, 0, 0, 0, #{u_stopdate}, sysdate(), 0 , #{nickname}, #{email})
+  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, u_stopdate, u_regdate, u_active , k_status, n_status)
+  		values('정보없음', '정보없음', '정보없음', '정보없음', #{email}, '정보없음', #{nickname}, '정보없음', 0, #{u_stopdate}, sysdate(), 0, 1, 0)
   	</insert>
-  	<select id="findnaver" parameterType="String" resultType="mvo">
-  		select * from user_t where  n_email = #{email} 
+  	<select id="findnaver" parameterType="Map" resultType="int">
+  		select count(*) from user_t where  u_email = #{email}
   	</select>
-  	<insert id="naver_insert" parameterType="Map">
-		insert into user_t (u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, u_stopdate, u_regdate, u_active , k_nickname, k_email, n_nickname, n_email, n_phone)
-		values(1, 1, 1, 1, 1, 1, 1, 1, 1, #{u_stopdate}, sysdate(), 0, "정보없음", "정보없음", #{name}, #{email}, #{mobile}) 	
-  	</insert> 
+  	<update id="naverUp" parameterType="Map">
+  		update user_t 
+  		set n_status = 1 
+  		where u_email = #{email}
+  	</update>
+  	<select id="select1" parameterType="Map" resultType="mvo">
+  		select * from user_t where u_email = #{email}
+  	</select>
   	
+  	<insert id="naver_insert" parameterType="Map">
+		insert into user_t (u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, u_stopdate, u_regdate, u_active , k_status, n_status)
+		values('정보없음', '정보없음', #{name}, '정보없음', #{email}, '정보없음', #{name}, '정보없음', 0, #{u_stopdate}, sysdate(), 0, 0 , 1) 	
+  	</insert> 
+  	<update id="member_up" parameterType="mvo">
+  		update user_t
+  		set u_nickname = #{u_nickname} and u_self = #{u_self}
+  		where u_idx = #{u_idx}
+  	</update>
   </mapper>

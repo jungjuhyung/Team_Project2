@@ -1,8 +1,8 @@
 package com.ict.travel.lee.dao;
 
 public class MemberVO {
-	private String u_idx, u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_grade, 
-			u_stopdate, u_regdate, u_active, k_nickname, k_email, n_email, n_nickname,  n_phone;
+	private String u_idx, u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, 
+			u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp;
 
 	public String getU_idx() {
 		return u_idx;
@@ -76,12 +76,12 @@ public class MemberVO {
 		this.u_self = u_self;
 	}
 
-	public String getU_grade() {
-		return u_grade;
+	public String getU_state() {
+		return u_state;
 	}
 
-	public void setU_grade(String u_grade) {
-		this.u_grade = u_grade;
+	public void setU_state(String u_state) {
+		this.u_state = u_state;
 	}
 
 	public String getU_stopdate() {
@@ -108,46 +108,37 @@ public class MemberVO {
 		this.u_active = u_active;
 	}
 
-	public String getK_nickname() {
-		return k_nickname;
+	public String getK_status() {
+		return k_status;
 	}
 
-	public void setK_nickname(String k_nickname) {
-		this.k_nickname = k_nickname;
+	public void setK_status(String k_status) {
+		this.k_status = k_status;
 	}
 
-	public String getK_email() {
-		return k_email;
+	public String getN_status() {
+		return n_status;
 	}
 
-	public void setK_email(String k_email) {
-		this.k_email = k_email;
+	public void setN_status(String n_status) {
+		this.n_status = n_status;
 	}
 
-	public String getN_nickname() {
-		return n_nickname;
+	public String getU_lev() {
+		return u_lev;
 	}
 
-	public void setN_nickname(String n_nickname) {
-		this.n_nickname = n_nickname;
+	public void setU_lev(String u_lev) {
+		this.u_lev = u_lev;
 	}
 
-	public String getN_email() {
-		return n_email;
+	public String getU_exp() {
+		return u_exp;
 	}
 
-	public void setN_email(String n_email) {
-		this.n_email = n_email;
+	public void setU_exp(String u_exp) {
+		this.u_exp = u_exp;
 	}
-
-	public String getN_phone() {
-		return n_phone;
-	}
-
-	public void setN_phone(String n_phone) {
-		this.n_phone = n_phone;
-	}
-
 	
 
 	

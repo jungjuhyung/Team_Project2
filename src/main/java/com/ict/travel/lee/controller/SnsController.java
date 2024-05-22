@@ -1,13 +1,5 @@
 package com.ict.travel.lee.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,41 +13,62 @@ import com.ict.travel.lee.service.MemberService;
 
 @Controller
 public class SnsController {
-	
+
 	@Autowired
 	private MemberService memberService;
-	
+
 	@RequestMapping("login_go.do")
 	public ModelAndView getSnsLogin() {
-		return new ModelAndView("lee_view/loginForm"); 
+		return new ModelAndView("lee_view/loginForm");
 	}
 
 	@RequestMapping("kakaologin.do")
 	public ModelAndView kakaoLogin(HttpServletRequest request, String code, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
 		System.out.println("#######" + code);
-		
+
 		String access_Token = memberService.getAccessToken(code);
 		MemberVO userInfo = memberService.getUserInfo(access_Token);
-		session.setAttribute("memberUser", userInfo);
-		System.out.println("###access_Token### : " + access_Token);
 		
-		
-		return new ModelAndView("ko_view/main_page");
+		if(userInfo.getK_status() != null) {
+			session.setAttribute("memberUser", userInfo);
+			System.out.println("###access_Token### : " + userInfo);
+			
+			return new ModelAndView("ko_view/main_page");
+			
+		} else {
+			mv.addObject("mvo2", userInfo);
+			mv.setViewName("lee_view/joinForm");
+			return mv;
+		}
+
 	}
+
 	@RequestMapping("naverlogin.do")
 	public ModelAndView naverLogin(HttpServletRequest request, String code, String state, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
 		System.out.println("#####" + code);
 		System.out.println("#### state : " + state);
-		
+
 		String access_Token = memberService.getNaverToken(code, state);
 		MemberVO userInfo2 = memberService.getUserNaver(access_Token);
-		session.setAttribute("memberUser", userInfo2);
-		System.out.println("#####url : " + access_Token);
-		
-		
-		return new ModelAndView("ko_view/main_page");
+
+		System.out.println(userInfo2.getU_name());
+
+		if (userInfo2.getN_status() != null) {
+			session.setAttribute("memberUser", userInfo2);
+			System.out.println("#####url : " + access_Token);
+
+			return new ModelAndView("ko_view/main_page");
+
+		} else {
+			mv.addObject("mvo", userInfo2);
+			mv.setViewName("lee_view/joinForm");
+			return mv;
+		}
+
 	}
-	
+
 //	@RequestMapping("kakaologin.do")
 //	public ModelAndView kakaoLogin(HttpServletRequest request) {
 //		// 1. 인증 코드 받기
@@ -117,35 +130,12 @@ public class SnsController {
 //		}
 //		return new ModelAndView("error");
 //	}
-	
-	
-	
+
 	// 카카오 로그아웃
 	@RequestMapping("kakaologout.do")
 	public ModelAndView getKakaoLogout(HttpSession session) {
 		session.invalidate();
 		return new ModelAndView("lee_view/loginForm");
 	}
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

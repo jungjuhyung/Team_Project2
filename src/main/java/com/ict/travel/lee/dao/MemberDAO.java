@@ -9,11 +9,29 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jcraft.jsch.UserInfo;
+
 @Repository
 public class MemberDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
+	
+	// 아이디 중복 체크
+	public String getIdChk(String u_id) {
+		try {
+			int result = sqlSessionTemplate.selectOne("lee-mapper.idchk", u_id);
+			
+			if(result > 0) {
+				return "0";
+				
+			}
+			return "1";
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
 	// 회원가입
 	public int getSignUp(MemberVO mvo) {
@@ -24,6 +42,8 @@ public class MemberDAO {
 		}
 		return -1;
 	}
+	
+	
 	
 	// 로그인
 	public MemberVO getLoginOK(MemberVO mvo) {
@@ -70,7 +90,12 @@ public class MemberDAO {
 	// 카카오 정보조회
 	public MemberVO findkakao(HashMap<String, Object> userInfo) {
 		try {
-			return sqlSessionTemplate.selectOne("lee-mapper.findkakao", userInfo);
+			int result = sqlSessionTemplate.selectOne("lee-mapper.findkakao", userInfo);
+			if(result > 0) {
+				result = sqlSessionTemplate.update("lee-mapper.kakaoUp", userInfo);
+				MemberVO mvo2 = sqlSessionTemplate.selectOne("lee-mapper.select2", userInfo);
+				return mvo2;
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -93,7 +118,15 @@ public class MemberDAO {
 	// 네이버 정보조회
 	public MemberVO findnaver(HashMap<String, Object> userInfo2) {
 		try {
-			return sqlSessionTemplate.selectOne("lee-mapper.findnaver", userInfo2);
+			System.out.println("1");
+			int result = sqlSessionTemplate.selectOne("lee-mapper.findnaver", userInfo2);
+			if(result > 0) {
+				result = sqlSessionTemplate.update("lee-mapper.naverUp", userInfo2);
+				MemberVO mvo = sqlSessionTemplate.selectOne("lee-mapper.select1", userInfo2);
+				return mvo;
+			}
+			
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -103,6 +136,7 @@ public class MemberDAO {
 	// 네이버 로그인시 DB 저장
 	public int naverinsert(HashMap<String, Object> userInfo2) {
 		try {
+			System.out.println("2");
 			return sqlSessionTemplate.insert("lee-mapper.naver_insert", userInfo2);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -110,7 +144,16 @@ public class MemberDAO {
 		return -1;
 		
 	}
-
+	
+	// 회원 정보 수정
+	public int getMemberUp(MemberVO mvo) {
+		try {
+			return sqlSessionTemplate.update("lee-mapper.member_up", mvo);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
 	
 
 	

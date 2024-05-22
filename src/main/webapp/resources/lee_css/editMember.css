@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-image: url("../ko_images/bg.png");
+}
