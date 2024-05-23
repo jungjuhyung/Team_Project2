@@ -1,33 +1,36 @@
 @charset "UTF-8";
 
-div.container {
-	padding-top: 160px;	
+.reportcontainer {
+	padding-top: 30px;	
 }
 
+#reporttable{
+	width: 900px;
+	border-top: 3px solid black;
+	margin: 0px auto;
+}
 
-caption {
+.reporttabletd {
+	border-bottom: 1px dotted black;
+}
+
+.reporttr{
+	border-bottom: 1px dotted black;
+}
+
+.reportcaption {
 	font-size: 2em;
 	font-weight: bold;	
 	margin-bottom: 20px;
 	text-align: left;
 }
 
-div.create {
+.reportcreate {
 	width: 800px;
 	text-align: center;
 	padding: 30px;
 	border-bottom: 1px solid black;
 	margin: auto;
-}
-
-table {
-	width: 900px;
-	border-top: 3px solid black;
-	margin: 0px auto;
-}
-
-td {
-	border-bottom: 1px dotted black;
 }
 
 

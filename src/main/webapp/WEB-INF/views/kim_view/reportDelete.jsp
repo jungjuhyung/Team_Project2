@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
-<link rel="stylesheet" href="resources/kim_css/reportDelete.css">
+<link rel="stylesheet" href="resources/kim_css/boardDelete.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -27,13 +27,13 @@
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 	<form method="post">
-	<section id="wrap">
-		<div id="deletecon">
+	<section id="boardwrap">
+		<div id="boarddeletecon">
 			<h1>비밀번호를 <br>
 			입력해주세요</h1>
 			<input type="password" name="report_cpw" id="report_cpw">
 		</div>
-		<div id="btnn">
+		<div id="boardbtnn">
 			<input type="hidden" name="report_idx" value="${report_idx}">
 			<input type="hidden" name="cPage" value="${cPage}">
 			<input type="hidden" name="report_cpw" value="${report_cpw}">

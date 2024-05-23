@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>자유게시판</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
-<link rel="stylesheet" href="resources/kim_css/boardWrite.css">
+<link rel="stylesheet" href="resources/kim_css/reportWrite.css">
     <!-- include libraries(jQuery, bootstrap) -->
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -39,32 +39,32 @@ $(document).ready(function(){
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <form method="post" action="reportWriteOK">
-		<div class="container">
+		<div class="reportcontainer">
 			<div class="insert">
 
-				<table>
+				<table id="reporttable">
 					<caption>
 						<h2>신고게시판</h2>
 					</caption>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">아이디</td>
 						<td class="userin">${membervo.u_id}</td>
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">비밀번호</td>
 						<td class="userin"><input type="password" id="report_pw" name="report_pw" />
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">불량유저ID</td>
 						<td class="userin"><input type="text" id="reported_id" name="reported_id">
 						</td>
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">제목</td>
 						<td class="userin"><input type="text" id="report_title" name="report_title">
 						</td>
 					</tr>
-					<tr>
+					<tr class="reporttr">
 						<td class="menu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content"></textarea>
 						</td>
@@ -73,7 +73,7 @@ $(document).ready(function(){
 
 			</div>
 
-			<div class="create">
+			<div class="reportcreate">
 				<input class="but4" type="submit" id="submit_btn" value="등록하기">
 				<input class="but4" type="button" value="취소하기" onclick="getReportgo(this.form)"> 
 

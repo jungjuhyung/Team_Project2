@@ -37,6 +37,16 @@ public class KpostDAO {
 
 	public int rcommentInsert(CommentVO commentvo) {
 		try {
+			sqlSessionTemplate.update("board_t.commentscore", commentvo.getU_idx());
+			MemberVO mvo = sqlSessionTemplate.selectOne("board_t.userinfo", commentvo.getU_idx());
+			try {
+				 if (Integer.parseInt(mvo.getU_exp()) >= 100 ) { sqlSessionTemplate.update("board_t.levelup", mvo);
+				 }
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 			return sqlSessionTemplate.insert("kpost_t.rcommentInsert", commentvo);
 		} catch (Exception e) {
 			System.out.println(e);

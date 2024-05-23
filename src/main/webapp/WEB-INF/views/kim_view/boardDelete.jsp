@@ -28,13 +28,13 @@
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 	<form method="post">
-	<section id="wrap">
-		<div id="deletecon">
+	<section id="boardwrap">
+		<div id="boarddeletecon">
 			<h1>비밀번호를 <br>
 			입력해주세요</h1>
 			<input type="password" name="board_cpw" id="board_cpw">
 		</div>
-		<div id="btnn">
+		<div id="boardbtnn">
 			<input type="hidden" name="board_idx" value="${board_idx}">
 			<input type="hidden" name="cPage" value="${cPage}">
 			<input type="hidden" name="board_cpw" value="${board_cpw}">

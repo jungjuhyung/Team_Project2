@@ -1,38 +1,38 @@
 @charset "UTF-8";
-
+/* 전체 */
 #world{
 	text-align: center;
 	width: 1200px;
 	margin: auto;
 	margin-top : 40px;
 }
-
+/* 섬머노트 */
 #summer{
 	margin-top: 30px;
+	text-align: left;
 }
-#empty-area{
-	height: 15px;
+/* 여백 */
+.empty-area{
+	height: 30px;
 }
-
+/* 리뷰 정보 시작 */
+/* 유저아이디 */
 #infoUser {
     display: flex;
     flex-direction: column;
 }
+#infoUser > div {
+    margin-bottom: 30px; 
+}
 
+/* 작성날짜 */
 #reviewUserDate {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#infoUser > div {
-    margin-bottom: 30px; 
-}
-
-.empty-area{
-	height: 30px;
-}
-
+/* 리뷰 제목 */
 #reviewTitle {
     font-size: 60px;
     font-weight: bold;
@@ -48,6 +48,8 @@
     font-size: 25px;
 }
 
+
+/* 댓글 */
 .recomment {
     display: flex;
     flex-direction: column;
@@ -55,8 +57,9 @@
     width: 800px;
     margin: 0 auto;
     background-color: #f8f8f8; /* 배경색 추가 */
-    border-radius: 10px; /* 모서리 둥글게 */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+    border: 2px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .recomment > div {
@@ -103,7 +106,7 @@ textarea {
 input.rewrite {
     padding: 5px 10px;
     border: none;
-    background-color: #007bff; /* 기본 버튼 배경색 */
+    background-color: #c0c0c0; /* 기본 버튼 배경색 */
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -118,94 +121,92 @@ input.rewrite:active {
     background-color: #004085; /* 클릭 상태 배경색 */
 }
 
+
+
+
+
+
 /* 이미지 스타일 CSS */
 /* ul 스타일 설정 */
+/* .d_img 스타일 */
 .d_img {
-    overflow: hidden; /* 가로로 넘치는 이미지들을 숨깁니다. */
-    border: 1px solid #ddd; /* 테두리 설정 */
-    border-radius: 5px; /* 모서리를 둥글게 설정 */
-    padding: 5px; /* 내부 패딩 설정 */
-    background-color: #f9f9f9; /* 배경색 설정 */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 그림자 설정 */
-    width: 100%; /* 리스트 아이템의 너비 설정 */
-    height: 100%; /* 리스트 아이템의 높이 설정 */
-    display: flex; /* 아이템 내에서의 정렬을 위해 flex 사용 */
-    justify-content: center; /* 수평 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
+    overflow: hidden; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    padding: 5px; 
+    background-color: #f9f9f9; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
 }
 
-
-/* 이미지 스타일 설정 */
+/* 이미지 스타일 */
 .d_img .div_img {
-    width: 100%; /* 이미지를 div 너비에 맞게 조절 */
-    height: 100%; /* 높이를 div 높이에 맞게 조절 */
-    object-fit: cover; /* 이미지가 잘려도 영역을 채우도록 설정 */
-    cursor: pointer; /* 클릭 가능한 커서 설정 */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    cursor: pointer; 
 }
+
 .div_img {
-    flex: 0 0 auto; /* 이미지가 자동으로 확장되지 않도록 합니다. */
-    height: 200px; /* 이미지의 높이를 자동으로 설정하여 비율을 유지합니다. */
-    max-width: 25%; /* 이미지 최대 너비를 설정하여 4개가 한 줄에 보이도록 합니다. */
-    margin-right: 10px; /* 이미지 간 간격을 조정합니다. */
-    scroll-snap-align: start; /* 이미지가 스크롤될 때 왼쪽 끝에 정렬됩니다. */
+    flex: 0 0 auto; 
+    height: 200px; 
+    max-width: 25%; 
+    margin-right: 10px; 
+    scroll-snap-align: start; 
 }
 
-
+/* 슬라이더 스타일 */
 .image-slider {
-    display: flex; /* Flexbox를 사용하여 이미지들을 가로로 정렬합니다. */
-    overflow-x: auto; /* 가로로 넘치는 이미지를 스크롤할 수 있도록 합니다. */
-    scroll-snap-type: x mandatory; /* 이미지 스크롤 시 스냅 효과를 적용하여 부드럽게 이동합니다. */
-    -webkit-overflow-scrolling: touch; /* 모바일 장치에서 부드러운 스크롤을 지원합니다. */
+    display: flex; 
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    -webkit-overflow-scrolling: touch; 
 }
 
 .slider-wrapper {
-    display: flex; /* Flexbox를 사용하여 이미지들을 가로로 정렬합니다. */
-    flex-direction: row; /* 가로로 정렬합니다. */
-    flex-wrap: nowrap; /* 한 줄에 표시하고 넘치는 부분은 숨깁니다. */
-    scroll-snap-type: x mandatory; /* 이미지 스크롤 시 스냅 효과를 적용하여 부드럽게 이동합니다. */
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: nowrap; 
+    scroll-snap-type: x mandatory; 
 }
 
+/* 버튼 스타일 */
 .prev-btn, .next-btn {
-    position: absolute; /* 절대적 위치 지정 */
-    top: 50%; /* 상단 여백을 설정합니다. */
-    transform: translateY(-50%); /* 수직 정렬을 위해 요소를 위로 이동시킵니다. */
-    background: transparent; /* 배경 없음 */
-    border: none; /* 테두리 없음 */
-    font-size: 24px; /* 버튼 아이콘 크기 설정 */
-    cursor: pointer; /* 커서를 포인터로 변경하여 버튼을 클릭 가능하게 합니다. */
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: transparent; 
+    border: none; 
+    font-size: 24px; 
+    cursor: pointer; 
 }
 
 .prev-btn {
-    left: 0; /* 왼쪽에 배치합니다. */
+    left: 0; 
 }
 
 .next-btn {
-    right: 0; /* 오른쪽에 배치합니다. */
+    right: 0; 
 }
 
-
-
-
-
-
-
-/* 라이트 박스 Modal 스타일 설정 */
+/* 라이트박스 스타일 */
 .modal {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed; /* 고정 위치 */
-    z-index: 1; /* 최상위 표시 */
-    padding-top: 60px; /* 상단 여백 */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 60px; 
     left: 0;
     top: 0;
-    width: 90%; /* 전체 너비 */
-    height: 90%; /* 전체 높이 */
-    overflow: auto; /* 스크롤 가능 */
-    background-color: rgb(0,0,0); /* 배경 색상 */
-    background-color: rgba(0,0,0,0.9); /* 투명도 적용된 배경 색상 */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.9); 
 }
 
-
-/* 라이트 박스 Modal 이미지 스타일 */
 .modal-content {
     margin: auto;
     display: block;
@@ -214,25 +215,34 @@ input.rewrite:active {
 }
 
 /* 닫기 버튼 스타일 */
-.close {
+.rboxclose {
     position: absolute;
-    top: 15px;
+    top: 100px;
     right: 35px;
     color: #ff0000;
-    font-size: 200px;
+    font-size: 100px;
     font-weight: bold;
     transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+.rboxclose:hover,
+.rboxclose:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
 }
 
 
-
+.reportbtn{
+	color: white; /* 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px 20px; /* 패딩 */
+    font-size: 16px; /* 글꼴 크기 */
+    cursor: pointer; /* 마우스 커서 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+    background-color: #c0c0c0;
+}
 
 
 
@@ -255,10 +265,46 @@ input.rewrite:active {
     font-size: 16px; /* 글꼴 크기 */
     cursor: pointer; /* 마우스 커서 */
     transition: background-color 0.3s; /* 배경색 전환 효과 */
+    background-color: blue;
+}
+#hateButton {
+    color: white; /* 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px 20px; /* 패딩 */
+    font-size: 16px; /* 글꼴 크기 */
+    cursor: pointer; /* 마우스 커서 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+    background-color: red;
 }
 
 
 
+
+
+/* 지도 컨테이너 스타일 */
+#map {
+    width: 100%; 
+    height: 500px; 
+    border: 2px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 20px 0; 
+}
+
+/* 지도 인포윈도우 */
+.custom-infowindow {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    margin: 0 auto;
+}
+
+.custom-infowindow strong {
+    color: #333;
+}
 
 
 /* 지도 거리 */
@@ -318,8 +364,14 @@ input.rewrite:active {
 
 
 
+
+/* 사진관련 */
+
 .d_img {
     overflow: hidden; /* 가로로 넘치는 이미지들을 숨깁니다. */
+    border: 2px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .image-slider {
