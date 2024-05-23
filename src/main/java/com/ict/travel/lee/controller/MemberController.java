@@ -59,6 +59,13 @@ public class MemberController {
 		return result;
 	}
 	
+	@RequestMapping(value = "getNickChk.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getNickChk(String u_nickname) {
+		String res = memberService.getNickChk(u_nickname);
+		return res;
+	}
+	
 	@RequestMapping("join_success_go.do")
 	public ModelAndView getSignUp(MemberVO mvo, HttpServletRequest request) {
 		try {
@@ -114,8 +121,8 @@ public class MemberController {
 					return mv;
 				}else  {
 					session.setAttribute("adminUser", adminVO2);
-					session.setAttribute("u_id", adminVO2.getAdmin_id());
-					session.setAttribute("u_idx", adminVO2.getAdmin_idx());
+					session.setAttribute("admin_id", adminVO2.getAdmin_id());
+					session.setAttribute("admin_idx", adminVO2.getAdmin_idx());
 					session.setAttribute("admin_grade", adminVO2.getAdmin_grade());
 					System.out.println(1);
 					return mv;

@@ -39,7 +39,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String getIdChk(String u_id) {
 		return memberDAO.getIdChk(u_id);
-		
+	}
+	
+	public String getNickChk(String u_nickname) {
+		return memberDAO.getNickChk(u_nickname);
 	}
 	
 	// 회원가입

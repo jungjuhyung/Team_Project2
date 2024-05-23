@@ -8,6 +8,10 @@
   		select count(*) from user_t where u_id = #{u_id}
   	</select>
   	
+  	<select id="nickchk" parameterType="String" resultType="int">
+  		select count(*) from user_t where u_nickname = #{u_nickname}
+  	</select>
+  	
   	<insert id="insert" parameterType="mvo">
   		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp)
   		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0, #{k_status}, #{n_status}, 0, 0)
@@ -64,7 +68,7 @@
   	
   	<update id="member_up" parameterType="mvo">
   		update user_t
-  		set u_nickname = #{u_nickname}, u_self = #{u_self}
+  		set u_nickname = #{u_nickname} , u_self = #{u_self}
   		where u_idx = #{u_idx}
   	</update>
   </mapper>

@@ -3,6 +3,13 @@
   box-sizing: border-box;
 }
 
+
+h1, h2, span, p, a , button, th, td , div{
+     font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 html,
 body {
   height: 100%;

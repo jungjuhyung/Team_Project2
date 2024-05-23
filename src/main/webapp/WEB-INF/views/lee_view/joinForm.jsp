@@ -108,10 +108,11 @@ $(document).ready(function(){
     	if(u_email.value == ""){
     		alert("이메일을 입력해주세요.");
     		f.u_email.focus();
-    		return false;
+    		return;
     	}else if(!emailPattern.test(email)){
     		alert("이메일 형식이 아닙니다.");
-    		return false;
+    		f.u_email.focus();
+    		return;
     	}
     	if(u_gender.value == ""){
     		alert("성별을 선택해주세요.");
@@ -132,12 +133,7 @@ $(document).ready(function(){
 		f.action="join_success_go.do";
 		f.submit();
     }
-    
-  
-
-	
 </script>
-
 
 </head>
 <body>
@@ -149,7 +145,6 @@ $(document).ready(function(){
             <li class="input-group">
                	<input type="text" id="u_id" name="u_id" placeholder="아이디" required >
                	<br><span id="id_chk" style="font-size: 10px;"></span>
-               <!-- 	<button type="button" onclick="checkId()">중복체크</button> -->
                	<span id="idCheckResult" style="font-size: 10px; color: red;"></span>
             </li>
             <li class="input-group">
@@ -202,21 +197,20 @@ $(document).ready(function(){
 		            </li>
             	</c:otherwise>
             </c:choose>
-            <li class="input-group">
-                	<select id="u_gender" name="u_gender" required>
-	                    <option value="">성별을 선택하세요</option>
-	                    <option value="male">남성</option>
-	                    <option value="female">여성</option>
-                	</select>
-            </li>
-            
-            <li class="input-group">
+		            <li class="input-group">
+	                	<select id="u_gender" name="u_gender" required>
+		                    <option value="">성별을 선택하세요</option>
+		                    <option value="male">남성</option>
+		                    <option value="female">여성</option>
+	                	</select>
+		            </li>
+		            
+		            <li class="input-group">
 		               	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" required>
 		            </li>
-            <li class="input-group">
-               	<input type="text" id="u_self" name="u_self" placeholder="자기소개" required>
-            </li>
-            
+		            <li class="input-group">
+		               	<input type="text" id="u_self" name="u_self" placeholder="자기소개" required>
+		            </li>
             </ul>
             <div class="btn">
 	            <ul class="list-form2">
