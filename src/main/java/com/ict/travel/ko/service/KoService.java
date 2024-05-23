@@ -3,11 +3,14 @@ package com.ict.travel.ko.service;
 import java.util.List;
 
 import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.CommentVO;
+import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PageVO;
 import com.ict.travel.ko.dao.PopupVO;
+import com.ict.travel.ko.dao.UserStopVO;
 import com.ict.travel.ko.dao.UserVO;
 
 public interface KoService {
@@ -44,12 +47,14 @@ public interface KoService {
 	
 	List<UserVO> getUserList(int offset, int limit);
 	
+	UserStopVO getStopDetail(String u_idx);
+	
 	List<UserVO> getSearchUser(PageVO pvo);
 	
 	//	정지 상태 변경
 	int getStopState(String u_idx);
 	//	정지하기
-	int getStopUpdate(String stop_days, String u_idx);
+	int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_idx);
 	
 	//=================================================
 	// 특정 유저 작성글 
@@ -63,4 +68,29 @@ public interface KoService {
 	
 	List<ReportVO> getReportList(String u_idx, int offset, int limit);
 	
+	int getPathCount(String u_idx);
+	
+	List<KpostVO> getPathList(String u_idx, int offset, int limit);
+	
+	
+	int getCommentCount(String u_idx);
+	
+	List<CommentVO> getCommentList(String u_idx, int offset, int limit);
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

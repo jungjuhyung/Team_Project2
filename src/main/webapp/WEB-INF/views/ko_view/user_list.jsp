@@ -25,7 +25,9 @@
 	
 	function stop_go(u_idx, vs) {
 		let stop_days = $('input[name=stop_days'+vs+']:checked').val();
-		location.href = "stop_update.do?u_idx="+u_idx+"&stop_days="+stop_days;
+		let stop_note = $('input[name=stop_note'+vs+']').val();
+		console.log(stop_note)
+		location.href = "stop_update.do?u_idx="+u_idx+"&stop_days="+stop_days+"&stop_note="+stop_note;
 	}
 
 	function board_go(u_idx) {
@@ -57,7 +59,7 @@
 		<div class="user_search">
 			<h2>유저 관리 게시판</h2>
 			<ul>
-				<li>이름 : <input type="text" id="search" name="search"
+				<li>이름(아이디) : <input type="text" id="search" name="search"
 					onkeypress="if(event.keyCode==13){search_go();}" /> <input
 					type="button" class="user_btn" value="검색" onclick="search_go()">
 					<input type="button" class="user_btn" value="전체보기"
@@ -74,6 +76,7 @@
 						<th>상태</th>
 						<th>남은 정지일수</th>
 						<th>정지일수 선택</th>
+						<th>정지사유</th>
 						<th>정지버튼</th>
 						<th>작성글 이동</th>
 					</tr>
@@ -116,7 +119,7 @@
 										</c:choose></td>
 									<td><c:choose>
 											<c:when test="${k.u_state == '1'}">
-												<b><span style="color: skyblue;">해제하려면 버튼을 눌러주세요</span></b>
+												정지관리자 : ${k.admin_idx}
 											</c:when>
 											<c:otherwise>
 												<input type="radio" name="stop_days${vs.count}" value="30"
@@ -125,6 +128,16 @@
 										<input type="radio" name="stop_days${vs.count}" value="9999">영구정지
 									</c:otherwise>
 										</c:choose></td>
+									<td><c:choose>
+											<c:when test="${k.u_state == '1'}">
+												${k.stop_note}
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="stop_note${vs.count}" />
+											</c:otherwise>
+										</c:choose>
+										
+									</td>
 									<td><c:choose>
 											<c:when test="${k.u_state == '1'}">
 												<input type="button" class="user_btn2" value="해제하기"

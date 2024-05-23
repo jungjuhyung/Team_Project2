@@ -57,8 +57,8 @@
 		
 		<div style="margin: 30px auto; text-align: center; ">
 			<input type="button" class="user_btn" value="자유게시판" onclick="board_list(${u_idx})" />
-			<input type="button" class="user_btn2" value="신고게시판" onclick="report_list(${u_idx})" />
-			<input type="button" class="user_btn" value="추천경로게시판" onclick="path_list(${u_idx})" />
+			<input type="button" class="user_btn" value="신고게시판" onclick="report_list(${u_idx})" />
+			<input type="button" class="user_btn2" value="추천경로게시판" onclick="path_list(${u_idx})" />
 			<input type="button" class="user_btn" value="작성댓글" onclick="comment_list(${u_idx})" />
 		</div>
 		
@@ -67,34 +67,24 @@
 				<thead>
 					<tr>
 						<th>제목</th>
-						<th>신고날짜</th>
-						<th>상태</th>
+						<th>날짜</th>
+						<th>삭제하기</th>
 						<th>본문이동</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${empty report_list}">
+						<c:when test="${empty path_list}">
 							<tr>
 								<td colspan="4">작성글이 없습니다.</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="k" items="${report_list}" varStatus="vs">
+							<c:forEach var="k" items="${path_list}" varStatus="vs">
 								<tr>
-									<td>${k.report_title}</td>
-									<td>${k.regdate.substring(0,10) }</td>
-									<td>
-										<c:choose>
-											<c:when test="${k.report_state == '1'}">
-												<span style="color: blue;">답변완료</span>
-											</c:when>
-											<c:otherwise>
-												<span style="color: red;">답변대기</span>
-												<input type="button" class="user_btn" value="답변하기">
-											</c:otherwise>
-										</c:choose>
-									</td>
+									<td>${k.path_post_title}</td>
+									<td>${k.regdate.substring(0,10)}</td>
+									<td><input type="button" class="user_btn" value="삭제하기"></td>
 									<td><input type="button" class="user_btn" value="상세보기"></td>
 								<tr>
 							</c:forEach>
@@ -113,7 +103,7 @@
 					</c:when>
 					<c:otherwise>
 						<li><a
-							href="report_list.do?cPage=${paging.beginBlock - paging.pagePerBlock}&u_idx=${u_idx}">
+							href="path_list.do?cPage=${paging.beginBlock - paging.pagePerBlock}&u_idx=${u_idx}">
 								이전</a></li>
 					</c:otherwise>
 				</c:choose>
@@ -125,7 +115,7 @@
 							<li class="now">${k}</li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="report_list.do?cPage=${k}&u_idx=${u_idx}">${k}</a></li>
+							<li><a href="path_list.do?cPage=${k}&u_idx=${u_idx}">${k}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -136,7 +126,7 @@
 					</c:when>
 					<c:otherwise>
 						<li><a
-							href="report_list.do?cPage=${paging.beginBlock + paging.pagePerBlock}&u_idx=${u_idx}">
+							href="path_list.do?cPage=${paging.beginBlock + paging.pagePerBlock}&u_idx=${u_idx}">
 								다음</a></li>
 					</c:otherwise>
 				</c:choose>

@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.CommentVO;
+import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoDAO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PageVO;
 import com.ict.travel.ko.dao.PopupVO;
+import com.ict.travel.ko.dao.UserStopVO;
 import com.ict.travel.ko.dao.UserVO;
 
 @Service
@@ -96,6 +99,11 @@ public class KoServiceIple implements KoService{
 	}
 	
 	@Override
+	public UserStopVO getStopDetail(String u_idx) {
+		return koDAO.getStopDetail(u_idx);
+	}
+	
+	@Override
 	public List<UserVO> getSearchUser(PageVO pvo) {
 		return koDAO.getSearchUser(pvo);
 	}
@@ -106,8 +114,8 @@ public class KoServiceIple implements KoService{
 	}
 	
 	@Override
-	public int getStopUpdate(String stop_days, String u_idx) {
-		return koDAO.getStopUpdate(stop_days, u_idx);
+	public int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_idx) {
+		return koDAO.getStopUpdate(stop_days, u_idx, stop_note, admin_idx);
 	}
 	
 	//====================================================
@@ -134,6 +142,26 @@ public class KoServiceIple implements KoService{
 	@Override
 	public List<ReportVO> getReportList(String u_idx, int offset, int limit) {
 		return koDAO.getReportList(u_idx, offset, limit);
+	}
+	
+	@Override
+	public int getPathCount(String u_idx) {
+		return koDAO.getPathCount(u_idx);
+	}
+	
+	@Override
+	public List<KpostVO> getPathList(String u_idx, int offset, int limit) {
+		return koDAO.getPathList(u_idx, offset, limit);
+	}
+	
+	@Override
+	public int getCommentCount(String u_idx) {
+		return koDAO.getCommentCount(u_idx);
+	}
+	
+	@Override
+	public List<CommentVO> getCommentList(String u_idx, int offset, int limit) {
+		return koDAO.getCommentList(u_idx, offset, limit);
 	}
 	
 	
