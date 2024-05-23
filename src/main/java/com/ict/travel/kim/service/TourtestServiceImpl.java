@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.TourtestDAO;
 import com.ict.travel.kim.dao.TourtestVO;
 
@@ -32,13 +33,21 @@ public class TourtestServiceImpl implements TourtestService {
 	public List<TourtestVO> getImageListByMarkerId(String path_marker_idx) {
 		return tourtestDAO.getImageListByMarkerId(path_marker_idx);
 	}
-	/*
-	@Override
-	public List<TourtestVO> getTourtestVOWithImagePaths() {
-		return tourtestDAO.getTourtestVOWithImagePaths();
-	}
-	*/
-	
 
+	@Override
+	public List<TourtestVO> imgDetail(TourtestVO tourtestvo, KpostVO kpostvo) {
+		return tourtestDAO.imgDetail(tourtestvo, kpostvo);
+	}
 	
+	
+	
+	
+	
+	/*
+	@Override 
+	public int imgDetail(TourtestVO tourtestvo, String path_post_idx) {
+		return tourtestDAO.imgDetail(tourtestvo, path_post_idx); 
+	}
+	  
+	*/
 }

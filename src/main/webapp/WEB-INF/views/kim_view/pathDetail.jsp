@@ -110,26 +110,29 @@ function closeModal() {
 		<div id="map" style="width: 100%; height: 500px;"></div>
 		<div class="empty-area"></div>
 			
-	 <div class="d_img">
-    <div class="image-slider">
-        <div class="slider-wrapper">
-            <c:forEach var="marker" items="${tourtestvoimg}">
-                <c:forEach var="img" items="${marker.imgList}">
-                    <c:choose>
-                        <c:when test="${img.img_status == 0}">
-                            <img class="div_img" src="resources/rc_main_img/${img.image_name}" onclick="openModal(this.src)">
-                        </c:when>
-                        <c:otherwise>
-                            <img class="div_img" src="${img.image_name}"  onclick="openModal(this.src)">
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </c:forEach>
-        </div>
-        <button class="prev-btn" onclick="moveSlider(-1)">&#10094;</button>
-        <button class="next-btn" onclick="moveSlider(1)">&#10095;</button>
-    </div>
-</div>
+	<div class="d_img">
+	    <div class="image-slider">
+	        <div class="slider-wrapper">
+	            <c:forEach var="marker" items="${tourtestvoimg}">
+	                <c:forEach var="img" items="${marker.imgList}">
+	                    <div class="img-container">
+	                        <c:choose>
+	                            <c:when test="${img.img_status == 0}">
+	                                <img class="div_img" src="resources/rc_main_img/${img.image_name}" onclick="openModal(this.src)">
+	                            </c:when>
+	                            <c:otherwise>
+	                                <img class="div_img" src="${img.image_name}" onclick="openModal(this.src)">
+	                            </c:otherwise>
+	                        </c:choose>
+	                        <div class="img-title">${img.title}</div>
+	                    </div>
+	                </c:forEach>
+	            </c:forEach>
+	        </div>
+	        <button class="prev-btn" onclick="moveSlider(-1)">&#10094;</button>
+	        <button class="next-btn" onclick="moveSlider(1)">&#10095;</button>
+	    </div>
+	</div>
 
     
     

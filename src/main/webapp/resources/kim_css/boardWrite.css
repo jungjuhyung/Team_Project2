@@ -33,8 +33,8 @@
 	border-bottom: 1px dotted black;
 }
 
-.menu { 
-	background-color: #e8e8e8;
+.boardmenu { 
+	background-color: pink;
 	padding: 10px;
 	text-align: left;
 	font-weight: bold;
@@ -47,34 +47,18 @@
 	padding: 5px;
 }
 
-.but1 {
-	height: 30px;
-	width: 80px;
-}
-
-.but2 {
-	height: 30px;
-	width: 120px;
-}
-
-.but3 {
-	height: 30px;
-	width: 120px;
-}
-
-#sel_btn{
-	height: 30px;
-}
 
 .but4 {
 	height: 35px;
 	width: 150px;
 	border-radius: 10px;
+	background-color: #F9F3FF;
 }
 
 .but5 {
 	height: 35px;
 	width: 150px;
+	background-color: #F9F3FF;
 }
 
 

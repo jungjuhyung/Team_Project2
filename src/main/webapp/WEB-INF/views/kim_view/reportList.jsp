@@ -12,6 +12,15 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		 // alert 파라미터 확인 및 경고창 띄우기
+        const failed = new URLSearchParams(window.location.search);
+        const alertmsg = failed.get('alert');
+        if (alertmsg === 'fail') {
+            alert('권한이 없습니다.');
+        }
+		
+		
 		getList(1);
 		console.log("${adminUser}")
 		function getList(page) {
@@ -210,8 +219,6 @@
 	    return parseInt($(".nowPage").attr("data-page"));
 	}
 
-	
-	
 </script>
 <script type="text/javascript">
 function reportWrite() {

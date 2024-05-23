@@ -52,16 +52,16 @@ function commentDelete(f) {
 						<h2>자유게시판</h2>
 					</caption>
 					<tr class="boardtr">
-						<td class="menu">닉네임</td>
+						<td class="boardmenu">닉네임</td>
 						<td class="userin">${boardvo.u_nickname}(${boardvo.u_lev})</td>
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">제목</td>
+						<td class="boardmenu">제목</td>
 						<td class="userin">${boardvo.board_title }
 						</td>
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">내용</td>
+						<td class="boardmenu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content" readonly>${boardvo.content }</textarea>
 						</td>
 					</tr>

@@ -189,7 +189,7 @@ $(".board-list-paging").html(content);
 		<div class="board-list-paging"></div>
 		
 		<c:if test="${membervo != null}">
-		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" /></div>
+		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" class="boardwbtn" /></div>
 		</c:if>
 		<div id="empty-area">
 	</div>

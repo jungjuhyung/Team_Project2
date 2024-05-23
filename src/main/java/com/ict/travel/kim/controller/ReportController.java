@@ -192,7 +192,7 @@ public class ReportController {
 			AdminVO adminvo = (AdminVO) session.getAttribute("adminUser");
 			if(adminvo == null ) {
 			if(membervo == null || !membervo.getU_idx().equals(reportvo.getU_idx())) {
-				return new ModelAndView("redirect:getReportgo");
+				return new ModelAndView("redirect:getReportgo").addObject("alert", "fail");
 				
 			}
 			}

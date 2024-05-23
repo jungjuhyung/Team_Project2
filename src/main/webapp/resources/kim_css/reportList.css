@@ -119,6 +119,7 @@ body{
 #bwbtn{
 	border-radius: 10px;
 	display: inline-block;
+	background-color: #F9F3FF;
 }
 
 #empty-area{

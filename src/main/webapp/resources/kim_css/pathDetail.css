@@ -91,6 +91,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center; /* 가운데 정렬 */
+    background-color: #F9F3FF;
 }
 
 textarea {
@@ -106,19 +107,19 @@ textarea {
 input.rewrite {
     padding: 5px 10px;
     border: none;
-    background-color: #c0c0c0; /* 기본 버튼 배경색 */
     color: white;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    background-color: #F9F3FF;
 }
 
 input.rewrite:hover {
-    background-color: #0056b3; /* 호버 상태 배경색 */
+    background-color: #F9F3FF;
 }
 
 input.rewrite:active {
-    background-color: #004085; /* 클릭 상태 배경색 */
+    background-color: #F9F3FF;
 }
 
 
@@ -136,27 +137,33 @@ input.rewrite:active {
     padding: 5px; 
     background-color: #f9f9f9; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    width: 100%; 
-    height: 100%; 
+    width: auto; /* 너비를 자동으로 조절 */
+    height: auto; /* 높이 자동 조절 */
     display: flex; 
-    justify-content: center; 
+    justify-content: flex-start; /* 좌측 정렬 */
     align-items: center; 
+    overflow-x: auto; /* 좌우 스크롤 추가 */
 }
+.img-container{
+	width: 300px;
+	height: 300px;
+}
+
 
 /* 이미지 스타일 */
 .d_img .div_img {
-    width: 100%; 
-    height: 100%; 
+    width: auto; /* 너비를 자동으로 조절 */
+    height: 270px; 
     object-fit: cover; 
     cursor: pointer; 
 }
 
 .div_img {
     flex: 0 0 auto; 
-    height: 200px; 
-    max-width: 25%; 
+    width: auto;
+    height: 150px; /* 높이는 원하는 크기로 조절 */
     margin-right: 10px; 
-    scroll-snap-align: start; 
+    border-radius: 15px;
 }
 
 /* 슬라이더 스타일 */
@@ -192,6 +199,10 @@ input.rewrite:active {
 .next-btn {
     right: 0; 
 }
+
+
+
+
 
 /* 라이트박스 스타일 */
 .modal {
