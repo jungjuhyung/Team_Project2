@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoDAO;
 import com.ict.travel.ko.dao.KoPostVO;
+import com.ict.travel.ko.dao.PageVO;
 import com.ict.travel.ko.dao.PopupVO;
 import com.ict.travel.ko.dao.UserVO;
-import com.ict.travel.lee.dao.MemberVO;
 
 @Service
 public class KoServiceIple implements KoService{
@@ -38,6 +40,8 @@ public class KoServiceIple implements KoService{
 		return koDAO.getPlaceDetail(contentid);
 	}
 	
+	// ========================================================
+	
 	@Override
 	public int popupInsert(PopupVO popvo) {
 		return koDAO.popupInsert(popvo);
@@ -63,14 +67,22 @@ public class KoServiceIple implements KoService{
 		return koDAO.popupDelete(popup_idx);
 	}
 	
+	
 	@Override
 	public int getTotalCount() {
 		return koDAO.getTotalCount();
 	}
 	
+	// ========================================================
+	
 	@Override
 	public int getTotalUser() {
 		return koDAO.getTotalUser();
+	}
+	
+	@Override
+	public int getSearchTotal(String search) {
+		return koDAO.getSearchTotal(search);
 	}
 	
 	@Override
@@ -84,6 +96,11 @@ public class KoServiceIple implements KoService{
 	}
 	
 	@Override
+	public List<UserVO> getSearchUser(PageVO pvo) {
+		return koDAO.getSearchUser(pvo);
+	}
+	
+	@Override
 	public int getStopState(String u_idx) {
 		return koDAO.getStopState(u_idx);
 	}
@@ -93,4 +110,49 @@ public class KoServiceIple implements KoService{
 		return koDAO.getStopUpdate(stop_days, u_idx);
 	}
 	
+	//====================================================
+	@Override
+	public UserVO getUserDetail(String u_idx) {
+		return koDAO.getUserDetail(u_idx);
+	}
+	
+	@Override
+	public int getBoardCount(String u_idx) {
+		return koDAO.getBoardCount(u_idx);
+	}
+	
+	@Override
+	public List<BoardVO> getBoardList(String u_idx, int offset, int limit) {
+		return koDAO.getBoardList(u_idx, offset, limit);
+	}
+	
+	@Override
+	public int getReportCount(String u_idx) {
+		return koDAO.getReportCount(u_idx);
+	}
+	
+	@Override
+	public List<ReportVO> getReportList(String u_idx, int offset, int limit) {
+		return koDAO.getReportList(u_idx, offset, limit);
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

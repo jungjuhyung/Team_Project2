@@ -2,11 +2,13 @@ package com.ict.travel.ko.service;
 
 import java.util.List;
 
+import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
+import com.ict.travel.ko.dao.PageVO;
 import com.ict.travel.ko.dao.PopupVO;
 import com.ict.travel.ko.dao.UserVO;
-import com.ict.travel.lee.dao.MemberVO;
 
 public interface KoService {
 	
@@ -36,13 +38,29 @@ public interface KoService {
 	//	유저관리
 	int getTotalUser();
 	
+	int getSearchTotal(String search);
 	
 	List<UserVO> getStopUser();
 	
 	List<UserVO> getUserList(int offset, int limit);
+	
+	List<UserVO> getSearchUser(PageVO pvo);
+	
 	//	정지 상태 변경
 	int getStopState(String u_idx);
 	//	정지하기
 	int getStopUpdate(String stop_days, String u_idx);
+	
+	//=================================================
+	// 특정 유저 작성글 
+	UserVO getUserDetail(String u_idx);
+	
+	int getBoardCount(String u_idx);
+	
+	List<BoardVO> getBoardList(String u_idx, int offset, int limit);
+
+	int getReportCount(String u_idx);
+	
+	List<ReportVO> getReportList(String u_idx, int offset, int limit);
 	
 }

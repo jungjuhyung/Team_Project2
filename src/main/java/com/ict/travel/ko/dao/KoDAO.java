@@ -12,7 +12,8 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.ict.travel.lee.dao.MemberVO;
+import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.ReportVO;
 
 
 @Repository
@@ -20,7 +21,6 @@ public class KoDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-
 
 	public List<KoPostVO> getAreaList(String r_areacode) {
 		return sqlSessionTemplate.selectList("ko.area_list", r_areacode);
@@ -37,7 +37,9 @@ public class KoDAO {
 	public ItemVO getPlaceDetail(String contentid) {
 		return sqlSessionTemplate.selectOne("ko.place_detail", contentid);
 	}
-	
+
+	// ==========================================================================
+
 	public int popupInsert(PopupVO popvo) {
 		return sqlSessionTemplate.insert("ko.popup_insert", popvo);
 	}
@@ -53,14 +55,14 @@ public class KoDAO {
 		}
 		return null;
 	}
-	
+
 	public PopupVO popupOne() {
 		return sqlSessionTemplate.selectOne("ko.popup_one");
 	}
 
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
-	
+
 	public int popupUpdate(String popup_idx) {
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
@@ -77,24 +79,30 @@ public class KoDAO {
 		}
 		return -1;
 	}
-	
+
 	public int popupDelete(String popup_idx) {
 		return sqlSessionTemplate.delete("ko.popup_delete", popup_idx);
 	}
-	
+
 	public int getTotalCount() {
 		return sqlSessionTemplate.selectOne("ko.popup_count");
 	}
-	
+
+	// =====================================================================================
+
 	
 	public int getTotalUser() {
 		return sqlSessionTemplate.selectOne("ko.user_count");
 	}
 	
+	public int getSearchTotal(String search) {
+		return sqlSessionTemplate.selectOne("ko.search_count", search);
+	}
+
 	public List<UserVO> getStopUser() {
 		return sqlSessionTemplate.selectList("ko.stop_user");
 	}
-	
+
 	public List<UserVO> getUserList(int offset, int limit) {
 		try {
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -106,11 +114,15 @@ public class KoDAO {
 		}
 		return null;
 	}
-	
+
+	public List<UserVO> getSearchUser(PageVO pvo) {
+		return sqlSessionTemplate.selectList("ko.user_search", pvo);
+	}
+
 	public int getStopState(String u_idx) {
 		return sqlSessionTemplate.update("ko.stop_state", u_idx);
 	}
-	
+
 	public int getStopUpdate(String stop_days, String u_idx) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("u_idx", u_idx);
@@ -118,7 +130,52 @@ public class KoDAO {
 		return sqlSessionTemplate.update("ko.stop_update", map);
 	}
 	
+	//================================================================
+
+	public UserVO getUserDetail(String u_idx) {
+		return sqlSessionTemplate.selectOne("ko.user_detail", u_idx);
+	}
+	
+	public int getBoardCount(String u_idx) {
+		return sqlSessionTemplate.selectOne("ko.board_count", u_idx);
+	}
+	
+	public List<BoardVO> getBoardList(String u_idx, int offset, int limit) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("u_idx", u_idx);
+		map.put("offset", offset);
+		map.put("limit", limit);
+		return sqlSessionTemplate.selectList("ko.board_list", map);
+	}
+	
+	public int getReportCount(String u_idx) {
+		return sqlSessionTemplate.selectOne("ko.report_count", u_idx);
+	}
+	
+	public List<ReportVO> getReportList(String u_idx, int offset, int limit) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("u_idx", u_idx);
+		map.put("offset", offset);
+		map.put("limit", limit);
+		return sqlSessionTemplate.selectList("ko.report_list", map);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

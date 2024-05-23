@@ -6,11 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +31,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
+import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
+import com.ict.travel.ko.dao.PageVO;
 import com.ict.travel.ko.dao.PopupVO;
 import com.ict.travel.ko.dao.UserVO;
 import com.ict.travel.ko.service.KoService;
@@ -407,7 +407,7 @@ public class KoController {
 		paging.setTotalRecord(count);
 
 		// 전체페이지의 수
-		paging.setNumPerPage(10);
+		paging.setNumPerPage(7);
 		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
@@ -459,7 +459,7 @@ public class KoController {
 				}
 			}
 		}
-		
+
 		// 6.
 		// DB 갔다오기
 		List<UserVO> user_list = koService.getUserList(paging.getOffset(), paging.getNumPerPage());
@@ -471,20 +471,20 @@ public class KoController {
 
 		return new ModelAndView("common_view/error");
 	}
-	
+
 	@RequestMapping("stop_update.do")
 	public ModelAndView stopUpdate(String stop_days, String u_idx) {
 		ModelAndView mv = new ModelAndView("redirect: user_list.do");
-		//System.out.println(stop_days);
-		//System.out.println(u_idx);
-		
+		// System.out.println(stop_days);
+		// System.out.println(u_idx);
+
 		int result = koService.getStopUpdate(stop_days, u_idx);
 		if (result > 0) {
 			return mv;
 		}
 		return new ModelAndView("common_view/error");
 	}
-	
+
 	@RequestMapping("stop_reset.do")
 	public ModelAndView stopReset(String u_idx) {
 		ModelAndView mv = new ModelAndView("redirect: user_list.do");
@@ -494,5 +494,193 @@ public class KoController {
 		}
 		return new ModelAndView("common_view/error");
 	}
+
+	@RequestMapping("user_search.do")
+	public ModelAndView searchUser(String search, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("ko_view/user_list");
+		// 페이징 기법
+		// 1.
+		// 전체 게시물의 수를 구하자
+		int count = koService.getSearchTotal(search);
+		paging.setTotalRecord(count);
+
+		// 전체페이지의 수
+		paging.setNumPerPage(7);
+		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
+		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+			paging.setTotalPage(1);
+		} else {
+			paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+			if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+				paging.setTotalPage(paging.getTotalPage() + 1);
+			}
+		}
+
+		// 2.
+		// 현재페이지 구하자
+		String cPage = request.getParameter("cPage");
+		if (cPage == null) {
+			paging.setNowPage(1);
+		} else {
+			paging.setNowPage(Integer.parseInt(cPage));
+		}
+
+		// 3.
+		// offset 구하기
+		// limit = numPerPage
+		// offset = limit * (현재페이지 - 1)
+		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() - 1));
+
+		// 4.
+		// 시작블록과 끝블록 구하기
+		// 시작블록 = (int){(현재페이지 -1) / 페이지당 블록수} * 페이지당 블록수 + 1
+		paging.setBeginBlock(
+				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+		// 끝블록 = 시작블록 + 페이지당 블록수 - 1
+		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+		// 끝블록이 전체페이지 수보다 크면 끝블록에 전체페이지 수를 넣어주자
+		if (paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+
+		PageVO pvo = new PageVO(search, paging.getOffset(), paging.getNumPerPage());
+		List<UserVO> user_list = koService.getSearchUser(pvo);
+		mv.addObject("user_list", user_list);
+		mv.addObject("paging", paging);
+		return mv;
+	}
+	
+	@RequestMapping("user_board.do")
+	public ModelAndView userBoard(@ModelAttribute("u_idx")String u_idx) {
+		return new ModelAndView("ko_view/user_board");
+	}
+
+	@RequestMapping("board_list.do")
+	public ModelAndView boardList(@ModelAttribute("u_idx")String u_idx, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("ko_view/board_list");
+		
+		UserVO uvo = koService.getUserDetail(u_idx);
+		mv.addObject("uvo", uvo);
+		
+		// 페이징 기법
+		// 1.
+		// 전체 게시물의 수를 구하자
+		int count = koService.getBoardCount(u_idx);
+		paging.setTotalRecord(count);
+
+		// 전체페이지의 수
+		paging.setNumPerPage(5);
+		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
+		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+			paging.setTotalPage(1);
+		} else {
+			paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+			if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+				paging.setTotalPage(paging.getTotalPage() + 1);
+			}
+		}
+
+		// 2.
+		// 현재페이지 구하자
+		String cPage = request.getParameter("cPage");
+		if (cPage == null) {
+			paging.setNowPage(1);
+		} else {
+			paging.setNowPage(Integer.parseInt(cPage));
+		}
+
+		// 3.
+		// offset 구하기
+		// limit = numPerPage
+		// offset = limit * (현재페이지 - 1)
+		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() - 1));
+
+		// 4.
+		// 시작블록과 끝블록 구하기
+		// 시작블록 = (int){(현재페이지 -1) / 페이지당 블록수} * 페이지당 블록수 + 1
+		paging.setBeginBlock(
+				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+		// 끝블록 = 시작블록 + 페이지당 블록수 - 1
+		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+		// 끝블록이 전체페이지 수보다 크면 끝블록에 전체페이지 수를 넣어주자
+		if (paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+
+		// 5.
+		// DB 갔다오기
+		
+		List<BoardVO> board_list = koService.getBoardList(u_idx, paging.getOffset(), paging.getNumPerPage());
+		mv.addObject("board_list", board_list);
+		mv.addObject("paging", paging);
+		return mv;
+
+	}
+	
+	
+	@RequestMapping("report_list.do")
+	public ModelAndView userReport(@ModelAttribute("u_idx")String u_idx, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("ko_view/report_list");
+
+		UserVO uvo = koService.getUserDetail(u_idx);
+		mv.addObject("uvo", uvo);
+		
+		// 페이징 기법
+		// 1.
+		// 전체 게시물의 수를 구하자
+		int count = koService.getReportCount(u_idx);
+		paging.setTotalRecord(count);
+
+		// 전체페이지의 수
+		paging.setNumPerPage(5);
+		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
+		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+			paging.setTotalPage(1);
+		} else {
+			paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+			if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+				paging.setTotalPage(paging.getTotalPage() + 1);
+			}
+		}
+
+		// 2.
+		// 현재페이지 구하자
+		String cPage = request.getParameter("cPage");
+		if (cPage == null) {
+			paging.setNowPage(1);
+		} else {
+			paging.setNowPage(Integer.parseInt(cPage));
+		}
+
+		// 3.
+		// offset 구하기
+		// limit = numPerPage
+		// offset = limit * (현재페이지 - 1)
+		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() - 1));
+
+		// 4.
+		// 시작블록과 끝블록 구하기
+		// 시작블록 = (int){(현재페이지 -1) / 페이지당 블록수} * 페이지당 블록수 + 1
+		paging.setBeginBlock(
+				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+		// 끝블록 = 시작블록 + 페이지당 블록수 - 1
+		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+		// 끝블록이 전체페이지 수보다 크면 끝블록에 전체페이지 수를 넣어주자
+		if (paging.getEndBlock() > paging.getTotalPage()) {
+			paging.setEndBlock(paging.getTotalPage());
+		}
+
+		// 5.
+		// DB 갔다오기
+		List<ReportVO> report_list = koService.getReportList(u_idx, paging.getOffset(), paging.getNumPerPage());
+		mv.addObject("report_list", report_list);
+		mv.addObject("paging", paging);
+		return mv;
+
+	}
+	
 
 }

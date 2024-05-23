@@ -9,10 +9,15 @@
 <title>Insert title here</title>
 
 <link rel="icon" href="/resources/ko_images/favicon.png">
-<link rel="stylesheet" type="text/css" href="resources/ko_css/userList.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/ko_css/userList.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+	$(function() {
+		$("#search").focus();
+	})
 	
 	function reset_go(u_idx) {
 		location.href = "stop_reset.do?u_idx="+u_idx;		
@@ -23,8 +28,21 @@
 		location.href = "stop_update.do?u_idx="+u_idx+"&stop_days="+stop_days;
 	}
 
-	function board_go(f) {
-		
+	function board_go(u_idx) {
+		location.href = "user_board.do?u_idx="+u_idx;
+	}
+	
+	function search_go() {
+		let search = $('input[name=search]').val();
+		if (search == '') {
+			alert("검색어를 입력해주세요");
+		}else {
+			location.href = "user_search.do?search=" + search;
+		}
+	}
+	
+	function show_total() {
+		location.href = "user_list.do";
 	}
 
 </script>
@@ -36,9 +54,19 @@
 
 	<section style="margin: 0 auto; width: 1300px; min-height: 700px;">
 
+		<div class="user_search">
+			<h2>유저 관리 게시판</h2>
+			<ul>
+				<li>이름 : <input type="text" id="search" name="search"
+					onkeypress="if(event.keyCode==13){search_go();}" /> <input
+					type="button" class="user_btn" value="검색" onclick="search_go()">
+					<input type="button" class="user_btn" value="전체보기"
+					onclick="show_total()">
+				</li>
+			</ul>
+		</div>
 
 		<div class="user_table">
-			<h2>유저 관리 게시판</h2>
 			<table>
 				<thead>
 					<tr>
@@ -51,64 +79,69 @@
 					</tr>
 				</thead>
 				<tbody>
-
-					<c:forEach var="k" items="${user_list}" varStatus="vs">
-						<tr>
-							<td>
-								${k.u_name}(${k.u_id})
-							</td>
-							<td><c:choose>
-									<c:when test="${k.u_state == '1'}">
-										<b><span style="color: red;">정지</span></b>
-									</c:when>
-									<c:otherwise>원활</c:otherwise>
-								</c:choose></td>
-							<td><c:choose>
-									<c:when test="${empty k.u_stopdate}">
+					<c:choose>
+						<c:when test="${empty user_list}">
+							<tr>
+								<td colspan="6">검색에 맞는 유저가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="k" items="${user_list}" varStatus="vs">
+								<tr>
+									<td>${k.u_name}(${k.u_id})</td>
+									<td><c:choose>
+											<c:when test="${k.u_state == '1'}">
+												<b><span style="color: red;">정지</span></b>
+											</c:when>
+											<c:otherwise>원활</c:otherwise>
+										</c:choose></td>
+									<td><c:choose>
+											<c:when test="${empty k.u_stopdate}">
 										없음
 									</c:when>
-									<c:otherwise>
-										<%-- 참고사이트 https://blog.naver.com/javaking75/220033235370 --%>
-										<%-- 참고사이트 https://cofs.tistory.com/261 --%>
-										<!-- 현재날짜 -->
-										<jsp:useBean id="now" class="java.util.Date" />
-										<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
-											integerOnly="true" var="nowDate"></fmt:parseNumber>
-										<!-- 정지만료날짜 -->
-										<fmt:parseDate value="${k.u_stopdate}" pattern="yyyy-MM-dd"
-											var="stop"></fmt:parseDate>
-										<fmt:parseNumber value="${stop.time / (1000*60*60*24)}"
-											integerOnly="true" var="stopDate"></fmt:parseNumber>
+											<c:otherwise>
+												<%-- 참고사이트 https://blog.naver.com/javaking75/220033235370 --%>
+												<%-- 참고사이트 https://cofs.tistory.com/261 --%>
+												<!-- 현재날짜 -->
+												<jsp:useBean id="now" class="java.util.Date" />
+												<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+													integerOnly="true" var="nowDate"></fmt:parseNumber>
+												<!-- 정지만료날짜 -->
+												<fmt:parseDate value="${k.u_stopdate}" pattern="yyyy-MM-dd"
+													var="stop"></fmt:parseDate>
+												<fmt:parseNumber value="${stop.time / (1000*60*60*24)}"
+													integerOnly="true" var="stopDate"></fmt:parseNumber>
 										${stopDate - nowDate}일
 									</c:otherwise>
-								</c:choose></td>
-							<td><c:choose>
-									<c:when test="${k.u_state == '1'}">
-										<b><span style="color: skyblue;">해제하려면 버튼을 눌러주세요</span></b>
-									</c:when>
-									<c:otherwise>
-										<input type="radio" name="stop_days${vs.count}" value="30" checked>30일
+										</c:choose></td>
+									<td><c:choose>
+											<c:when test="${k.u_state == '1'}">
+												<b><span style="color: skyblue;">해제하려면 버튼을 눌러주세요</span></b>
+											</c:when>
+											<c:otherwise>
+												<input type="radio" name="stop_days${vs.count}" value="30"
+													checked>30일
 										<input type="radio" name="stop_days${vs.count}" value="90">90일
 										<input type="radio" name="stop_days${vs.count}" value="9999">영구정지
 									</c:otherwise>
-								</c:choose>
-							</td>
-							<td>
-								<c:choose>
-									<c:when test="${k.u_state == '1'}">
-										<input type="button" class="user_btn2" value="해제하기" onclick="reset_go(${k.u_idx})">
-									</c:when>
-									<c:otherwise>
-										<input type="button" class="user_btn" value="정지하기" onclick="stop_go(${k.u_idx}, ${vs.count})">
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td>
-								<input type="button" class="user_btn" value="작성글로 이동"
-											onclick="board_go()">
-							</td>
-						</tr>
-					</c:forEach>
+										</c:choose></td>
+									<td><c:choose>
+											<c:when test="${k.u_state == '1'}">
+												<input type="button" class="user_btn2" value="해제하기"
+													onclick="reset_go(${k.u_idx})">
+											</c:when>
+											<c:otherwise>
+												<input type="button" class="user_btn" value="정지하기"
+													onclick="stop_go(${k.u_idx}, ${vs.count})">
+											</c:otherwise>
+										</c:choose></td>
+									<td><input type="button" class="user_btn" value="작성글로 이동"
+										onclick="board_go(${k.u_idx})"></td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+
 
 				</tbody>
 			</table>
