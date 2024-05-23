@@ -16,6 +16,7 @@
 	function recommend_write(){
 		location.href = "recommend_write_go";
 	}
+	
 </script>
 
 </head>
@@ -31,7 +32,7 @@
 				<p class="profile_name">이름 : ${memberUser.u_name}</p>
 				<p class="profile_nickname">닉네임 : ${memberUser.u_nickname}</p>
 				<p class="profile_email">이메일 : ${memberUser.u_email}</p>
-				<button class="update_button" type="button">회원 정보 수정</button>
+				<button class="update_button" type="button" >회원 정보 수정</button>
 			</div>
 			<!-- 세로 밑줄 -->
 			<div class="profile_box_right">

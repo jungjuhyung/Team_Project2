@@ -35,8 +35,9 @@ public interface MemberService {
 	public MemberVO getUserNaver(String access_Token);
 	
 	
-	public int getMemberUp(MemberVO mvo);
+	public MemberVO getMemberUpDetail(String u_idx);
 
+	public int getMemberUpOk(MemberVO mvo);
 	
 
 
