@@ -5,6 +5,7 @@
 	width: 1200px;
 	margin: auto;
 	margin-top : 40px;
+	
 }
 /* 섬머노트 */
 #summer{
@@ -23,6 +24,8 @@
 }
 #infoUser > div {
     margin-bottom: 30px; 
+    border-bottom: 1px dotted black;
+    
 }
 
 /* 작성날짜 */
@@ -35,10 +38,12 @@
 /* 리뷰 제목 */
 #reviewTitle {
     font-size: 60px;
-    font-weight: bold;
+    font-family: "Gamja Flower", sans-serif;
+    font-weight: 400;
     border-bottom: 1px solid black;
     text-align: center; /* 제목을 가운데 정렬 */
     margin-bottom: 20px; /* 제목 아래 여백 추가 */
+    border-radius: 15px 15px 0 0 ;
 }
 
 #reviewUser, #reviewDate {
@@ -91,7 +96,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: center; /* 가운데 정렬 */
-    background-color: #F9F3FF;
 }
 
 textarea {
@@ -111,7 +115,7 @@ input.rewrite {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    background-color: #F9F3FF;
+    background-color: pink;
 }
 
 input.rewrite:hover {
@@ -152,7 +156,7 @@ input.rewrite:active {
 
 /* 이미지 스타일 */
 .d_img .div_img {
-    width: auto; /* 너비를 자동으로 조절 */
+    width: 270px; /* 너비를 자동으로 조절 */
     height: 270px; 
     object-fit: cover; 
     cursor: pointer; 
@@ -252,7 +256,7 @@ input.rewrite:active {
     font-size: 16px; /* 글꼴 크기 */
     cursor: pointer; /* 마우스 커서 */
     transition: background-color 0.3s; /* 배경색 전환 효과 */
-    background-color: #c0c0c0;
+    background-color: pink;
 }
 
 

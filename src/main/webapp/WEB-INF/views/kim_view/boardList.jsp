@@ -166,7 +166,7 @@ $(".board-list-paging").html(content);
 						<c:forEach var="k" items="${boardlist}" varStatus="vs">
 							<tr>
 								<td>${paging.totalRecord - ((paging.nowPage-1)*paging.numPerPage + vs.index )}</td>
-								<td>${k.u_nickname}</td>
+								<td>${k.u_nickname}(${k.u_lev})</td>
 								<td>
 									<c:choose>
 								    	<c:when test="${k.active == 1 }">

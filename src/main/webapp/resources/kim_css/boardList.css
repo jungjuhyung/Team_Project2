@@ -104,12 +104,18 @@
 .content_css tr {
         height: 40px; 
     }
-/* 
-.boardwbtn{
+ 
+input.boardwbtn{
+	border: none;
+	border-radius: 15px;
 	background-color: pink;
 	color: white;
+	font-family: "Gamja Flower", sans-serif;
+	width: 75px;
+	height: 35px;
+	font-size: 20px;
 }
- */
+
  
  #bwbtn{
 	border-radius: 10px;

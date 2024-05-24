@@ -45,9 +45,9 @@
 						tbody += "<td>" + $(this).find("regdate").text() + "</td>";
 						 let reportState = $(this).find("report_state").text();
 						    if (reportState === "0") {
-						        tbody += "<td style='color: red;'>답변대기</td>";
+						        tbody += "<td style='color: blue;'>확인중</td>";
 						    } else{
-						        tbody += "<td style='color: blue;'>답변완료</td>";
+						        tbody += "<td style='color: red;'>확인완료</td>";
 						    } 
 						tbody += "</tr>";
 					});
@@ -235,10 +235,10 @@ console.log(${adminUser});
         <table id="listtable">
             <thead>
                 <tr class="list_title" style="width: 100%;">
-                    <th>번호</th><th>아이디</th><th>제목</th><th>작성일자</th><th>답변여부</th>
+                    <th>번호</th><th>아이디</th><th>제목</th><th>작성일자</th><th>확인여부</th>
                 </tr>
             </thead>
-            <tbody id="tbody" cl>
+            <tbody id="tbody">
             	
             </tbody>
         </table>
@@ -248,7 +248,7 @@ console.log(${adminUser});
     <div id="bwbtn">
     	<input type="hidden" name="cPage" value="${paging.nowPage}+${paging.endBlock}+ ${paging.beginBlock}+${paging.totalPage}">
     	<c:if test="${memberUser != null}">
-    	<button onclick="reportWrite()">글쓰기</button>
+    	<button onclick="reportWrite()" class="reportwbtn">글쓰기</button>
     	</c:if>
     </div>
     

@@ -152,15 +152,12 @@ function closeModal() {
 		</div>
 		<div class="empty-area"></div>
 		<div>
-		<c:choose>
-			<c:when test="${membervo.u_idx == kpostvo.u_idx}">	
+			<c:if test="${membervo.u_idx == kpostvo.u_idx}">	
 				<button class="reportbtn" type="button">수정</button>
+			</c:if>
+			<c:if test="${adminUser != null || membervo.u_idx == kpostvo.u_idx}">
 				<button class="reportbtn" type="button">삭제</button>
-			</c:when>
-			<c:otherwise>
-				<span></span>
-			</c:otherwise>
-		</c:choose>
+			</c:if>
 		</div>
 		<div class="empty-area"></div>
 		<c:if test="${membervo != null}">
@@ -187,7 +184,7 @@ function closeModal() {
 					</div>
 					<div class="rebutton">${k.regdate.substring(2,19)}
 						<c:choose>
-							<c:when test="${membervo.u_idx == k.u_idx}">							
+							<c:when test="${membervo.u_idx == k.u_idx || adminUser != null}">							
 								<input class="rewrite" type="button" value="삭제" onclick="rcommentDelete(this.form)">
 							</c:when>
 							<c:otherwise>

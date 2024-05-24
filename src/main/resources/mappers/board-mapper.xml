@@ -8,10 +8,21 @@
 	<select id="boardCount" resultType="int">
 		select count(*) from board_t
 	</select>
-
+	<!-- 
 	<select id="boardList" parameterType="Map" resultType="boardvo">
 		select * from board_t order by board_idx desc limit #{limit} offset #{offset}
 	</select>
+	 -->
+	
+	<select id="boardList" parameterType="Map" resultType="boardvo">
+	    select b.*, u.u_lev
+	    from board_t b
+	    inner join user_t u on b.u_idx = u.u_idx
+	    order by b.board_idx desc
+	    limit #{limit} offset #{offset}
+	</select>
+	
+	
 	
 	<select id="boardlist" resultType="boardvo">
 		select * from board_t order by board_idx
