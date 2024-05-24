@@ -13,7 +13,7 @@
     <!-- 서버로 메시지를 전송하는 버튼 -->
     <input onclick="sendMessage()" value="Send" type="button">
   </form>
-  
+
   <br />
   <!-- 서버와 메시지를 주고 받는 콘솔 텍스트 영역 -->
   <textarea id="messageTextArea" rows="10" cols="50" disabled="disabled"></textarea>
@@ -27,6 +27,7 @@
 	        sendMessage();
 	    }
 	});
+  	
   	
     var webSocket = new WebSocket("ws://192.168.0.70:8090/qnasocket");
     

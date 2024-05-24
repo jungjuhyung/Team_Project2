@@ -6,15 +6,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+
+
 
 // 일반 유저에서 서버간의 웹 소켓 url
 @ServerEndpoint(value = "/qnasocket")
-public class QnAChatHandler {
+public class QnAChatHandler{
+	
 	// searchUser 함수의 filter 표현식을 위한 인터페이스
 	private interface SearchExpression {
 		// 람다식을 위한 함수
@@ -72,6 +79,7 @@ public class QnAChatHandler {
 	public void handleMessage(String message, Session userSession) throws IOException {
 		// Session으로 접속 리스트에서 User 클래스를 탐색
 		User user = getUser(userSession);
+	    
 		// 접속 리스트에 User가 있으면(당연히 있다. 없으면 버그..)
 		if (user != null) {
 			// 운영자 Client에 유저 key와 메시지를 보낸다.

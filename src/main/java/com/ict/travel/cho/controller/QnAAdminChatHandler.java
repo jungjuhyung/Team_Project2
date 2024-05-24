@@ -1,5 +1,8 @@
 package com.ict.travel.cho.controller;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -10,19 +13,18 @@ import javax.websocket.server.ServerEndpoint;
 public class QnAAdminChatHandler {
   // 운영자 유저는 하나라고 가정하고 만약 둘 이상의 세션에서 접속을 하면 마지막 세션만 작동한다.
   private static Session admin = null;
-  
   // 운영자 유저가 접속을 하면 발생하는 이벤트 함수
   @OnOpen
   public void handleOpen(Session userSession) {
-    // 기존에 운영자 유저의 소켓이 접속중이라면
-//    if (admin != null) {
-//      try {
-//        // 접속을 끊는다.
-//        admin.close();
-//      } catch (IOException e) {
-// 
-//      }
-//    }
+    // 일단 운영자 한명만해
+    if (admin != null) {
+      try {
+        // 접속을 끊는다.
+        admin.close();
+      } catch (IOException e) {
+ 
+      }
+    }
     // 운영자 유저의 세션을 바꾼다.
     admin = userSession;
     // 기존에 접속해 있는 유저의 정보를 운영자 client로 보낸다.
@@ -35,7 +37,7 @@ public class QnAAdminChatHandler {
   // 운영자 유저가 메시지를 보내면 발생하는 이벤트
   @OnMessage
   public void handleMessage(String message, Session userSession) throws IOException {
-    // key와 메시지 구분키를 #####를 넣었다. (json으로 해도 되는데 Gson 연결까지 하면 귀찮아져서...)
+    // key와 메시지 구분키를 #####를 넣었다. 
     String[] split = message.split("#####", 2);
     // 앞은 key 데이터
     String key = split[0];
@@ -51,10 +53,11 @@ public class QnAAdminChatHandler {
     admin = null;
   }
   
-  // 운영자 유저로 메시지를 보내는 함수
+  // 사용자가 운영자 유저에게 메시지를 보내는 함수
   private static void send(String message) {
     if (admin != null) {
       try {
+	  
         admin.getBasicRemote().sendText(message);
       } catch (IOException e) {
         e.printStackTrace();

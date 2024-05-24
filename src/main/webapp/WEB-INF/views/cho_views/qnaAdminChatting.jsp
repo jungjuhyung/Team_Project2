@@ -32,36 +32,28 @@
     webSocket.onopen = function(message) { };
     webSocket.onclose = function(message) { };
     webSocket.onerror = function(message) { };
-    
-    // 서버로 부터 메시지가 오면
+
+ // 서버로부터 메시지가 올 때 처리
     webSocket.onmessage = function(message) {
-      // 메시지의 구조는 JSON 형태로 만들었다.
+      console.value += message.data + "\n";
       let node = JSON.parse(message.data);
-      console.log(message)
-      // 메시지의 status는 유저의 접속 형태이다.
-      // visit은 유저가 접속했을 때 알리는 메시지다.
+      console.log(message);
+
+      // 메시지의 상태에 따라 처리
       if(node.status === "visit") {
-        // 위 템플릿 div를 취득한다.
+        // 방문 메시지 처리
         let form = $(".template").html();
-        // div를 감싸고 속성 data-key에 unique키를 넣는다.
-        form = $("<div class ='newChat'>"+node.key+"</div>").attr("data-key",node.key).append(form); 
-        // body에 추가한다.
+        form = $("<div class ='newChat'>"+node.key+"</div>").attr("data-key", node.key).append(form);
         $("body").append(form);
-        
-      // message는 유저가 메시지를 보낼 때 알려주는 메시지이다.
       } else if(node.status === "message") {
-        // key로 해당 div영역을 찾는다.
+        // 메시지 메시지 처리
+        let nickname = node.message.match(/{{(.*?)}}/)[1]; // 닉네임 추출
+        let actualMessage = node.message.replace(/{{(.*?)}}/,""); // 실제 메시지 추출
         let $div = $("[data-key='"+node.key+"']");
-        
-        // console영역을 찾는다.
         let log = $div.find(".console").val();
-        
-        // 아래에 메시지를 추가한다.
-        $div.find(".console").val(log + "(user) => " +node.message + "\n");
-        
-      // bye는 유저가 접속을 끊었을 때 알려주는 메시지이다.
+        $div.find(".console").val(log + "(" + nickname + ") => " + actualMessage + "\n");
       } else if(node.status === "bye") {
-        // 해당 키로 div를 찾아서 dom을 제거한다.
+        // 종료 메시지 처리
         $("[data-key='"+node.key+"']").remove();
       }
     };

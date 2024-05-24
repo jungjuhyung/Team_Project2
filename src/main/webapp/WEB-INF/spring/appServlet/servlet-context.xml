@@ -32,7 +32,7 @@
     
 	<context:component-scan base-package="com.ict.travel" />
 
-
+		
 	<!-- 인터셉트 설정 -->
 	<!-- servlet간의 통신 중 가로채서 결과를 반환해주는 객체 -->
 	<!-- 	

@@ -19,8 +19,6 @@
   <textarea id="messageTextArea" rows="10" cols="50"></textarea>
   
   <script type="text/javascript">
-  
-  	
   	
     // WebSocket 오브젝트 생성 (자동으로 접속 시작한다. - onopen 함수 호출)
     var webSocket = new WebSocket("ws://192.168.0.70:8090/broadsocket");
