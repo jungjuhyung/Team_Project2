@@ -68,7 +68,7 @@
 				<thead>
 					<tr>
 						<th>내용</th>
-						<th>날짜</th>
+						<th>작성날짜</th>
 						<th>삭제하기</th>
 						<th>원글이동</th>
 					</tr>

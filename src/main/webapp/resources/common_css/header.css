@@ -4,11 +4,11 @@
   box-sizing: border-box;
 }
 
-a {
+.ko_header a {
 	text-decoration: none;
 }
 
-.header {
+.ko_header {
 	background-image: url(/resources/ko_images/bg.png);
 }
 
@@ -44,7 +44,7 @@ a {
 	padding-top: 30px;
 }
 
-.main {
+.ko_main {
 	width: 200px;
 	height: 100px;
 	float: left;
@@ -66,12 +66,12 @@ a {
 	text-align: center;
 }
 
-.main:hover a {
+.ko_main:hover a {
 	color: #000;
 	
 }
 
-.main:hover {
+.ko_main:hover {
 	padding-top: 20px;
 }
 
@@ -81,7 +81,7 @@ a {
 	padding-top: 20px;
 }
 
-.btn {
+.ko_btn {
 	width: 120px;
 	height: 50px;
 	float: left;
@@ -102,11 +102,11 @@ a {
 	text-align: center;
 }
 
-.btn:hover a {
+.ko_btn:hover a {
 	color: #000;
 }
 
-.btn:hover {
+.ko_btn:hover {
 	margin-top: 10px;
 }
 

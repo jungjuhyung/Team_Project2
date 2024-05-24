@@ -52,9 +52,9 @@ public interface KoService {
 	List<UserVO> getSearchUser(PageVO pvo);
 	
 	//	정지 상태 변경
-	int getStopState(String u_idx);
+	int getStopState(String u_idx, String ustop_idx);
 	//	정지하기
-	int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_idx);
+	int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_id);
 	
 	//=================================================
 	// 특정 유저 작성글 

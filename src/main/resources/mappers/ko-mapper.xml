@@ -79,7 +79,7 @@
 		select * from user_t limit #{limit} offset #{offset}
 	</select>
 	
-	<select id="stop_user" parameterType="String" resultType="ustopvo">
+	<select id="stop_detail" parameterType="String" resultType="ustopvo">
 		select * from userstop_t where u_idx = #{u_idx}
 	</select>
 	
@@ -96,16 +96,20 @@
 		where u_idx = #{u_idx}
 	</update>
 	
+	<delete id="stop_delete" parameterType="String">
+		delete from userstop_t where ustop_idx = #{ustop_idx}
+	</delete>
+	
 	<update id="stop_update" parameterType="Map">
 		update user_t
 		set u_stopdate = DATE_ADD(sysdate(), INTERVAL #{stop_days} DAY) , u_state = 1
 		where u_idx = #{u_idx} 
 	</update>
 	
-	<update id="user_stop" parameterType="Map">
-		insert into userstop_t (u_idx, admin_idx, stop_note, regdate) 
-		values (#{u_idx}, #{admin_idx}, #{stop_note}, sysdate()) 
-	</update>
+	<insert id="user_stop" parameterType="Map">
+		insert into userstop_t (u_idx, admin_id, stop_note) 
+		values (#{u_idx}, #{admin_id}, #{stop_note}) 
+	</insert>
 	
 	<!-- ======================================================================== -->
 	

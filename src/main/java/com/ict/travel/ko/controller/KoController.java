@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.ict.travel.cho.dao.PathPostVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
@@ -36,6 +38,11 @@ import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
+import com.ict.travel.kim.dao.TourtestVO;
+import com.ict.travel.kim.service.BoardService;
+import com.ict.travel.kim.service.KpostService;
+import com.ict.travel.kim.service.ReportService;
+import com.ict.travel.kim.service.TourtestService;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PageVO;
@@ -259,6 +266,9 @@ public class KoController {
 		return null;
 	}
 
+	// ======================================================================
+	// 풋터 이동
+
 	@RequestMapping("footer_terms.do")
 	public ModelAndView getTerms() {
 		return new ModelAndView("ko_view/footer_terms");
@@ -275,12 +285,12 @@ public class KoController {
 	}
 
 	// ================================================================ //
-
 	// 팝업관련
 
 	@Autowired
 	private Paging paging;
 
+	// 팝업 이미지 변경 페이지
 	@RequestMapping("popup_img.do")
 	public ModelAndView changePop(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/change_popup");
@@ -342,6 +352,7 @@ public class KoController {
 		return new ModelAndView("common_view/error");
 	}
 
+	// 팝업 이미지 추가
 	@PostMapping("popup_img_insert.do")
 	public ModelAndView popImage(PopupVO popvo, HttpSession session) {
 		try {
@@ -374,6 +385,7 @@ public class KoController {
 		return new ModelAndView("common_view/error");
 	}
 
+	// 팝업 이미지 변경
 	@RequestMapping("popup_img_change.do")
 	public ModelAndView popImageChange(String popup_idx) {
 		ModelAndView mv = new ModelAndView("redirect:main_page.do");
@@ -385,6 +397,7 @@ public class KoController {
 		return new ModelAndView("common_view/error");
 	}
 
+	// 팝업 이미지 삭제
 	@RequestMapping("popup_img_delete.do")
 	public ModelAndView popImageDelete(String popup_idx) {
 		ModelAndView mv = new ModelAndView("redirect:popup_img.do");
@@ -397,9 +410,9 @@ public class KoController {
 	}
 
 	// ================================================================ //
-
 	// 유저 관리
 
+	// 유저 목록 리스트
 	@RequestMapping("user_list.do")
 	public ModelAndView getUserList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/user_list");
@@ -459,7 +472,7 @@ public class KoController {
 				LocalDateTime stop = LocalDateTime.parse(stopdate, formatter);
 				LocalDateTime now = LocalDateTime.now();
 				if (stop.isBefore(now)) {
-					int result = koService.getStopState(k.getU_idx());
+					int result = koService.getStopState(k.getU_idx(), k.getUstop_idx());
 				}
 			}
 		}
@@ -467,63 +480,56 @@ public class KoController {
 		// 6.
 		// DB 갔다오기
 		List<UserVO> user_list = koService.getUserList(paging.getOffset(), paging.getNumPerPage());
-		if (user_list != null) {
-			for (UserVO k : user_list) {
-				if (k.getU_state().equals("1")) {
-					UserStopVO ustop = koService.getStopDetail(k.getU_idx());
-					k.setUstop_idx(ustop.getUstop_idx());
-					k.setAdmin_idx(ustop.getAdmin_idx());
-					k.setStop_note(ustop.getStop_note());
-				}
+		for (UserVO k : user_list) {
+			if (k.getU_state().equals("1")) {
+				UserStopVO ustop = koService.getStopDetail(k.getU_idx());
+				k.setUstop_idx(ustop.getUstop_idx());
+				k.setAdmin_id(ustop.getAdmin_id());
+				k.setStop_note(ustop.getStop_note());
 			}
-			
-			mv.addObject("user_list", user_list);
-			mv.addObject("paging", paging);
-			return mv;
 		}
-
-		return new ModelAndView("common_view/error");
+		mv.addObject("user_list", user_list);
+		mv.addObject("paging", paging);
+		return mv;
 	}
 
+	// 유저 정지하기
 	@RequestMapping("stop_update.do")
-	public ModelAndView stopUpdate(String stop_days, String u_idx, String stop_note, 
-						HttpSession session) {
+	public ModelAndView stopUpdate(String stop_days, String u_idx, String stop_note, HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect: user_list.do");
-		//System.out.println(stop_days);
-		//System.out.println(u_idx);
-		//System.out.println(stop_note);
-		
-		//String admin_idx = session.getAttribute("admin_idx");
-		String admin_idx = "19";
-		int result = koService.getStopUpdate(stop_days, u_idx, stop_note, admin_idx);
+		// System.out.println(stop_days);
+		// System.out.println(u_idx);
+		// System.out.println(stop_note);
+
+		// String admin_id = session.getAttribute("admin_id");
+		String admin_id = "ko3";
+		int result = koService.getStopUpdate(stop_days, u_idx, stop_note, admin_id);
 		if (result > 0) {
 			return mv;
 		}
 		return new ModelAndView("common_view/error");
 	}
 
+	// 정지 해제하기
 	@RequestMapping("stop_reset.do")
-	public ModelAndView stopReset(String u_idx) {
+	public ModelAndView stopReset(String u_idx, String ustop_idx) {
 		ModelAndView mv = new ModelAndView("redirect: user_list.do");
-		int result = koService.getStopState(u_idx);
+		int result = koService.getStopState(u_idx, ustop_idx);
 		if (result > 0) {
 			return mv;
 		}
 		return new ModelAndView("common_view/error");
 	}
 
+	// 유저 검색
 	@RequestMapping("user_search.do")
 	public ModelAndView searchUser(String search, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/user_list");
-		// 페이징 기법
-		// 1.
-		// 전체 게시물의 수를 구하자
+
 		int count = koService.getSearchTotal(search);
 		paging.setTotalRecord(count);
 
-		// 전체페이지의 수
 		paging.setNumPerPage(7);
-		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
 		} else {
@@ -533,8 +539,6 @@ public class KoController {
 			}
 		}
 
-		// 2.
-		// 현재페이지 구하자
 		String cPage = request.getParameter("cPage");
 		if (cPage == null) {
 			paging.setNowPage(1);
@@ -542,34 +546,36 @@ public class KoController {
 			paging.setNowPage(Integer.parseInt(cPage));
 		}
 
-		// 3.
-		// offset 구하기
-		// limit = numPerPage
-		// offset = limit * (현재페이지 - 1)
 		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() - 1));
 
-		// 4.
-		// 시작블록과 끝블록 구하기
-		// 시작블록 = (int){(현재페이지 -1) / 페이지당 블록수} * 페이지당 블록수 + 1
 		paging.setBeginBlock(
 				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
-		// 끝블록 = 시작블록 + 페이지당 블록수 - 1
+
 		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
 
-		// 끝블록이 전체페이지 수보다 크면 끝블록에 전체페이지 수를 넣어주자
 		if (paging.getEndBlock() > paging.getTotalPage()) {
 			paging.setEndBlock(paging.getTotalPage());
 		}
 
 		PageVO pvo = new PageVO(search, paging.getOffset(), paging.getNumPerPage());
 		List<UserVO> user_list = koService.getSearchUser(pvo);
+		for (UserVO k : user_list) {
+			if (k.getU_state().equals("1")) {
+				UserStopVO ustop = koService.getStopDetail(k.getU_idx());
+				k.setUstop_idx(ustop.getUstop_idx());
+				k.setAdmin_id(ustop.getAdmin_id());
+				k.setStop_note(ustop.getStop_note());
+			}
+		}
 		mv.addObject("user_list", user_list);
 		mv.addObject("paging", paging);
 		return mv;
 	}
 
 	// =====================================================================================
+	// 특정 유저 게시글 관리
 
+	// 첫페이지
 	@RequestMapping("user_board.do")
 	public ModelAndView userBoard(@ModelAttribute("u_idx") String u_idx) {
 		ModelAndView mv = new ModelAndView("ko_view/user_board");
@@ -578,6 +584,7 @@ public class KoController {
 		return mv;
 	}
 
+	// 자유게시판 목록
 	@RequestMapping("board_list.do")
 	public ModelAndView boardList(@ModelAttribute("u_idx") String u_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/board_list");
@@ -585,15 +592,10 @@ public class KoController {
 		UserVO uvo = koService.getUserDetail(u_idx);
 		mv.addObject("uvo", uvo);
 
-		// 페이징 기법
-		// 1.
-		// 전체 게시물의 수를 구하자
 		int count = koService.getBoardCount(u_idx);
 		paging.setTotalRecord(count);
 
-		// 전체페이지의 수
 		paging.setNumPerPage(5);
-		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
 		} else {
@@ -603,8 +605,6 @@ public class KoController {
 			}
 		}
 
-		// 2.
-		// 현재페이지 구하자
 		String cPage = request.getParameter("cPage");
 		if (cPage == null) {
 			paging.setNowPage(1);
@@ -612,35 +612,23 @@ public class KoController {
 			paging.setNowPage(Integer.parseInt(cPage));
 		}
 
-		// 3.
-		// offset 구하기
-		// limit = numPerPage
-		// offset = limit * (현재페이지 - 1)
 		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() - 1));
 
-		// 4.
-		// 시작블록과 끝블록 구하기
-		// 시작블록 = (int){(현재페이지 -1) / 페이지당 블록수} * 페이지당 블록수 + 1
 		paging.setBeginBlock(
 				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
-		// 끝블록 = 시작블록 + 페이지당 블록수 - 1
 		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
 
-		// 끝블록이 전체페이지 수보다 크면 끝블록에 전체페이지 수를 넣어주자
 		if (paging.getEndBlock() > paging.getTotalPage()) {
 			paging.setEndBlock(paging.getTotalPage());
 		}
-
-		// 5.
-		// DB 갔다오기
 
 		List<BoardVO> board_list = koService.getBoardList(u_idx, paging.getOffset(), paging.getNumPerPage());
 		mv.addObject("board_list", board_list);
 		mv.addObject("paging", paging);
 		return mv;
-
 	}
 
+	// 신고게시판 목로
 	@RequestMapping("report_list.do")
 	public ModelAndView userReport(@ModelAttribute("u_idx") String u_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/report_list");
@@ -702,7 +690,8 @@ public class KoController {
 		return mv;
 
 	}
-	
+
+	// 추천경로게시판 목록
 	@RequestMapping("path_list.do")
 	public ModelAndView userPath(@ModelAttribute("u_idx") String u_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/path_list");
@@ -717,7 +706,7 @@ public class KoController {
 		paging.setTotalRecord(count);
 
 		// 전체페이지의 수
-		paging.setNumPerPage(5);
+		paging.setNumPerPage(3);
 		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
@@ -764,7 +753,8 @@ public class KoController {
 		return mv;
 
 	}
-	
+
+	// 작성댓글 목록
 	@RequestMapping("comment_list.do")
 	public ModelAndView userComment(@ModelAttribute("u_idx") String u_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/comment_list");
@@ -826,6 +816,124 @@ public class KoController {
 		return mv;
 
 	}
+
+	// =====================================================================================
 	
+	//	자유게시글
+	@Autowired
+	private BoardService boardService;
+
+	// 자유게시글 상세보기
+	@RequestMapping("board_detail.do")
+	public ModelAndView boardDetail(String board_idx) {
+		ModelAndView mv = new ModelAndView("kim_view/boardDetail");
+
+		BoardVO boardvo = boardService.boardDetail(board_idx);
+		if (boardvo != null) {
+			List<CommentVO> comment_list = boardService.commentList(board_idx);
+			mv.addObject("comment_list", comment_list);
+			mv.addObject("boardvo", boardvo);
+			return mv;
+		}
+
+		return new ModelAndView("common_view/error");
+	}
+
+	// 자유게시글 삭제하기
+	@RequestMapping("board_delete.do")
+	public ModelAndView boardDelete(String board_idx, @ModelAttribute("u_idx") String u_idx) {
+		ModelAndView mv = new ModelAndView("redirect: board_list.do");
+
+		int result = boardService.boardDelete(board_idx);
+		if (result > 0) {
+			return mv;
+		}
+
+		return new ModelAndView("common_view/error");
+	}
+
+	//	신고게시글
+	@Autowired
+	private ReportService reportService;
+
+	// 신고게시글 상세보기
+	@RequestMapping("report_detail.do")
+	public ModelAndView reportDetail(String report_idx) {
+		ModelAndView mv = new ModelAndView("kim_view/reportDetail");
+
+		ReportVO reportvo = reportService.reportDetail(report_idx);
+
+		if (reportvo != null) {
+			mv.addObject("reportvo", reportvo);
+			return mv;
+		}
+
+		return new ModelAndView("common_view/error");
+	}
+
+	// 	추천경로 게시글
+	@Autowired
+	private KpostService kpostService;
+
+	@Autowired
+	private TourtestService tourtestService;
+
+	// 추천경로 게시글 상세보기
+	@RequestMapping("path_detail.do")
+	public ModelAndView pathDetail(String path_post_idx) {
+		try {
+			ModelAndView mv = new ModelAndView("kim_view/pathDetail");
+
+			KpostVO kpostvo = kpostService.kpostDetail(path_post_idx);
+			List<TourtestVO> tourtestvo2 = tourtestService.tourMaps(path_post_idx);
+			List<TourtestVO> tourtestvo3 = tourtestService.tourDetail(path_post_idx);
+			List<TourtestVO> tourtestvoimg = tourtestService.tourImg(path_post_idx);
+			for (TourtestVO marker : tourtestvoimg) {
+				List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
+				marker.setImgList(imgList);
+			}
+
+			if (!tourtestvo2.isEmpty()) {
+
+				List<CommentVO> comment_list = kpostService.rcommentList(path_post_idx);
+				List<String> marktitle = new ArrayList<>();
+				List<Double> mapyList = new ArrayList<>();
+				List<Double> mapxList = new ArrayList<>();
+				List<String> imglist = new ArrayList<>();
+
+				for (int i = 0; i < tourtestvo2.size(); i++) {
+					TourtestVO tourtestVO = tourtestvo2.get(i);
+					TourtestVO tourtestVO4 = tourtestvo3.get(i);
+					mv.addObject("mapy" + (i + 1), tourtestVO.getMapy());
+					mv.addObject("mapx" + (i + 1), tourtestVO.getMapx());
+					mv.addObject("title" + (i + 1), tourtestVO4.getTitle());
+
+					mapyList.add(tourtestVO.getMapy());
+					mapxList.add(tourtestVO.getMapx());
+					marktitle.add(tourtestVO4.getTitle());
+
+					TourtestVO tourtestimg = tourtestvoimg.get(i);
+					mv.addObject("rimg" + (i + 1), tourtestimg.getImg_idx());
+					imglist.add(tourtestimg.getImg_idx());
+
+				}
+				mv.addObject("kpostvo", kpostvo);
+				mv.addObject("tourtestvoimg", tourtestvoimg);
+				mv.addObject("comment_list", comment_list);
+				mv.addObject("mapyList", mapyList);
+				mv.addObject("mapxList", mapxList);
+				mv.addObject("marktitle", new Gson().toJson(marktitle));
+				mv.addObject("imglist", imglist);
+				return mv;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return new ModelAndView("common_view/error");
+	}
+
+	//	작성 댓글
 	
+
 }

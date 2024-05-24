@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,14 @@
 	
 	function comment_list(u_idx) {
 		location.href = "comment_list.do?u_idx="+u_idx;
+	}
+	
+	function board_delete(board_idx, u_idx) {
+		location.href = "board_delete.do?board_idx=" + board_idx + "&u_idx=" + u_idx;
+	}
+	
+	function board_detail(board_idx) {
+		location.href = "board_detail.do?board_idx=" + board_idx;  
 	}
 	
 </script>
@@ -67,7 +76,7 @@
 				<thead>
 					<tr>
 						<th>제목</th>
-						<th>날짜</th>
+						<th>작성날짜</th>
 						<th>삭제하기</th>
 						<th>본문이동</th>
 					</tr>
@@ -80,12 +89,32 @@
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="k" items="${board_list}" varStatus="vs">
+							<c:forEach var="k" items="${board_list}" >
 								<tr>
-									<td>${k.board_title}</td>
+									<td>
+										<c:choose>
+											<c:when test="${fn:length(k.board_title) >= 12}">
+												<div class="path_text">${fn:substring(k.board_title, 0, 12)}...</div>
+											</c:when>
+											<c:otherwise>
+												<div class="path_text">${k.board_title}</div>
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>${k.regdate.substring(0,10)}</td>
-									<td><input type="button" class="user_btn" value="삭제하기"></td>
-									<td><input type="button" class="user_btn" value="상세보기"></td>
+									<td>
+										<c:choose>
+											<c:when test="${k.active == '1'}">
+												삭제
+											</c:when>
+											<c:otherwise>
+												<input type="button" class="user_btn" value="삭제하기" 
+															onclick="board_delete(${k.board_idx}, ${u_idx})">
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td><input type="button" class="user_btn" value="상세보기" 
+												onclick="board_detail(${k.board_idx})"></td>
 								<tr>
 							</c:forEach>
 						</c:otherwise>

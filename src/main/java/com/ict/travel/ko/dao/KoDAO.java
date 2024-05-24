@@ -118,29 +118,42 @@ public class KoDAO {
 	}
 	
 	public UserStopVO getStopDetail(String u_idx) {
-		return sqlSessionTemplate.selectOne("ko.stop_user", u_idx);
+		return sqlSessionTemplate.selectOne("ko.stop_detail", u_idx);
 	}
 
 	public List<UserVO> getSearchUser(PageVO pvo) {
 		return sqlSessionTemplate.selectList("ko.user_search", pvo);
 	}
 
-	public int getStopState(String u_idx) {
-		return sqlSessionTemplate.update("ko.stop_state", u_idx);
+	public int getStopState(String u_idx, String ustop_idx) {
+		int result = 0;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			result += sqlSessionTemplate.update("ko.stop_state", u_idx);
+			result += sqlSessionTemplate.delete("ko.stop_delete", ustop_idx);
+			transactionManager.commit(status);
+			System.out.println("정지 해제 성공");
+			return result;
+		} catch (Exception e) {
+			transactionManager.rollback(status);
+			System.out.println("정지 해제 실패");
+		}
+		return -1;
 	}
 
-	public int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_idx) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("u_idx", u_idx);
+	public int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("u_idx", Integer.parseInt(u_idx));
 		map.put("stop_days", stop_days);
 		map.put("stop_note", stop_note);
-		map.put("admin_idx", admin_idx);
+		map.put("admin_id", admin_id);
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
 		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 			result += sqlSessionTemplate.update("ko.stop_update", map);
-			result += sqlSessionTemplate.update("ko.user_stop", map);
+			result += sqlSessionTemplate.insert("ko.user_stop", map);
 			transactionManager.commit(status);
 			System.out.println("유저 정지 성공");
 			return result;

@@ -109,13 +109,13 @@ public class KoServiceIple implements KoService{
 	}
 	
 	@Override
-	public int getStopState(String u_idx) {
-		return koDAO.getStopState(u_idx);
+	public int getStopState(String u_idx, String ustop_idx) {
+		return koDAO.getStopState(u_idx, ustop_idx);
 	}
 	
 	@Override
-	public int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_idx) {
-		return koDAO.getStopUpdate(stop_days, u_idx, stop_note, admin_idx);
+	public int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_id) {
+		return koDAO.getStopUpdate(stop_days, u_idx, stop_note, admin_id);
 	}
 	
 	//====================================================

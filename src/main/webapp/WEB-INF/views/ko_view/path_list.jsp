@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,15 @@
 	function comment_list(u_idx) {
 		location.href = "comment_list.do?u_idx="+u_idx;
 	}
+	
+	function path_delete(path_post_idx, u_idx) {
+		location.href = "path_delete.do?path_post_idx=" + path_post_idx + "&u_idx=" + u_idx;
+	}
+	
+	function path_detail(path_post_idx) {
+		location.href = "path_detail.do?path_post_idx=" + path_post_idx;  
+	}
+	
 
 </script>
 
@@ -66,9 +76,9 @@
 			<table>
 				<thead>
 					<tr>
+						<th>메인이미지</th>
 						<th>제목</th>
-						<th>날짜</th>
-						<th>삭제하기</th>
+						<th>작성날짜</th>
 						<th>본문이동</th>
 					</tr>
 				</thead>
@@ -80,12 +90,24 @@
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="k" items="${path_list}" varStatus="vs">
+							<c:forEach var="k" items="${path_list}" >
 								<tr>
-									<td>${k.path_post_title}</td>
+									<td>
+										<img alt="" src="/resources/rc_main_img/test01.png" width="100px">
+									</td>
+									<td>
+										<c:choose>
+											<c:when test="${fn:length(k.path_post_title) >= 12}">
+												<div class="path_text">${fn:substring(k.path_post_title, 0, 12)}...</div>
+											</c:when>
+											<c:otherwise>
+												<div class="path_text">${k.path_post_title}</div>
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>${k.regdate.substring(0,10)}</td>
-									<td><input type="button" class="user_btn" value="삭제하기"></td>
-									<td><input type="button" class="user_btn" value="상세보기"></td>
+									<td><input type="button" class="user_btn" value="상세보기" 
+												onclick="path_detail(${k.path_post_idx})"></td>
 								<tr>
 							</c:forEach>
 						</c:otherwise>

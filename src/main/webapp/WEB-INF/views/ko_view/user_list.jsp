@@ -19,8 +19,8 @@
 		$("#search").focus();
 	})
 	
-	function reset_go(u_idx) {
-		location.href = "stop_reset.do?u_idx="+u_idx;		
+	function reset_go(u_idx, ustop_idx) {
+		location.href = "stop_reset.do?u_idx="+u_idx+"&ustop_idx="+ustop_idx;		
 	}
 	
 	function stop_go(u_idx, vs) {
@@ -85,7 +85,7 @@
 					<c:choose>
 						<c:when test="${empty user_list}">
 							<tr>
-								<td colspan="6">검색에 맞는 유저가 없습니다.</td>
+								<td colspan="7">검색에 맞는 유저가 없습니다.</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
@@ -119,7 +119,7 @@
 										</c:choose></td>
 									<td><c:choose>
 											<c:when test="${k.u_state == '1'}">
-												정지관리자 : ${k.admin_idx}
+												정지관리자 : ${k.admin_id}
 											</c:when>
 											<c:otherwise>
 												<input type="radio" name="stop_days${vs.count}" value="30"
@@ -141,7 +141,7 @@
 									<td><c:choose>
 											<c:when test="${k.u_state == '1'}">
 												<input type="button" class="user_btn2" value="해제하기"
-													onclick="reset_go(${k.u_idx})">
+													onclick="reset_go(${k.u_idx}, ${k.ustop_idx})">
 											</c:when>
 											<c:otherwise>
 												<input type="button" class="user_btn" value="정지하기"

@@ -19,38 +19,38 @@
 </head>
 <body>
 	
-	<section class="header" style="height: 180px;">
+	<section class="ko_header" style="height: 180px;">
 		<nav class="ko_nav">
 			<div class="ko_logo" onclick="main_go()">
 				<img alt="" src="resources/ko_images/logo.png">
 			</div>
 			<ul class="ko_menu">
-				<li class="main">
+				<li class="ko_main">
 					<a href="themaCategory">여행검색</a>
 				</li>
-				<li class="main"> 
+				<li class="ko_main"> 
 					<a href="pathCategory">추천경로</a>
 				</li>
-				<li class="main">
+				<li class="ko_main">
 					<a href="boardList">커뮤니티</a>
 				</li>
 			</ul>
 			<ul class="ko_util">
 				<c:choose>
 					<c:when test="${adminUser != null }">
-						<li class="btn"><a href="logout">로그아웃</a></li>
-						<li class="btn"><a href="#">관리페이지</a></li>
+						<li class="ko_btn"><a href="logout">로그아웃</a></li>
+						<li class="ko_btn"><a href="#">관리페이지</a></li>
 					</c:when>
 					<c:when test="${empty memberUser}">						
-						<li class="btn"><a href="login_go.do">로그인</a></li>
-						<li class="btn"><a href="agree_go.do">회원가입</a></li>
+						<li class="ko_btn"><a href="login_go.do">로그인</a></li>
+						<li class="ko_btn"><a href="agree_go.do">회원가입</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="btn"><a href="logout">로그아웃</a></li>
-						<li class="btn"><a href="mypage">마이페이지</a></li>
+						<li class="ko_btn"><a href="logout">로그아웃</a></li>
+						<li class="ko_btn"><a href="mypage">마이페이지</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="btn"><a href="getReportgo">고객센터</a></li>
+				<li class="ko_btn"><a href="getReportgo">고객센터</a></li>
 			</ul>
 		</nav>
 	</section>	

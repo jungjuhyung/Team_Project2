@@ -1,7 +1,7 @@
 package com.ict.travel.ko.dao;
 
 public class UserStopVO {
-	private String ustop_idx, u_idx, admin_idx, stop_note;
+	private String ustop_idx, u_idx, admin_id, stop_note;
 
 	public String getUstop_idx() {
 		return ustop_idx;
@@ -19,12 +19,12 @@ public class UserStopVO {
 		this.u_idx = u_idx;
 	}
 
-	public String getAdmin_idx() {
-		return admin_idx;
+	public String getAdmin_id() {
+		return admin_id;
 	}
 
-	public void setAdmin_idx(String admin_idx) {
-		this.admin_idx = admin_idx;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 
 	public String getStop_note() {
@@ -34,6 +34,7 @@ public class UserStopVO {
 	public void setStop_note(String stop_note) {
 		this.stop_note = stop_note;
 	}
+
 
 	
 }

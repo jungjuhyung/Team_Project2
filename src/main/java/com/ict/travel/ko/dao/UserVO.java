@@ -3,7 +3,7 @@ package com.ict.travel.ko.dao;
 public class UserVO {
 	private String u_idx, u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self,
 					u_state, u_stopdate, u_regdate, u_active, k_status, n_status,
-					ustop_idx, admin_idx, stop_note;
+					ustop_idx, admin_id, stop_note;
 
 	public String getUstop_idx() {
 		return ustop_idx;
@@ -13,12 +13,12 @@ public class UserVO {
 		this.ustop_idx = ustop_idx;
 	}
 
-	public String getAdmin_idx() {
-		return admin_idx;
+	public String getAdmin_id() {
+		return admin_id;
 	}
 
-	public void setAdmin_idx(String admin_idx) {
-		this.admin_idx = admin_idx;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 
 	public String getStop_note() {

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,10 @@
 	
 	function comment_list(u_idx) {
 		location.href = "comment_list.do?u_idx="+u_idx;
+	}
+	
+	function report_detail(report_idx) {
+		location.href = "report_detail.do?report_idx=" + report_idx;
 	}
 
 </script>
@@ -80,9 +85,18 @@
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="k" items="${report_list}" varStatus="vs">
+							<c:forEach var="k" items="${report_list}">
 								<tr>
-									<td>${k.report_title}</td>
+									<td>
+										<c:choose>
+											<c:when test="${fn:length(k.report_title) >= 12}">
+												<div class="path_text">${fn:substring(k.report_title, 0, 12)}...</div>
+											</c:when>
+											<c:otherwise>
+												<div class="path_text">${k.report_title}</div>
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>${k.regdate.substring(0,10) }</td>
 									<td>
 										<c:choose>
@@ -91,11 +105,21 @@
 											</c:when>
 											<c:otherwise>
 												<span style="color: red;">답변대기</span>
-												<input type="button" class="user_btn" value="답변하기">
 											</c:otherwise>
 										</c:choose>
 									</td>
-									<td><input type="button" class="user_btn" value="상세보기"></td>
+									<td>
+										<c:choose>
+											<c:when test="${k.report_state == '1'}">
+												<input type="button" class="user_btn2" value="상세보기" 
+														onclick="report_detail(${k.report_idx})">
+											</c:when>
+											<c:otherwise>
+												<input type="button" class="user_btn" value="답변하기"
+														onclick="report_detail(${k.report_idx})">
+											</c:otherwise>
+										</c:choose>
+									</td>
 								<tr>
 							</c:forEach>
 						</c:otherwise>
