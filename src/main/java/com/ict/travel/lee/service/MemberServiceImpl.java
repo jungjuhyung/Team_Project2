@@ -41,6 +41,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.getIdChk(u_id);
 	}
 	
+	// 닉네임 중복체크(진행중)
 	public String getNickChk(String u_nickname) {
 		return memberDAO.getNickChk(u_nickname);
 	}

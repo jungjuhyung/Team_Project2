@@ -22,17 +22,19 @@ body {
 
 .edit_sub{
 	margin:100px;
-	margin-top0px;
+	margin-top :10px;
 	position: absolute;
 }
 .edit-form{
 	width: 600px;
-	height: 700px;
+	height: 750px;
 	padding: 30px;
 	background-color: pink;
 	box-shadow:3px 3px 10px #333;
+	margin-top: 10px;
 	margin-left: 200px;
 	border-radius: 10px;
+	border: 5px solid white;
 }
 .edit-form label{
 	text-align: left;

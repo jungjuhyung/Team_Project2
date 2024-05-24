@@ -51,7 +51,7 @@ public class MemberController {
 		return new ModelAndView("error");
 	}
 	
-	
+	// 아이디 중복 체크
 	@RequestMapping(value = "getIdChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getIdChk(String u_id) {
@@ -59,6 +59,7 @@ public class MemberController {
 		return result;
 	}
 	
+	// 닉네임 중복 체크(진행중)
 	@RequestMapping(value = "getNickChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getNickChk(String u_nickname) {

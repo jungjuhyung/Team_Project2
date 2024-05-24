@@ -11,32 +11,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	$("u_nickname").keyup(function () {
-		$.ajax({
-			url : "getNickChk.do",
-			data : "u_nickname=" + $("#u_nickname").val(),
-			method : "post",
-			dataType : "text",
-			success : function(data) {
-				let u_nickname = $("#u_nickname").val();
-				//console.log(data);
-				
-				if(data == '1' && u_nickname){
-					$("#nick_chk").text("사용가능").css('color' , 'green');
-				}else if(data == '0'){
-					$("#nick_chk").text("사용불가").css('color' , 'red');
+	$("#u_nickname").keyup(function () {
+		let u_nickname = $("#u_nickname").val();
+		let u_nickname2 = $("#u_nickname2").val();
+		
+		if (u_nickname != u_nickname2) {
+			$.ajax({
+				url : "getNickChk.do",
+				data : "u_nickname=" + $("#u_nickname").val(),
+				method : "post",
+				dataType : "text",
+				success : function(data) {
+					//console.log(data);
+					
+					if(data == '1' && u_nickname){
+						$("#btn_1").removeAttr("disabled");
+						$("#nick_chk").text("사용가능").css('color' , 'green');
+					}else if(data == '0' && /\s/.test(u_nickname)){
+						$("#btn_1").attr("disabled", "disabled");
+						$("#nick_chk").text("사용불가").css('color' , 'red');
+					}
+					
+				},
+				error : function() {
+					alert("읽기 실패");
 				}
-			},
-			error : function() {
-				alert("읽기 실패");
-			}
-		});
+			});
+		}else {
+			$("#nick_chk").text("");
+		}
+		
 	});
-	function edit_success(f) {
-		f.action = "my_edit_ok.do";
-		f.submit();
-	}
+		
 });
+function edit_success(f) {
+	f.action = "my_edit_ok.do";
+	f.submit();
+}
 
 </script>
 </head>
@@ -60,8 +71,9 @@ $(document).ready(function () {
             <li class="input-group">
             	<span>닉네임</span><br>
        			<input type="text" id="u_nickname" name="u_nickname" value="${mvo.u_nickname}">
+               	<input type="hidden" id="u_nickname2" name="u_nickname2" value="${mvo.u_nickname}">
        			<br><span id="nick_chk" style="font-size: 10px;"></span>
-               	<span id="nickCheckResult" style="font-size: 10px; color: red;"></span>
+               	<span id="nickCheckResult" style="font-size: 10px; color: red;"></span><br>
        		</li>
             <li class="input-group">
             	<span>이메일</span><br>
@@ -90,7 +102,7 @@ $(document).ready(function () {
             <div class="btn">
 	            <ul class="list-form2">
 	            	<li>
-	            		<input type="button" id="btn_1" value="수정하기" onclick="edit_success(this.form)">
+	            		<input type="button" id="btn_1" value="수정하기" onclick="edit_success(this.form)" disabled>
 	            		<input type="reset" id="btn_2" value=" 취소">
 	            	</li>
 	            </ul>

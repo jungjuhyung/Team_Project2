@@ -13,31 +13,44 @@
 	
 $(document).ready(function(){
 	  $("#u_id").keyup(function() {
-			$.ajax({
-				url : "getIdChk.do",
-				data : "u_id=" + $("#u_id").val(),
-				method : "post",
-				dataType : "text",
-				success : function(data) {
-					let u_id = $("#u_id").val();
-					//console.log(data);
-					
-					if(data == '1' && u_id){
-						$("#btn_1").removeAttr("disabled");
-						$("#id_chk").text("사용가능").css('color' , 'green');
-					}else if(data == '0'){
-						$("#btn_1").attr("disabled", "disabled");
-						$("#id_chk").text("사용불가").css('color' , 'red');
-					}else if(!u_id){
-						$("#btn_1").attr("disabled", "disabled");
-						$("#id_chk").text("");
-					}
-				},
-				error : function() {
-					alert("읽기 실패");
+		  let u_id = $("#u_id").val();
+		  var idPattern = /^[a-zA-Z0-9]+$/;
+		  
+		  if(!u_id || /\s/.test(u_id)){
+			  $("#btn_1").attr("disabled", "disabled");
+			  $("#id_chk").text("");
+			  return;
+		  }
+		  
+		  if(!idPattern.test(u_id)){
+			  $("#btn_1").attr("disabled", "disabled");
+			  $("#id_chk").text("영문자 및 숫자만 사용가능").css('color', 'red');
+			  return;
+		  }
+		
+		  
+		$.ajax({
+			url : "getIdChk.do",
+			data : "u_id=" + $("#u_id").val(),
+			method : "post",
+			dataType : "text",
+			success : function(data) {
+				
+				//console.log(data);
+				if(data == '1' && u_id){
+					$("#btn_1").removeAttr("disabled");
+					$("#id_chk").text("사용가능").css('color' , 'green');
+				}else if(data == '0'){
+					$("#btn_1").attr("disabled", "disabled");
+					$("#id_chk").text("사용불가").css('color' , 'red');
 				}
-			});
+				 
+			},
+			error : function() {
+				alert("읽기 실패");
+			}
 		});
+	});
 	
     // 비밀번호와 비밀번호 확인란의 값을 비교하여 일치 여부를 확인하는 함수
     function checkPasswordMatch() {
@@ -64,7 +77,7 @@ $(document).ready(function(){
 
     // 비밀번호 입력란 또는 확인란에서 입력 값이 변경될 때마다 비밀번호 일치 여부를 확인합니다.
     $('#u_pwd, #u_pwd_chk').keyup(checkPasswordMatch);
-
+    
     // 회원가입 버튼 클릭 시 비밀번호 일치 여부를 확인하고, 일치하지 않으면 가입을 막습니다.
     $('#signup-form').submit(function(e){
         e.preventDefault(); // 폼 제출 방지
@@ -95,14 +108,19 @@ $(document).ready(function(){
     		f.u_pwd.focus();
     		return;
     	}
+    	if(u_pwd_chk.value == ""){
+    		alert("비밀번호 입력칸이 비었습니다.");
+    		f.u_pwd_chk.focus();
+    		return;
+    	}
     	if(u_name.value == ""){
     		alert("이름을 입력해주세요.");
     		f.u_name.focus();
     		return;
     	}
-    	if(u_birth.value == ""){
-    		alert("생년월일을 입력해주세요.");
-    		f.u_birth.focus();
+    	if(u_nickname.value == ""){
+    		alert("닉네임을 입력해주세요.");
+    		f.u_nickname.focus();
     		return;
     	}
     	if(u_email.value == ""){
@@ -119,15 +137,21 @@ $(document).ready(function(){
     		f.u_gender.focus();
     		return;
     	}
-    	if(u_nickname.value == ""){
-    		alert("닉네임을 입력해주세요.");
-    		f.u_nickname.focus();
+    	if(u_birth.value == ""){
+    		alert("생년월일을 입력해주세요.");
+    		f.u_birth.focus();
     		return;
     	}
     	if(u_self.value == ""){
     		alert("자기소개를 작성해주세요.");
     		f.u_self.focus();
     		return;
+    	}
+    	if(u_id.value == "" || u_pwd.value == "" || u_pwd_chk.value == "" ||
+    			u_name.value == "" || u_nickname.value == "" || u_email.value == "" ||
+    			u_gender.value == "" || u_birth.value == "" || u_self.value == ""){
+    		alert("모두 입력해 주세요.");
+    		return false;
     	}
     	
 		f.action="join_success_go.do";
@@ -206,7 +230,7 @@ $(document).ready(function(){
 		            </li>
 		            
 		            <li class="input-group">
-		               	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" required>
+		               	<input type="date" id="u_birth" name="u_birth" placeholder="생년월일" max="9999-12-31" required>
 		            </li>
 		            <li class="input-group">
 		               	<input type="text" id="u_self" name="u_self" placeholder="자기소개" required>
