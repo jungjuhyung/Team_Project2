@@ -20,7 +20,7 @@ public class ChatAssiGPTController {
 	@ResponseBody
 	public String threads() {
 		try {
-			String apiURL = "https://api.openai.com/v1/assistants";
+			String apiURL = "https://api.openai.com/v1/threads";
 			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
