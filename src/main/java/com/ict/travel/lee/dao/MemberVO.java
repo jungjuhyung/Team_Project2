@@ -2,7 +2,15 @@ package com.ict.travel.lee.dao;
 
 public class MemberVO {
 	private String u_idx, u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, 
-			u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp;
+			u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp, u_thread_id;
+
+	public String getU_thread_id() {
+		return u_thread_id;
+	}
+
+	public void setU_thread_id(String u_thread_id) {
+		this.u_thread_id = u_thread_id;
+	}
 
 	public String getU_idx() {
 		return u_idx;

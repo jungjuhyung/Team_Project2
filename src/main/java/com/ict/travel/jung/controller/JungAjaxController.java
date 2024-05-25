@@ -1,7 +1,9 @@
 package com.ict.travel.jung.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -48,5 +50,86 @@ public class JungAjaxController {
 			System.out.println(e);
 		}
 		return "error";
+	}
+	// 관리자용 스레드 및 파일 삭제용 ajax
+	@RequestMapping(value = "thread_del", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public  String thread_del() {
+		try {
+			String del_thread = "thread_zRMEFhbB0HgUa9oEBsk5QDoY";
+			String apiURL = "https://api.openai.com/v1/threads/"+del_thread;
+			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
+			URL url = new URL(apiURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			// GET 요청
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			
+			conn.setRequestMethod("DELETE");
+			
+			// 헤더 요청
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer "+api_key);
+			conn.setRequestProperty("OpenAI-Beta", "assistants=v2");
+			
+	
+			int responeseCode = conn.getResponseCode();
+			System.out.println("1"+responeseCode);
+			if(responeseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader br =
+						new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				String line ="";
+				StringBuffer sb2 = new StringBuffer();
+				while((line=br.readLine()) !=null) {
+					sb2.append(line);
+				}
+				String result = sb2.toString();
+				
+				return result;
+			}
+		} catch (Exception e) {
+			System.out.println("연결 실패");
+		}
+		return null;
+	}
+	
+	// 관리자용 ChatBot 스레드 생성 ajax
+	@RequestMapping(value = "thread_create", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public  String thread_create() {
+		try {
+			String apiURL = "https://api.openai.com/v1/threads";
+			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
+			URL url = new URL(apiURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			// POST 요청
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			// 헤더 요청
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer "+api_key);
+			conn.setRequestProperty("OpenAI-Beta", "assistants=v2");
+
+			int responeseCode = conn.getResponseCode();
+			System.out.println(responeseCode);
+			if(responeseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader br =
+						new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line ="";
+				StringBuffer sb2 = new StringBuffer();
+				while((line=br.readLine()) !=null) {
+					sb2.append(line);
+				}
+				String result = sb2.toString();
+				
+				return result;
+			}
+		} catch (Exception e) {
+			System.out.println("연결 실패");
+		}
+		return null;
 	}
 }
