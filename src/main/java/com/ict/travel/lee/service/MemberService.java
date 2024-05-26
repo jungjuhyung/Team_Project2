@@ -9,6 +9,8 @@ public interface MemberService {
 	// 아이디 중복체크
 	public String getIdChk(String u_id);
 	
+	public String getNickChk(String u_nickname);
+	
 	// 회원가입
 	public int getSignUp(MemberVO mvo) throws Exception;
 	

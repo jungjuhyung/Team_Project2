@@ -4,10 +4,17 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+
+h1, h2, span, p, a , button, th, td , div{
+     font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 body {
     background-image: url("../ko_images/bg.png");
 }
-.join-container h2 {
+.edit-container h2 {
     margin-bottom: 10px;
     text-align: center;
     
@@ -15,17 +22,19 @@ body {
 
 .edit_sub{
 	margin:100px;
-	margin-top0px;
+	margin-top :10px;
 	position: absolute;
 }
 .edit-form{
 	width: 600px;
-	height: 700px;
+	height: 750px;
 	padding: 30px;
 	background-color: pink;
 	box-shadow:3px 3px 10px #333;
+	margin-top: 10px;
 	margin-left: 200px;
 	border-radius: 10px;
+	border: 5px solid white;
 }
 .edit-form label{
 	text-align: left;
@@ -41,7 +50,13 @@ body {
 
 .input-group {
     margin-bottom: 5px;
+    position: relative;
     
+}
+
+.input-group span {
+	position: absolute;
+	left: 70px;
 }
 
 
@@ -61,6 +76,7 @@ body {
 .input-group input[type="hidden"]{
 	margin-right: 200px;
 }
+
 
 .input-group #u_gender{
 	margin-right: 40px;

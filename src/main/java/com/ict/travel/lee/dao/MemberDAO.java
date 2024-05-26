@@ -33,6 +33,20 @@ public class MemberDAO {
 		return null;
 	}
 	
+	public String getNickChk(String u_nickname) {
+		try {
+			int result = sqlSessionTemplate.selectOne("lee-mapper.nickchk", u_nickname);
+			
+			if(result > 0) {
+				return "0";
+			}
+			return "1";
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
 	// 회원가입
 	public int getSignUp(MemberVO mvo) {
 		try {
@@ -161,34 +175,5 @@ public class MemberDAO {
 		}
 		return -1;
 	}
-	
-	
-	
-
-	
-
-	
-
-	
-
-//			System.out.println("이름 : " + userInfo2.get("name"));
-//			System.out.println("이메일 : " + userInfo2.get("email"));
-//			System.out.println("폰넘버 : " + userInfo2.get("mobile"));
-	
-
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
-	
-	
 	
 }

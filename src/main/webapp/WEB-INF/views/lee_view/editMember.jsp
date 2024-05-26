@@ -10,10 +10,45 @@
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-	function edit_success(f) {
-		f.action = "my_edit_ok.do";
-		f.submit();
-	}
+$(document).ready(function () {
+	$("#u_nickname").keyup(function () {
+		let u_nickname = $("#u_nickname").val();
+		let u_nickname2 = $("#u_nickname2").val();
+		
+		if (u_nickname != u_nickname2) {
+			$.ajax({
+				url : "getNickChk.do",
+				data : "u_nickname=" + $("#u_nickname").val(),
+				method : "post",
+				dataType : "text",
+				success : function(data) {
+					//console.log(data);
+					
+					if(data == '1' && u_nickname){
+						$("#btn_1").removeAttr("disabled");
+						$("#nick_chk").text("사용가능").css('color' , 'green');
+					}else if(data == '0' && /\s/.test(u_nickname)){
+						$("#btn_1").attr("disabled", "disabled");
+						$("#nick_chk").text("사용불가").css('color' , 'red');
+					}
+					
+				},
+				error : function() {
+					alert("읽기 실패");
+				}
+			});
+		}else {
+			$("#nick_chk").text("");
+		}
+		
+	});
+		
+});
+function edit_success(f) {
+	f.action = "my_edit_ok.do";
+	f.submit();
+}
+
 </script>
 </head>
 <body>
@@ -23,40 +58,51 @@
             <h2>회원정보</h2>
             <ul class="list-form"> 
             <li class="input-group">
+            	<span>아이디</span><br>
+               	<input type="hidden" id="u_idx" name="u_idx" value="${mvo.u_idx}" readonly>
                	<input type="text" id="u_id" name="u_id" value="${mvo.u_id}" readonly>
             </li>
             <li class="input-group">
+            	<span>이름</span><br>
                	<input type="text" id="u_name" name="u_name" value="${mvo.u_name}" readonly>
                	<input type="hidden" name="n_status" value="0">
                	<input type="hidden" name="k_status" value="0">
             </li>
             <li class="input-group">
-       			<input type="text" id="u_nickname" name="u_nickname" value="${mvo.u_nickname}" >
+            	<span>닉네임</span><br>
+       			<input type="text" id="u_nickname" name="u_nickname" value="${mvo.u_nickname}">
+               	<input type="hidden" id="u_nickname2" name="u_nickname2" value="${mvo.u_nickname}">
+       			<br><span id="nick_chk" style="font-size: 10px;"></span>
+               	<span id="nickCheckResult" style="font-size: 10px; color: red;"></span><br>
        		</li>
             <li class="input-group">
+            	<span>이메일</span><br>
                	<input type="email" id="u_email" name="u_email" pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*" 
                	value="${mvo.u_email}" readonly>
             </li>
             <li class="input-group">
-                	<select id="u_gender" name="u_gender"  disabled>
-	                    <option value="">성별을 선택하세요</option>
-	                    <option value="male" ${mvo.u_gender == 'male' ? 'selected' : '' }>남성</option>
-	                    <option value="female" ${mvo.u_gender == 'female' ? 'selected' : '' }>여성</option>
-                	</select>
+            	<span>성별</span><br>
+               	<select id="u_gender" name="u_gender"  disabled>
+                    <option value="">성별을 선택하세요</option>
+                    <option value="male" ${mvo.u_gender == 'male' ? 'selected' : '' }>남성</option>
+                    <option value="female" ${mvo.u_gender == 'female' ? 'selected' : '' }>여성</option>
+               	</select>
             </li>
             
             <li class="input-group">
-		               	<input type="date" id="u_birth" name="u_birth" value="${mvo.u_birth}" readonly>
-		            </li>
+        		<span>생년월일</span><br>    		
+               	<input type="date" id="u_birth" name="u_birth" value="${mvo.u_birth}" readonly>
+	            </li>
             <li class="input-group">
-               	<input type="text" id="u_self" name="u_self" value="${mvo.u_self }"  >
+            	<span>자기소개</span><br>
+               	<input type="text" id="u_self" name="u_self"   value="${mvo.u_self}">
             </li>
             
             </ul>
             <div class="btn">
 	            <ul class="list-form2">
 	            	<li>
-	            		<input type="button" id="btn_1" value="수정하기" onclick="edit_success(this.form)">
+	            		<input type="button" id="btn_1" value="수정하기" onclick="edit_success(this.form)" disabled>
 	            		<input type="reset" id="btn_2" value=" 취소">
 	            	</li>
 	            </ul>

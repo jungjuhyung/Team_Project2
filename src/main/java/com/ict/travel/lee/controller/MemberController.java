@@ -51,12 +51,20 @@ public class MemberController {
 		return new ModelAndView("error");
 	}
 	
-	
+	// 아이디 중복 체크
 	@RequestMapping(value = "getIdChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getIdChk(String u_id) {
 		String result = memberService.getIdChk(u_id);
 		return result;
+	}
+	
+	// 닉네임 중복 체크(진행중)
+	@RequestMapping(value = "getNickChk.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getNickChk(String u_nickname) {
+		String res = memberService.getNickChk(u_nickname);
+		return res;
 	}
 	
 	@RequestMapping("join_success_go.do")
@@ -114,8 +122,8 @@ public class MemberController {
 					return mv;
 				}else  {
 					session.setAttribute("adminUser", adminVO2);
-					session.setAttribute("u_id", adminVO2.getAdmin_id());
-					session.setAttribute("u_idx", adminVO2.getAdmin_idx());
+					session.setAttribute("admin_id", adminVO2.getAdmin_id());
+					session.setAttribute("admin_idx", adminVO2.getAdmin_idx());
 					session.setAttribute("admin_grade", adminVO2.getAdmin_grade());
 					System.out.println(1);
 					return mv;

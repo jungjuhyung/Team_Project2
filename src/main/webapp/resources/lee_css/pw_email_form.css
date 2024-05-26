@@ -4,10 +4,12 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-@import
-	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap')
-	;
-
+h1, h2, span, p, a , button, th, td , div{
+     font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 body{
 	background-image: url("../ko_images/bg.png");
 }
@@ -30,6 +32,7 @@ body{
 	position: absolute;
 	margin-left: 300px;
 	margin-top: 200px;
+	border:  5px solid white;
 	
 }
 .pw_form h2{
