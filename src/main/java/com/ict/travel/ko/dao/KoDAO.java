@@ -13,6 +13,8 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.ict.travel.kim.dao.BoardVO;
+import com.ict.travel.kim.dao.CommentVO;
+import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
 
 
@@ -114,20 +116,52 @@ public class KoDAO {
 		}
 		return null;
 	}
+	
+	public UserStopVO getStopDetail(String u_idx) {
+		return sqlSessionTemplate.selectOne("ko.stop_detail", u_idx);
+	}
 
 	public List<UserVO> getSearchUser(PageVO pvo) {
 		return sqlSessionTemplate.selectList("ko.user_search", pvo);
 	}
 
-	public int getStopState(String u_idx) {
-		return sqlSessionTemplate.update("ko.stop_state", u_idx);
+	public int getStopState(String u_idx, String ustop_idx) {
+		int result = 0;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			result += sqlSessionTemplate.update("ko.stop_state", u_idx);
+			result += sqlSessionTemplate.delete("ko.stop_delete", ustop_idx);
+			transactionManager.commit(status);
+			System.out.println("정지 해제 성공");
+			return result;
+		} catch (Exception e) {
+			transactionManager.rollback(status);
+			System.out.println("정지 해제 실패");
+		}
+		return -1;
 	}
 
-	public int getStopUpdate(String stop_days, String u_idx) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("u_idx", u_idx);
+	public int getStopUpdate(String stop_days, String u_idx, String stop_note, String admin_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("u_idx", Integer.parseInt(u_idx));
 		map.put("stop_days", stop_days);
-		return sqlSessionTemplate.update("ko.stop_update", map);
+		map.put("stop_note", stop_note);
+		map.put("admin_id", admin_id);
+		int result = 0;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			result += sqlSessionTemplate.update("ko.stop_update", map);
+			result += sqlSessionTemplate.insert("ko.user_stop", map);
+			transactionManager.commit(status);
+			System.out.println("유저 정지 성공");
+			return result;
+		} catch (Exception e) {
+			transactionManager.rollback(status);
+			System.out.println("유저 정지 실패");
+		}
+		return -1;
 	}
 	
 	//================================================================
@@ -158,6 +192,30 @@ public class KoDAO {
 		map.put("offset", offset);
 		map.put("limit", limit);
 		return sqlSessionTemplate.selectList("ko.report_list", map);
+	}
+	
+	public int getPathCount(String u_idx) {
+		return sqlSessionTemplate.selectOne("ko.path_count", u_idx);
+	}
+	
+	public List<KpostVO> getPathList(String u_idx, int offset, int limit) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("u_idx", u_idx);
+		map.put("offset", offset);
+		map.put("limit", limit);
+		return sqlSessionTemplate.selectList("ko.path_list2", map);
+	}
+	
+	public int getCommentCount(String u_idx) {
+		return sqlSessionTemplate.selectOne("ko.comment_count", u_idx);
+	}
+	
+	public List<CommentVO> getCommentList(String u_idx, int offset, int limit) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("u_idx", u_idx);
+		map.put("offset", offset);
+		map.put("limit", limit);
+		return sqlSessionTemplate.selectList("ko.comment_list", map);
 	}
 	
 }

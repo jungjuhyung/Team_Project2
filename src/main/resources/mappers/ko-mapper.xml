@@ -79,8 +79,15 @@
 		select * from user_t limit #{limit} offset #{offset}
 	</select>
 	
+	<select id="stop_detail" parameterType="String" resultType="ustopvo">
+		select * from userstop_t where u_idx = #{u_idx}
+	</select>
+	
 	<select id="user_search" parameterType="pvo" resultType="uservo">
-		select * from user_t where u_name like concat('%', #{search}, '%') limit #{limit} offset #{offset}
+		select * from user_t 
+		where u_name like concat('%', #{search}, '%') 
+		or u_id like concat('%', #{search}, '%')
+		limit #{limit} offset #{offset}
 	</select>
 	
 	<update id="stop_state" parameterType="String">
@@ -89,11 +96,20 @@
 		where u_idx = #{u_idx}
 	</update>
 	
+	<delete id="stop_delete" parameterType="String">
+		delete from userstop_t where ustop_idx = #{ustop_idx}
+	</delete>
+	
 	<update id="stop_update" parameterType="Map">
 		update user_t
 		set u_stopdate = DATE_ADD(sysdate(), INTERVAL #{stop_days} DAY) , u_state = 1
 		where u_idx = #{u_idx} 
 	</update>
+	
+	<insert id="user_stop" parameterType="Map">
+		insert into userstop_t (u_idx, admin_id, stop_note) 
+		values (#{u_idx}, #{admin_id}, #{stop_note}) 
+	</insert>
 	
 	<!-- ======================================================================== -->
 	
@@ -117,6 +133,21 @@
 		select * from report_t where u_idx = #{u_idx} limit #{limit} offset #{offset}
 	</select>
 	
+	<select id="path_count" parameterType="String" resultType="int">
+		select count(*) from pathpost_t where u_idx = #{u_idx}
+	</select>
+	
+	<select id="path_list2" parameterType="Map" resultType="kpostvo">
+		select * from pathpost_t where u_idx = #{u_idx} limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="comment_count" parameterType="String" resultType="int">
+		select count(*) from comment_t where u_idx = #{u_idx}
+	</select>
+	
+	<select id="comment_list" parameterType="Map" resultType="commentvo">
+		select * from comment_t where u_idx = #{u_idx} limit #{limit} offset #{offset}
+	</select>
 	 
 </mapper>
 

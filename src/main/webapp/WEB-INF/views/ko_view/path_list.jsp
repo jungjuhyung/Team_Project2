@@ -19,7 +19,7 @@
 	function user_list() {
 		location.href = "user_list.do";
 	}
-	
+
 	function board_list(u_idx) {
 		location.href = "board_list.do?u_idx="+u_idx;
 	}
@@ -36,23 +36,24 @@
 		location.href = "comment_list.do?u_idx="+u_idx;
 	}
 	
-	function board_delete(board_idx, u_idx) {
-		location.href = "board_delete.do?board_idx=" + board_idx + "&u_idx=" + u_idx;
+	function path_delete(path_post_idx, u_idx) {
+		location.href = "path_delete.do?path_post_idx=" + path_post_idx + "&u_idx=" + u_idx;
 	}
 	
-	function board_detail(board_idx) {
-		location.href = "board_detail.do?board_idx=" + board_idx;  
+	function path_detail(path_post_idx) {
+		location.href = "path_detail.do?path_post_idx=" + path_post_idx;  
 	}
 	
+
 </script>
 
 </head>
 <body>
-
+	
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
-
+	
 	<section style="margin: 0 auto; width: 1300px; min-height: 700px;">
-		
+
 		<div style="margin: 30px auto; text-align: center; ">
 			<input type="button" class="user_btn" value="전체유저목록" onclick=user_list() />
 		</div>
@@ -65,56 +66,48 @@
 		</div>
 		
 		<div style="margin: 30px auto; text-align: center; ">
-			<input type="button" class="user_btn2" value="자유게시판" onclick="board_list(${u_idx})" />
+			<input type="button" class="user_btn" value="자유게시판" onclick="board_list(${u_idx})" />
 			<input type="button" class="user_btn" value="신고게시판" onclick="report_list(${u_idx})" />
-			<input type="button" class="user_btn" value="추천경로게시판" onclick="path_list(${u_idx})" />
+			<input type="button" class="user_btn2" value="추천경로게시판" onclick="path_list(${u_idx})" />
 			<input type="button" class="user_btn" value="작성댓글" onclick="comment_list(${u_idx})" />
 		</div>
-					
+		
 		<div class="user_table">
 			<table>
 				<thead>
 					<tr>
+						<th>메인이미지</th>
 						<th>제목</th>
 						<th>작성날짜</th>
-						<th>삭제하기</th>
 						<th>본문이동</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${empty board_list}">
+						<c:when test="${empty path_list}">
 							<tr>
 								<td colspan="4">작성글이 없습니다.</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="k" items="${board_list}" >
+							<c:forEach var="k" items="${path_list}" >
 								<tr>
 									<td>
+										<img alt="" src="/resources/rc_main_img/test01.png" width="100px">
+									</td>
+									<td>
 										<c:choose>
-											<c:when test="${fn:length(k.board_title) >= 12}">
-												<div class="path_text">${fn:substring(k.board_title, 0, 12)}...</div>
+											<c:when test="${fn:length(k.path_post_title) >= 12}">
+												<div class="path_text">${fn:substring(k.path_post_title, 0, 12)}...</div>
 											</c:when>
 											<c:otherwise>
-												<div class="path_text">${k.board_title}</div>
+												<div class="path_text">${k.path_post_title}</div>
 											</c:otherwise>
 										</c:choose>
 									</td>
 									<td>${k.regdate.substring(0,10)}</td>
-									<td>
-										<c:choose>
-											<c:when test="${k.active == '1'}">
-												삭제
-											</c:when>
-											<c:otherwise>
-												<input type="button" class="user_btn" value="삭제하기" 
-															onclick="board_delete(${k.board_idx}, ${u_idx})">
-											</c:otherwise>
-										</c:choose>
-									</td>
 									<td><input type="button" class="user_btn" value="상세보기" 
-												onclick="board_detail(${k.board_idx})"></td>
+												onclick="path_detail(${k.path_post_idx})"></td>
 								<tr>
 							</c:forEach>
 						</c:otherwise>
@@ -132,7 +125,7 @@
 					</c:when>
 					<c:otherwise>
 						<li><a
-							href="board_list.do?cPage=${paging.beginBlock - paging.pagePerBlock}&u_idx=${u_idx}">
+							href="path_list.do?cPage=${paging.beginBlock - paging.pagePerBlock}&u_idx=${u_idx}">
 								이전</a></li>
 					</c:otherwise>
 				</c:choose>
@@ -144,7 +137,7 @@
 							<li class="now">${k}</li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="board_list.do?cPage=${k}&u_idx=${u_idx}">${k}</a></li>
+							<li><a href="path_list.do?cPage=${k}&u_idx=${u_idx}">${k}</a></li>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -155,7 +148,7 @@
 					</c:when>
 					<c:otherwise>
 						<li><a
-							href="board_list.do?cPage=${paging.beginBlock + paging.pagePerBlock}&u_idx=${u_idx}">
+							href="path_list.do?cPage=${paging.beginBlock + paging.pagePerBlock}&u_idx=${u_idx}">
 								다음</a></li>
 					</c:otherwise>
 				</c:choose>
