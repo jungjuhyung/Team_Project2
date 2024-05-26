@@ -8,13 +8,14 @@
 		<setting name="cacheEnabled" value="false" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.ict.travel.jung.dao.WishListVO" alias="wishvo"/>
-		<typeAlias type="com.ict.travel.jung.dao.RecommendVO" alias="rcvo"/>
-		<typeAlias type="com.ict.travel.jung.dao.RecommendMarkerVO" alias="rcmvo"/>
-		<typeAlias type="com.ict.travel.jung.dao.MarkerImgVO" alias="mkivo"/>
-		<typeAlias type="com.ict.travel.jung.dao.PathWishVO" alias="pwvo"/>
-		<typeAlias type="com.ict.travel.jung.dao.ReportVO" alias="rpvo"/>
-		<typeAlias type="com.ict.travel.jung.dao.BoardVO" alias="bdvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.WishListVO" alias="wishvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.RecommendVO" alias="rcvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.RecommendMarkerVO" alias="rcmvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.MarkerImgVO" alias="mkivo"/>
+		<typeAlias type="com.ict.travel.jung.vo.PathWishVO" alias="pwvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.ReportVO" alias="rpvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.BoardVO" alias="bdvo"/>
+		<typeAlias type="com.ict.travel.jung.vo.GptCountVO" alias="gptcvo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.ko.dao.ItemVO" alias="ivo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoPostVO" alias="kopost"/>
@@ -43,6 +44,7 @@
  		<mapper resource="mappers/kpost-mapper.xml" />
  		<mapper resource="mappers/cho-mapper.xml" />
  		<mapper resource="mappers/jung-mapper.xml" />
+ 		<mapper resource="mappers/jung-gpt-mapper.xml" />
  		<mapper resource="mappers/ko-mapper.xml" />
  		<mapper resource="mappers/lee-mapper.xml" />
 	</mappers>

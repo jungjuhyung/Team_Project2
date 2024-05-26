@@ -6,6 +6,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.travel.jung.vo.BoardVO;
+import com.ict.travel.jung.vo.MarkerImgVO;
+import com.ict.travel.jung.vo.PathWishVO;
+import com.ict.travel.jung.vo.RecommendMarkerOneVO;
+import com.ict.travel.jung.vo.RecommendVO;
+import com.ict.travel.jung.vo.ReportVO;
+import com.ict.travel.jung.vo.WishListVO;
+
 @Repository
 public class MarkerDAO {
 	@Autowired

@@ -15,9 +15,14 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.jung.gpttools.PersonalAssistantsTools;
+import com.ict.travel.jung.service.GptService;
+import com.ict.travel.jung.vo.GptCountVO;
 import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MailService;
 import com.ict.travel.lee.service.MemberService;
+
+import java.util.List;
 import java.util.Random;
 @Controller
 public class MemberController {
@@ -26,9 +31,13 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private ChoService choService;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	// 개인 gpt 연동을 위해 주형이 추가한 것
+	@Autowired
+	private PersonalAssistantsTools perTools;
+	@Autowired
+	private GptService gptService;
 	
 	@RequestMapping("agree_go.do")
 	public ModelAndView getAgreeMent() {
@@ -142,6 +151,31 @@ public class MemberController {
 				session.setAttribute("memberUser", mvo2);
 				session.setAttribute("u_id", mvo2.getU_id());
 				session.setAttribute("u_idx", mvo2.getU_idx());
+				
+				// 유저의 wish별 gpt의 추천 내용을 세션에 넣기
+				List<GptCountVO> areaCount = gptService.getAreaCount(mvo2.getU_idx());
+				List<GptCountVO> contentTypeCount = gptService.getContentTypeCount(mvo2.getU_idx());
+				StringBuffer sb = new StringBuffer();
+				sb.append("유저가 찜한 areacode");
+				for (GptCountVO k : areaCount) {
+					String content = "areacode : "+k.getAreacode()+"("+k.getAreacode_count()+")";
+					sb.append(content);
+				} 
+				sb.append("유저가 찜한 contenttypeid");
+				for (GptCountVO k : contentTypeCount) {
+					String content = "contenttypeid : "+k.getContenttypeid()+"("+k.getContenttypeid_count()+")";
+					sb.append(content);
+				}
+				sb.append("해당 정보와 기존의 message들을 바탕으로 해당 유저에게 여행장소를 추천해주고 추천한 여행장소를 File search Tool에 있는 정보를 바탕으로 답변해줘.");
+				sb.append("답변 내용은 areacode,contenttypeid,firstimage,title을 포함하는 json형태로 5개만 추천해줬으면 좋겠어.");
+				
+				String message = sb.toString();
+				System.out.println(message);
+				//perTools.perMessageAdd(mvo2.getU_thread_id(), message);
+				perTools.perAnswerCreate(mvo2.getU_thread_id());
+				String test = perTools.perMessagesList(mvo2.getU_thread_id());
+				System.out.println(test);
+				
 				
 				return new ModelAndView("redirect:main_page.do"); 
 				

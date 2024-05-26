@@ -102,7 +102,8 @@ public class PersonalAssistantsTools {
 		// PerGPT Thread 저장소 안에 메세지를 기반으로 답변 생성 메서드
 		public String perAnswerCreate(String perThread_id) {
 			try {
-				String apiURL = "https://api.openai.com/v1/"+perThread_id+"/runs";
+				String apiURL = "https://api.openai.com/v1/threads/"+perThread_id+"/runs";
+				System.out.println(apiURL);
 				String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
 				URL url = new URL(apiURL);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();

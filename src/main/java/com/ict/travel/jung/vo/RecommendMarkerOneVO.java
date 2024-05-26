@@ -1,4 +1,4 @@
-package com.ict.travel.jung.dao;
+package com.ict.travel.jung.vo;
 
 public class RecommendMarkerOneVO {
 	private String path_maker_idx, path_post_idx, mapx, mapy, regdate,

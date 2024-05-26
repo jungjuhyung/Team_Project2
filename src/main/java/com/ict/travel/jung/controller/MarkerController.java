@@ -21,15 +21,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.cho.dao.PlaceWishVO;
-import com.ict.travel.jung.dao.BoardVO;
-import com.ict.travel.jung.dao.MarkerImgVO;
-import com.ict.travel.jung.dao.PathWishVO;
-import com.ict.travel.jung.dao.RecommendMarkerOneVO;
-import com.ict.travel.jung.dao.RecommendMarkerVO;
-import com.ict.travel.jung.dao.RecommendVO;
-import com.ict.travel.jung.dao.ReportVO;
-import com.ict.travel.jung.dao.WishListVO;
 import com.ict.travel.jung.service.MarkerService;
+import com.ict.travel.jung.vo.BoardVO;
+import com.ict.travel.jung.vo.MarkerImgVO;
+import com.ict.travel.jung.vo.PathWishVO;
+import com.ict.travel.jung.vo.RecommendMarkerOneVO;
+import com.ict.travel.jung.vo.RecommendMarkerVO;
+import com.ict.travel.jung.vo.RecommendVO;
+import com.ict.travel.jung.vo.ReportVO;
+import com.ict.travel.jung.vo.WishListVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Controller

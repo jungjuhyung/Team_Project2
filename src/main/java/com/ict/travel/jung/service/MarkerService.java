@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ict.travel.jung.dao.BoardVO;
-import com.ict.travel.jung.dao.MarkerImgVO;
-import com.ict.travel.jung.dao.PathWishVO;
-import com.ict.travel.jung.dao.RecommendMarkerOneVO;
-import com.ict.travel.jung.dao.RecommendVO;
-import com.ict.travel.jung.dao.ReportVO;
-import com.ict.travel.jung.dao.WishListVO;
+import com.ict.travel.jung.vo.BoardVO;
+import com.ict.travel.jung.vo.GptCountVO;
+import com.ict.travel.jung.vo.MarkerImgVO;
+import com.ict.travel.jung.vo.PathWishVO;
+import com.ict.travel.jung.vo.RecommendMarkerOneVO;
+import com.ict.travel.jung.vo.RecommendVO;
+import com.ict.travel.jung.vo.ReportVO;
+import com.ict.travel.jung.vo.WishListVO;
 
 public interface MarkerService {
 	public List<WishListVO> getWishList(String u_idx);

@@ -1,4 +1,4 @@
-package com.ict.travel.jung.dao;
+package com.ict.travel.jung.vo;
 
 public class WishListVO {
 	private String place_idx, u_idx, contentid, addr1, firstimage, place_title, contenttypeid, areacode, sigungucode, regdate;

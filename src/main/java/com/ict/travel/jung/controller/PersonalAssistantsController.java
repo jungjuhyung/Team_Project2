@@ -28,6 +28,7 @@ public class PersonalAssistantsController {
 	@ResponseBody
 	public String personalBot(HttpSession session) {
 		MemberVO mvo = (MemberVO) session.getAttribute("memberUser");
+		
 		String message = "";
 		perTools.perMessageAdd(mvo.getU_thread_id(), message);
 		perTools.perAnswerCreate(mvo.getU_thread_id());

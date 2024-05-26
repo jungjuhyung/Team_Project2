@@ -1,4 +1,4 @@
-package com.ict.travel.jung.dao;
+package com.ict.travel.jung.vo;
 
 
 public class MarkerImgVO {

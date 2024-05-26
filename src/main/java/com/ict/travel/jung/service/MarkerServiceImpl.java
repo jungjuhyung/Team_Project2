@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ict.travel.jung.dao.BoardVO;
 import com.ict.travel.jung.dao.MarkerDAO;
-import com.ict.travel.jung.dao.MarkerImgVO;
-import com.ict.travel.jung.dao.PathWishVO;
-import com.ict.travel.jung.dao.RecommendMarkerOneVO;
-import com.ict.travel.jung.dao.RecommendVO;
-import com.ict.travel.jung.dao.ReportVO;
-import com.ict.travel.jung.dao.WishListVO;
+import com.ict.travel.jung.vo.BoardVO;
+import com.ict.travel.jung.vo.MarkerImgVO;
+import com.ict.travel.jung.vo.PathWishVO;
+import com.ict.travel.jung.vo.RecommendMarkerOneVO;
+import com.ict.travel.jung.vo.RecommendVO;
+import com.ict.travel.jung.vo.ReportVO;
+import com.ict.travel.jung.vo.WishListVO;
 
 @Service
 public class MarkerServiceImpl implements MarkerService {
@@ -66,4 +66,5 @@ public class MarkerServiceImpl implements MarkerService {
 	public List<ReportVO> getMyReport(String u_idx) {
 		return markerDAO.getMyReport(u_idx);
 	}
+
 }

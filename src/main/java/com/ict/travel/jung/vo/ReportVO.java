@@ -1,4 +1,4 @@
-package com.ict.travel.jung.dao;
+package com.ict.travel.jung.vo;
 
 public class ReportVO {
 	private String report_idx, u_idx, u_id, report_title, content, report_state, regdate, reported_idx, report_pw, reported_id;

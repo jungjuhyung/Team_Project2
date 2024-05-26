@@ -1,4 +1,4 @@
-package com.ict.travel.jung.dao;
+package com.ict.travel.jung.vo;
 
 public class PathWishVO {
 	private String path_idx, path_post_idx, u_idx, contenttypeid, firstimage, path_post_title, regdate;

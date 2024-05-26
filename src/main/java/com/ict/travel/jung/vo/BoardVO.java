@@ -1,4 +1,4 @@
-package com.ict.travel.jung.dao;
+package com.ict.travel.jung.vo;
 
 public class BoardVO {
 	private String board_idx, u_idx, u_nickname, board_title, content, board_pw, hit, regdate, active;
