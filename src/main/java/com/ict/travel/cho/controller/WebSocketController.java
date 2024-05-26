@@ -16,4 +16,12 @@ public class WebSocketController {
 	public ModelAndView broadChatting() {
 		return new ModelAndView("cho_views/BroadChatting");
 	}
+	@RequestMapping("userQnAChat")
+	public ModelAndView userQnAChat() {
+		return new ModelAndView("cho_views/qnaUserChatting");
+	}
+	@RequestMapping("adminQnAChat")
+	public ModelAndView adminQnAChat() {
+		return new ModelAndView("cho_views/qnaAdminChatting");
+	}
 }

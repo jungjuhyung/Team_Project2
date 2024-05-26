@@ -7,29 +7,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/cho_css/side_bar.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+	
 <script src="/resources/cho_js/side_bar.js" defer></script>
 </head>
 <body>
 	<div id="side-btn-wrap">
 		<button id="translateBtn" class = "translateBtn sbtn side-btn">번역기</button>
 		<button id="ChatBtn" class ="ChatBot sbtn side-btn">챗봇</button>
+		<button id="BroadChatBtn" class ="BroadChat sbtn side-btn">익명채팅방</button>
+		<button id="askChatBtn" class ="askChatBtn sbtn side-btn">관리자문의</button>
 	</div>
 	
-		<!-- 챗봇 -->
-		<div class = "modalwrap">
-			<div class="modal_box5">
-				<div>GPT에게 질문하기</div> <div class="close-button-container"><input type="button" class="closeBot" value = "X"></div>
-				<div id="chat-container">
-			        <div id="chat-messages"></div>
-			        <div id="user-input">
-			            <input type="text" placeholder="메시지를 입력하세요..." />
-			            <button class ="sbtn">전송</button>
-			        </div>
-			    </div>
-			</div>
-		</div>
-		
+	
 		<!-- 번역기 -->
 		<div class = "modalwrap">
 			<div class="modal_box4">
@@ -126,5 +115,65 @@
 					<input type="button" class="sbtn" onclick="translating()" value = "번역">
 			</div>
 		</div>
+
+		<!-- 챗봇 -->
+		<div class = "modalwrap">
+			<div class="modal_box5">
+				<div>GPT에게 질문하기</div> <div class="close-button-container"><input type="button" class="closeBot" value = "X"></div>
+				<div id="chat-container">
+			        <div id="chat-messages"></div>
+			        <div id="gpt-user-input">
+			            <input type="text" placeholder="메시지를 입력하세요..." />
+			            <button class ="sbtn">전송</button>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		
+		<!-- 익명 채팅방 -->
+		<div class = "modalwrap">
+			<div class="modal_box6">
+			  <!-- 콘솔 메시지의 역할을 하는 로그 텍스트 에리어.(수신 메시지도 표시한다.) -->
+			  	<textarea id="messageTextArea1" rows="10" cols="50"></textarea>
+				<form id = "broadChat">
+				    <!-- 유저 명을 입력하는 텍스트 박스(기본 값은 anonymous(익명)) -->
+				    <div class = "broad-div"><span>닉네임 :</span> <input id="user1" type="text" value="anonymous"></div>
+				    <br>
+				    <!-- 송신 메시지를 작성하는 텍스트 박스 -->
+				    <div class = "broad-div"><span>채팅 :</span>  <input id="textMessage1" type="text"></div>
+				    <!-- 메세지를 송신하는 버튼 -->
+				    <div>
+					    <input type="button" class="closeBroad sbtn" value = "닫기">
+						<input type="button" class="sbtn" onclick="sendMessage1()" value = "전송">
+					</div>
+				</form>
+			  
+			  <br />
+			</div>
+		</div>
+		
+		<!-- 관리자 문의 -->
+		<div class = "modalwrap">
+			<div class="modal_box7">
+			  <!-- 콘솔 메시지의 역할을 하는 로그 텍스트 에리어.(수신 메시지도 표시한다.) -->
+			  	<textarea id="messageTextArea2" rows="10" cols="50"></textarea>
+				<form id = "askChat">
+				    <!-- 유저 명을 입력하는 텍스트 박스(기본 값은 anonymous(익명)) -->
+				    <div class = "broad-div"><span>아이디 :</span> <input id="user2" type="text" value="${u_id }" disabled></div>
+				    <br>
+				    <!-- 송신 메시지를 작성하는 텍스트 박스 -->
+				    <div class = "broad-div"><span>채팅 :</span>  <input id="textMessage2" type="text"></div>
+				    <!-- 메세지를 송신하는 버튼 -->
+				    <div>
+					    <input type="button" class="closeAsk sbtn" value = "닫기">
+						<input type="button" class="sbtn" onclick="sendMessage2()" value = "전송">
+					</div>
+				</form>
+			  <br />
+			</div>
+		</div>
+			
+			
+		
 </body>
 </html>
