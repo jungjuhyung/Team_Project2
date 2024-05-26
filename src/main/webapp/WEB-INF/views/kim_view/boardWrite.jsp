@@ -40,20 +40,20 @@ $(document).ready(function(){
 						<h2>자유게시판</h2>
 					</caption>
 					<tr class="boardtr">
-						<td class="menu">닉네임</td>
+						<td class="boardmenu">닉네임</td>
 						<td class="userin">${membervo.u_nickname}</td>
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">비밀번호</td>
+						<td class="boardmenu">비밀번호</td>
 						<td class="userin"><input type="password" id="board_pw" name="board_pw" />
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">제목</td>
+						<td class="boardmenu">제목</td>
 						<td class="userin"><input type="text" id="board_title" name="board_title">
 						</td>
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">내용</td>
+						<td class="boardmenu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content"></textarea>
 						</td>
 					</tr>

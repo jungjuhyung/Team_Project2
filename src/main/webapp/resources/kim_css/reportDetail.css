@@ -34,8 +34,8 @@
 }
 
 
-.menu {
-	background-color: #e8e8e8;
+.reportmenu {
+	background-color: pink;
 	padding: 10px;
 	text-align: left;
 	font-weight: bold;
@@ -47,34 +47,18 @@
 	padding: 5px;
 }
 
-.but1 {
-	height: 30px;
-	width: 80px;
-}
-
-.but2 {
-	height: 30px;
-	width: 120px;
-}
-
-.but3 {
-	height: 30px;
-	width: 120px;
-}
-
-#sel_btn{
-	height: 30px;
-}
 
 .but4 {
 	height: 35px;
 	width: 150px;
 	border-radius: 10px;
+	background-color: #F9F3FF;
 }
 
 .but5 {
 	height: 35px;
 	width: 150px;
+	background-color: #F9F3FF;
 }
 
 
@@ -93,16 +77,6 @@
 input[type="text"], [type="password"]{
 	height: 30px;
 }
-#addr{
-	height: 120px;
-}
-.addr-box{
-	margin-bottom: 10px;
-}
-
-#domain-list{
-	height: 30px;
-}
 
 .menu{
 	vertical-align: middle;
@@ -111,9 +85,6 @@ input[type="text"], [type="password"]{
 .chtext {
 	font-size: 20px;
 	vertical-align: -10px
-}
-#claim_subject {
-	width: 80%;
 }
 
 #summernote{

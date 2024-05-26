@@ -1,6 +1,8 @@
 package com.ict.travel.kim.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,10 @@ public class TourtestDAO {
 		}
 		return null;
 	}
-
+	
+	
+	
+	
 	public List<TourtestVO> getImageListByMarkerId(String path_marker_idx) {
 		try {
 			return sqlSessionTemplate.selectList("tourtest_t.markerImgList",path_marker_idx);
@@ -48,6 +53,20 @@ public class TourtestDAO {
 		return null;
 	}
 	
+	
+	
+	
+	public List<TourtestVO> imgDetail(TourtestVO tourtestvo, KpostVO kpostvo) {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("tourtestvo", tourtestvo);
+			map.put("kpostvo", kpostvo);
+			return sqlSessionTemplate.selectList("tourtest_t.imgDetail", map);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
 	
 	

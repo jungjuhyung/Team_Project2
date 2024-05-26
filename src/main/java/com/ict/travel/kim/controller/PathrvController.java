@@ -50,6 +50,10 @@ public class PathrvController {
 			mv.addObject("membervo", membervo);
 			List<TourtestVO> tourtestvoimg = tourtestService.tourImg(path_post_idx);
 			
+			/*
+			 * List<TourtestVO> tourdetail = tourtestService.imgDetail(tourtestvo, kpostvo);
+			 */
+			
 			if(membervo != null) {
 				List<PathWishVO> pathWishList = choService.getpathWishList(membervo.getU_idx());	
 					for (PathWishVO j : pathWishList) {
@@ -64,6 +68,7 @@ public class PathrvController {
 			
 			for (TourtestVO marker : tourtestvoimg) {
 			    List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
+			    
 			    marker.setImgList(imgList);
 			}
 			mv.addObject("tourtestvoimg", tourtestvoimg);
@@ -92,7 +97,7 @@ public class PathrvController {
 					 TourtestVO tourtestimg = tourtestvoimg.get(i); 
 					 mv.addObject("rimg" + (i + 1), tourtestimg.getImg_idx()); 
 					 imglist.add(tourtestimg.getImg_idx());
-					 
+					 imglist.add(tourtestVO4.getTitle());
 	            }
 	            mv.addObject("mapyList", mapyList);
 	            mv.addObject("mapxList", mapxList);

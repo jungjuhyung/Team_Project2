@@ -85,7 +85,6 @@ public class BoardController {
 		List<BoardVO> boardlist = boardService.boardList(paging.getOffset(), paging.getNumPerPage());
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("paging", paging);
-		
 		HttpSession session = request.getSession();
 		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 		mv.addObject("membervo", membervo);

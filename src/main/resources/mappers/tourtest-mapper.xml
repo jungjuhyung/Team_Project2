@@ -29,10 +29,26 @@
 	</select>
 
 	<select id="markerImgList" parameterType="String" resultType="tourtestvo">
+	    SELECT pi.*, pt.title
+	    FROM pathmarker_img_t pi
+	    INNER JOIN pathmarker_t pt ON pi.path_marker_idx = pt.path_marker_idx
+	    WHERE pi.path_marker_idx = #{path_marker_idx}
+	</select>
+
+
+<!-- 
+	<select id="markerImgList" parameterType="String" resultType="tourtestvo">
 		SELECT * FROM pathmarker_img_t WHERE path_marker_idx = #{path_marker_idx}
 	</select>
 	
-	
+ -->	
+	<select id="imgDetail" resultType="map">
+		SELECT t.*, k.*
+	    FROM pathmarker_img_t t
+	    JOIN pathmarker_t k ON t.path_post_idx = k.path_post_idx
+	    WHERE t.path_marker_idx = #{tourtestvo.path_marker_idx}
+	    AND k.path_post_idx = #{kpostvo.path_post_idx}
+	</select>
 	
 </mapper>
 

@@ -52,16 +52,16 @@ function commentDelete(f) {
 						<h2>자유게시판</h2>
 					</caption>
 					<tr class="boardtr">
-						<td class="menu">닉네임</td>
+						<td class="boardmenu">닉네임</td>
 						<td class="userin">${boardvo.u_nickname}(${boardvo.u_lev})</td>
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">제목</td>
+						<td class="boardmenu">제목</td>
 						<td class="userin">${boardvo.board_title }
 						</td>
 					</tr>
 					<tr class="boardtr">
-						<td class="menu">내용</td>
+						<td class="boardmenu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content" readonly>${boardvo.content }</textarea>
 						</td>
 					</tr>
@@ -74,8 +74,11 @@ function commentDelete(f) {
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="location.href='boardList'"/>
 				<c:if test="${membervo.u_idx == boardvo.u_idx}">
-				<input class="but4" type="button" value="수정" onclick="boardUpdate(this.form)"/>
-				<input class="but4" type="button" value="삭제" onclick="boardDelete(this.form)"/>
+				    <input class="but4" type="button" value="수정" onclick="boardUpdate(this.form)"/>
+				    <input class="but4" type="button" value="삭제" onclick="boardDelete(this.form)"/>
+				</c:if>
+				<c:if test="${adminUser != null}">
+				    <input class="but4" type="button" value="삭제" onclick="boardDelete(this.form)"/>
 				</c:if>
 			</div>
 		</div>
@@ -93,7 +96,7 @@ function commentDelete(f) {
 					</div>
 						<div class="rebutton">${k.regdate.substring(0,10)}
 						<c:choose>
-							<c:when test="${membervo.u_idx == k.u_idx}">							
+							<c:when test="${membervo.u_idx == k.u_idx || adminUser != null}">							
 								<input class="rewrite" type="button" value="삭제" onclick="commentDelete(this.form)">
 							</c:when>
 							<c:otherwise>

@@ -166,7 +166,7 @@ $(".board-list-paging").html(content);
 						<c:forEach var="k" items="${boardlist}" varStatus="vs">
 							<tr>
 								<td>${paging.totalRecord - ((paging.nowPage-1)*paging.numPerPage + vs.index )}</td>
-								<td>${k.u_nickname}</td>
+								<td>${k.u_nickname}(${k.u_lev})</td>
 								<td>
 									<c:choose>
 								    	<c:when test="${k.active == 1 }">
@@ -189,7 +189,7 @@ $(".board-list-paging").html(content);
 		<div class="board-list-paging"></div>
 		
 		<c:if test="${membervo != null}">
-		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" /></div>
+		<div id="bwbtn"><input type="button" value="글쓰기" onclick="boardWrite()" class="boardwbtn" /></div>
 		</c:if>
 		<div id="empty-area">
 	</div>

@@ -34,8 +34,8 @@
 }
 
 
-.menu {
-	background-color: #e8e8e8;
+.reportmenu {
+	background-color: pink;
 	padding: 10px;
 	text-align: left;
 	font-weight: bold;
@@ -45,25 +45,6 @@
 .userin {
 	text-align: left;
 	padding: 5px;
-}
-
-.but1 {
-	height: 30px;
-	width: 80px;
-}
-
-.but2 {
-	height: 30px;
-	width: 120px;
-}
-
-.but3 {
-	height: 30px;
-	width: 120px;
-}
-
-#sel_btn{
-	height: 30px;
 }
 
 .but4 {
@@ -82,27 +63,20 @@
 	background-color: black;
 	color: white;
 	border: 2px solid black;
+	background-color: #F9F3FF;
 }
 
 .but5:hover {
 	background-color: black;
 	color: white;
 	border: 2px solid black;
+	background-color: #F9F3FF;
 }
 
 input[type="text"], [type="password"]{
 	height: 30px;
 }
-#addr{
-	height: 120px;
-}
-.addr-box{
-	margin-bottom: 10px;
-}
 
-#domain-list{
-	height: 30px;
-}
 
 .menu{
 	vertical-align: middle;
@@ -112,9 +86,7 @@ input[type="text"], [type="password"]{
 	font-size: 20px;
 	vertical-align: -10px
 }
-#claim_subject {
-	width: 80%;
-}
+
 
 #summernote{
 	resize: none;
@@ -148,6 +120,7 @@ input[type="text"], [type="password"]{
 	float: right;
 	height: 30px;
 	justify-content: center;
+	background-color: #F9F3FF;
 	
 }
  textarea {

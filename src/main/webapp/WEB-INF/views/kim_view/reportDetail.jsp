@@ -61,20 +61,20 @@ function reportConfirm(f) {
 						<h2>신고게시판</h2>
 					</caption>
 					<tr class="reporttr">
-						<td class="menu">아이디</td>
+						<td class="reportmenu">아이디</td>
 						<td class="userin">${reportvo.u_id}(${reportvo.u_lev})</td>
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">불량유저ID</td>
+						<td class="reportmenu">불량유저ID</td>
 						<td class="userin">${reportvo.reported_id}</td>
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">제목</td>
+						<td class="reportmenu">제목</td>
 						<td class="userin">${reportvo.report_title }
 						</td>
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">내용</td>
+						<td class="reportmenu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content" readonly>${reportvo.content }</textarea>
 						</td>
 					</tr>
@@ -86,16 +86,12 @@ function reportConfirm(f) {
 				<input type="hidden" name="report_idx" value="${reportvo.report_idx}">
 				<input type="hidden" name="cPage" value="${cPage}">
 				<input class="but4" type="button" value="목록" onclick="getReportgo(this.form)"/>
-				<!-- 작성자만 수정 삭제  -->
-				<c:choose>
-				<c:when test="${membervo.u_id == reportvo.u_id}">
+				<c:if test="${membervo.u_id == reportvo.u_id}">
 				<input class="but4" type="button" value="수정" onclick="reportUpdate(this.form)"/>
+				</c:if>
+				<c:if test="${membervo.u_id == reportvo.u_id || adminUser != null}">
 				<input class="but4" type="button" value="삭제" onclick="reportDelete(this.form)"/>
-				</c:when>
-				<c:otherwise>
-					<!-- 버튼이 안떠야 하는데 -->
-				</c:otherwise>
-				</c:choose>
+				</c:if>
 				<!-- 관리자 확인버튼 -->
 				<c:if test="${adminUser != null && reportvo.report_state != 1 }">
 				<input class="but4" type="button" value="확인" onclick="reportConfirm(this.form)"/>

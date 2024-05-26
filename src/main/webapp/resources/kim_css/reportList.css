@@ -119,6 +119,18 @@ body{
 #bwbtn{
 	border-radius: 10px;
 	display: inline-block;
+	background-color: #F9F3FF;
+}
+
+button.reportwbtn{
+	border: none;
+	border-radius: 15px;
+	background-color: pink;
+	color: white;
+	font-family: "Gamja Flower", sans-serif;
+	width: 75px;
+	height: 35px;
+	font-size: 20px;
 }
 
 #empty-area{

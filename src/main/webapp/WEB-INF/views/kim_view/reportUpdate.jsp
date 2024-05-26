@@ -50,25 +50,25 @@ function getReportgo(f) {
 						<h2>자유게시판</h2>
 					</caption>
 					<tr class="reporttr">
-						<td class="menu">아이디</td>
+						<td class="reportmenu">아이디</td>
 						<td class="userin">${reportvo.u_id}</td>
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">비밀번호</td>
+						<td class="reportmenu">비밀번호</td>
 						<td class="userin"><input type="password" id="report_cpw" name="report_cpw" />
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">불량유저ID</td>
+						<td class="reportmenu">불량유저ID</td>
 						<td class="userin">${reportvo.reported_id}</td>
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">제목</td>
+						<td class="reportmenu">제목</td>
 						<td class="userin"><input type="text" id="report_title" name="report_title" value="${reportvo.report_title }">
 						
 						</td>
 					</tr>
 					<tr class="reporttr">
-						<td class="menu">내용</td>
+						<td class="reportmenu">내용</td>
 						<td><textarea rows="10" cols="60" id="summernote" name="content">${reportvo.content }</textarea>
 						</td>
 					</tr>
