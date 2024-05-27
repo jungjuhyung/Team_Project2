@@ -35,6 +35,14 @@
 	function comment_list(u_idx) {
 		location.href = "comment_list.do?u_idx="+u_idx;
 	}
+	
+	function comment_delete(comment_idx, u_idx) {
+		location.href = "comment_delete.do?comment_idx=" + comment_idx + "&u_idx=" + u_idx;
+	}
+	
+	function board_detail(board_idx) {
+		location.href = "boardDetail?board_idx=" + board_idx + "&cPage=1";  
+	}
 
 </script>
 
@@ -94,8 +102,10 @@
 										</c:choose>
 									</td>
 									<td>${k.regdate.substring(0,10)}</td>
-									<td><input type="button" class="user_btn" value="삭제하기"></td>
-									<td><input type="button" class="user_btn" value="상세보기"></td>
+									<td><input type="button" class="user_btn" value="삭제하기"
+												onclick="comment_delete(${k.comment_idx}, ${u_idx})"></td>
+									<td><input type="button" class="user_btn" value="상세보기"
+												onclick="board_detail(${k.board_idx})"></td>
 								<tr>
 							</c:forEach>
 						</c:otherwise>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ko_detail">
+	
+	<select id="path_list" parameterType="String" resultType="kopost">
+		select p.*
+		from pathmarker_t m , pathpost_t p
+		where m.path_post_idx = p.path_post_idx and m.contentid = #{contentid}
+		order by p.heart desc
+		limit 4
+	</select>
+	
+	<select id="place_detail" parameterType="String" resultType="ivo">
+		select * from tourapi_t where contentid = #{contentid}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

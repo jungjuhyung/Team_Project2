@@ -542,13 +542,31 @@ select {
 	border-collapse: collapse;
 	vertical-align: middle;
 }
+
+.user_btn {
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: pink;
+	color: black;
+	font-weight: bold;
+}
+
+.user_btn:hover{
+	background-color: black;
+	color: pink;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 	
-	<section class = "section">
+	<section class = "section" style="min-height: 700px;">
 		
+		<div style="margin: 30px auto; text-align: center; ">
+			<input type="button" class="user_btn" value="관리자 페이지" onclick="location.href='adminpage'" />
+		</div>
 	
 		<article>
 			<div class = "adminH1">DB 기능</div>

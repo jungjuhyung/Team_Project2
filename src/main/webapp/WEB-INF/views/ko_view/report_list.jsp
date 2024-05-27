@@ -37,7 +37,7 @@
 	}
 	
 	function report_detail(report_idx) {
-		location.href = "report_detail.do?report_idx=" + report_idx;
+		location.href = "reportDetail?report_idx=" + report_idx + "&cPage=1";
 	}
 
 </script>

@@ -8,6 +8,9 @@ body {
 	margin-bottom: 50px;	
 }
 
+.path_empty {
+	margin: 30px;
+}
 
 .detail_main {
 	margin: 20px;
@@ -148,6 +151,7 @@ body {
 	font-size: 30px;
 	font-weight: bold;
 	margin: 20px;
+	margin-top: 30px;
 }
 
 .detail_map {
@@ -159,17 +163,19 @@ body {
 .detail_path {
 	margin: 20px auto;
 	width: 1000px;
+	margin-bottom: 40px;
 }
 
 .detail_path h2 {
 	font-size: 30px;
 	font-weight: bold;
 	margin: 20px;
+	margin-top: 30px;
 }
 
 #path_wrapper {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: repeat(4, 1fr);
 	grid-gap: 30px;
 	margin-top: 30px;
 }

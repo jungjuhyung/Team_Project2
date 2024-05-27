@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 /* 테이블 */
 .user_table {
 	width: 80%;
@@ -76,6 +78,23 @@
 .user_btn2:hover{
 	background-color: black;
 	color: skyblue;
+	cursor: pointer;
+}
+
+.user_btn3 {
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: pink;
+	color: black;
+	font-weight: bold;
+	margin: 10px;
+	font-size: 20px;
+}
+
+.user_btn3:hover{
+	background-color: black;
+	color: pink;
 	cursor: pointer;
 }
 

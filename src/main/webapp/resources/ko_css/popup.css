@@ -1,9 +1,21 @@
 @charset "UTF-8";
 
-body {
-	background-color: #F9F3FF;
+/*  */
+.user_btn {
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: pink;
+	color: black;
+	font-weight: bold;
+	margin-top: 30px; 
 }
 
+.user_btn:hover{
+	background-color: black;
+	color: pink;
+	cursor: pointer;
+}
 .popup {
 	display: flex;
 }
@@ -11,7 +23,7 @@ body {
 .popup_form {
 	width: 400px;
 	margin: 0 auto;
-	margin-top: 200px;
+	margin-top: 100px;
 }
 
 .popup_form h2 {
@@ -87,17 +99,21 @@ body {
 #content_table table{
 	border: none;
 	margin: 0 auto;
+	width: 400px;
+	table-layout: fixed;
 }
 #content_table td{
 	border: none;
 	padding: 5px;
+	width: 70%;
 }
 #content_table th{
 	border: none;
 	text-align: left;
 	padding: 5px;
 	font-weight: bold;
-	background-color: #F9F3FF;
+	background-color: white;
+	width: 30%;
 }
 
 
@@ -110,7 +126,10 @@ body {
 
 ol.paging {
 	list-style: none;
-	margin-left: 40px;
+	/* ol 자체를 가운데 정렬하기 */
+	display: table;
+  	margin-left: auto;
+ 	margin-right: auto;
 }
 
 ol.paging li {

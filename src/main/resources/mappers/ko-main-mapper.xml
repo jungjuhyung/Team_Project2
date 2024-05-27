@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ko_main">
+	
+	<select id="area_list" parameterType="String" resultType="kopost">
+		select * from pathpost_t where r_areacode = #{r_areacode} order by heart desc limit 5
+	</select>
+	
+	<select id="tema_list" parameterType="String" resultType="kopost">
+		select * from pathpost_t where r_contenttypeid = #{r_contenttypeid} order by heart desc limit 5
+	</select>
+	
+	<select id="popup_one" resultType="popvo">
+		select * from popup_t where popup_state = 1
+	</select>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

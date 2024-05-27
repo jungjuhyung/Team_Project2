@@ -39,18 +39,20 @@
 				<c:choose>
 					<c:when test="${adminUser != null }">
 						<li class="ko_btn"><a href="logout">로그아웃</a></li>
-						<li class="ko_btn"><a href="#">관리페이지</a></li>
+						<li class="ko_btn"><a href="adminpage">관리페이지</a></li>
+						<li class="ko_btn"><a href="getReportgo">신고관리</a></li>
 					</c:when>
-					<c:when test="${empty memberUser}">						
+					<c:when test="${empty memberUser && empty adminUser}">						
 						<li class="ko_btn"><a href="login_go.do">로그인</a></li>
 						<li class="ko_btn"><a href="agree_go.do">회원가입</a></li>
+						<li class="ko_btn"><a href="getReportgo">고객센터</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="ko_btn"><a href="logout">로그아웃</a></li>
 						<li class="ko_btn"><a href="mypage">마이페이지</a></li>
+						<li class="ko_btn"><a href="getReportgo">고객센터</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="ko_btn"><a href="getReportgo">고객센터</a></li>
 			</ul>
 		</nav>
 	</section>	

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ko_popup">
+	
+	<insert id="insert" parameterType="popvo">
+		insert into popup_t (admin_id, subject, f_name, regdate) 
+		values (#{admin_id}, #{subject}, #{f_name}, sysdate())
+	</insert>
+	
+	<select id="list" parameterType="Map" resultType="popvo">
+		select * from popup_t order by regdate desc limit #{limit} offset #{offset}
+	</select>
+	
+	<update id="update_off">
+		update popup_t
+		set popup_state = 0
+		where popup_idx = (select popup_idx from popup_t where popup_state = 1)
+	</update>
+	
+	<update id="update_on" parameterType="String">
+		update popup_t
+		set popup_state = 1
+		where popup_idx = #{popup_idx}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from popup_t where popup_idx = #{popup_idx}
+	</delete>
+	
+	<select id="count" resultType="int">
+		select count(*) from popup_t
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

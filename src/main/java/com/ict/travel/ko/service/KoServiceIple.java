@@ -43,6 +43,10 @@ public class KoServiceIple implements KoService{
 		return koDAO.getPlaceDetail(contentid);
 	}
 	
+	@Override
+	public PopupVO popupOne() {
+		return koDAO.popupOne();
+	}
 	// ========================================================
 	
 	@Override
@@ -55,10 +59,6 @@ public class KoServiceIple implements KoService{
 		return koDAO.popupList(offset, limit);
 	}
 	
-	@Override
-	public PopupVO popupOne() {
-		return koDAO.popupOne();
-	}
 	
 	@Override
 	public int popupUpdate(String popup_idx) {

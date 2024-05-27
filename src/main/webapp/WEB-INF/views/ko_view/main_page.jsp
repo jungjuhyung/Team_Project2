@@ -30,7 +30,7 @@
 	function area_wish(areacode) {
 		console.log(areacode);
 		$.ajax({
-			url : "ko_ajax_area.do",
+			url : "main_ajax_area.do",
 			data : "r_areacode=" + areacode,
 			method : "post",
 			dataType : "json",
@@ -60,7 +60,7 @@
 	function tema_wish(contenttypeid) {
 		console.log(contenttypeid);
 		$.ajax({
-			url : "ko_ajax_tema.do",
+			url : "main_ajax_tema.do",
 			data : "r_contenttypeid=" + contenttypeid,
 			method : "post",
 			dataType : "json",
@@ -114,13 +114,6 @@
 		document.getElementById('popup').style.display = "none";
 	}
 	
-	function change_img() {
-		location.href = "popup_img.do"
-	}
-	
-	function user_list() {
-		location.href = "user_list.do"
-	}
 	
 </script>
 
@@ -136,8 +129,6 @@
 	        	<img alt="" src="/resources/popup_img/${popvo.f_name}">
 	        </div>         
 	        <div class="popup_btn">
-	        	<button type="button" onclick="user_list()">유저관리</button>
-	        	<button type="button" onclick="change_img()">팝업변경</button>
 	        	<button type="button" onclick="close_today()">오늘하루보지않기</button>
 	        	<button type="button" onclick="close_popup()">닫기</button>
 	        </div>

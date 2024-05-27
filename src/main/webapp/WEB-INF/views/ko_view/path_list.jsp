@@ -41,7 +41,7 @@
 	}
 	
 	function path_detail(path_post_idx) {
-		location.href = "path_detail.do?path_post_idx=" + path_post_idx;  
+		location.href = "pathReviewDetail?path_post_idx=" + path_post_idx;  
 	}
 	
 
