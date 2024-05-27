@@ -108,7 +108,8 @@ public class PersonalAssistantsTools {
 				URL url = new URL(apiURL);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				String assistant_set = "{\n" +
-						"      \"assistant_id\": \"asst_l4zXwA0L5kgtX4YNr0uPCyec\"\n" +
+						"      \"assistant_id\": \"asst_l4zXwA0L5kgtX4YNr0uPCyec\",\n" +
+						"      \"stream\": true\n" +
 						"}";
 				// POST 요청
 				conn.setRequestMethod("POST");
@@ -129,11 +130,11 @@ public class PersonalAssistantsTools {
 							new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					
 					String line ="";
-					StringBuffer sb2 = new StringBuffer();
+					StringBuffer sb = new StringBuffer();
 					while((line=br.readLine()) !=null) {
-						sb2.append(line);
+						sb.append(line);
 					}
-					String result = sb2.toString();
+					String result = sb.toString();
 					return result;
 				}
 			} catch (Exception e) {
@@ -144,7 +145,7 @@ public class PersonalAssistantsTools {
 		// PerGPT Thread 저장소 안에 있는 메세지 반환 메서드
 		public String perMessagesList(String perThread_id) {
 			try {
-				String apiURL = "https://api.openai.com/v1/threads/"+perThread_id+"/messages";
+				String apiURL = "https://api.openai.com/v1/threads/"+perThread_id+"/messages?limit=1";
 				String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
 				URL url = new URL(apiURL);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -157,7 +158,6 @@ public class PersonalAssistantsTools {
 				conn.setRequestProperty("Authorization", "Bearer "+api_key);
 				conn.setRequestProperty("OpenAI-Beta", "assistants=v2");
 				
-		
 				int responeseCode = conn.getResponseCode();
 				System.out.println(responeseCode);
 				if(responeseCode == HttpURLConnection.HTTP_OK) {
@@ -165,11 +165,11 @@ public class PersonalAssistantsTools {
 							new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					
 					String line ="";
-					StringBuffer sb2 = new StringBuffer();
+					StringBuffer sb = new StringBuffer();
 					while((line=br.readLine()) !=null) {
-						sb2.append(line);
+						sb.append(line);
 					}
-					String result = sb2.toString();
+					String result = sb.toString();
 					
 					return result;
 				}

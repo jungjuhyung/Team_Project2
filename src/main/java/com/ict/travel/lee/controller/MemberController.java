@@ -156,25 +156,25 @@ public class MemberController {
 				List<GptCountVO> areaCount = gptService.getAreaCount(mvo2.getU_idx());
 				List<GptCountVO> contentTypeCount = gptService.getContentTypeCount(mvo2.getU_idx());
 				StringBuffer sb = new StringBuffer();
-				sb.append("유저가 찜한 areacode");
+				sb.append("Areacode that the user has saved ");
 				for (GptCountVO k : areaCount) {
 					String content = "areacode : "+k.getAreacode()+"("+k.getAreacode_count()+")";
 					sb.append(content);
 				} 
-				sb.append("유저가 찜한 contenttypeid");
+				sb.append("contenttypeid that the user has saved ");
 				for (GptCountVO k : contentTypeCount) {
 					String content = "contenttypeid : "+k.getContenttypeid()+"("+k.getContenttypeid_count()+")";
 					sb.append(content);
 				}
-				sb.append("해당 정보와 기존의 message들을 바탕으로 해당 유저에게 여행장소를 추천해주고 추천한 여행장소를 File search Tool에 있는 정보를 바탕으로 답변해줘.");
-				sb.append("답변 내용은 areacode,contenttypeid,firstimage,title을 포함하는 json형태로 5개만 추천해줬으면 좋겠어.");
+				sb.append("Recommend travel locations to the user based on the information and previously saved user messages in the Thread.");
 				
 				String message = sb.toString();
 				System.out.println(message);
-				//perTools.perMessageAdd(mvo2.getU_thread_id(), message);
-				perTools.perAnswerCreate(mvo2.getU_thread_id());
-				String test = perTools.perMessagesList(mvo2.getU_thread_id());
-				System.out.println(test);
+				perTools.perMessageAdd(mvo2.getU_thread_id(), message);
+				String test1 = perTools.perAnswerCreate(mvo2.getU_thread_id());
+				String test2 = perTools.perMessagesList(mvo2.getU_thread_id());
+				System.out.println(test1);
+				System.out.println(test2);
 				
 				
 				return new ModelAndView("redirect:main_page.do"); 

@@ -51,8 +51,6 @@
 			        e.target.value = inputValue;
 			    }
 		});
-		
-
 	});
 	
 	//  찜버튼 누르기 옵션 이벤트 처리

@@ -132,4 +132,80 @@ public class JungAjaxController {
 		}
 		return null;
 	}
+	// Thread Message 저장소 내용 확인
+	@RequestMapping(value = "thread_message", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public  String thread_message() {
+		try {
+			String apiURL = "https://api.openai.com/v1/threads/thread_XqJH8EvWtG9rRIWCoci5RW1r/messages";
+			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
+			URL url = new URL(apiURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			// GET 요청
+			conn.setRequestMethod("GET");
+			conn.setDoOutput(true);
+			// 헤더 요청
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer "+api_key);
+			conn.setRequestProperty("OpenAI-Beta", "assistants=v2");
+			
+			int responeseCode = conn.getResponseCode();
+			System.out.println(responeseCode);
+			if(responeseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader br =
+						new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				String line ="";
+				StringBuffer sb2 = new StringBuffer();
+				while((line=br.readLine()) !=null) {
+					sb2.append(line);
+				}
+				String result = sb2.toString();
+				
+				return result;
+			}
+		} catch (Exception e) {
+			System.out.println("연결 실패");
+		}
+		return null;
+	}
+	// assistant 설정 확인
+	@RequestMapping(value = "assi_chk", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public  String assi_chk() {
+		try {
+			String apiURL = "https://api.openai.com/v1/assistants?order=desc&limit=20";
+			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
+			URL url = new URL(apiURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			
+			// GET 요청
+			conn.setRequestMethod("GET");
+			conn.setDoOutput(true);
+			// 헤더 요청
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer "+api_key);
+			conn.setRequestProperty("OpenAI-Beta", "assistants=v2");
+			
+			int responeseCode = conn.getResponseCode();
+			System.out.println(responeseCode);
+			if(responeseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader br =
+						new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				String line ="";
+				StringBuffer sb2 = new StringBuffer();
+				while((line=br.readLine()) !=null) {
+					sb2.append(line);
+				}
+				String result = sb2.toString();
+				
+				return result;
+			}
+		} catch (Exception e) {
+			System.out.println("연결 실패");
+		}
+		return null;
+	}
 }
