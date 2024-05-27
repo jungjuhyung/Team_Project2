@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.getIdChk(u_id);
 	}
 	
-	// 닉네임 중복체크(진행중)
+	// 닉네임 중복체크
 	public String getNickChk(String u_nickname) {
 		return memberDAO.getNickChk(u_nickname);
 	}
@@ -69,6 +69,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int PassUpdate(MemberVO memberVO) {
 		return memberDAO.PassUpdate(memberVO);
+	}
+	
+	@Override
+	public String chkPassword(String u_pwd) {
+		return memberDAO.chkPassword(u_pwd);
 	}
 	
 	// 아이디 찾기
@@ -313,6 +318,11 @@ public class MemberServiceImpl implements MemberService{
 			System.out.println(e);
 			return null;
 		}
+	}
+
+	@Override
+	public MemberVO getNewPwd(String u_idx) {
+		return memberDAO.getNewPwd(u_idx);
 	}
 
 	

@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+h1, h2, span, p, a , button, th, td , div{
+     font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+body{
+	background-image: url("../ko_images/bg.png");
+}
+.pw-container{
+	text-align: center;
+	background-image: url("../lee_images/loginbg.jpg");
+	background-size:cover;
+	background-position:center;
+}
+.pw_sub_1{
+	margin: 100px;
+	margin-top: 0px;
+	position: absolute;
+}
+.sendpw_form{
+	width: 400px;
+	height: 500px;
+	position: absolute;
+	border-radius: 10px;
+	background-color: pink;
+	margin-left: 320px;
+	margin-top: 200px;
+	box-shadow: 3px 3px 10px #333;
+	border:  5px solid white;
+	
+}
+
+.sendpw_form h2{
+	margin: 10px;
+	padding: 50px;
+	margin-bottom: 20px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.sendpw_form input[type="text"]{
+	width: 80%;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+.sendpw_form input[type="password"]{
+	width: 80%;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.sendpw_form input[type="submit"]{
+	width:80%;
+	height: 50px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	background-color: #F9F3FF;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+.sendpw_form input[type="submit"]:hover{
+	color: pink;
+}

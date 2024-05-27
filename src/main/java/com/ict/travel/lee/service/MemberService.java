@@ -23,6 +23,10 @@ public interface MemberService {
 	// 임시비밀번호
 	public int PassUpdate(MemberVO memberVO);
 	
+	/* public String getPwdChk(String u_pwd); */
+	
+	public String chkPassword(String u_pwd);
+	
 	// 아이디 찾기
 	public List<MemberVO> getFindId(MemberVO mvo);
 
@@ -41,6 +45,7 @@ public interface MemberService {
 
 	public int getMemberUpOk(MemberVO mvo);
 	
+	public MemberVO getNewPwd(String u_idx);
 
 
 
