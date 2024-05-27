@@ -23,7 +23,9 @@ public interface ReportService {
 
 	public int reportUpdate(ReportVO reportvo);
 
-	public int reportState(String report_idx);
+	public int reportState(String report_idx, String admin_id);
+	
+	public int reportConfirm(String admin_id);
 	
 	public ReportVO baduser(String reported_id);
 

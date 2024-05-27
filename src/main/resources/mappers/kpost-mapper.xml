@@ -32,8 +32,8 @@
 	
 	
 	<insert id="rcommentInsert" parameterType="commentvo">
-		insert into comment_t (content, regdate, u_nickname, path_post_idx, u_idx)
-		values (#{content}, sysdate(), #{u_nickname}, #{path_post_idx}, #{u_idx})
+		insert into comment_t (content, regdate, u_nickname, path_post_idx, u_idx, u_id)
+		values (#{content}, sysdate(), #{u_nickname}, #{path_post_idx}, #{u_idx}, #{u_id})
 	</insert>
 	
 	<delete id="rcommentDelete" parameterType="String">

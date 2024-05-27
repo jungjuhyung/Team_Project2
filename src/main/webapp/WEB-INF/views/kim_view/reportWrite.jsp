@@ -56,7 +56,7 @@ $(document).ready(function(){
 					</tr>
 					<tr class="reporttr">
 						<td class="reportmenu">불량유저ID</td>
-						<td class="userin"><input type="text" id="reported_id" name="reported_id">
+						<td class="userin"><input type="text" id="reported_id" name="reported_id" value="${reported_id}">
 						</td>
 					</tr>
 					<tr class="reporttr">

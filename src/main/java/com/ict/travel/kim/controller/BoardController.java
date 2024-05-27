@@ -118,6 +118,7 @@ public class BoardController {
 			mv.addObject("membervo", membervo);
 			boardvo.setU_nickname(membervo.getU_nickname());
 			boardvo.setU_idx(membervo.getU_idx());
+			boardvo.setU_id(membervo.getU_id());
 			int result = boardService.boardWrite(boardvo);
 			if(result > 0) {
 				return mv;
@@ -206,7 +207,6 @@ public class BoardController {
 	
 	@PostMapping("boardDeleteOK")
 	public ModelAndView boardDeleteOK(@ModelAttribute("board_cpw")String board_cpw,
-			@ModelAttribute("cPage")String cPage,
 			@ModelAttribute("board_idx")String board_idx,
 			BoardVO boardvo) {
 		ModelAndView mv = new ModelAndView();
@@ -238,6 +238,7 @@ public class BoardController {
 		mv.addObject("membervo", membervo);
 		commentvo.setU_idx(membervo.getU_idx());
 		commentvo.setU_nickname(membervo.getU_nickname());
+		commentvo.setU_id(membervo.getU_id());
 		int result = boardService.commentInsert(commentvo);
 		return mv;
 	}

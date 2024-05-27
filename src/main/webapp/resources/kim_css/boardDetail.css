@@ -57,12 +57,14 @@
 	height: 35px;
 	width: 150px;
 	border-radius: 10px;
+	border: none;
 }
 
 .but5 {
 	background-color: #F9F3FF;
 	height: 35px;
 	width: 150px;
+	
 }
 
 

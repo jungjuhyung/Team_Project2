@@ -1,10 +1,20 @@
 package com.ict.travel.kim.dao;
 
 public class CommentVO {
-	private String comment_idx, board_idx, u_nickname, content, regdate, u_idx, path_post_idx, u_lev;
+	private String comment_idx, board_idx, u_nickname, content, regdate, u_idx, path_post_idx, u_lev, u_id;
 
 	public String getComment_idx() {
 		return comment_idx;
+	}
+
+
+	public String getU_id() {
+		return u_id;
+	}
+
+
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
 	}
 
 

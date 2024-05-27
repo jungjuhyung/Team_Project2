@@ -3,8 +3,16 @@ package com.ict.travel.kim.dao;
 public class ReportVO {
 
 	
-	private String report_idx, u_idx, u_id, report_title, content, report_state, regdate, reported_idx, report_pw, reported_id, u_lev;
+	private String report_idx, u_idx, u_id, report_title, content, report_state, regdate, reported_idx, report_pw, reported_id, u_lev, admin_id;
 	
+	public String getAdmin_id() {
+		return admin_id;
+	}
+
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
+
 	public String getReport_idx() {
 		return report_idx;
 	}

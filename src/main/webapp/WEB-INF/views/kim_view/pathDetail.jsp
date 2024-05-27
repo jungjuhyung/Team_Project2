@@ -19,13 +19,20 @@
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <script type="text/javascript">
 function rcommentInsert(f) {
-	console.log="${kpostvo.path_post_idx}";
 	f.action="rcommentInsert";
 	f.submit();
 }
 function rcommentDelete(f) {
-	console.log="${kpostvo.path_post_idx}";
 	f.action="rcommentDelete";
+	f.submit();
+}
+function reportWrite(f) {
+	f.action="reportWrite";
+	f.submit();
+}
+
+function pathDelete(f) {
+	f.action="pathDelete";
 	f.submit();
 }
 function ilikethis() {
@@ -99,6 +106,7 @@ function closeModal() {
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+	<form method="post">
 	<div id="world">
 		<div id="infoUser">
 			<div id="reviewTitle">${kpostvo.path_post_title}</div>
@@ -153,10 +161,15 @@ function closeModal() {
 		<div class="empty-area"></div>
 		<div>
 			<c:if test="${membervo.u_idx == kpostvo.u_idx}">	
-				<button class="reportbtn" type="button">수정</button>
+				<button class="reportbtn" onclick="">수정</button>
 			</c:if>
 			<c:if test="${adminUser != null || membervo.u_idx == kpostvo.u_idx}">
-				<button class="reportbtn" type="button">삭제</button>
+				<input type="hidden" name="path_post_idx" value="${path_post_idx}">
+				<input type="button" class="reportbtn" value="삭제" onclick="pathDelete"/>
+			</c:if>
+			<c:if test="${membervo.u_idx != kpostvo.u_idx && membervo != null}">
+				<input type="hidden" name="reported_id" value="${kpostvo.u_id}">
+				<input class="reportbtn" type="button" value="신고" onclick="reportWrite(this.form)">
 			</c:if>
 		</div>
 		<div class="empty-area"></div>
@@ -173,6 +186,9 @@ function closeModal() {
 		    </div>
 		</c:if>
 	<div class="empty-area"></div>
+	</form>
+	
+	
 		<%-- 댓글 출력 --%>
 	<div class="recomment">
 		<c:forEach var="k" items="${comment_list}">
@@ -191,6 +207,10 @@ function closeModal() {
 								<span></span>
 							</c:otherwise>
 						</c:choose>
+						<c:if test="${membervo != null && membervo.u_idx != k.u_idx}">
+							<input type="hidden" name="reported_id" value="${k.u_id}">
+							<input class="rewrite" type="button" value="신고" onclick="reportWrite(this.form)">
+						</c:if>
 					</div>
 					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
 					<input type="hidden" name = "path_post_idx" value="${k.path_post_idx}" >
@@ -202,6 +222,7 @@ function closeModal() {
 	<c:if test="${membervo == null}">
 		<div class="empty-area"></div>
 	</c:if>	
+	</div>
 	
 		<%-- 댓글 입력 --%>
 	<c:if test="${membervo != null}">
@@ -225,7 +246,7 @@ function closeModal() {
 	</div>
 	</c:if>
 		<div id="empty-area"></div>
-	</div>
+	
 	<script>
 	console.log(${mapyList.size()})
 		// 메인화면 페이지 로드 함수

@@ -53,12 +53,7 @@
 	width: 150px;
 	border-radius: 10px;
 	background-color: #F9F3FF;
-}
-
-.but5 {
-	height: 35px;
-	width: 150px;
-	background-color: #F9F3FF;
+	border: none;
 }
 
 
@@ -68,11 +63,6 @@
 	border: 2px solid black;
 }
 
-.but5:hover {
-	background-color: black;
-	color: white;
-	border: 2px solid black;
-}
 
 input[type="text"], [type="password"]{
 	height: 30px;

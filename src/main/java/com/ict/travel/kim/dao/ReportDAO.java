@@ -81,9 +81,13 @@ public class ReportDAO {
 		return -1;
 	}
 
-	public int reportState(String report_idx) {
+	public int reportState(String report_idx, String admin_id) {
 		try {
-			return sqlSessionTemplate.update("report_t.reportState", report_idx);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("report_idx", report_idx);
+			map.put("admin_id", admin_id);
+			
+			return sqlSessionTemplate.update("report_t.reportState", map);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -100,7 +104,14 @@ public class ReportDAO {
 		return null;
 	}
 	
-	
+	public int reportConfirm(String admin_id) {
+		try {
+			return sqlSessionTemplate.insert("report_t.reportConfirm", admin_id);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
 	
 	
 	

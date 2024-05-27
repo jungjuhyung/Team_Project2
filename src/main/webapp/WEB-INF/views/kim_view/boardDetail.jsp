@@ -27,13 +27,15 @@ function boardDelete(f) {
 	f.action="boardDelete";
 	f.submit();
 }
+function reportWrite(f) {
+	f.action="reportWrite";
+	f.submit();
+}
 function commentInsert(f) {
-	console.log="${boardvo.board_idx}";
 	f.action="commentInsert";
 	f.submit();
 }
 function commentDelete(f) {
-	console.log="${boardvo.board_idx}";
 	f.action="commentDelete";
 	f.submit();
 }
@@ -77,6 +79,10 @@ function commentDelete(f) {
 				    <input class="but4" type="button" value="수정" onclick="boardUpdate(this.form)"/>
 				    <input class="but4" type="button" value="삭제" onclick="boardDelete(this.form)"/>
 				</c:if>
+				<c:if test="${membervo.u_idx != boardvo.u_idx && membervo != null}">
+					<input type="hidden" name="reported_id" value="${boardvo.u_id}">
+					<input class="but4" type="button" value="신고" onclick="reportWrite(this.form)">
+				</c:if>
 				<c:if test="${adminUser != null}">
 				    <input class="but4" type="button" value="삭제" onclick="boardDelete(this.form)"/>
 				</c:if>
@@ -103,6 +109,10 @@ function commentDelete(f) {
 								<span></span>
 							</c:otherwise>
 						</c:choose>
+						<c:if test="${membervo != null && membervo.u_idx != k.u_idx}">
+							<input type="hidden" name="reported_id" value="${k.u_id}">
+							<input class="rewrite" type="button" value="신고" onclick="reportWrite(this.form)">
+						</c:if>
 						</div>
 						<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
 						<input type="hidden" name = "board_idx" value="${k.board_idx}" >
@@ -123,10 +133,10 @@ function commentDelete(f) {
 			</div>
 			<div class="rebutton">
 				<input class="rewrite" type="button" value="저장" onclick="commentInsert(this.form)">
+				<input type="hidden" name = "board_idx" value="${boardvo.board_idx}" >
 			</div>
 		
 				<!-- 댓글 저장시 어떤 원글의 댓글인지 저장해야 한다. -->
-				<input type="hidden" name = "board_idx" value="${boardvo.board_idx}" >
 			</fieldset>
 		</form>
 	</div>

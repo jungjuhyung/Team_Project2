@@ -29,8 +29,8 @@
 	</select>
 	
 	<insert id="boardWrite" parameterType="boardvo">
-		insert into board_t (board_title, u_nickname, content, regdate, hit, u_idx, board_pw)
-		values (#{board_title}, #{u_nickname}, #{content}, sysdate(), 0, #{u_idx}, #{board_pw})
+		insert into board_t (board_title, u_nickname, content, regdate, hit, u_idx, board_pw, u_id)
+		values (#{board_title}, #{u_nickname}, #{content}, sysdate(), 0, #{u_idx}, #{board_pw}, #{u_id})
 	</insert>
 	<update id="boardscore" parameterType="String">
 		update user_t set u_exp = u_exp + 10
@@ -91,8 +91,8 @@
 	</select>
 		 -->
 	<insert id="commentInsert" parameterType="commentvo">
-		insert into comment_t (content, regdate, u_nickname, board_idx, u_idx)
-		values (#{content}, sysdate(), #{u_nickname}, #{board_idx}, #{u_idx})
+		insert into comment_t (content, regdate, u_nickname, board_idx, u_idx, u_id)
+		values (#{content}, sysdate(), #{u_nickname}, #{board_idx}, #{u_idx}, #{u_id})
 	</insert>
 	
 	<delete id="commentDelete" parameterType="String">

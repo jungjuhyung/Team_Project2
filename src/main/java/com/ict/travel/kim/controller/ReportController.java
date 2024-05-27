@@ -22,6 +22,7 @@ import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
+import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
@@ -131,10 +132,11 @@ public class ReportController {
 	}
 	
 	
-	@GetMapping("reportWrite")
-	public ModelAndView reportWrite(HttpServletRequest request) {
+	@RequestMapping("reportWrite")
+	public ModelAndView reportWrite(HttpServletRequest request, String reported_id) {
 		ModelAndView mv = new ModelAndView("kim_view/reportWrite");
-		
+		mv.addObject("reported_id", reported_id);
+		System.out.println("reported_id : " + reported_id);
 		HttpSession session = request.getSession();
 		MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 		mv.addObject("membervo", membervo);
@@ -151,7 +153,6 @@ public class ReportController {
 			reportvo.setReport_pw(pwd);;
 			String u_idx = reportvo.getU_idx();
 			reportvo.setU_idx(u_idx);
-			
 			HttpSession session = request.getSession();
 			MemberVO membervo = (MemberVO) session.getAttribute("memberUser");
 			mv.addObject("membervo", membervo);
@@ -287,11 +288,11 @@ public class ReportController {
 	}
 	
 	@PostMapping("reportConfirm")
-	public ModelAndView reportConfirm(String report_idx) {
+	public ModelAndView reportConfirm(String report_idx, String admin_id, String reported_id) {
 		ModelAndView mv = new ModelAndView();
-		int result = reportService.reportState(report_idx);
+		int result = reportService.reportState(report_idx, admin_id);
 		if(result > 0) {
-			mv.setViewName("redirect:getReportgo");
+			mv.setViewName("redirect:user_search.do?search=" + reported_id);
 			return mv;
 		}
 		

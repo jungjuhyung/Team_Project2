@@ -45,14 +45,21 @@
  		where report_idx = #{report_idx}
  	</update>
 	
-	<update id="reportState" parameterType="String">
-		update report_t set report_state = 1 where report_idx = #{report_idx}
+	<update id="reportState" parameterType="Map">
+		update report_t 
+		set report_state = 1,
+			admin_id = #{admin_id}
+		where report_idx = #{report_idx}
 	</update>
 	
 	<select id="baduser" resultType="reportvo">
 		select * from user_t where u_id = #{reported_id}
 	</select>
 	
+	<insert id="reportConfirm" parameterType="String">
+		insert into report_t (admin_id)
+		values (#{admin_id})
+	</insert>
 </mapper>
 
 

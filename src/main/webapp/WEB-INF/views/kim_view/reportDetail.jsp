@@ -94,6 +94,8 @@ function reportConfirm(f) {
 				</c:if>
 				<!-- 관리자 확인버튼 -->
 				<c:if test="${adminUser != null && reportvo.report_state != 1 }">
+				<input type="hidden" name="admin_id" value="${adminUser.admin_id}">
+				<input type="hidden" name="reported_id" value="${reportvo.reported_id}">
 				<input class="but4" type="button" value="확인" onclick="reportConfirm(this.form)"/>
 				</c:if>
 			</div>

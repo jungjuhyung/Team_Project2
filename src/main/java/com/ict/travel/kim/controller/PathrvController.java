@@ -119,6 +119,8 @@ public class PathrvController {
 	
 	
 	
+	
+	
 	// 댓글
 	
 	
@@ -135,6 +137,7 @@ public class PathrvController {
 		mv.addObject("membervo", membervo);
 		commentvo.setU_idx(membervo.getU_idx());
 		commentvo.setU_nickname(membervo.getU_nickname());
+		commentvo.setU_id(membervo.getU_id());
 		int result = kpostService.rcommentInsert(commentvo);
 		if (result > 0) {
 			mv.addObject("commentvo", commentvo);
