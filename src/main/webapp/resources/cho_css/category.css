@@ -71,7 +71,12 @@ body {
   align-items: center; /* 수직 정렬 */
   margin-bottom: 10px;
 }
-
+#randomList{
+	width: 30%;
+}
+#allList{
+	width: 30%;
+}
 /* 검색 결과 장소 카테고리 박스 크기 */
 #place_wrapper {
   display: flex;

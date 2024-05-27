@@ -332,5 +332,10 @@
 		admin_note = #{admin_note} 
 		WHERE admin_id = #{admin_id} 	
 	</update>
-	
+	<select id="RandomTourList" parameterType="Map" resultType="choTourVO">
+		SELECT contentid, contenttypeid, title, firstimage, heart FROM tourapi_t WHERE areacode = #{areaCode}  ORDER BY RAND() LIMIT #{limit}
+	</select>
+	<select id="RandomPathList" parameterType="Map" resultType="pathPostVO">
+		SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid FROM pathpost_t WHERE r_contenttypeid = 99  ORDER BY heart DESC LIMIT 3
+	</select>
 </mapper>

@@ -112,5 +112,13 @@ public class ChoServiceImpl implements ChoService{
 	public int getAdminListCount(String text) {
 		return choDAO.getAdminListCount(text);
 	}
+	@Override
+	public List<ChoTourVO> getRandomTourList(String areaCode, int limit) {
+		return choDAO.getRandomTourList(areaCode,limit);
+	}
+	@Override
+	public List<PathPostVO> getAllPathPostList() {
+		return choDAO.getAllPathPostList();
+	}
 }
 

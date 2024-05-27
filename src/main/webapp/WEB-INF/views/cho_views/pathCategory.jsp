@@ -138,7 +138,7 @@
 		}
    	    let pathPostHTML = '<div class="place-box swiper-slide" >' +
    	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ')">' +
-   	                            '<img alt="' + pathPost.title + '" src="' +  pathPost.firstimage  /* "/resources/cho_images/cat.png" */ + '">' +
+   	                            '<img alt="' + pathPost.title + '" src="' +  pathPost.firstimage + '">' +
    	                        '</div>' +
    	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+pathPost.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
    	                     			truncatedTitle + 
@@ -156,6 +156,9 @@
    	    }
    	    if(r_contenttypeid ==="39"){
    	    	$('#restaurantPlace').append(pathPostHTML);
+   	    }
+   	    if(r_contenttypeid ==="99"){
+   	    	$('#allList').append(pathPostHTML);
    	    }
    	}
 	
@@ -230,10 +233,8 @@
 			
 			<div class="swipe-Main">
 				<div class="areaName"></div>
-				<div class="swipe-MainContent-Wrapper">
-					<div class="swipe-MainContent"></div>
-					<div class="swipe-MainContent"></div>
-					<div class="swipe-MainContent"></div>
+				<div id="allList" class="place-Wrapper swipe-MainContent-Wrapper">
+					<!-- <div class="swipe-MainContent"></div> -->
 				</div>
 				
 			</div>

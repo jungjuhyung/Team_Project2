@@ -131,19 +131,24 @@
 				},
 			dataType : "json",
 			success : function(data) {
+				console.log(data)
 				$('.place-Wrapper').empty();
 				for (let i = 0; i < data.touristList.length; i++) {
           	        let place = data.touristList[i];
           	        addPlace2(place.contenttypeid,place);
-          	    	}
+          	    }
 				for (let i = 0; i < data.partyList.length; i++) {
           	        let place = data.partyList[i];
           	        addPlace2(place.contenttypeid,place);
-          	    	}
+          	    }
 				for (let i = 0; i < data.restaurantList.length; i++) {
           	        let place = data.restaurantList[i];
           	        addPlace2(place.contenttypeid,place);
-          	    	}
+          	    }
+				for (let i = 0; i < data.randomList.length; i++) {
+          	        let place = data.randomList[i];
+          	        addPlace2("99",place);
+          	    }
 				initializeSwiper1();
 				initializeSwiper2();
 			},
@@ -182,6 +187,9 @@
    	    }
    	    if(contenttypeid ==="39"){
    	    	$('#restaurantPlace').append(placeHTML);
+   	    }
+   	    if(contenttypeid ==="99"){
+   	    	$('#randomList').append(placeHTML);
    	    }
    	}
 	
@@ -234,10 +242,8 @@
 			</div>
 			<div class="swipe-Main">
 				<div class="areaName"></div>
-				<div class="swipe-MainContent-Wrapper">
-					<div class="swipe-MainContent"></div>
-					<div class="swipe-MainContent"></div>
-					<div class="swipe-MainContent"></div>
+				<div id= "randomList" class="place-Wrapper swipe-MainContent-Wrapper">
+					<!-- <div  class="swipe-MainContent"></div> -->
 				</div>
 				
 			</div>
