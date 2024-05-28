@@ -3,20 +3,19 @@ package com.ict.travel.ko.dao;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PopupVO {
-	private String popup_idx, u_id, subject, f_name, popup_state, regdate;
+	private String popup_idx, admin_id, subject, f_name, popup_state, regdate;
 	private MultipartFile file;
-	
 	public String getPopup_idx() {
 		return popup_idx;
 	}
 	public void setPopup_idx(String popup_idx) {
 		this.popup_idx = popup_idx;
 	}
-	public String getU_id() {
-		return u_id;
+	public String getAdmin_id() {
+		return admin_id;
 	}
-	public void setU_id(String u_id) {
-		this.u_id = u_id;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 	public String getSubject() {
 		return subject;
@@ -48,6 +47,7 @@ public class PopupVO {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	
 	
 	
 }

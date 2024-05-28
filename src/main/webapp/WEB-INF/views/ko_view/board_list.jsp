@@ -41,7 +41,7 @@
 	}
 	
 	function board_detail(board_idx) {
-		location.href = "board_detail.do?board_idx=" + board_idx;  
+		location.href = "boardDetail?board_idx=" + board_idx + "&cPage=1";  
 	}
 	
 </script>

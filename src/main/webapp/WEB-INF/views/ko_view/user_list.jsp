@@ -55,7 +55,11 @@
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
 	<section style="margin: 0 auto; width: 1300px; min-height: 700px;">
-
+		
+		<div style="margin: 30px auto; text-align: center; ">
+			<input type="button" class="user_btn" value="관리자 페이지" onclick="location.href='adminpage'" />
+		</div>
+		
 		<div class="user_search">
 			<h2>유저 관리 게시판</h2>
 			<ul>

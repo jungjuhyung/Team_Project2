@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,8 +47,12 @@
 
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
-	<div class="popup" style="margin: 0 auto; width: 1300px;">
-
+		<div style="margin: 0px auto; text-align: center; ">
+			<input type="button" class="user_btn" value="관리자 페이지" onclick="location.href='adminpage'" />
+		</div>
+	<div class="popup" style="margin: 0 auto; width: 1300px; min-height: 700px;">
+		
+		
 		<div class="popup_form">
 		
 			<h2>팝업이미지 추가하기</h2>
@@ -84,13 +89,25 @@
 							<c:forEach var="k" items="${popup_list}">
 								<tr>
 									<td><img src="resources/popup_img/${k.f_name}"
-										height="170px;"></td>
+										height="150px;"></td>
 									<td>
 									
 										<div id="content_table">
 											<table>
-												<tr><th>작성자</th><td>${k.u_id}</td></tr>
-												<tr><th>제목</th><td>${k.subject}</td></tr>
+												<tr><th>작성자</th><td>${k.admin_id}</td></tr>
+												<tr>
+													<th>제목</th>
+													<td>
+														<c:choose>
+															<c:when test="${fn:length(k.subject) >= 22}">
+																<div>${fn:substring(k.subject, 0, 21)}...</div>
+															</c:when>
+															<c:otherwise>
+																<div>${k.subject}</div>
+															</c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
 												<tr><th>등록날짜</th><td>${k.regdate.substring(0,10)}</td></tr>
 												<tr><th>선택</th><td><c:choose>
 											<c:when test="${k.popup_state == '1'}">

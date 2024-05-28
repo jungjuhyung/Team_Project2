@@ -15,10 +15,16 @@ import com.ict.travel.ko.dao.UserVO;
 
 public interface KoService {
 	
+	//===============================================
+	// 메인페이지
 	List<KoPostVO> getAreaList(String r_areacode);
 	
 	List<KoPostVO> getTemaList(String r_contenttypeid);
 	
+	PopupVO popupOne();
+	
+	//================================================
+	// 장소 상세페이지
 	List<KoPostVO> getPathList(String contentid);
 	
 	ItemVO getPlaceDetail(String contentid);
@@ -28,8 +34,6 @@ public interface KoService {
 	int popupInsert(PopupVO popvo);
 	
 	List<PopupVO> popupList(int offset, int limit);
-	
-	PopupVO popupOne();
 	
 	int popupUpdate(String popup_idx);
 	

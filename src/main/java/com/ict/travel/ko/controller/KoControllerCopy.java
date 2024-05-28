@@ -53,8 +53,10 @@ import com.ict.travel.ko.service.KoService;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Controller
-public class KoController {
-
+public class KoControllerCopy {
+	
+	/*
+	
 	@Autowired
 	private KoService koService;
 
@@ -358,8 +360,8 @@ public class KoController {
 		try {
 			ModelAndView mv = new ModelAndView("redirect:popup_img.do");
 			String path = session.getServletContext().getRealPath("/resources/popup_img");
-			String u_id = (String) session.getAttribute("u_id");
-			popvo.setU_id(u_id);
+			String admin_id = (String) session.getAttribute("admin_id");
+			popvo.setAdmin_id(admin_id);
 
 			MultipartFile file = popvo.getFile();
 			if (file.isEmpty()) {
@@ -424,7 +426,7 @@ public class KoController {
 		paging.setTotalRecord(count);
 
 		// 전체페이지의 수
-		paging.setNumPerPage(7);
+		paging.setNumPerPage(5);
 		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
@@ -501,8 +503,7 @@ public class KoController {
 		// System.out.println(u_idx);
 		// System.out.println(stop_note);
 
-		// String admin_id = session.getAttribute("admin_id");
-		String admin_id = "ko3";
+		String admin_id = (String) session.getAttribute("admin_id");
 		int result = koService.getStopUpdate(stop_days, u_idx, stop_note, admin_id);
 		if (result > 0) {
 			return mv;
@@ -529,7 +530,7 @@ public class KoController {
 		int count = koService.getSearchTotal(search);
 		paging.setTotalRecord(count);
 
-		paging.setNumPerPage(7);
+		paging.setNumPerPage(5);
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
 		} else {
@@ -628,7 +629,7 @@ public class KoController {
 		return mv;
 	}
 
-	// 신고게시판 목로
+	// 신고게시판 목록
 	@RequestMapping("report_list.do")
 	public ModelAndView userReport(@ModelAttribute("u_idx") String u_idx, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("ko_view/report_list");
@@ -818,26 +819,8 @@ public class KoController {
 	}
 
 	// =====================================================================================
-	
-	//	자유게시글
 	@Autowired
 	private BoardService boardService;
-
-	// 자유게시글 상세보기
-	@RequestMapping("board_detail.do")
-	public ModelAndView boardDetail(String board_idx) {
-		ModelAndView mv = new ModelAndView("kim_view/boardDetail");
-
-		BoardVO boardvo = boardService.boardDetail(board_idx);
-		if (boardvo != null) {
-			List<CommentVO> comment_list = boardService.commentList(board_idx);
-			mv.addObject("comment_list", comment_list);
-			mv.addObject("boardvo", boardvo);
-			return mv;
-		}
-
-		return new ModelAndView("common_view/error");
-	}
 
 	// 자유게시글 삭제하기
 	@RequestMapping("board_delete.do")
@@ -852,88 +835,27 @@ public class KoController {
 		return new ModelAndView("common_view/error");
 	}
 
-	//	신고게시글
-	@Autowired
-	private ReportService reportService;
-
-	// 신고게시글 상세보기
-	@RequestMapping("report_detail.do")
-	public ModelAndView reportDetail(String report_idx) {
-		ModelAndView mv = new ModelAndView("kim_view/reportDetail");
-
-		ReportVO reportvo = reportService.reportDetail(report_idx);
-
-		if (reportvo != null) {
-			mv.addObject("reportvo", reportvo);
+	//	작성댓글 삭제하기
+	@RequestMapping("comment_delete.do")
+	public ModelAndView commentDelete(String comment_idx, @ModelAttribute("u_idx") String u_idx) {
+		ModelAndView mv = new ModelAndView("redirect: comment_list.do");
+		
+		int result = boardService.commentDelete(comment_idx);
+		if (result > 0) {
 			return mv;
 		}
-
+		
 		return new ModelAndView("common_view/error");
 	}
-
-	// 	추천경로 게시글
-	@Autowired
-	private KpostService kpostService;
-
-	@Autowired
-	private TourtestService tourtestService;
-
-	// 추천경로 게시글 상세보기
-	@RequestMapping("path_detail.do")
-	public ModelAndView pathDetail(String path_post_idx) {
-		try {
-			ModelAndView mv = new ModelAndView("kim_view/pathDetail");
-
-			KpostVO kpostvo = kpostService.kpostDetail(path_post_idx);
-			List<TourtestVO> tourtestvo2 = tourtestService.tourMaps(path_post_idx);
-			List<TourtestVO> tourtestvo3 = tourtestService.tourDetail(path_post_idx);
-			List<TourtestVO> tourtestvoimg = tourtestService.tourImg(path_post_idx);
-			for (TourtestVO marker : tourtestvoimg) {
-				List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
-				marker.setImgList(imgList);
-			}
-
-			if (!tourtestvo2.isEmpty()) {
-
-				List<CommentVO> comment_list = kpostService.rcommentList(path_post_idx);
-				List<String> marktitle = new ArrayList<>();
-				List<Double> mapyList = new ArrayList<>();
-				List<Double> mapxList = new ArrayList<>();
-				List<String> imglist = new ArrayList<>();
-
-				for (int i = 0; i < tourtestvo2.size(); i++) {
-					TourtestVO tourtestVO = tourtestvo2.get(i);
-					TourtestVO tourtestVO4 = tourtestvo3.get(i);
-					mv.addObject("mapy" + (i + 1), tourtestVO.getMapy());
-					mv.addObject("mapx" + (i + 1), tourtestVO.getMapx());
-					mv.addObject("title" + (i + 1), tourtestVO4.getTitle());
-
-					mapyList.add(tourtestVO.getMapy());
-					mapxList.add(tourtestVO.getMapx());
-					marktitle.add(tourtestVO4.getTitle());
-
-					TourtestVO tourtestimg = tourtestvoimg.get(i);
-					mv.addObject("rimg" + (i + 1), tourtestimg.getImg_idx());
-					imglist.add(tourtestimg.getImg_idx());
-
-				}
-				mv.addObject("kpostvo", kpostvo);
-				mv.addObject("tourtestvoimg", tourtestvoimg);
-				mv.addObject("comment_list", comment_list);
-				mv.addObject("mapyList", mapyList);
-				mv.addObject("mapxList", mapxList);
-				mv.addObject("marktitle", new Gson().toJson(marktitle));
-				mv.addObject("imglist", imglist);
-				return mv;
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		return new ModelAndView("common_view/error");
+	
+	//============================================================================================
+	// 관리자 첫 페이지
+	@RequestMapping("adminpage")
+	public ModelAndView adminPage() {
+		return new ModelAndView("ko_view/admin_page");
 	}
-
-	//	작성 댓글
+	
+	*/
 	
 
 }

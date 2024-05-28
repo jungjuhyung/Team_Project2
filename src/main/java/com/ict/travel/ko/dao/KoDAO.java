@@ -40,6 +40,9 @@ public class KoDAO {
 		return sqlSessionTemplate.selectOne("ko.place_detail", contentid);
 	}
 
+	public PopupVO popupOne() {
+		return sqlSessionTemplate.selectOne("ko.popup_one");
+	}
 	// ==========================================================================
 
 	public int popupInsert(PopupVO popvo) {
@@ -58,9 +61,6 @@ public class KoDAO {
 		return null;
 	}
 
-	public PopupVO popupOne() {
-		return sqlSessionTemplate.selectOne("ko.popup_one");
-	}
 
 	@Autowired
 	private DataSourceTransactionManager transactionManager;

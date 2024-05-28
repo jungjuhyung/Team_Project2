@@ -27,6 +27,12 @@ public class CommonController {
 		session.removeAttribute("memberUser");
 		session.removeAttribute("u_id");
 		session.removeAttribute("u_idx");
+		
+		session.removeAttribute("adminUser");
+		session.removeAttribute("admin_id");
+		session.removeAttribute("admin_idx");
+		session.removeAttribute("admin_grade");
+		
 		return mv;
 	}
 }

@@ -8,17 +8,15 @@
 <title>상세페이지</title>
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
-	href="resources/ko_css/detail.css">
+	href="resources/ko_css/place_detail.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+<!-- ajax -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-
-	function path_detail(path_post_idx) {
-		location.href = "pathReviewDetail?path_post_idx=" + path_post_idx; 
-	}
 
 	$(document).on("click", ".heart-state", function(e) {
 		let contentid = $(this).val();
@@ -37,7 +35,7 @@
 	// 장소 찜하기
 	function placeWishadd(tag, contentid) {
 		$.ajax({
-			url : "placeWishAdd2",
+			url : "detailPlaceWishAdd",
 			type : "post",
 			data : {
 				contentid : contentid
@@ -62,7 +60,7 @@
 	// 장소 찜제거
 	function placeWishRemove(tag, contentid) {
 		$.ajax({
-			url : "placeWishRemove2",
+			url : "detailPlaceWishRemove",
 			type : "post",
 			data : {
 				contentid : contentid,
@@ -85,6 +83,16 @@
 	}
 	
 </script>
+
+<!-- 버튼 -->
+<script type="text/javascript">
+	
+	function path_detail(path_post_idx) {
+		location.href = "pathReviewDetail?path_post_idx=" + path_post_idx; 
+	}
+	
+</script>
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
@@ -264,17 +272,24 @@
 			<hr>
 
 			<div class="detail_path">
-				<h2>해당장소 포함된 추천경로</h2>
-				<div id="path_wrapper">
-					<c:forEach var="k" items="${path_list}">
-						<div class="path_box" onclick="path_detail(${k.path_post_idx})">
-							<div class="path_image">
-								<img alt="" src="/resources/rc_main_img/${k.firstimage}">
+				<h2>해당 장소 포함된 추천경로</h2>
+					<c:choose>
+						<c:when test="${empty path_list}">
+							<h3 class="path_empty">처음으로 해당 장소를 포함해서 경로를 작성해보세요!</h3>
+						</c:when>
+						<c:otherwise>
+							<div id="path_wrapper">
+								<c:forEach var="k" items="${path_list}">
+									<div class="path_box" onclick="path_detail(${k.path_post_idx})">
+										<div class="path_image">
+											<img alt="" src="/resources/rc_main_img/${k.firstimage}">
+										</div>
+										<div class="path_text">${k.path_post_title}</div>
+									</div>
+								</c:forEach>
 							</div>
-							<div class="path_text">${k.path_post_title}</div>
-						</div>
-					</c:forEach>
-				</div>
+						</c:otherwise>
+					</c:choose>
 			</div>
 
 		</div>

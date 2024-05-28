@@ -46,6 +46,11 @@
  		<mapper resource="mappers/jung-mapper.xml" />
  		<mapper resource="mappers/jung-gpt-mapper.xml" />
  		<mapper resource="mappers/ko-mapper.xml" />
+ 		<mapper resource="mappers/ko-main-mapper.xml" />
+ 		<mapper resource="mappers/ko-place-detail-mapper.xml" />
+ 		<mapper resource="mappers/ko-popup-mapper.xml" />
+ 		<mapper resource="mappers/ko-user-manager-mapper.xml" />
+ 		<mapper resource="mappers/ko-user-detail-mapper.xml" />
  		<mapper resource="mappers/lee-mapper.xml" />
 	</mappers>
 </configuration>
