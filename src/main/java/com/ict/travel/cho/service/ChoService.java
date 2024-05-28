@@ -38,6 +38,8 @@ public interface ChoService {
 	AdminVO getAdminDetail(String admin_idx);
 	String getAdminUpdate(AdminVO adminVO);
 	int getAdminListCount(String text);
+	List<ChoTourVO> getRandomTourList(String areaCode, int limit);
+	List<PathPostVO> getAllPathPostList();
 	
 
 }

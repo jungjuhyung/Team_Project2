@@ -189,12 +189,16 @@ public class ChoAjaxController {
 	@RequestMapping(value = "searchAreaPlace", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String searchAreaPlace(String areaCode, HttpSession session, String type) {
+		try {
+			
+		
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
 		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 10);
 		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 10);
 		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like","1",0, 10);
-		
+		List<ChoTourVO> randomList = choService.getRandomTourList(areaCode,3);
+	
 		Map<String, Object> result = new HashMap<>();
 
 	
@@ -225,14 +229,27 @@ public class ChoAjaxController {
 					}
 				}
 			}
+			for (ChoTourVO k : randomList) {
+				for (PlaceWishVO j : placeWishList) {
+					if(k.getContentid().equals(j.getContentid())) {
+						k.setUheart("1");
+						break;
+					}
+				}
+			}
 		}
 		result.put("touristList", touristList);
 		result.put("partyList", partyList);
 		result.put("restaurantList", restaurantList);
+		result.put("randomList", randomList);
 		
 		Gson gson = new Gson();
 		String jsonString = gson.toJson(result);
 		return jsonString;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null ;
 	}
 	
 	// 지역 경로 검색
@@ -244,6 +261,7 @@ public class ChoAjaxController {
 		List<PathPostVO> touristList = choService.getChoTourPathList(areaCode, "999", "12",null,"like","2",0, 10);
 		List<PathPostVO> partyList = choService.getChoTourPathList(areaCode, "999", "15",null,"like","2",0, 10);
 		List<PathPostVO> restaurantList = choService.getChoTourPathList(areaCode, "999", "39",null,"like","2",0, 10);
+		List<PathPostVO> allList = choService.getAllPathPostList();
 		
 		Map<String, Object> result = new HashMap<>();
 
@@ -275,10 +293,19 @@ public class ChoAjaxController {
 					}
 				}
 			}
+			for (PathPostVO k : allList) {
+				for (PathWishVO j : pathWishList) {
+					if(k.getPath_post_idx().equals(j.getPath_post_idx())) {
+						k.setU_heart("1");
+						break;
+					}
+				}
+			}
 		}
 		result.put("touristList", touristList);
 		result.put("partyList", partyList);
 		result.put("restaurantList", restaurantList);
+		result.put("allList", allList);
 		
 		Gson gson = new Gson();
 		String jsonString = gson.toJson(result);

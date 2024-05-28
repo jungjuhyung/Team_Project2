@@ -342,5 +342,25 @@ public class ChoDAO {
 		return 0;
 	}
 
+	public List<ChoTourVO> getRandomTourList(String areaCode, int limit) {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("areaCode", areaCode);
+			map.put("limit", limit);
+			return sqlSessionTemplate.selectList("cho_mapper.RandomTourList", map);
+		} catch (Exception e) {
+			System.out.println("랜덤 TourList :" + e);
+		}
+		return null;
+	}
+	public List<PathPostVO> getAllPathPostList() {
+		try {
+			return sqlSessionTemplate.selectList("cho_mapper.RandomPathList");
+		} catch (Exception e) {
+			System.out.println("PathPostList :" + e);
+		}
+		return null;
+	}
+
 
 }

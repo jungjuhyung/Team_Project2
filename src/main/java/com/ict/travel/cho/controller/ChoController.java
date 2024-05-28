@@ -74,13 +74,6 @@ public class ChoController {
 	}
 	
 	
-	// 관리자 로그인 페이지
-//	@RequestMapping("adminLogin")
-//	public ModelAndView adminLogin() {
-//		ModelAndView mv = new ModelAndView("cho_views/adminLogin");
-//		return mv;
-//	}
-	
 	// 관리자 로그인 체크
 	@PostMapping("adminLoginOK")
 	public ModelAndView adminLoginOK(HttpSession session ,AdminVO adminVO) {
@@ -110,12 +103,5 @@ public class ChoController {
 		ModelAndView mv = new ModelAndView("cho_views/adminManage");
 		return mv;
 	}
-	
-//	// 관리자 생성
-//	@RequestMapping("CreateAdmin")
-//	public ModelAndView CreateAdmin() {
-//		ModelAndView mv = new ModelAndView("cho_views/CreateAdmin");
-//		return mv;
-//	}
-	
+
 }
