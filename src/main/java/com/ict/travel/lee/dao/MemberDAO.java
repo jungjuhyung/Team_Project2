@@ -46,6 +46,19 @@ public class MemberDAO {
 		}
 		return null;
 	}
+	public String chkPassword(String u_pwd) {
+		try {
+			int result = sqlSessionTemplate.selectOne("lee-mapper.pwdchk", u_pwd);
+			
+			if(result > 0) {
+				return "0";
+			}
+			return "1";
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
 	// 회원가입
 	public int getSignUp(MemberVO mvo) {
@@ -82,7 +95,7 @@ public class MemberDAO {
 	}
 	
 	
-	// 비밀번호 변경
+	// 임시 비밀번호 받기
 	public int PassUpdate(MemberVO memberVO) {
 		try {
 			return sqlSessionTemplate.update("lee-mapper.pass_update", memberVO);
@@ -128,6 +141,7 @@ public class MemberDAO {
 		return -1;
 		
 	}
+	
 
 	// 네이버 정보조회
 	public MemberVO findnaver(HashMap<String, Object> userInfo2) {
@@ -174,6 +188,15 @@ public class MemberDAO {
 			System.out.println(e);
 		}
 		return -1;
+	}
+	
+	public MemberVO getNewPwd(String u_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("lee-mapper.newpass", u_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
 	}
 	
 }

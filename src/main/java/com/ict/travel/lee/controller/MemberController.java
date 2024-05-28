@@ -68,11 +68,18 @@ public class MemberController {
 		return result;
 	}
 	
-	// 닉네임 중복 체크(진행중)
+	// 닉네임 중복 체크
 	@RequestMapping(value = "getNickChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getNickChk(String u_nickname) {
 		String res = memberService.getNickChk(u_nickname);
+		return res;
+	}
+	// 비밀번호 체크
+	@RequestMapping(value = "chkPassword.do", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String chkPassword(String u_pwd) {
+		String res = memberService.chkPassword(u_pwd);
 		return res;
 	}
 	
@@ -127,15 +134,19 @@ public class MemberController {
 			if(adminVO2 != null) {
 			
 				if(! passwordEncoder.matches(adminVO.getAdmin_pwd(), adminVO2.getAdmin_pwd())) {
-					mv.setViewName("redirect:adminLogin");
+					mv.setViewName("redirect:loginForm");
 					return mv;
 				}else  {
-					session.setAttribute("adminUser", adminVO2);
-					session.setAttribute("admin_id", adminVO2.getAdmin_id());
-					session.setAttribute("admin_idx", adminVO2.getAdmin_idx());
-					session.setAttribute("admin_grade", adminVO2.getAdmin_grade());
-					System.out.println(1);
-					return mv;
+					if(adminVO2.getAdmin_state().equals("0")) {
+						mv.setViewName("redirect:loginForm");
+						return mv;
+					}else {
+						session.setAttribute("adminUser", adminVO2);
+						session.setAttribute("admin_id", adminVO2.getAdmin_id());
+						session.setAttribute("admin_idx", adminVO2.getAdmin_idx());
+						session.setAttribute("admin_grade", adminVO2.getAdmin_grade());
+						return mv;
+					}
 				}
 			}
 			
