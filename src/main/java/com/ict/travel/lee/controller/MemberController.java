@@ -164,6 +164,8 @@ public class MemberController {
 				session.setAttribute("u_idx", mvo2.getU_idx());
 				
 				// 유저의 wish별 gpt의 추천 내용을 세션에 넣기
+				// GPT 계속 돈이 나가기 때문에 주석처리
+				/*
 				List<GptCountVO> areaCount = gptService.getAreaCount(mvo2.getU_idx());
 				List<GptCountVO> contentTypeCount = gptService.getContentTypeCount(mvo2.getU_idx());
 				StringBuffer sb = new StringBuffer();
@@ -186,7 +188,7 @@ public class MemberController {
 				String test2 = perTools.perMessagesList(mvo2.getU_thread_id());
 				System.out.println(test1);
 				System.out.println(test2);
-				
+				*/
 				
 				return new ModelAndView("redirect:main_page.do"); 
 				
