@@ -256,7 +256,7 @@ public class ReportController {
 	}
 	
 	@PostMapping("reportDelete")
-	public ModelAndView getBbsDelete(@ModelAttribute("cPage")String cPage,
+	public ModelAndView reportDelete(@ModelAttribute("cPage")String cPage,
 			@ModelAttribute("report_idx")String report_idx,
 			@ModelAttribute("report_cpw")String report_cpw) {
 		return new ModelAndView("kim_view/reportDelete");

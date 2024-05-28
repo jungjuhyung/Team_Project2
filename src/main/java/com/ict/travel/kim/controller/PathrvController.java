@@ -18,11 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.TourtestVO;
 import com.ict.travel.kim.service.KpostService;
 import com.ict.travel.kim.service.TourtestService;
+import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Controller
@@ -116,7 +118,22 @@ public class PathrvController {
 	
 	// 삭제 
 	
+	@PostMapping("pathDelete")
+	public ModelAndView pathDelete(@ModelAttribute("path_post_idx")String path_post_idx) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("왜????");
+		System.out.println("ddd" + path_post_idx);
+		int result = kpostService.pathDelete(path_post_idx);
+		System.out.println("ddd2222222" + path_post_idx);
+		if(result > 0) {
+			System.out.println("여기는????");
+			mv.setViewName("redirect:pathCategory");
+			return mv;
+		}
 	
+		return new ModelAndView("error");
+		
+	}
 	
 	
 	

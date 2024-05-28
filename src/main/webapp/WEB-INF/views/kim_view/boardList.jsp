@@ -145,6 +145,7 @@ $(".board-list-paging").html(content);
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp"%>
+<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
 	<div id="board_form" align="center">
 		<div id="board_maint">자유게시판</div>
 		<table id="boardtable" summary="게시판 목록" style="width: 1000px;">
