@@ -30,8 +30,8 @@ public class PersonalAssistantsController {
 		MemberVO mvo = (MemberVO) session.getAttribute("memberUser");
 		
 		String message = "";
-		perTools.perMessageAdd(mvo.getU_thread_id(), message);
-		perTools.perAnswerCreate(mvo.getU_thread_id());
-		return perTools.perMessagesList(mvo.getU_thread_id());
+		perTools.perMessageAdd(mvo.getU_per_thread_id(), message);
+		perTools.perAnswerCreate(mvo.getU_per_thread_id());
+		return perTools.perMessagesList(mvo.getU_per_thread_id());
 	}
 }

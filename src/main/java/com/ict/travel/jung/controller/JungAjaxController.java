@@ -55,8 +55,8 @@ public class JungAjaxController {
 	@RequestMapping(value = "thread_del", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public  String thread_del() {
-		try {
-			String del_thread = "thread_zRMEFhbB0HgUa9oEBsk5QDoY";
+		try {		
+			String del_thread = "thread_1d0SArXCsuv11MYVSILxiaR7";
 			String apiURL = "https://api.openai.com/v1/threads/"+del_thread;
 			String api_key = "sk-proj-yEkSRF1dONAgQbeCrVazT3BlbkFJvbZYLevgHSgz0Icexd0c";
 			URL url = new URL(apiURL);

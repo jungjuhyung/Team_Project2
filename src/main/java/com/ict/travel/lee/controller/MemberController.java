@@ -164,31 +164,34 @@ public class MemberController {
 				session.setAttribute("u_idx", mvo2.getU_idx());
 				
 				// 유저의 wish별 gpt의 추천 내용을 세션에 넣기
-				// GPT 계속 돈이 나가기 때문에 주석처리
-				/*
 				List<GptCountVO> areaCount = gptService.getAreaCount(mvo2.getU_idx());
 				List<GptCountVO> contentTypeCount = gptService.getContentTypeCount(mvo2.getU_idx());
+				System.out.println("area"+areaCount);
+				System.out.println("content"+contentTypeCount);
+				String message = "";
 				StringBuffer sb = new StringBuffer();
-				sb.append("Areacode that the user has saved ");
-				for (GptCountVO k : areaCount) {
-					String content = "areacode : "+k.getAreacode()+"("+k.getAreacode_count()+")";
-					sb.append(content);
-				} 
-				sb.append("contenttypeid that the user has saved ");
-				for (GptCountVO k : contentTypeCount) {
-					String content = "contenttypeid : "+k.getContenttypeid()+"("+k.getContenttypeid_count()+")";
-					sb.append(content);
+				if (areaCount.isEmpty() && contentTypeCount.isEmpty()) {
+					message = "유저의 위시리스트가 비어있습니다. vector_storage(vs_PhohXJdcZlxuz5yNEzJIsK9m)에 저장되어있는 데이터에서 여행갈만한 장소를 5곳 추천해줘.";
+				}else {
+					sb.append("[");
+					for (GptCountVO k : areaCount) {
+						String content = "arearcode:"+k.getAreacode()+"을 찜한 개수="+k.getAreacode_count()+"개 & ";
+						sb.append(content);
+					} 
+					for (GptCountVO k : contentTypeCount) {
+						String content = "arearcode:"+k.getContenttypeid()+"을 찜한 개수="+k.getContenttypeid_count()+"개 & ";
+						sb.append(content);
+					}
+					sb.append("]");
+					sb.append("해당 정보를 바탕으로 vector_storage(vs_PhohXJdcZlxuz5yNEzJIsK9m)에 저장되어있는 데이터에서 여행갈만한 장소를 5곳 추천해줘.");
+					message = sb.toString();
 				}
-				sb.append("Recommend travel locations to the user based on the information and previously saved user messages in the Thread.");
-				
-				String message = sb.toString();
 				System.out.println(message);
-				perTools.perMessageAdd(mvo2.getU_thread_id(), message);
-				String test1 = perTools.perAnswerCreate(mvo2.getU_thread_id());
-				String test2 = perTools.perMessagesList(mvo2.getU_thread_id());
+				perTools.perMessageAdd(mvo2.getU_per_thread_id(), message);
+				String test1 = perTools.perAnswerCreate(mvo2.getU_per_thread_id());
+				String test2 = perTools.perMessagesList(mvo2.getU_per_thread_id());
 				System.out.println(test1);
 				System.out.println(test2);
-				*/
 				
 				return new ModelAndView("redirect:main_page.do"); 
 				
