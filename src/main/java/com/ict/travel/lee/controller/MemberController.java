@@ -78,9 +78,17 @@ public class MemberController {
 	// 비밀번호 체크
 	@RequestMapping(value = "chkPassword.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
-	public String chkPassword(String u_pwd) {
-		String res = memberService.chkPassword(u_pwd);
-		return res;
+	public String chkPassword(String u_pwd, String u_idx) {
+		System.out.println("비번체크 ajax");
+		System.out.println(u_idx);
+		System.out.println(u_pwd);
+		MemberVO mvo = memberService.getMemberUpDetail(u_idx);
+		if (! passwordEncoder.matches(u_pwd, mvo.getU_pwd())) {
+			return "0";
+		}else {
+			return "1";
+		}
+		//String res = memberService.chkPassword(u_pwd);
 	}
 	
 	@RequestMapping("join_success_go.do")

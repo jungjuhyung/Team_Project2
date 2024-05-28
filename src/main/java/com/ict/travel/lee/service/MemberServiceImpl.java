@@ -76,6 +76,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.chkPassword(u_pwd);
 	}
 	
+	@Override
+	public int getNewPwd(MemberVO mvo) {
+		return memberDAO.getNewPwd(mvo);
+	}
+	
 	// 아이디 찾기
 	@Override
 	public List<MemberVO> getFindId(MemberVO mvo) {
@@ -320,10 +325,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 
-	@Override
-	public MemberVO getNewPwd(String u_idx) {
-		return memberDAO.getNewPwd(u_idx);
-	}
+	
 
 	
 

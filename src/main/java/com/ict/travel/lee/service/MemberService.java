@@ -45,7 +45,9 @@ public interface MemberService {
 
 	public int getMemberUpOk(MemberVO mvo);
 	
-	public MemberVO getNewPwd(String u_idx);
+	public int getNewPwd(MemberVO mvo);
+
+	
 
 
 

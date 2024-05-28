@@ -44,44 +44,31 @@
 			
 		});
 		
-		$("#u_pwd").keyup(function() {
-			let u_pwd = $("#u_pwd").val();
-		
-		
-			$.ajax({
-				url : "chkPassword.do",
-				data : {u_pwd: u_pwd},
-				method : "post",
-				dataType : "text",
-				success : function(data) {
-					
-					if(data == '1' && u_pwd){
-						$("#pwd_chk").text("일치합니다.").css('color', 'green');
-						$("#btn_1").removeAttr("disabled");
-						$("#newpwd").removeAttr("disabled"); 
-					} else if(data == '0'){
-						$("#pwd_chk").text("일치하지 않습니다. 다시 입력해주세요.").css('color', 'red');
-						$("#btn_1").attr("disabled", "disabled");
-						$("#newpwd").attr("disabled", "disabled");
-					} else{
-						// 비밀번호가 비어있는 경우
-						$("#pwd_chk").text(""); // 아무것도 표시하지 않음
-		                $("#btn_1").attr("disabled", "disabled");
-		                $("#newpwd").attr("disabled", "disabled");
-					}
-				},
-				error : function() {
-					alert("읽기 실패");
-				}
-			});
-		});	
+			 
 		
 	});
-	
-	 /* function chk_password(f) {
-		f.action = "new_pass.do";
-		f.submit();
-	}  */
+	function chk_password(f) {
+        $.ajax({
+            url : "chkPassword.do",
+            data : {u_pwd: $("#u_pwd").val(),
+            		u_idx: $("#u_idx").val()},
+            method : "post",
+            dataType : "text",
+            success : function(data) {
+                if(data == '1'){
+                    f.action = "new_pass.do";
+                    f.submit();
+                } else if(data == '0'){
+                    alert("비밀번호가 일치하지 않습니다.");
+                    $("#u_pwd").val("");
+                    $("#u_pwd").focus();
+                }
+            },
+            error : function() {
+                alert("읽기 실패");
+            }
+        });
+    }
 	
 	
 	function edit_success(f) {
@@ -148,7 +135,7 @@
             <div class="btn">
 	            <ul class="list-form2">
 	            	<li>
-	            		<input type="button" id="newpwd" value="비밀번호 변경" onclick="chk_password(this.form)" disabled>
+	            		<input type="button" id="newpwd" value="비밀번호 변경" onclick="chk_password(this.form)" >
 	            		<input type="button" id="btn_1" value="수정하기" onclick="edit_success(this.form)" disabled>
 	            		<input type="reset" id="btn_2" value=" 취소">
 	            	</li>

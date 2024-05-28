@@ -27,7 +27,7 @@ body {
 }
 .edit-form{
 	width: 600px;
-	height: 800px;
+	height: 900px;
 	padding: 30px;
 	background-color: pink;
 	box-shadow:3px 3px 10px #333;
@@ -85,7 +85,7 @@ body {
 .list-form2{
 	list-style-type: none;
 }
-.list-form2 #btn_1,#btn_2{
+.list-form2 #newpwd,#btn_1,#btn_2{
 	width:60%;
 	height: 40px;
 	margin: 10px;
@@ -93,6 +93,16 @@ body {
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+}
+
+#newpwd{
+	width: 80%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #F9F3FF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #btn_1 {
@@ -113,6 +123,10 @@ body {
     background-color: #F9F3FF;
     border: none;
     border-radius: 5px;
+}
+
+#newpwd:hover{
+	color: pink;
 }
 
 #btn_1:hover {

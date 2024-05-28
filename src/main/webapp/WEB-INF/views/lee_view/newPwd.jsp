@@ -9,7 +9,13 @@
 <link rel="stylesheet" type="text/css" href="resources/lee_css/newPwd.css">
 <script type="text/javascript">
 	function pwd_up(f) {
-		f.action= "pwd_up_ok.do";
+		if(f.u_pwd.value != f.pwdchk.value){
+			alert("비밀번호가 일치하지 않습니다.");
+			f.focus(f.u_pwd.value);
+			return;
+		}
+		
+		f.action= "new_pass_ok.do";
 		f.submit();
 	}
 </script>
@@ -23,9 +29,10 @@
 			<c:if test="${not empty message }">
 				<div>${message}</div>
 			</c:if>
-			<form action="new_pass_ok.do" method="post">
-				<input type="password" id="u_pwd" name="u_pwd" value="새 비밀번호"/> 
-				<input type="password" id="u_pwd_new" name="u_pwd_new" value="새 비밀번호 확인"/> 
+			<form method="post">
+				<input type="password"  name="u_pwd" placeholder="새 비밀번호"/> 
+				<input type="password"  name="pwdchk" placeholder="새 비밀번호 확인"/> 
+				<input type="hidden" name="u_idx" value="${mvo.u_idx}">
 				<input type="button" value="확인" onclick="pwd_up(this.form)">
 			</form>
 		</div>

@@ -190,13 +190,13 @@ public class MemberDAO {
 		return -1;
 	}
 	
-	public MemberVO getNewPwd(String u_idx) {
+	public int getNewPwd(MemberVO mvo) {
 		try {
-			return sqlSessionTemplate.selectOne("lee-mapper.newpass", u_idx);
+			return sqlSessionTemplate.update("lee-mapper.newpass", mvo);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return null;
+		return -1;
 	}
 	
 }

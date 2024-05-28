@@ -34,6 +34,11 @@
   	<select id="pwdchk" parameterType="String"  resultType="int">
   		select count(*) from user_t where u_pwd = #{u_pwd}
   	</select>
+  	<update id="newpass" parameterType="mvo">
+  		update user_t
+  		set u_pwd = #{u_pwd}
+  		where u_idx = #{u_idx}
+  	</update>
   	<select id="findkakao" parameterType="Map" resultType="int">
   		select * from user_t where u_email = #{email} and u_nickname = #{nickname} 
   	</select>
@@ -71,10 +76,8 @@
   	
   	<update id="member_up" parameterType="mvo">
   		update user_t
-  		set u_nickname = #{u_nickname} , u_pwd = #{u_pwd} ,u_self = #{u_self}
+  		set u_nickname = #{u_nickname} , u_self = #{u_self}
   		where u_idx = #{u_idx}
   	</update>
-  	<select id="newpass" parameterType="String" resultType="mvo">
-  		select * from usert_where u_pwd = #{u_pwd}
-  	</select>
+  	
   </mapper>
