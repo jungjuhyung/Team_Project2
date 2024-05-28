@@ -93,7 +93,7 @@
 							<c:forEach var="k" items="${path_list}" >
 								<tr>
 									<td>
-										<img alt="" src="/resources/rc_main_img/test01.png" width="100px">
+										<img alt="" src="/resources/rc_main_img/${k.firstimage}" width="100px">
 									</td>
 									<td>
 										<c:choose>

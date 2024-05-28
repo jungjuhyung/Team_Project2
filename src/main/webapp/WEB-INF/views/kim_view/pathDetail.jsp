@@ -106,6 +106,7 @@ function closeModal() {
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+	
 	<form method="post">
 	<div id="world">
 		<div id="infoUser">
@@ -164,8 +165,8 @@ function closeModal() {
 				<button class="reportbtn" onclick="">수정</button>
 			</c:if>
 			<c:if test="${adminUser != null || membervo.u_idx == kpostvo.u_idx}">
-				<input type="hidden" name="path_post_idx" value="${path_post_idx}">
-				<input type="button" class="reportbtn" value="삭제" onclick="pathDelete"/>
+				<input type="hidden" name="path_post_idx" value="${kpostvo.path_post_idx}">
+				<input type="button" class="reportbtn" value="삭제" onclick="pathDelete(this.form)"/>
 			</c:if>
 			<c:if test="${membervo.u_idx != kpostvo.u_idx && membervo != null}">
 				<input type="hidden" name="reported_id" value="${kpostvo.u_id}">
@@ -185,39 +186,12 @@ function closeModal() {
 		        </c:choose>
 		    </div>
 		</c:if>
+	</div>
 	<div class="empty-area"></div>
 	</form>
 	
 	
-		<%-- 댓글 출력 --%>
-	<div class="recomment">
-		<c:forEach var="k" items="${comment_list}">
-			<div>
-				<form method="post">
-					<div class="renick">${k.u_nickname}(${k.u_lev})</div>
-					<div class="recontent">
-						<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
-					</div>
-					<div class="rebutton">${k.regdate.substring(2,19)}
-						<c:choose>
-							<c:when test="${membervo.u_idx == k.u_idx || adminUser != null}">							
-								<input class="rewrite" type="button" value="삭제" onclick="rcommentDelete(this.form)">
-							</c:when>
-							<c:otherwise>
-								<span></span>
-							</c:otherwise>
-						</c:choose>
-						<c:if test="${membervo != null && membervo.u_idx != k.u_idx}">
-							<input type="hidden" name="reported_id" value="${k.u_id}">
-							<input class="rewrite" type="button" value="신고" onclick="reportWrite(this.form)">
-						</c:if>
-					</div>
-					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
-					<input type="hidden" name = "path_post_idx" value="${k.path_post_idx}" >
-				</form>
-			</div>
-		</c:forEach>
-	</div>	
+	
 	
 	<c:if test="${membervo == null}">
 		<div class="empty-area"></div>
@@ -246,6 +220,44 @@ function closeModal() {
 	</div>
 	</c:if>
 		<div id="empty-area"></div>
+		
+		<%-- 댓글 출력 --%>
+		<c:choose>
+			<c:when test="${empty comment_list}">
+				<div></div>
+			</c:when>
+			<c:otherwise>
+			<div class="recomment2">
+		<c:forEach var="k" items="${comment_list}">
+			<div>
+				<form method="post">
+					<div class="renick">${k.u_nickname}(${k.u_lev})</div>
+					<div class="recontent">
+						<textarea rows="3" cols="40" name="content" readonly>${k.content}</textarea>
+					</div>
+					<div class="rebutton">${k.regdate.substring(2,19)}
+						<c:choose>
+							<c:when test="${membervo.u_idx == k.u_idx || adminUser != null}">							
+								<input class="rewrite" type="button" value="삭제" onclick="rcommentDelete(this.form)">
+							</c:when>
+							<c:otherwise>
+								<span></span>
+							</c:otherwise>
+						</c:choose>
+						<c:if test="${membervo != null && membervo.u_idx != k.u_idx}">
+							<input type="hidden" name="reported_id" value="${k.u_id}">
+							<input class="rewrite" type="button" value="신고" onclick="reportWrite(this.form)">
+						</c:if>
+					</div>
+					<input type="hidden" name = "comment_idx" value="${k.comment_idx}" >
+					<input type="hidden" name = "path_post_idx" value="${k.path_post_idx}" >
+				</form>
+			</div>
+		</c:forEach>
+	</div>	
+			</c:otherwise>
+		</c:choose>
+	
 	
 	<script>
 	console.log(${mapyList.size()})

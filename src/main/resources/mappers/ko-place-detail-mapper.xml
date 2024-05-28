@@ -6,7 +6,7 @@
 <mapper namespace="ko_detail">
 	
 	<select id="path_list" parameterType="String" resultType="kopost">
-		select p.*
+		select distinct p.*
 		from pathmarker_t m , pathpost_t p
 		where m.path_post_idx = p.path_post_idx and m.contentid = #{contentid}
 		order by p.heart desc

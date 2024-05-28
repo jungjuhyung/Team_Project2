@@ -31,8 +31,11 @@
 		<div style="margin: 30px auto; text-align: center; ">
 			<input type="button" class="user_btn3" value="유저관리" onclick="location.href='user_list.do'" />
 			<input type="button" class="user_btn3" value="팝업관리" onclick="location.href='popup_img.do'" />
+			<c:if test="${admin_grade == '2'}">
+				<input type="button" class="user_btn3" value="채팅상담" onclick="location.href='adminQnAChat'" />
+			</c:if>
 			<c:if test="${admin_grade == '9'}">
-				<input type="button" class="user_btn3" value="관리자관리" onclick="location.href='adminManage'" />
+				<input type="button" class="user_btn3" value="총관리자" onclick="location.href='adminManage'" />
 			</c:if>
 		</div>
 			
