@@ -38,7 +38,8 @@ public class PersonalAssistantsController {
 	@RequestMapping(value = "perbot", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String personalBot(HttpSession session) {
-		String aws = (String) session.getAttribute("gptAws");
+		//String aws = (String) session.getAttribute("gptAws");
+		String aws = "2725257,126906,231922,2754001,2903472";
 		String[] values = aws.split(",");
 		List<GptAwsVO> value_list = new ArrayList<GptAwsVO>();
 		
@@ -59,35 +60,37 @@ public class PersonalAssistantsController {
 	@RequestMapping(value = "re_recommend", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String re_recommend(HttpSession session) {
-		MemberVO mvo2 = (MemberVO) session.getAttribute("memberUser");
-		String message = "오늘 추천해준 장소가 아닌 다른 추천 장소를 vector_storage(vs_PhohXJdcZlxuz5yNEzJIsK9m)에 저장되어있는 데이터에서 5곳 추천해줘.";
-		perTools.perMessageAdd(mvo2.getU_per_thread_id(), message);
-		perTools.perAnswerCreate(mvo2.getU_per_thread_id());
-		String gptAws = perTools.perMessagesList(mvo2.getU_per_thread_id());
-		
-		Gson gson = new Gson();
-		JsonParser parser = new JsonParser();
-        // JSON 문자열을 JsonElement로 파싱
-        JsonElement jsonElement = parser.parse(gptAws);
-
-        // JsonElement를 JsonObject로 변환
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-
-        // data 필드에서 content 필드의 value 값을 추출
-        List<String> values = new ArrayList<>();
-        JsonArray dataArray = jsonObject.getAsJsonArray("data");
-        for (JsonElement element : dataArray) {
-            JsonObject dataObject = element.getAsJsonObject();
-            JsonArray contentArray = dataObject.getAsJsonArray("content");
-            for (JsonElement contentElement : contentArray) {
-                JsonObject contentObject = contentElement.getAsJsonObject();
-                JsonObject textObject = contentObject.getAsJsonObject("text");
-                String value = textObject.get("value").getAsString();
-                values.add(value);
-            }
-        }
-        session.setAttribute("gptAws", values.get(0).replace(" ", ""));
-		String[] value = values.get(0).replace(" ", "").split(",");
+//		MemberVO mvo2 = (MemberVO) session.getAttribute("memberUser");
+//		String message = "오늘 추천해준 장소가 아닌 다른 추천 장소를 vector_storage(vs_PhohXJdcZlxuz5yNEzJIsK9m)에 저장되어있는 데이터에서 5곳 추천해줘.";
+//		perTools.perMessageAdd(mvo2.getU_per_thread_id(), message);
+//		perTools.perAnswerCreate(mvo2.getU_per_thread_id());
+//		String gptAws = perTools.perMessagesList(mvo2.getU_per_thread_id());
+//		
+//		Gson gson = new Gson();
+//		JsonParser parser = new JsonParser();
+//        // JSON 문자열을 JsonElement로 파싱
+//        JsonElement jsonElement = parser.parse(gptAws);
+//
+//        // JsonElement를 JsonObject로 변환
+//        JsonObject jsonObject = jsonElement.getAsJsonObject();
+//
+//        // data 필드에서 content 필드의 value 값을 추출
+//        List<String> values = new ArrayList<>();
+//        JsonArray dataArray = jsonObject.getAsJsonArray("data");
+//        for (JsonElement element : dataArray) {
+//            JsonObject dataObject = element.getAsJsonObject();
+//            JsonArray contentArray = dataObject.getAsJsonArray("content");
+//            for (JsonElement contentElement : contentArray) {
+//                JsonObject contentObject = contentElement.getAsJsonObject();
+//                JsonObject textObject = contentObject.getAsJsonObject("text");
+//                String value = textObject.get("value").getAsString();
+//                values.add(value);
+//            }
+//        }
+//        session.setAttribute("gptAws", values.get(0).replace(" ", ""));
+//		String[] value = values.get(0).replace(" ", "").split(",");
+		String aws = "125266,125407,125408,125409,125411";
+		String[] value = aws.split(",");
 		List<GptAwsVO> value_list = new ArrayList<GptAwsVO>();
 		
 		for (String contentid : value) {
@@ -98,6 +101,7 @@ public class PersonalAssistantsController {
 			}
 		}
 		if (!value_list.isEmpty()) {
+			Gson gson = new Gson();
 			String jsonString =gson.toJson(value_list);
 			return jsonString;
 		}	
