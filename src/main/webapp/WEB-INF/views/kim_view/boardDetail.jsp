@@ -45,6 +45,7 @@ function commentDelete(f) {
 
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%> --%>
 <form method="post">
 		<div class="boardcontainer">
 			<div class="insert">
@@ -145,14 +146,17 @@ function commentDelete(f) {
 	</div>
 	
 <script>
+
+	let $j = jQuery.noConflict();
+	
     // 메인화면 페이지 로드 함수
-    $(document).ready(function () {
-        $('#summernote').summernote({
+    $j(document).ready(function () {
+    	$j('#summernote').summernote({
             placeholder: '내용을 작성하세요',
             height: 400,
             maxHeight: 400
         });
-        $('#summernote').summernote('disable');
+    	$j('#summernote').summernote('disable');
     });
 </script>
 <%@ include file="/WEB-INF/views/common_view/footer.jsp"%>

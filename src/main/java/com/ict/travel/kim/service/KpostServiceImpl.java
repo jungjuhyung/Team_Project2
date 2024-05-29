@@ -61,6 +61,11 @@ public class KpostServiceImpl implements KpostService{
 		return kpostDAO.pathTable(path_post_idx);
 	}
 
+	@Override
+	public int pathDelete(String path_post_idx) {
+		return kpostDAO.pathDelete(path_post_idx);
+	}
+
 	
 
 

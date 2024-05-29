@@ -25,6 +25,16 @@ public class KpostDAO {
 		return null;
 	}
 	
+	// 삭제
+	public int pathDelete(String path_post_idx) {
+		try {
+			return sqlSessionTemplate.delete("kpost_t.pathDelete", path_post_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return -1;
+	}
+	
 	
 	public List<CommentVO> rcommentList(String path_post_idx) {
 		try {

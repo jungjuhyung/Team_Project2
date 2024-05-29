@@ -27,6 +27,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
 	<form method="post">
 	<section id="boardwrap">
 		<div id="boarddeletecon">

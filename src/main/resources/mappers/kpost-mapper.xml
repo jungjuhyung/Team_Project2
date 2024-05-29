@@ -12,23 +12,18 @@
 	    inner join user_t u on p.u_idx = u.u_idx
 	    where p.path_post_idx = #{path_post_idx}
 	</select>
-	<!-- 
-	<select id="kpostDetail" resultType="kpostvo">
-		select * from pathpost_t where path_post_idx = #{path_post_idx}
-	</select>
-	 -->
 	
-	<!-- 
+	<delete id="pathDelete" parameterType="String">
+		delete from pathpost_t where path_post_idx = #{path_post_idx}
+	</delete>
+	
 	<select id="rcommentList" parameterType="String" resultType="commentvo">
-		select * from comment_t where path_post_idx = #{path_post_idx}
-	</select>
-	 -->
-	<select id="rcommentList" parameterType="String" resultType="commentvo">
-	    select c.*, u.u_lev
-	    from comment_t c
-	    inner join user_t u on c.u_idx = u.u_idx
-	    where c.path_post_idx = #{path_post_idx}
-	</select>
+        select c.*, u.u_lev
+        from comment_t c
+        inner join user_t u on c.u_idx = u.u_idx
+        where c.path_post_idx = #{path_post_idx}
+        order by regdate desc
+    </select>
 	
 	
 	<insert id="rcommentInsert" parameterType="commentvo">

@@ -52,6 +52,7 @@ function reportConfirm(f) {
 
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%> --%>
 <form method="post">
 		<div class="reportcontainer">
 			<div class="insert">

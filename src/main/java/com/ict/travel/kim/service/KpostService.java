@@ -26,5 +26,5 @@ public interface KpostService {
 	
 	public KpostVO pathTable(String path_post_idx);
 	
-	
+	public int pathDelete(String path_post_idx);
 }
