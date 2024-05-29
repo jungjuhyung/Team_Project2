@@ -134,7 +134,7 @@
 		<div class = "modalwrap">
 			<div class="modal_box6">
 			  <!-- 콘솔 메시지의 역할을 하는 로그 텍스트 에리어.(수신 메시지도 표시한다.) -->
-			  	<textarea id="messageTextArea1" rows="10" cols="50"></textarea>
+			  	<textarea id="messageTextArea1" rows="10" cols="50" disabled="disabled"></textarea>
 				<form id = "broadChat">
 				    <!-- 유저 명을 입력하는 텍스트 박스(기본 값은 anonymous(익명)) -->
 				    <div class = "broad-div"><span>닉네임 :</span> <input id="user1" type="text" value="anonymous"></div>
@@ -156,7 +156,7 @@
 		<div class = "modalwrap">
 			<div class="modal_box7">
 			  <!-- 콘솔 메시지의 역할을 하는 로그 텍스트 에리어.(수신 메시지도 표시한다.) -->
-			  	<textarea id="messageTextArea2" rows="10" cols="50"></textarea>
+			  	<textarea id="messageTextArea2" rows="10" cols="50" disabled="disabled"></textarea>
 				<form id = "askChat">
 				    <!-- 유저 명을 입력하는 텍스트 박스(기본 값은 anonymous(익명)) -->
 				    <div class = "broad-div"><span>아이디 :</span> <input id="user2" type="text" value="${u_id }" disabled></div>

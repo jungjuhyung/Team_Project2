@@ -23,7 +23,7 @@ import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
 
 @RestController
-public class ChoAdminAjaxController {
+public class RestAdminController {
 	
 	@Autowired
 	private ChoService choService;
@@ -173,10 +173,13 @@ public class ChoAdminAjaxController {
 		return jsonString;
 		
 	}
-	// 관리자 디테일 불러오기
+	// 관리자 수정
 	@RequestMapping(value = "adminUpdate", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String adminUpdate(AdminVO adminVO) throws Exception{
+		if(adminVO.getAdmin_pwd() != null) {
+			adminVO.setAdmin_pwd(passwordEncoder.encode(adminVO.getAdmin_pwd()));
+		}
 		return choService.getAdminUpdate(adminVO);
 	}
 	

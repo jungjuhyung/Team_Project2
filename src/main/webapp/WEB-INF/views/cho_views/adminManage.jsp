@@ -123,6 +123,7 @@
 		let admin_grade = $('#modal_admin_grade').val()
         let admin_state = $('#modal_admin_state').val();
         let admin_note = $('#modal_admin_note').val();          
+        let admin_pwd = $('#modal_admin_pwd').val();    
 		$.ajax({
 			url : "adminUpdate",
 			method : "post",
@@ -131,6 +132,7 @@
 				admin_grade:admin_grade,
 				admin_state:admin_state,
 				admin_note:admin_note,
+				admin_pwd:admin_pwd,
 			},
 			dataType : "json",
 			success : function(data) {
@@ -678,6 +680,11 @@ select {
 										<option value="0">비활성</option>
 										<option value="1">활성</option>
 										</select> 
+								</td>
+							</tr>
+							<tr>
+								<td>비밀번호</td>
+								<td><input type="text" id="modal_admin_pwd">
 								</td>
 							</tr>
 							<tr>

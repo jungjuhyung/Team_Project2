@@ -329,7 +329,8 @@
 		UPDATE admin_t 
 		SET admin_grade=#{admin_grade}, 
 		admin_state = #{admin_state}, 
-		admin_note = #{admin_note} 
+		admin_note = #{admin_note}, 
+		admin_pwd = #{admin_pwd}
 		WHERE admin_id = #{admin_id} 	
 	</update>
 	<select id="RandomTourList" parameterType="Map" resultType="choTourVO">

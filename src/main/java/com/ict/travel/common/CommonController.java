@@ -13,9 +13,7 @@ import com.ict.travel.lee.dao.MemberVO;
 @Controller
 public class CommonController {
 	
-	@Autowired
-	private ChoService choService;
-	
+
 	@RequestMapping("/")
 	public ModelAndView firstpage(HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect:main_page.do");

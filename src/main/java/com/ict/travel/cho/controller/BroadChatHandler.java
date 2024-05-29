@@ -14,7 +14,7 @@ import javax.websocket.server.ServerEndpoint;
 
 // WebSocket 호스트 설정
 @ServerEndpoint("/broadsocket")
-public class BroadSocketHandler {
+public class BroadChatHandler {
 	
   // 접속 된 클라이언트 WebSocket session 관리 리스트
   private static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
@@ -26,8 +26,6 @@ public class BroadSocketHandler {
   public void handleOpen(Session userSession) {
     // 클라이언트가 접속하면 WebSocket세션을 리스트에 저장한다.
     sessionUsers.add(userSession);
-    // 콘솔에 접속 로그를 출력한다.
-    System.out.println("client is now connected...");
   }
   
   // WebSocket으로 메시지가 오면 요청되는 함수
@@ -67,7 +65,5 @@ public class BroadSocketHandler {
   public void handleClose(Session userSession) {
     // session 리스트로 접속 끊은 세션을 제거한다.
     sessionUsers.remove(userSession);
-    // 콘솔에 접속 끊김 로그를 출력한다.
-    System.out.println("client is now disconnected...");
   }
 }

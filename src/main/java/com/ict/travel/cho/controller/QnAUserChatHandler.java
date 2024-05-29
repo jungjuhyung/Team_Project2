@@ -20,7 +20,7 @@ import javax.websocket.server.ServerEndpoint;
 
 // 일반 유저에서 서버간의 웹 소켓 url
 @ServerEndpoint(value = "/qnasocket")
-public class QnAChatHandler{
+public class QnAUserChatHandler{
 	
 	// searchUser 함수의 filter 표현식을 위한 인터페이스
 	private interface SearchExpression {
