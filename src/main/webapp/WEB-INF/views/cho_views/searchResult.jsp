@@ -337,9 +337,9 @@
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
 		let heartIcon = '';
 		if(place.uheart === "1") {
-		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '<img src="resources/ko_images/heart_on3.png" >' + '</span>';
+		    heartIcon = '<span class="heart-state wish-added" data-place_contentid="' + place.contentid + '">' + '<img src="resources/ko_images/heart_on3.png" width="30px;" >' + '</span>';
 		} else {
-		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '<img src="resources/ko_images/heart_off2.png" >' + '</span>';
+		    heartIcon = '<span class="heart-state" data-place_contentid="' + place.contentid + '">' + '<img src="resources/ko_images/heart_off2.png" width="30px;" >' + '</span>';
 		}
 			
    	    let placeHTML = '<div class="place-box" >' +
@@ -362,13 +362,13 @@
    		let truncatedTitle = originalTitle.length > 12 ? originalTitle.substring(0, 12) + '..' : originalTitle;
 		let heartIcon = '';
 		if(pathPost.u_heart === "1") {
-		    heartIcon = '<span class="heart-state wish-added" data-path_post_idx="' + pathPost.path_post_idx + '">' + 'img src="resources/ko_images/heart_on3" >' + '</span>';
+		    heartIcon = '<span class="heart-state wish-added" data-path_post_idx="' + pathPost.path_post_idx + '">' + '<img src="resources/ko_images/heart_on3.png" width="30px;" >' + '</span>';
 		} else { 
-		    heartIcon = '<span class="heart-state" data-path_post_idx="' + pathPost.path_post_idx + '">' + 'img src="resources/ko_images/heart_off2" >' + '</span>';
+		    heartIcon = '<span class="heart-state" data-path_post_idx="' + pathPost.path_post_idx + '">' + '<img src="resources/ko_images/heart_off2.png" width="30px;">' + '</span>';
 		}
    	    let pathPostHTML = '<div class="place-box" >' +
    	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
-   	                            '<img alt="' + pathPost.title + '" src="' +  pathPost.firstimage + '">' +
+   	                            '<img alt="' + pathPost.title + '" src="resources/rc_main_img/' +  pathPost.firstimage + '">' +
    	                        '</div>' +
    	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+pathPost.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
    	                     			truncatedTitle + 

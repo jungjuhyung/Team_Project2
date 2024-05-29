@@ -6,7 +6,7 @@
 <mapper namespace="ko_detail">
 	
 	<select id="path_list" parameterType="String" resultType="kopost">
-		select p.*
+		select distinct p.*
 		from pathmarker_t m , pathpost_t p
 		where m.path_post_idx = p.path_post_idx and m.contentid = #{contentid}
 		order by p.heart desc
@@ -16,6 +16,40 @@
 	<select id="place_detail" parameterType="String" resultType="ivo">
 		select * from tourapi_t where contentid = #{contentid}
 	</select>
+	
+	<select id="selectPlaceOne" parameterType="String" resultType="placeWishVO">
+		SELECT contentid, mapx, mapy, addr1, firstimage, title AS place_title , 
+				contenttypeid, sigungucode, areacode  
+		FROM tourapi_t 
+		WHERE contentid = #{contentid}
+	</select>
+	
+	<insert id="placeWishAdd" parameterType="Map">
+		INSERT INTO placewish_t(u_idx, contentid, mapx, mapy, addr1, firstimage, 
+								place_title,contenttypeid,sigungucode, areacode, regdate) 
+		VALUES(#{u_idx}, #{placeWishVO.contentid}, #{placeWishVO.mapx}, #{placeWishVO.mapy}, 
+		 		#{placeWishVO.addr1}, #{placeWishVO.firstimage}, #{placeWishVO.place_title}, 
+		 		#{placeWishVO.contenttypeid}, #{placeWishVO.sigungucode}, #{placeWishVO.areacode}, sysdate())
+	</insert>
+	
+	<!-- 추가된 장소 wish heart 증가 -->
+	<update id="placeAddHeart" parameterType="String">
+		UPDATE tourapi_t 
+		SET heart = heart + 1 
+		WHERE contentid = #{contentid}
+	</update>
+	
+	<delete id="placeWishRemove" parameterType="Map">
+		DELETE FROM placewish_t 
+		WHERE contentid = #{placeWishVO.contentid} AND u_idx = #{u_idx}
+	</delete>
+	
+	<!-- 삭제된 장소 wish heart 감소 -->
+	<update id="placeRemoveHeart" parameterType="String">
+		UPDATE tourapi_t 
+		SET heart = heart - 1 
+		WHERE contentid = #{contentid}
+	</update>
 	
 </mapper>
 

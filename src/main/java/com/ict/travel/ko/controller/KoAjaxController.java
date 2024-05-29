@@ -77,7 +77,7 @@ public class KoAjaxController {
 		// System.out.println("contentid : " + contentid);
 		String u_idx = (String) session.getAttribute("u_idx");
 
-		int result = choService.getPlaceWishAdd(contentid, u_idx);
+		int result = choService.getPlaceWishRemove(contentid, u_idx);
 		if (result > 0) {
 			ItemVO ivo = koService.getPlaceDetail(contentid);
 			String like = ivo.getHeart();

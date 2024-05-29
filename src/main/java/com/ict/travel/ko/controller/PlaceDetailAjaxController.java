@@ -17,9 +17,6 @@ public class PlaceDetailAjaxController {
 	@Autowired
 	private PlaceDetailService placeDetailService;
 
-	@Autowired
-	private ChoService choService;
-
 	// 찜 추가 & 좋아요 증가
 	@RequestMapping(value = "detailPlaceWishAdd", produces = "text/plain; charset=utf-8")
 	@ResponseBody
@@ -27,7 +24,7 @@ public class PlaceDetailAjaxController {
 		// System.out.println("contentid : " + contentid);
 		String u_idx = (String) session.getAttribute("u_idx");
 
-		int result = choService.getPlaceWishAdd(contentid, u_idx);
+		int result = placeDetailService.getPlaceWishAdd(contentid, u_idx);
 		if (result > 0) {
 			ItemVO ivo = placeDetailService.getPlaceDetail(contentid);
 			String like = ivo.getHeart();
@@ -44,7 +41,7 @@ public class PlaceDetailAjaxController {
 		// System.out.println("contentid : " + contentid);
 		String u_idx = (String) session.getAttribute("u_idx");
 
-		int result = choService.getPlaceWishAdd(contentid, u_idx);
+		int result = placeDetailService.getPlaceWishRemove(contentid, u_idx);
 		if (result > 0) {
 			ItemVO ivo = placeDetailService.getPlaceDetail(contentid);
 			String like = ivo.getHeart();

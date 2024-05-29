@@ -16,7 +16,7 @@
 	<div id="terms">
 		<div>
 			<div class="tit_pos">
-				<h2></h2>
+				<h2>서비스이용약관</h2>
 			</div>
 		</div>
 		<!-- 이용약관 -->

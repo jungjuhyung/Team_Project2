@@ -121,6 +121,8 @@
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 
+	<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
+
 	<section style="margin: 0 auto; width: 1300px; min-height: 1900px;">
 		
 		<!-- 팝업 공지사항 -->

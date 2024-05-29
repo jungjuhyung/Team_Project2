@@ -24,4 +24,14 @@ public class PlaceDetailServiceImple implements PlaceDetailService{
 	public ItemVO getPlaceDetail(String contentid) {
 		return placeDetailDAO.getPlaceDetail(contentid);
 	}
+	
+	@Override
+	public int getPlaceWishAdd(String contentid, String u_idx) {
+		return placeDetailDAO.getPlaceWishAdd(contentid,u_idx);
+	}
+	
+	@Override
+	public int getPlaceWishRemove(String contentid, String u_idx) {
+		return placeDetailDAO.getPlaceWishRemove(contentid, u_idx);
+	}
 }

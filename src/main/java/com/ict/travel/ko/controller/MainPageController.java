@@ -1,6 +1,7 @@
 package com.ict.travel.ko.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class MainPageController {
 		List<KoPostVO> tema_list = mainPageService.getTemaList(r_contenttypeid);
 		mv.addObject("tema_list", tema_list);
 
-		Map<String, String> area = new HashMap<String, String>();
+		Map<String, String> area = new LinkedHashMap<String, String>();
 		area.put("1", "서울");
 		area.put("2", "인천");
 		area.put("3", "대전");

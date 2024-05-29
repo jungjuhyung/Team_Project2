@@ -118,6 +118,10 @@
 	          	        let pathPost = data.restaurantList[i];
 	          	        addPlace2(pathPost.r_contenttypeid,pathPost);
           	    	}
+				for (let i = 0; i < data.allList.length; i++) {
+	          	        let pathPost = data.allList[i];
+	          	        addPlace2(pathPost.r_contenttypeid,pathPost);
+          	    	}
 				initializeSwiper1();
 				initializeSwiper2();
 			},
@@ -138,7 +142,7 @@
 		}
    	    let pathPostHTML = '<div class="place-box swiper-slide" >' +
    	                        '<div class="image-box" onclick="goProductDetail(' + pathPost.path_post_idx + ')">' +
-   	                            '<img alt="' + pathPost.title + '" src="' +  pathPost.firstimage + '">' +
+   	                            '<img alt="' + pathPost.title + '" src="resources/rc_main_img/' +  pathPost.firstimage + '">' +
    	                        '</div>' +
    	                        '<div class="text-box" onmouseover="showFullTitle(this, \''+pathPost.title+'\')" onmouseout="showTruncatedTitle(this, \''+truncatedTitle+'\')" onclick="goProductDetail(' + pathPost.path_post_idx + ', ' + pathPost.r_contenttypeid + ')">' +
    	                     			truncatedTitle + 
@@ -190,7 +194,7 @@
 	}
 	function initializeSwiper2() {
 		 let mySwiper = new Swiper(".mySwiper2", {
-		    	slidesPerView: 5, // 한 번에 표시할 슬라이드 수
+		    	slidesPerView: 4, // 한 번에 표시할 슬라이드 수
 		    	spaceBetween: 20, // 슬라이드 간의 간격  
 		        loop: true, // 슬라이드 루프(무한 회전) 활성화
 		        navigation: {

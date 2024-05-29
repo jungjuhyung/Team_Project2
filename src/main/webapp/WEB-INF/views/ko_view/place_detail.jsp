@@ -96,6 +96,8 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
+	
+	<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
 
 	<section class="detail_sec" style="width: 1300px; margin: 0 auto;">
 		<div class="ko_detail">
