@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.travel.jung.vo.GptAwsVO;
 import com.ict.travel.jung.vo.GptCountVO;
 import com.ict.travel.jung.vo.WishListVO;
 
@@ -27,6 +28,16 @@ public class GptDAO {
 	public List<GptCountVO> getContentTypeCount(String u_idx) {
 		try {
 			return sqlSessionTemplate.selectList("gpt.contenttypeid_count", u_idx);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	// Gpt 답변에 따른 정보 추출
+	public GptAwsVO getAwsValue(String contentid) {
+		try {
+			return sqlSessionTemplate.selectOne("gpt.aws_value", contentid);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

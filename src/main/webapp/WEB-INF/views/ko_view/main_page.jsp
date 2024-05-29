@@ -194,7 +194,19 @@
 				</c:forEach>
 			</div>
 		</div>
-
+		<div class="main_text">
+			<h2>AI 맞춤 추천 지역</h2>
+		</div>
+		<div id="area_wrapper">
+			<c:choose>
+				<c:when test="${empty memberUser}">
+					<h3>로그인 후 이용 가능합니다.</h3>
+				</c:when>
+				<c:otherwise>
+					<%@ include file="/WEB-INF/views/jung_view/recommend_gpt.jsp"%>
+				</c:otherwise>
+			</c:choose>
+		</div>
 		<div class="main_text">
 			<h2>지역별 추천경로 BEST</h2>
 		</div>

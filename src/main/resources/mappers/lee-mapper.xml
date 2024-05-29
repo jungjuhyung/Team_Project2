@@ -13,8 +13,8 @@
   	</select>
   	
   	<insert id="insert" parameterType="mvo">
-  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp)
-  		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0, #{k_status}, #{n_status}, 0, 0)
+  		insert into user_t(u_id, u_pwd, u_name, u_birth, u_email, u_gender, u_nickname, u_self, u_state, u_stopdate, u_regdate, u_active, k_status, n_status, u_lev, u_exp, u_per_thread_id, u_chat_thread_id)
+  		values(#{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_email}, #{u_gender}, #{u_nickname}, #{u_self}, 0, #{u_stopdate}, sysdate(), 0, #{k_status}, #{n_status}, 0, 0, #{u_per_thread_id},#{u_chat_thread_id})
   	</insert>
   	
   	<select id="login" parameterType="mvo" resultType="mvo">
