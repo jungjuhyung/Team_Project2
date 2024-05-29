@@ -85,11 +85,11 @@ body {
 .list-form2{
 	list-style-type: none;
 }
-.list-form2 #newpwd,#btn_1,#btn_2{
+.list-form2 #newpwd,#btn_1, #btn_2{
 	width:60%;
 	height: 40px;
 	margin: 10px;
-	margin-left: 90px;
+	margin-left: 100px;
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
@@ -106,8 +106,6 @@ body {
 }
 
 #btn_1 {
-    width: 80%;
-    margin: 10px;
     padding: 10px;
     background-color: #F9F3FF;
     border: none;
@@ -118,7 +116,7 @@ body {
 	width: 60%;
 	margin: 10px;
 	padding: 10px;
-    margin-left: 90px;
+    margin-left: 100px;
     padding: 10px;
     background-color: #F9F3FF;
     border: none;

@@ -38,7 +38,7 @@ public class EditMemberController {
 		
 		int result = memberService.getMemberUpOk(mvo);
 		if(result > 0 ) {
-			mv.setViewName("redirect:my_edit.do?u_idx="+mvo.getU_idx());
+			mv.setViewName("redirect:mypage?u_idx="+mvo.getU_idx());
 //			mv.setViewName("jung_view/mypage");
 			return mv;
 		}

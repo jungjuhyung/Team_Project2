@@ -60,7 +60,7 @@ public class MemberController {
 		return new ModelAndView("error");
 	}
 	
-	// 아이디 중복 체크
+	// 아이디 중복 체크(회원가입)
 	@RequestMapping(value = "getIdChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getIdChk(String u_id) {
@@ -68,14 +68,14 @@ public class MemberController {
 		return result;
 	}
 	
-	// 닉네임 중복 체크
+	// 닉네임 중복 체크(회원정보 수정)
 	@RequestMapping(value = "getNickChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getNickChk(String u_nickname) {
 		String res = memberService.getNickChk(u_nickname);
 		return res;
 	}
-	// 비밀번호 체크
+	// 비밀번호 체크(회원가입)
 	@RequestMapping(value = "chkPassword.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String chkPassword(String u_pwd, String u_idx) {
