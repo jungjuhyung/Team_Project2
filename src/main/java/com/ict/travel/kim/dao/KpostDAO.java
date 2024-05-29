@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Repository
@@ -127,5 +128,10 @@ public class KpostDAO {
 		}
 		return null;
 	}
+	
+	public List<PathWishVO> getpathWishList(String u_idx) {
+		return sqlSessionTemplate.selectList("kpost_t.selectpathWishList", u_idx);
+	}
+	
 	
 }

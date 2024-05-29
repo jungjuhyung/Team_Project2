@@ -2,6 +2,7 @@ package com.ict.travel.kim.service;
 
 import java.util.List;
 
+import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.lee.dao.MemberVO;
@@ -27,4 +28,6 @@ public interface KpostService {
 	public KpostVO pathTable(String path_post_idx);
 	
 	public int pathDelete(String path_post_idx);
+
+	List<PathWishVO> getpathWishList(String u_idx);
 }

@@ -113,7 +113,7 @@ function closeModal() {
 			<div id="reviewTitle">${kpostvo.path_post_title}</div>
 			<div id="reviewUserDate">
 				<div id="reviewUser">작성자 : ${kpostvo.u_nickname}(${kpostvo.u_lev})</div>
-				<div id="reviewDate">작성날짜 : ${kpostvo.regdate.substring(2,19)}</div>
+				<div id="reviewDate">작성날짜 : ${kpostvo.regdate.substring(2,10)}</div>
 			</div>
 		</div>
 		<div id="map" style="width: 100%; height: 500px;"></div>

@@ -17,20 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.cho.dao.AdminVO;
-import com.ict.travel.cho.dao.PathPostVO;
-import com.ict.travel.cho.dao.PathWishVO;
-import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
-import com.ict.travel.kim.dao.BoardVO;
-import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.ReportVO;
 import com.ict.travel.kim.service.KpostService;
 import com.ict.travel.kim.service.ReportService;
 import com.ict.travel.lee.dao.MemberVO;
-import com.ict.travel.lee.service.MemberService;
-import com.jcraft.jsch.Session;
 
 @RestController
 public class ReportController {
@@ -41,8 +34,6 @@ public class ReportController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private ChoService choService;
 	
 	@Autowired
 	private Paging paging;

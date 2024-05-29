@@ -58,6 +58,11 @@
 		select * from pathwish_t where path_post_idx = #{path_post_idx}
 	</select>
 	
+	
+	<!-- 경로 위시리스트 가져오기 -->
+	<select id="selectpathWishList" parameterType="String" resultType="pathWishVO">
+		SELECT * FROM pathwish_t WHERE u_idx= #{u_idx}
+	</select>
 </mapper>
 
 
