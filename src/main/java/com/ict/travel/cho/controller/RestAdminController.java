@@ -23,7 +23,7 @@ import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.Paging;
 
 @RestController
-public class ChoAdminAjaxController {
+public class RestAdminController {
 	
 	@Autowired
 	private ChoService choService;

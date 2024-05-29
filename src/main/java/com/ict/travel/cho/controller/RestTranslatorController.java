@@ -15,7 +15,7 @@ import com.deepl.api.Translator;
 
 
 @RestController
-public class ChoTranslatorAjax {
+public class RestTranslatorController {
 		
 		private Translator translator;
 		

@@ -28,7 +28,7 @@ public class QnAAdminChatHandler {
     // 운영자 유저의 세션을 바꾼다.
     admin = userSession;
     // 기존에 접속해 있는 유저의 정보를 운영자 client로 보낸다.
-    for(String key : QnAChatHandler.getUserKeys()) {
+    for(String key : QnAUserChatHandler.getUserKeys()) {
       // 전송.. 전송
       visit(key);
     }
@@ -44,7 +44,7 @@ public class QnAAdminChatHandler {
     // 뒤 정보는 메시지
     String msg = split[1];
     // 일반 유저의 key로 탐색후 메시지 전송
-    QnAChatHandler.sendMessage(key, msg);
+    QnAUserChatHandler.sendMessage(key, msg);
   }
   
   // 접속이 끊기면 위 운영자 세션을 null 처리한다.
