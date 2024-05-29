@@ -16,5 +16,11 @@
 		WHERE u_idx = #{u_idx}
 		GROUP BY contenttypeid;
 	</select>
+	
+	<select id="aws_value" parameterType="String" resultType="gptavo">
+		select *
+		from tourapi_t
+		where contentid = #{contentid};
+	</select>
 </mapper>
 

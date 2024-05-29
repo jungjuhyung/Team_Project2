@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.travel.jung.dao.GptDAO;
+import com.ict.travel.jung.vo.GptAwsVO;
 import com.ict.travel.jung.vo.GptCountVO;
 
 @Service
@@ -22,6 +23,11 @@ public class GptServiceImpl implements GptService {
 	@Override
 	public List<GptCountVO> getContentTypeCount(String u_idx) {
 		return gptDAO.getContentTypeCount(u_idx);
+	}
+	
+	@Override
+	public GptAwsVO getAwsValue(String contentid) {
+		return gptDAO.getAwsValue(contentid);
 	}
 
 }

@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.jung.gpttools.PersonalAssistantsTools;
@@ -22,8 +27,12 @@ import com.ict.travel.lee.dao.MemberVO;
 import com.ict.travel.lee.service.MailService;
 import com.ict.travel.lee.service.MemberService;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import com.google.gson.reflect.TypeToken;
 @Controller
 public class MemberController {
 	
@@ -87,11 +96,20 @@ public class MemberController {
 	public ModelAndView getSignUp(MemberVO mvo, HttpServletRequest request) {
 		try {
 			ModelAndView mv = new ModelAndView("lee_view/loginForm");
-			
+		    
+			// GPT 개인 스레드 부여
+			Gson gson = new Gson();
+	        Type type = new TypeToken<Map<String, Object>>() {}.getType();
+	        String perThread = perTools.perThreadCreate();
+	        String chatThread = perTools.perThreadCreate();
+	        Map<String, Object> per_id = gson.fromJson(perThread, type);
+	        Map<String, Object> chat_id = gson.fromJson(chatThread, type);
+	        
 			String u_id = request.getParameter("u_id");
 			String u_pwd = request.getParameter("u_pwd");
 			String u_name = request.getParameter("u_name");
 			String u_birth = request.getParameter("u_birth");
+			
 			
 			String u_email = request.getParameter("u_email");
 			String u_gender = request.getParameter("u_gender");
@@ -112,6 +130,8 @@ public class MemberController {
 			mvo1.setU_self(u_self);
 			mvo1.setN_status(n_status);
 			mvo1.setK_status(k_status);
+			mvo1.setU_chat_thread_id(chat_id.get("id").toString());
+			mvo1.setU_per_thread_id(per_id.get("id").toString());
 			int result = memberService.getSignUp(mvo1);
 			System.out.println(result);
 			return mv;
@@ -179,7 +199,7 @@ public class MemberController {
 						sb.append(content);
 					} 
 					for (GptCountVO k : contentTypeCount) {
-						String content = "arearcode:"+k.getContenttypeid()+"을 찜한 개수="+k.getContenttypeid_count()+"개 & ";
+						String content = "contenttypeid:"+k.getContenttypeid()+"을 찜한 개수="+k.getContenttypeid_count()+"개 & ";
 						sb.append(content);
 					}
 					sb.append("]");
@@ -188,13 +208,38 @@ public class MemberController {
 				}
 				System.out.println(message);
 				perTools.perMessageAdd(mvo2.getU_per_thread_id(), message);
-				String test1 = perTools.perAnswerCreate(mvo2.getU_per_thread_id());
-				String test2 = perTools.perMessagesList(mvo2.getU_per_thread_id());
-				System.out.println(test1);
-				System.out.println(test2);
+				perTools.perAnswerCreate(mvo2.getU_per_thread_id());
+				String gptAws = perTools.perMessagesList(mvo2.getU_per_thread_id());
 				
+				Gson gson = new Gson();
+				JsonParser parser = new JsonParser();
+		        try {
+		            // JSON 문자열을 JsonElement로 파싱
+		            JsonElement jsonElement = parser.parse(gptAws);
+
+		            // JsonElement를 JsonObject로 변환
+		            JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+		            // data 필드에서 content 필드의 value 값을 추출
+		            List<String> values = new ArrayList<>();
+		            JsonArray dataArray = jsonObject.getAsJsonArray("data");
+		            for (JsonElement element : dataArray) {
+		                JsonObject dataObject = element.getAsJsonObject();
+		                JsonArray contentArray = dataObject.getAsJsonArray("content");
+		                for (JsonElement contentElement : contentArray) {
+		                    JsonObject contentObject = contentElement.getAsJsonObject();
+		                    JsonObject textObject = contentObject.getAsJsonObject("text");
+		                    String value = textObject.get("value").getAsString();
+		                    values.add(value);
+		                }
+		            }
+		            System.out.println(values.get(0).replace(" ", ""));
+		            session.setAttribute("gptAws", values.get(0).replace(" ", ""));
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+
 				return new ModelAndView("redirect:main_page.do"); 
-				
 
 			}
 		} catch (Exception e) {
