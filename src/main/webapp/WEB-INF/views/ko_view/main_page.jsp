@@ -147,46 +147,12 @@
 			</div>
 			<div class="img_slider">
 				<div class="slide_box">
-					<div class="change">
-						<p>남산</p>
-						<span>서울타워와 벚꽃</span>
-					</div>
-					<div class="change">
-						<p>고창</p>
-						<span>해바라기 밭</span>
-					</div>
-					<div class="change">
-						<p>북한산</p>
-						<span>가을단풍 풍경</span>
-					</div>
-					<div class="change">
-						<p>안동</p>
-						<span>하회마을 설경</span>
-					</div>
-					<div class="change">
-						<p>평창</p>
-						<span>대관령 양떼목장</span>
-					</div>
-					<div class="change">
-						<p>광화문</p>
-						<span>경복궁의 정문</span>
-					</div>
-					<div class="change">
-						<p>아산</p>
-						<span>노란 은행나무길</span>
-					</div>
-					<div class="change">
-						<p>광양</p>
-						<span>섬진강 매화 축제</span>
-					</div>
-					<div class="change">
-						<p>한강</p>
-						<span>동작대교 야경</span>
-					</div>
-					<div class="change">
-						<p>서울</p>
-						<span>아름다운 풍경</span>
-					</div>
+					<c:forEach var="k" items="${text_list}">
+						<div class="change">
+							<p>${k.key}</p>
+							<span>${k.value}</span>
+						</div>
+					</c:forEach>
 				</div>
 				<c:forEach var="k" begin="1" end="10">
 					<div class="slider fade">
@@ -196,19 +162,15 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div class="main_text">
-			<h2>AI 맞춤 추천 지역</h2>
-		</div>
-		<div id="area_wrapper">
-			<c:choose>
-				<c:when test="${empty memberUser}">
-					<h3>로그인 후 이용 가능합니다.</h3>
-				</c:when>
-				<c:otherwise>
-					<%@ include file="/WEB-INF/views/jung_view/recommend_gpt.jsp"%>
-				</c:otherwise>
-			</c:choose>
-		</div>
+		
+		<c:choose>
+			<c:when test="${empty memberUser}"></c:when>
+			<c:otherwise>
+				<%@ include file="/WEB-INF/views/jung_view/recommend_gpt.jsp"%>
+			</c:otherwise>
+		</c:choose>
+		
+		
 		<div class="main_text">
 			<h2>지역별 추천경로 BEST</h2>
 		</div>
@@ -264,6 +226,9 @@
 				</div>
 			</c:forEach>
 		</div>
+		
+		<div style="width: 100%; height: 70px;"></div>
+		
 	</section>
 
 	<script type="text/javascript">

@@ -15,6 +15,7 @@ public class MainPageServiceImple implements MainPageService{
 	@Autowired
 	private MainPageDAO mainPageDAO;
 	
+	
 	@Override
 	public List<KoPostVO> getAreaList(String r_areacode) {
 		return mainPageDAO.getAreaList(r_areacode);

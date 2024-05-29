@@ -105,7 +105,7 @@
 									<td>
 										<c:choose>
 											<c:when test="${k.active == '1'}">
-												삭제
+												<span style="color: red;">삭제</span>
 											</c:when>
 											<c:otherwise>
 												<input type="button" class="user_btn" value="삭제하기" 

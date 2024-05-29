@@ -32,7 +32,7 @@
 		}
 	});
 
-	// 장소 찜하기
+	// 장소 찜추가
 	function placeWishadd(tag, contentid) {
 		$.ajax({
 			url : "detailPlaceWishAdd",
@@ -124,7 +124,7 @@
 							</c:if>
 							<c:if test="${!empty itemVO.infocenter}">
 								<tr>
-									<th>전화</th>
+									<th>번호</th>
 									<td>${itemVO.infocenter}</td>
 								</tr>
 							</c:if>
@@ -325,10 +325,10 @@
 		marker.setMap(map);
 
 		var iwContent = '<div style="padding:5px;">'
-				+ title
-				+ '<br><a href="https://map.kakao.com/link/to/' + title + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		iwPosition = new kakao.maps.LatLng(mapy, mapx); //인포윈도우 표시 위치입니다
-
+						+ title
+						+ '<br><a href="https://map.kakao.com/link/to/' + title + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				iwPosition = new kakao.maps.LatLng(mapy, mapx);
+		
 		// 인포윈도우를 생성합니다
 		var infowindow = new kakao.maps.InfoWindow({
 			position : iwPosition,

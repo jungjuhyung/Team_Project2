@@ -17,7 +17,7 @@ public class MainPageAjaxController {
 	@Autowired
 	private MainPageService mainPageService;
 
-	// 메인 페이지 지역별
+	// 지역별 버튼 클릭 시 추천경로 리스트 가져오기(ajax)
 	@RequestMapping(value = "main_ajax_area.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String koAreaList(String r_areacode) {
@@ -29,7 +29,7 @@ public class MainPageAjaxController {
 		return area_json;
 	}
 
-	// 메인 페이지 테마별
+	// 테마별 버튼 클릭 시 추천경로 리스트 가져오기(ajax)
 	@RequestMapping(value = "main_ajax_tema.do", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String koTemaList(String r_contenttypeid) {
