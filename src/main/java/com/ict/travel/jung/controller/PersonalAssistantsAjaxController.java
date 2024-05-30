@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ict.travel.common.PersonalAssistantsTools;
 import com.ict.travel.jung.dao.GptDAO;
+import com.ict.travel.jung.service.GptService;
 import com.ict.travel.jung.vo.GptAwsVO;
 import com.ict.travel.lee.dao.MemberVO;
 
@@ -33,7 +34,7 @@ public class PersonalAssistantsAjaxController {
 	@Autowired
 	private PersonalAssistantsTools perTools;
 	@Autowired
-	private GptDAO gptDAO;
+	private GptService gptService;
 	
 	@RequestMapping(value = "perbot", produces="application/json; charset=utf-8")
 	@ResponseBody
@@ -43,7 +44,7 @@ public class PersonalAssistantsAjaxController {
 		List<GptAwsVO> value_list = new ArrayList<GptAwsVO>();
 		
 		for (String contentid : values) {
-			GptAwsVO add = gptDAO.getAwsValue(contentid);
+			GptAwsVO add = gptService.getAwsValue(contentid);
 			if (add != null) {
 				value_list.add(add);				
 			}
@@ -91,7 +92,7 @@ public class PersonalAssistantsAjaxController {
 		List<GptAwsVO> value_list = new ArrayList<GptAwsVO>();
 		
 		for (String contentid : value) {
-			GptAwsVO add = gptDAO.getAwsValue(contentid);
+			GptAwsVO add = gptService.getAwsValue(contentid);
 			System.out.println("2");
 			if (add != null) {
 				value_list.add(add);				
