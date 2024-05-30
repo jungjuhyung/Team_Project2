@@ -78,6 +78,15 @@ body{
 	border-radius: 5px;
 	border: none;
 }
+.sendpw_form input[type="button"]{
+	width: 80%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #F9F3FF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .sendpw_form input[type="submit"]:hover{
 	color: pink;
 }

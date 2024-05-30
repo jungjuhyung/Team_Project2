@@ -1,5 +1,8 @@
 package com.ict.travel.lee.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,12 +36,14 @@ public class EditMemberController {
 	}
 	
 	@RequestMapping("my_edit_ok.do")
-	public ModelAndView getMemberUpOk(MemberVO mvo) {
+	public ModelAndView getMemberUpOk(MemberVO mvo) { // HttpServletRequest request, HttpSession session
 		ModelAndView mv = new ModelAndView();
-		
+		// request.getSession()
 		int result = memberService.getMemberUpOk(mvo);
 		if(result > 0 ) {
-			mv.setViewName("redirect:my_edit.do?u_idx="+mvo.getU_idx());
+			mv.addObject(mvo.getU_nickname());
+			mv.addObject(mvo.getU_self());
+			mv.setViewName("redirect:mypage?u_idx="+mvo.getU_idx());
 //			mv.setViewName("jung_view/mypage");
 			return mv;
 		}

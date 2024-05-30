@@ -161,6 +161,7 @@ $(document).ready(function(){
 
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common_view/header.jsp"%> 
 <div class="join-container" style="width: 1300px; height:900px; margin: 0 auto;">
 	<div class="join_sub">
         <form class="signup-form" method="post">
@@ -247,6 +248,7 @@ $(document).ready(function(){
         </form>
         </div>
     </div>
+        <%@ include file="/WEB-INF/views/common_view/footer.jsp"%>
 
 </body>
 </html>

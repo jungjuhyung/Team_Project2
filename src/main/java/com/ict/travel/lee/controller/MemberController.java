@@ -69,7 +69,7 @@ public class MemberController {
 		return new ModelAndView("error");
 	}
 	
-	// 아이디 중복 체크
+	// 아이디 중복 체크(회원가입)
 	@RequestMapping(value = "getIdChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getIdChk(String u_id) {
@@ -77,14 +77,14 @@ public class MemberController {
 		return result;
 	}
 	
-	// 닉네임 중복 체크
+	// 닉네임 중복 체크(회원정보 수정)
 	@RequestMapping(value = "getNickChk.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getNickChk(String u_nickname) {
 		String res = memberService.getNickChk(u_nickname);
 		return res;
 	}
-	// 비밀번호 체크
+	// 비밀번호 체크(회원가입)
 	@RequestMapping(value = "chkPassword.do", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String chkPassword(String u_pwd, String u_idx) {
@@ -191,62 +191,7 @@ public class MemberController {
 				session.setAttribute("u_id", mvo2.getU_id());
 				session.setAttribute("u_idx", mvo2.getU_idx());
 				
-				// 유저의 wish별 gpt의 추천 내용을 세션에 넣기
-//				List<GptCountVO> areaCount = gptService.getAreaCount(mvo2.getU_idx());
-//				List<GptCountVO> contentTypeCount = gptService.getContentTypeCount(mvo2.getU_idx());
-//				System.out.println("area"+areaCount);
-//				System.out.println("content"+contentTypeCount);
-//				String message = "";
-//				StringBuffer sb = new StringBuffer();
-//				if (areaCount.isEmpty() && contentTypeCount.isEmpty()) {
-//					message = "유저의 위시리스트가 비어있습니다. vector_storage(vs_PhohXJdcZlxuz5yNEzJIsK9m)에 저장되어있는 데이터에서 여행갈만한 장소를 5곳 추천해줘.";
-//				}else {
-//					sb.append("[");
-//					for (GptCountVO k : areaCount) {
-//						String content = "arearcode:"+k.getAreacode()+"을 찜한 개수="+k.getAreacode_count()+"개 & ";
-//						sb.append(content);
-//					} 
-//					for (GptCountVO k : contentTypeCount) {
-//						String content = "contenttypeid:"+k.getContenttypeid()+"을 찜한 개수="+k.getContenttypeid_count()+"개 & ";
-//						sb.append(content);
-//					}
-//					sb.append("]");
-//					sb.append("해당 정보를 바탕으로 vector_storage(vs_PhohXJdcZlxuz5yNEzJIsK9m)에 저장되어있는 데이터에서 여행갈만한 장소를 5곳 추천해줘.");
-//					message = sb.toString();
-//				}
-//				System.out.println(message);
-//				perTools.perMessageAdd(mvo2.getU_per_thread_id(), message);
-//				perTools.perAnswerCreate(mvo2.getU_per_thread_id());
-//				String gptAws = perTools.perMessagesList(mvo2.getU_per_thread_id());
-//				
-//				Gson gson = new Gson();
-//				JsonParser parser = new JsonParser();
-//		        try {
-//		            // JSON 문자열을 JsonElement로 파싱
-//		            JsonElement jsonElement = parser.parse(gptAws);
-//
-//		            // JsonElement를 JsonObject로 변환
-//		            JsonObject jsonObject = jsonElement.getAsJsonObject();
-//
-//		            // data 필드에서 content 필드의 value 값을 추출
-//		            List<String> values = new ArrayList<>();
-//		            JsonArray dataArray = jsonObject.getAsJsonArray("data");
-//		            for (JsonElement element : dataArray) {
-//		                JsonObject dataObject = element.getAsJsonObject();
-//		                JsonArray contentArray = dataObject.getAsJsonArray("content");
-//		                for (JsonElement contentElement : contentArray) {
-//		                    JsonObject contentObject = contentElement.getAsJsonObject();
-//		                    JsonObject textObject = contentObject.getAsJsonObject("text");
-//		                    String value = textObject.get("value").getAsString();
-//		                    values.add(value);
-//		                }
-//		            }
-//		            System.out.println(values.get(0).replace(" ", ""));
-//		            session.setAttribute("gptAws", values.get(0).replace(" ", ""));
-//		        } catch (Exception e) {
-//		            e.printStackTrace();
-//		        }
-
+				
 				return new ModelAndView("redirect:main_page.do"); 
 
 			}
