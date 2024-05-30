@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +16,9 @@ import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.cho.dao.SearchOptionVO;
 import com.ict.travel.cho.dao.SearchVO;
-import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.cho.service.AreaPathService;
+import com.ict.travel.cho.service.AreaPlaceService;
+import com.ict.travel.cho.service.SearchService;
 import com.ict.travel.common.Paging;
 import com.ict.travel.lee.dao.MemberVO;
 
@@ -25,12 +26,14 @@ import com.ict.travel.lee.dao.MemberVO;
 public class RestSearchController {
 	
 	@Autowired
-	private ChoService choService;
-	
+	private SearchService searchService;
+	@Autowired
+	private AreaPathService areaPathService;
+	@Autowired
+	private AreaPlaceService areaPlaceService;
 	@Autowired
 	private Paging paging;
 	
-
 	// 장소 검색 기능
 	@RequestMapping(value = "areaSearchTourList", produces = "application/json; charset=utf-8" )
 	@ResponseBody
@@ -46,10 +49,9 @@ public class RestSearchController {
 	 	String type = optionVO.getType();
 	 	int limit = optionVO.getLimit();
 		 
-		// 한 페이지에 일단 20개 - 나중에 입력 받을 수 있음
 		int pagecount = limit;
 		
-		int count = choService.getTourListCount(areaCode,sigunguCode,contentType,title,type);
+		int count = searchService.getSearchListCount(areaCode,sigunguCode,contentType,title,type);
 		paging.setTotalRecord(count);
 		// 한 페이지에 20개
 		paging.setNumPerPage(pagecount);
@@ -86,15 +88,16 @@ public class RestSearchController {
 		}
 			
 		
-		List<SearchVO> searchVOList = choService.getSearchTotal(areaCode,sigunguCode,contentType,title,order,type,paging.getOffset(), paging.getNumPerPage());
+		List<SearchVO> searchVOList = searchService.getSearchTotal(areaCode,sigunguCode,contentType,title,order,type,paging.getOffset(), paging.getNumPerPage());
 		
 		if(type.equals("1")) {
 			// 유저 로그인 상태일 때 장소 찜 여부
 			if(uvo != null) {
-				List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+				List<PlaceWishVO> placeWishList = areaPlaceService.getPlaceWishList(uvo.getU_idx());	
 				for (SearchVO k : searchVOList) {
 					for (PlaceWishVO j : placeWishList) {
-						if(k.getContentid().equals(j.getContentid())) {
+						if(k.getContentid()!=null &&  k.getContentid().equals(j.getContentid())) {
+							System.out.println(1);
 							k.setUheart("1");
 							break;
 						}
@@ -104,10 +107,10 @@ public class RestSearchController {
 		} else {
 			// 유저 로그인 상태일 때 게시글 찜 여부
 			if(uvo != null) {
-				List<PathWishVO> pathWishList = choService.getpathWishList(uvo.getU_idx());	
+				List<PathWishVO> pathWishList = areaPathService.getpathWishList(uvo.getU_idx());	
 				for (SearchVO k : searchVOList) {
 					for (PathWishVO j : pathWishList) {
-						if(k.getPath_post_idx().equals(j.getPath_idx())) {
+						if(k.getPath_post_idx()!=null && k.getPath_post_idx().equals(j.getPath_post_idx())) {
 							k.setUheart("1");
 							break;
 						}
@@ -116,7 +119,7 @@ public class RestSearchController {
 			}
 			
 		}
-
+	
 		Map<String, Object> result = new HashMap<>();
 
 		result.put("searchVOList", searchVOList);

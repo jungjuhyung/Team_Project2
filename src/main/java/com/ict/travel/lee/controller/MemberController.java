@@ -19,7 +19,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ict.travel.cho.dao.AdminVO;
-import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.cho.service.AdminManageService;
 import com.ict.travel.jung.gpttools.PersonalAssistantsTools;
 import com.ict.travel.jung.service.GptService;
 import com.ict.travel.jung.vo.GptCountVO;
@@ -39,7 +39,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private ChoService choService;
+	private AdminManageService adminService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	// 개인 gpt 연동을 위해 주형이 추가한 것
@@ -158,15 +158,15 @@ public class MemberController {
 			AdminVO adminVO = new AdminVO();
 			adminVO.setAdmin_id(mvo.getU_id());
 			adminVO.setAdmin_pwd(mvo.getU_pwd());
-			AdminVO adminVO2 = choService.getAdminLogin(adminVO);
+			AdminVO adminVO2 = adminService.getAdminLogin(adminVO);
 			if(adminVO2 != null) {
 			
 				if(! passwordEncoder.matches(adminVO.getAdmin_pwd(), adminVO2.getAdmin_pwd())) {
-					mv.setViewName("redirect:loginForm");
+					mv.setViewName("redirect:login_go.do");
 					return mv;
 				}else  {
 					if(adminVO2.getAdmin_state().equals("0")) {
-						mv.setViewName("redirect:loginForm");
+						mv.setViewName("redirect:login_go.do");
 						return mv;
 					}else {
 						session.setAttribute("adminUser", adminVO2);

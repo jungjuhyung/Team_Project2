@@ -19,14 +19,14 @@ import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.dao.DataFetcher;
 import com.ict.travel.cho.dao.TourapiParser;
 import com.ict.travel.cho.dao.TourapiVO;
-import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.cho.service.AdminManageService;
 import com.ict.travel.common.Paging;
 
 @RestController
 public class RestAdminController {
 	
 	@Autowired
-	private ChoService choService;
+	private AdminManageService adminService;
 	@Autowired
 	private TourapiParser tourapiParser;
 	@Autowired
@@ -71,9 +71,9 @@ public class RestAdminController {
         List<TourapiVO> restaurantVoList = tourapiParser.parseJsonToVO(itemArray3.toString());
 
         System.out.println("디비 업데이트 시작");
-        choService.dataUpdate(touristVoList);
-		choService.dataUpdate(PartyVoList);
-		choService.dataUpdate(restaurantVoList);
+        adminService.dataUpdate(touristVoList);
+        adminService.dataUpdate(PartyVoList);
+        adminService.dataUpdate(restaurantVoList);
 		System.out.println("디비 업데이트 완료");
         return "1";
 	}
@@ -85,7 +85,7 @@ public class RestAdminController {
 	public String getAdminList(String page, String text) throws Exception{
 		// 한 페이지에 관리자 10명
 		int pagecount = 10;
-		int count = choService.getAdminListCount(text);
+		int count = adminService.getAdminListCount(text);
 		paging.setTotalRecord(count);
 		// 한 페이지에 10개
 		paging.setNumPerPage(pagecount);
@@ -121,7 +121,7 @@ public class RestAdminController {
 			paging.setEndBlock(paging.getTotalPage());
 		}
 		
-		List<AdminVO> adminList = choService.getAdminList(text, paging.getOffset(), paging.getNumPerPage());
+		List<AdminVO> adminList = adminService.getAdminList(text, paging.getOffset(), paging.getNumPerPage());
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("adminList", adminList);
 		result.put("paging", paging);
@@ -136,7 +136,7 @@ public class RestAdminController {
 	@ResponseBody
 	public String adminDel(@RequestParam("admin_idx") String admin_idx) throws Exception{
 		
-		int result = choService.adminDelete(admin_idx);
+		int result = adminService.adminDelete(admin_idx);
 		
 		return String.valueOf(result);
 		
@@ -149,7 +149,7 @@ public class RestAdminController {
 		if (admin_id == null ||admin_id.equals(""))
 			return "1";
 		else {
-			return choService.getLoginChk(admin_id);
+			return adminService.getLoginChk(admin_id);
 		}
 	}
 	// 관리자 아이디 생성
@@ -158,7 +158,7 @@ public class RestAdminController {
 	public String adminCreate(AdminVO adminVO) {
 		String pwd2 =  passwordEncoder.encode(adminVO.getAdmin_pwd()); 
 		adminVO.setAdmin_pwd(pwd2);
-		return choService.adminCreate(adminVO);
+		return adminService.adminCreate(adminVO);
 	}
 	
 	// 관리자 디테일 불러오기
@@ -166,7 +166,7 @@ public class RestAdminController {
 	@ResponseBody
 	public String adminDetail(String admin_idx) throws Exception{
 		
-		AdminVO adminDetail = choService.getAdminDetail(admin_idx);
+		AdminVO adminDetail = adminService.getAdminDetail(admin_idx);
 		
 		Gson gson = new Gson();
 		String jsonString = gson.toJson(adminDetail);
@@ -180,7 +180,7 @@ public class RestAdminController {
 		if(adminVO.getAdmin_pwd() != null) {
 			adminVO.setAdmin_pwd(passwordEncoder.encode(adminVO.getAdmin_pwd()));
 		}
-		return choService.getAdminUpdate(adminVO);
+		return adminService.getAdminUpdate(adminVO);
 	}
 	
 	

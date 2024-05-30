@@ -19,19 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.ict.travel.cho.dao.ChoTourVO;
-import com.ict.travel.cho.dao.PathPostVO;
-import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.dao.PlaceWishVO;
-import com.ict.travel.cho.dao.SearchVO;
-import com.ict.travel.cho.service.ChoService;
-import com.ict.travel.common.Paging;
+import com.ict.travel.cho.service.AreaPlaceService;
 import com.ict.travel.lee.dao.MemberVO;
 
 @RestController
 public class RestAreaPlaceController {
 	
 	@Autowired
-	private ChoService choService;
+	private AreaPlaceService areaPlaceService;
 	
 	// 시군구 코드 가져오기
 	@RequestMapping(value = "sigunguCodeList", produces = "application/json; charset=utf-8" )
@@ -72,17 +68,17 @@ public class RestAreaPlaceController {
 		
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
-		List<ChoTourVO> touristList = choService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 10);
-		List<ChoTourVO> partyList = choService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 10);
-		List<ChoTourVO> restaurantList = choService.getChoTourList(areaCode, "999", "39",null,"like","1",0, 10);
-		List<ChoTourVO> randomList = choService.getRandomTourList(areaCode,3);
+		List<ChoTourVO> touristList = areaPlaceService.getChoTourList(areaCode, "999", "12",null,"like","1",0, 10);
+		List<ChoTourVO> partyList = areaPlaceService.getChoTourList(areaCode, "999", "15",null,"like","1",0, 10);
+		List<ChoTourVO> restaurantList = areaPlaceService.getChoTourList(areaCode, "999", "39",null,"like","1",0, 10);
+		List<ChoTourVO> randomList = areaPlaceService.getRandomTourList(areaCode,3);
 	
 		Map<String, Object> result = new HashMap<>();
 
 	
 		// 유저 로그인 상태일 때 찜 여부
 		if(uvo != null) {
-			List<PlaceWishVO> placeWishList = choService.getPlaceWishList(uvo.getU_idx());	
+			List<PlaceWishVO> placeWishList = areaPlaceService.getPlaceWishList(uvo.getU_idx());	
 			for (ChoTourVO k : touristList) {
 				for (PlaceWishVO j : placeWishList) {
 					if(k.getContentid().equals(j.getContentid())) {
@@ -136,7 +132,7 @@ public class RestAreaPlaceController {
 	@ResponseBody
 	public String getWishInsert(String contentid, HttpSession session) {
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
-		int result = choService.getPlaceWishAdd(contentid,uvo.getU_idx());
+		int result = areaPlaceService.getPlaceWishAdd(contentid,uvo.getU_idx());
 		return String.valueOf(result);
 	}
 	
@@ -146,7 +142,7 @@ public class RestAreaPlaceController {
 	public String getWishDelete(String contentid, HttpSession session) {
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		
-		int result = choService.getPlaceWishRemove(contentid,uvo.getU_idx());
+		int result = areaPlaceService.getPlaceWishRemove(contentid,uvo.getU_idx());
 		
 		return String.valueOf(result);
 	}

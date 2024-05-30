@@ -1,26 +1,19 @@
 package com.ict.travel.cho.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.ict.travel.lee.dao.MemberVO;
 
 @Repository
-public class ChoDAO {
+public class SearchDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	@Autowired
-	private DataSourceTransactionManager transactionManager;
 	
 	public MemberVO getUserLogin(String string) {
 		return sqlSessionTemplate.selectOne("cho_mapper.sessionInsert", string);
@@ -55,10 +48,9 @@ public class ChoDAO {
 		}
 		return 0;
 	}
-
+	// 조건 검색
 	public List<SearchVO> getSearchTotal(String areaCode, String sigunguCode, String contentType, String title,
 			String order, String type, int offset, int limit) {
-		
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("areaCode", areaCode);
@@ -79,27 +71,13 @@ public class ChoDAO {
 				}
 				return sqlSessionTemplate.selectList("cho_mapper.selectSearchPathList", map);
 			}
-		
 			
-		
 		} catch (Exception e) {
 			System.out.println("지역 검색" + e);
 		}
 		return null;
 	}
-
-	public List<ChoTourVO> getRandomTourList(String areaCode, int limit) {
-		try {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("areaCode", areaCode);
-			map.put("limit", limit);
-			return sqlSessionTemplate.selectList("cho_mapper.RandomTourList", map);
-		} catch (Exception e) {
-			System.out.println("랜덤 TourList :" + e);
-		}
-		return null;
-	}
-
+	
 
 
 }

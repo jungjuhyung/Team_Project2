@@ -94,7 +94,7 @@
 	</select>
 	
 	<select id="selectSearchPathList" parameterType="Map" resultType="searchVO">
-		SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid FROM pathpost_t
+		SELECT path_post_idx, u_idx, u_id, firstimage, path_post_title AS title, path_post_content, regdate, heart, r_areacode, r_contenttypeid AS contenttypeid FROM pathpost_t
 			 <choose>
 				 <when test="post_idxList != null">
 		            WHERE path_post_idx IN 
@@ -112,10 +112,10 @@
 		    heart DESC, title ASC
 		</if>
 		<if test="order == 't_asc'">
-		    title ASC, heart DESC
+		    path_post_title ASC, heart DESC
 		</if>
 		<if test="order == 't_desc'">
-		    title DESC, heart DESC
+		    path_post_title DESC, heart DESC
 		</if>
          LIMIT #{limit} OFFSET #{offset} 
 	</select>
@@ -226,7 +226,7 @@
 	<!-- 경로 좋아요 추가 -->
 	<insert id="pathWishAdd" parameterType="Map">
 		INSERT INTO 
-		 pathwish_t(u_idx, path_post_idx, firstimage, contenttypeid, title ,regdate) 
+		 pathwish_t(u_idx, path_post_idx, firstimage, r_contenttypeid, path_post_title ,regdate) 
 		 VALUES(#{u_idx}, #{pathWishVO.path_post_idx}, #{pathWishVO.firstimage}, #{pathWishVO.contenttypeid},#{pathWishVO.title}, sysdate())
 	</insert>
 	<!-- 추가된 wish heart 증가 -->

@@ -1,13 +1,12 @@
 package com.ict.travel.cho.controller;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
 // 운영자 유저에서 서버간의 웹 소켓 url
 @ServerEndpoint("/adminqnasocket")
 public class QnAAdminChatHandler {
