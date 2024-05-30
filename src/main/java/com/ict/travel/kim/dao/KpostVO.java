@@ -1,7 +1,17 @@
 package com.ict.travel.kim.dao;
 
 public class KpostVO {
-	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart, r_areacode, r_contenttypeid, u_nickname, u_lev;
+	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_content, regdate, heart, r_areacode, r_contenttypeid, u_nickname, u_lev,img_status;
+	
+	
+	
+	public String getImg_status() {
+		return img_status;
+	}
+
+	public void setImg_status(String img_status) {
+		this.img_status = img_status;
+	}
 
 	public String getU_nickname() {
 		return u_nickname;

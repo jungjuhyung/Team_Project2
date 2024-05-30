@@ -9,13 +9,8 @@
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/pathDetail.css">
 <!-- include libraries(jQuery, bootstrap) -->
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <!-- include summernote css/js-->
-<script src="resources/jung_summernote/summernote-lite.js"></script>
-<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <script type="text/javascript">
 function rcommentInsert(f) {
@@ -42,6 +37,7 @@ function ilikethis() {
         firstimage: "${kpostvo.firstimage}",
         r_contenttypeid: "${kpostvo.r_contenttypeid}",
         path_post_title: "${kpostvo.path_post_title}"
+        path_post_title: "${kpostvo.img_status}"
     };
 
     $.ajax({
@@ -122,142 +118,144 @@ function translateSky(value) {
     else return '알 수 없음';
 }
 
-$(document).ready(function() {
-	$(".img-title").click(function() {
-		let title = $(this).text();
-		console.log(title)
-		let ajax_x = $(this).find('input[type="hidden"][name="ajax_x"]').val();
-		let ajax_y = $(this).find('input[type="hidden"][name="ajax_y"]').val();
-		$.ajax({
-		    url: 'weather?ajax_x='+ajax_x+"&ajax_y="+ajax_y,
-		    type: 'POST',
-			dataType : "json",
-		    success: function(data) {
-		    	$("#weather_box").empty();
-		    	let item = data.response.body.items.item;
-		    	let f_now = new Date();
-		    	let now = formatDate(f_now)
-				let tomorrow = formatDate(addDays(f_now, 1))
-				let toTomorrow = formatDate(addDays(f_now, 2))
-				
-				let todayWeather = [];
-			    let tomorrowWeather = [];
-			    let toTomorrowWeather = [];
-				/* 오늘날씨 */
-		    	if (item[0].baseTime <= 800) {
-		    		let now01 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		let now02 = item.filter(function(k) {
-		    		    return  k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		let now03 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		
-		    		todayWeather.push(now01)
-		    		todayWeather.push(now02)
-		    		todayWeather.push(now03)
-				}else if (item[0].baseTime > 800 & item[0].baseTime <= 1400) {
-		    		let now01 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
-		    		})
-					let now02 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		let now03 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		todayWeather.push(now01)
-		    		todayWeather.push(now02)
-		    		todayWeather.push(now03)
-				}else if (item[0].baseTime > 1400) {
-		    		let now01 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
-		    		})
-					let now02 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		let now03 = item.filter(function(k) {
-		    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
-		    		})
-		    		todayWeather.push(now01)
-		    		todayWeather.push(now02)
-		    		todayWeather.push(now03)
+function weather(btn) {
+	console.log(btn)
+	let title = $(btn).text();
+	console.log(title)
+	let ajax_x = $(btn).find('input[type="hidden"][name="ajax_x"]').val();
+	let ajax_y = $(btn).find('input[type="hidden"][name="ajax_y"]').val();
+	$.ajax({
+	    url: 'weather?ajax_x='+ajax_x+"&ajax_y="+ajax_y,
+	    type: 'POST',
+		dataType : "json",
+	    success: function(data) {
+	    	$("#weather_box").empty();
+	    	let item = data.response.body.items.item;
+	    	let f_now = new Date();
+	    	let now = formatDate(f_now)
+			let tomorrow = formatDate(addDays(f_now, 1))
+			let toTomorrow = formatDate(addDays(f_now, 2))
+			
+			let todayWeather = [];
+		    let tomorrowWeather = [];
+		    let toTomorrowWeather = [];
+			/* 오늘날씨 */
+	    	if (item[0].baseTime <= 800) {
+	    		let now01 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		let now02 = item.filter(function(k) {
+	    		    return  k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		let now03 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		
+	    		todayWeather.push(now01)
+	    		todayWeather.push(now02)
+	    		todayWeather.push(now03)
+			}else if (item[0].baseTime > 800 & item[0].baseTime <= 1400) {
+	    		let now01 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+				let now02 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		let now03 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		todayWeather.push(now01)
+	    		todayWeather.push(now02)
+	    		todayWeather.push(now03)
+			}else if (item[0].baseTime > 1400) {
+	    		let now01 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+				let now02 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		let now03 = item.filter(function(k) {
+	    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		todayWeather.push(now01)
+	    		todayWeather.push(now02)
+	    		todayWeather.push(now03)
+			}
+	    	/* 내일 날씨 */
+	    	let tomorrow01 = item.filter(function(k) {
+    		    return k.fcstDate === tomorrow && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+    		})
+	    	let tomorrow02 = item.filter(function(k) {
+    		    return k.fcstDate === tomorrow && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+    		})
+	    	let tomorrow03 = item.filter(function(k) {
+    		    return k.fcstDate === tomorrow && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+    		})
+		    tomorrowWeather.push(tomorrow01)
+	    	tomorrowWeather.push(tomorrow02)
+	    	tomorrowWeather.push(tomorrow03)
+    		/* 모레 날씨 */
+	    	let toTomorrow01 = item.filter(function(k) {
+    		    return k.fcstDate === toTomorrow && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+    		})
+	    	let toTomorrow02 = item.filter(function(k) {
+    		    return k.fcstDate === toTomorrow && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+    		})
+	    	let toTomorrow03 = item.filter(function(k) {
+    		    return k.fcstDate === toTomorrow && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+    		})
+    		toTomorrowWeather.push(toTomorrow01)
+	    	toTomorrowWeather.push(toTomorrow02)
+	    	toTomorrowWeather.push(toTomorrow03)
+	    	
+			
+			let div = "<table class='table_style'>";
+			div += "<tr><th colspan='4' class='table_title'>"+title+"</th></tr>";
+			div += "<tr><th class='table_th'>날짜</th><th class='table_th'>오전</th><th class='table_th'>오후</th><th class='table_th'>저녁</th></tr>";
+			div += "<tr><td>당일</td>";
+			todayWeather.forEach(function(k) {
+				if (k.length === 0) {
+					div += "<td>지난 시간</td>";
+				}else {
+					div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
 				}
-		    	/* 내일 날씨 */
-		    	let tomorrow01 = item.filter(function(k) {
-	    		    return k.fcstDate === tomorrow && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
-	    		})
-		    	let tomorrow02 = item.filter(function(k) {
-	    		    return k.fcstDate === tomorrow && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
-	    		})
-		    	let tomorrow03 = item.filter(function(k) {
-	    		    return k.fcstDate === tomorrow && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
-	    		})
-			    tomorrowWeather.push(tomorrow01)
-		    	tomorrowWeather.push(tomorrow02)
-		    	tomorrowWeather.push(tomorrow03)
-	    		/* 모레 날씨 */
-		    	let toTomorrow01 = item.filter(function(k) {
-	    		    return k.fcstDate === toTomorrow && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
-	    		})
-		    	let toTomorrow02 = item.filter(function(k) {
-	    		    return k.fcstDate === toTomorrow && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
-	    		})
-		    	let toTomorrow03 = item.filter(function(k) {
-	    		    return k.fcstDate === toTomorrow && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
-	    		})
-	    		toTomorrowWeather.push(toTomorrow01)
-		    	toTomorrowWeather.push(toTomorrow02)
-		    	toTomorrowWeather.push(toTomorrow03)
-		    	
-				
-				let div = "<table class='table_style'>";
-				div += "<tr><th colspan='4' class='table_title'>"+title+"</th></tr>";
-				div += "<tr><th class='table_th'>날짜</th><th class='table_th'>오전</th><th class='table_th'>오후</th><th class='table_th'>저녁</th></tr>";
-				div += "<tr><td>당일</td>";
-				todayWeather.forEach(function(k) {
-					if (k.length === 0) {
-						div += "<td>지난 시간</td>";
-					}else {
-						div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
-					}
-				})
-				div += "</tr>";
-				div += "<tr><td>내일</td>";
-				tomorrowWeather.forEach(function(k) {
-					if (k.length === 0) {
-						div += "<td>지난 시간</td>";
-					}else {
-						div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
-					}
-				})
-				div += "</tr>";
-				div += "<tr><td>모레</td>";
-				toTomorrowWeather.forEach(function(k) {
-					if (k.length === 0) {
-						div += "<td>지난 시간</td>";
-					}else {
-						div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
-					}
-				})
-				div += "</tr></table>";
-		    	$("#weather_box").append(div)
-		    },
-		    error: function(xhr, status, error) {
-		        alert("실패")
-		    }
-		});
-		
-	})
-})
+			})
+			div += "</tr>";
+			div += "<tr><td>내일</td>";
+			tomorrowWeather.forEach(function(k) {
+				if (k.length === 0) {
+					div += "<td>지난 시간</td>";
+				}else {
+					div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
+				}
+			})
+			div += "</tr>";
+			div += "<tr><td>모레</td>";
+			toTomorrowWeather.forEach(function(k) {
+				if (k.length === 0) {
+					div += "<td>지난 시간</td>";
+				}else {
+					div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
+				}
+			})
+			div += "</tr></table>";
+	    	$("#weather_box").append(div)
+	    },
+	    error: function(xhr, status, error) {
+	        alert("실패")
+	    }
+	});
+}
 
 </script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
-	<%-- <%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%> --%>
+	<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+	<script src="resources/jung_summernote/summernote-lite.js"></script>
+	<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 	<form method="post">
 	<div id="world">
 		<div id="infoUser">
@@ -284,7 +282,7 @@ $(document).ready(function() {
 	                                <img class="div_img" src="${img.image_name}" onclick="openModal(this.src)">
 	                            </c:otherwise>
 	                        </c:choose>
-	                        <div class="img-title">${img.title}
+	                        <div class="img-title" onclick="weather(this)">${img.title}
 	                        	<input type="hidden" name="ajax_x" value="${img.mapx}">
 	                        	<input type="hidden" name="ajax_y" value="${img.mapy}">
 	                        </div>
@@ -314,9 +312,6 @@ $(document).ready(function() {
 		</div>
 		<div class="empty-area"></div>
 		<div>
-			<c:if test="${membervo.u_idx == kpostvo.u_idx}">	
-				<button class="reportbtn" onclick="">수정</button>
-			</c:if>
 			<c:if test="${adminUser != null || membervo.u_idx == kpostvo.u_idx}">
 				<input type="hidden" name="path_post_idx" value="${kpostvo.path_post_idx}">
 				<input type="button" class="reportbtn" value="삭제" onclick="pathDelete(this.form)"/>

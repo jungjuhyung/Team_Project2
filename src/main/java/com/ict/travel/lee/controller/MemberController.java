@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ict.travel.cho.dao.AdminVO;
 import com.ict.travel.cho.service.AdminManageService;
-import com.ict.travel.jung.gpttools.PersonalAssistantsTools;
+import com.ict.travel.common.PersonalAssistantsTools;
 import com.ict.travel.jung.service.GptService;
 import com.ict.travel.jung.vo.GptCountVO;
 import com.ict.travel.lee.dao.MemberVO;
@@ -109,9 +109,7 @@ public class MemberController {
 			Gson gson = new Gson();
 	        Type type = new TypeToken<Map<String, Object>>() {}.getType();
 	        String perThread = perTools.perThreadCreate();
-	        String chatThread = perTools.perThreadCreate();
 	        Map<String, Object> per_id = gson.fromJson(perThread, type);
-	        Map<String, Object> chat_id = gson.fromJson(chatThread, type);
 	        
 			String u_id = request.getParameter("u_id");
 			String u_pwd = request.getParameter("u_pwd");
@@ -138,7 +136,6 @@ public class MemberController {
 			mvo1.setU_self(u_self);
 			mvo1.setN_status(n_status);
 			mvo1.setK_status(k_status);
-			mvo1.setU_chat_thread_id(chat_id.get("id").toString());
 			mvo1.setU_per_thread_id(per_id.get("id").toString());
 			int result = memberService.getSignUp(mvo1);
 			System.out.println(result);

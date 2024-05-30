@@ -13,7 +13,7 @@ import com.ict.travel.jung.vo.RecommendVO;
 import com.ict.travel.jung.vo.ReportVO;
 import com.ict.travel.jung.vo.WishListVO;
 
-public interface MarkerService {
+public interface RecommendService {
 	public List<WishListVO> getWishList(String u_idx);
 	public int recommendPostInsert(RecommendVO rcvo);
 	public int recommendMarkerInsert(RecommendMarkerOneVO rcmvo);

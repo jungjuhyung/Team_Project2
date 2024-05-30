@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ExGptController {
+public class ChatGptAjaxController {
 	
 	// 챗GPT chat API : chat봇 생성
 	@RequestMapping(value = "gpttest", produces="application/json; charset=utf-8")

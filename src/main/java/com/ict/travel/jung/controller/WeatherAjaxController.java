@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ict.travel.common.MapConverter;
 
 @RestController
-public class JungAjaxController {
+public class WeatherAjaxController {
 	@Autowired
 	private MapConverter mapConverter;
 	

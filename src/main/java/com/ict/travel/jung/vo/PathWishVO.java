@@ -1,7 +1,24 @@
 package com.ict.travel.jung.vo;
 
 public class PathWishVO {
-	private String path_idx, path_post_idx, u_idx, contenttypeid, firstimage, path_post_title, regdate;
+	private String path_idx, path_post_idx, u_idx, contenttypeid, firstimage, path_post_title, regdate,r_contenttypeid,img_status;
+
+	
+	public String getImg_status() {
+		return img_status;
+	}
+
+	public void setImg_status(String img_status) {
+		this.img_status = img_status;
+	}
+
+	public String getR_contenttypeid() {
+		return r_contenttypeid;
+	}
+
+	public void setR_contenttypeid(String r_contenttypeid) {
+		this.r_contenttypeid = r_contenttypeid;
+	}
 
 	public String getPath_idx() {
 		return path_idx;

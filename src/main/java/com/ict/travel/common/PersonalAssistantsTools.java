@@ -1,4 +1,4 @@
-package com.ict.travel.jung.gpttools;
+package com.ict.travel.common;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

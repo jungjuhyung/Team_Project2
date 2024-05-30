@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- 슬라이드 이벤트 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -16,7 +15,6 @@
 	function recommend_write(){
 		location.href = "recommend_write_go";
 	}
-	
 </script>
 
 </head>
@@ -54,7 +52,9 @@
 				<div class="with_list_box_bottom swiper-wrapper">
 					<c:forEach var="k" items="${wish_place}">
 						<div class="with_box swiper-slide">
-							<img src="${k.firstimage}" class="with_img">
+							<a href="ko_detail.do?contentid=${k.contentid}&contenttypeid=${k.contenttypeid}">
+								<img src="${k.firstimage}" class="with_img">
+							</a>
 							<p class="with_title">
 								<c:choose>
 									<c:when test="${k.contenttypeid == 12}">
@@ -148,7 +148,18 @@
 				<div class="with_list_box_bottom swiper-wrapper">
 					<c:forEach var="k" items="${wish_path}">
 						<div class="with_box swiper-slide">
-							<img src="resources/rc_main_img/${k.firstimage}" class="with_img">
+							<c:choose>
+								<c:when test="${k.img_status==0}">
+									<a href="pathReviewDetail?path_post_idx=${k.path_post_idx}">
+										<img src="resources/rc_main_img/${k.firstimage}" class="with_img">								
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="pathReviewDetail?path_post_idx=${k.path_post_idx}">
+										<img src="${k.firstimage}" class="with_img">
+									</a>							
+								</c:otherwise>
+							</c:choose>
 							<p class="with_title">
 								<c:choose>
 									<c:when test="${k.r_contenttypeid == 12}">
@@ -190,7 +201,18 @@
 				<div class="with_list_box_bottom swiper-wrapper">
 					<c:forEach var="k" items="${my_recommend}">
 						<div class="with_box swiper-slide">
-							<img src="resources/rc_main_img/${k.firstimage}" class="with_img">
+							<c:choose>
+								<c:when test="${k.img_status==0}">
+									<a href="pathReviewDetail?path_post_idx=${k.path_post_idx}">
+										<img src="resources/rc_main_img/${k.firstimage}" class="with_img">								
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="pathReviewDetail?path_post_idx=${k.path_post_idx}">
+										<img src="${k.firstimage}" class="with_img">
+									</a>							
+								</c:otherwise>
+							</c:choose>
 							<p class="with_title">
 								<c:choose>
 									<c:when test="${k.r_contenttypeid == 12}">
@@ -279,7 +301,7 @@
 		<div class="comu_menu">
 			<p>작성자(닉네임)</p>
 			<p>제목</p>
-			<p>댓글수</p>
+			<p>조회수</p>
 			<p>작성일자</p>
 		</div>
 		<c:choose>
@@ -290,8 +312,10 @@
 				<c:forEach var="k" items="${my_board}">
 					<div class="write_main">
 						<p>${k.u_nickname}</p>
-						<p>${k.board_title}</p>
-						<p>댓글수(6)</p>
+						<p>
+							<a href="boardDetail?board_idx=${k.board_idx}">${k.board_title}</a>
+						</p>
+						<p>${k.hit}</p>
 						<p>${k.regdate.substring(0,10)}</p>
 					</div>
 				</c:forEach>
@@ -314,7 +338,9 @@
 				<c:forEach var="k" items="${my_report}">
 					<div class="write_main">
 						<p>${k.u_id}</p>
-						<p>${k.report_title}</p>
+						<p>
+							<a href="reportDetail?report_idx=${k.report_idx}">${k.report_title}</a>
+						</p>
 						<p>${k.regdate.substring(0,10)}</p>
 						<p>
 							<c:choose>

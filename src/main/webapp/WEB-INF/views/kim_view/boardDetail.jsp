@@ -4,18 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>자유게시판</title>
+<meta charset="UTF-8">
+<title>자유게시판</title>
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/boardDetail.css">
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-    <!-- include summernote css/js-->
-<script src="resources/jung_summernote/summernote-lite.js"></script>
-<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<!-- include summernote css/js-->
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
     
 <script type="text/javascript">
@@ -45,7 +40,12 @@ function commentDelete(f) {
 
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
-<%-- <%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%> --%>
+<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
+<!-- include summernote css/js-->
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <form method="post">
 		<div class="boardcontainer">
 			<div class="insert">

@@ -23,13 +23,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ict.travel.common.PersonalAssistantsTools;
 import com.ict.travel.jung.dao.GptDAO;
-import com.ict.travel.jung.gpttools.PersonalAssistantsTools;
 import com.ict.travel.jung.vo.GptAwsVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @RestController
-public class PersonalAssistantsController {
+public class PersonalAssistantsAjaxController {
 	@Autowired
 	private PersonalAssistantsTools perTools;
 	@Autowired

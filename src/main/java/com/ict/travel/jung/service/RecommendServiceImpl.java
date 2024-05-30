@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ict.travel.jung.dao.MarkerDAO;
+import com.ict.travel.jung.dao.RecommendDAO;
 import com.ict.travel.jung.vo.BoardVO;
 import com.ict.travel.jung.vo.MarkerImgVO;
 import com.ict.travel.jung.vo.PathWishVO;
@@ -15,9 +15,9 @@ import com.ict.travel.jung.vo.ReportVO;
 import com.ict.travel.jung.vo.WishListVO;
 
 @Service
-public class MarkerServiceImpl implements MarkerService {
+public class RecommendServiceImpl implements RecommendService {
 	@Autowired
-	private MarkerDAO markerDAO;
+	private RecommendDAO markerDAO;
 	
 	// 내가 찜한 장소 가져오기
 	@Override

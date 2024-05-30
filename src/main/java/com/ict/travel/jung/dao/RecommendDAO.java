@@ -15,7 +15,7 @@ import com.ict.travel.jung.vo.ReportVO;
 import com.ict.travel.jung.vo.WishListVO;
 
 @Repository
-public class MarkerDAO {
+public class RecommendDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	

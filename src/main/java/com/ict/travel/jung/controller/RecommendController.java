@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.travel.cho.dao.PlaceWishVO;
-import com.ict.travel.jung.service.MarkerService;
+import com.ict.travel.jung.service.RecommendService;
 import com.ict.travel.jung.vo.BoardVO;
 import com.ict.travel.jung.vo.MarkerImgVO;
 import com.ict.travel.jung.vo.PathWishVO;
@@ -33,10 +33,10 @@ import com.ict.travel.jung.vo.WishListVO;
 import com.ict.travel.lee.dao.MemberVO;
 
 @Controller
-public class MarkerController {
+public class RecommendController {
 	
 	@Autowired
-	private MarkerService marService;
+	private RecommendService marService;
 	
 	@RequestMapping("recommend_write_go")
 	public ModelAndView recommend_write_go(HttpSession session) {

@@ -8,14 +8,9 @@
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/kim_css/reportWrite.css">
     <!-- include libraries(jQuery, bootstrap) -->
-    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
     <!-- include summernote css/js-->
-<script src="resources/jung_summernote/summernote-lite.js"></script>
-<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <script type="text/javascript">
 function getReportgo(f) {
@@ -24,21 +19,21 @@ function getReportgo(f) {
 }
 </script>
 <script type="text/javascript">
-$(document).ready(function(){
     let badid = "${badid}";
     console.log("badid 값:", badid);
     if(badid === "fail"){
         alert("신고하는 아이디가 없습니다.");
-        return;
     }
-});
-
 </script>
 </head>
 
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
-<%-- <%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%> --%>
+<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 <form method="post" action="reportWriteOK">
 		<div class="reportcontainer">
 			<div class="insert">
