@@ -5,12 +5,14 @@
   
 <mapper namespace="ko_main">
 	
-	<select id="area_list" parameterType="String" resultType="kopost">		<!-- 좋아요 상위 5개 -->
-		select * from pathpost_t where r_areacode = #{r_areacode} order by heart desc limit 5
+	<select id="area_list" parameterType="String" resultType="kopost">		
+		select * from pathpost_t 				<!-- 좋아요 상위 5개 -->
+		where r_areacode = #{r_areacode} order by heart desc limit 5
 	</select>
 	
-	<select id="tema_list" parameterType="String" resultType="kopost">			<!-- 좋아요 상위 5개 -->
-		select * from pathpost_t where r_contenttypeid = #{r_contenttypeid} order by heart desc limit 5
+	<select id="tema_list" parameterType="String" resultType="kopost">			
+		select * from pathpost_t 					<!-- 좋아요 상위 5개 -->
+		where r_contenttypeid = #{r_contenttypeid} order by heart desc limit 5
 	</select>
 	
 	<select id="popup_one" resultType="popvo">	

@@ -57,7 +57,7 @@ public class PopupDAO {
 		return -1;
 	}
 	
-	//	팝
+	//	팝업 삭제
 	public int popupDelete(String popup_idx) {
 		return sqlSessionTemplate.delete("ko_popup.delete", popup_idx);
 	}

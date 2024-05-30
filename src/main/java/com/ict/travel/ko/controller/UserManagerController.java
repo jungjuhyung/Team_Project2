@@ -38,9 +38,9 @@ public class UserManagerController {
 		// 전체 게시물의 수를 구하자
 		int count = userManagerService.getTotalUser();
 		paging.setTotalRecord(count);
-
-		// 전체페이지의 수
+		// 한페이지 당 게시물의 수
 		paging.setNumPerPage(5);
+		// 전체페이지의 수
 		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
@@ -50,7 +50,6 @@ public class UserManagerController {
 				paging.setTotalPage(paging.getTotalPage() + 1);
 			}
 		}
-
 		// 2.
 		// 현재페이지 구하자
 		String cPage = request.getParameter("cPage");
@@ -59,21 +58,18 @@ public class UserManagerController {
 		} else {
 			paging.setNowPage(Integer.parseInt(cPage));
 		}
-
 		// 3.
 		// offset 구하기
 		// limit = numPerPage
 		// offset = limit * (현재페이지 - 1)
 		paging.setOffset(paging.getNumPerPage() * (paging.getNowPage() - 1));
-
 		// 4.
 		// 시작블록과 끝블록 구하기
 		// 시작블록 = (int){(현재페이지 -1) / 페이지당 블록수} * 페이지당 블록수 + 1
-		paging.setBeginBlock(
-				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+		paging.setBeginBlock((int) ((paging.getNowPage() - 1) 
+				/ paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
 		// 끝블록 = 시작블록 + 페이지당 블록수 - 1
 		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
-
 		// 끝블록이 전체페이지 수보다 크면 끝블록에 전체페이지 수를 넣어주자
 		if (paging.getEndBlock() > paging.getTotalPage()) {
 			paging.setEndBlock(paging.getTotalPage());
@@ -113,9 +109,6 @@ public class UserManagerController {
 	@RequestMapping("stop_update.do")
 	public ModelAndView stopUpdate(String stop_days, String u_idx, String stop_note, HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect: user_list.do");
-		// System.out.println(stop_days);
-		// System.out.println(u_idx);
-		// System.out.println(stop_note);
 
 		String admin_id = (String) session.getAttribute("admin_id");
 		int result = userManagerService.getStopUpdate(stop_days, u_idx, stop_note, admin_id);
@@ -171,7 +164,7 @@ public class UserManagerController {
 		if (paging.getEndBlock() > paging.getTotalPage()) {
 			paging.setEndBlock(paging.getTotalPage());
 		}
-
+		
 		PageVO pvo = new PageVO(search, paging.getOffset(), paging.getNumPerPage());
 		List<UserVO> user_list = userManagerService.getSearchUser(pvo);
 		for (UserVO k : user_list) {

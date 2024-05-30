@@ -41,13 +41,13 @@ public class PlaceDetailController {
 			mv.addObject("userLogin", "ok");
 		}
 		
-		//	DB 에서 정보 가져오기
-		//	부족한 정보들은 openAPI 에 접속해서 가져오기
+		//	DB 에서 장소 좋아요 수 가져오기
 		ItemVO itemVO = placeDetailService.getPlaceDetail(contentid);
 		
 		// 유저 로그인 상태일 때 찜 여부 체크
 		if (uvo != null) {
-			List<PlaceWishVO> placeWishList = placeDetailService.getPlaceWishList(uvo.getU_idx());
+			List<PlaceWishVO> placeWishList = 
+					placeDetailService.getPlaceWishList(uvo.getU_idx());
 			for (PlaceWishVO k : placeWishList) {
 				if (k.getContentid().equals(contentid)) {
 					itemVO.setUheart("1");
@@ -56,7 +56,6 @@ public class PlaceDetailController {
 			}
 		}
 		
-		//	부족한 정보 가져오기(openAPI)
 		try {
 			// 공통 정보 조회
 			StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B551011/KorService1/detailCommon1");
@@ -96,6 +95,8 @@ public class PlaceDetailController {
 			// 200 이면 성공과 같은 의미 (HttpURLConnection.HTTP_OK)
 			int responseCode = conn.getResponseCode();
 			int responseCode2 = conn.getResponseCode();
+			// System.out.println(responseCode);
+			// System.out.println(responseCode2);
 
 			if (responseCode == HttpURLConnection.HTTP_OK && responseCode2 == 200) {
 				// 공통 정보 조회
@@ -106,8 +107,8 @@ public class PlaceDetailController {
 					sb.append(line);
 				}
 				String result = sb.toString();
-				
-				//	JSON 정보 파싱하기
+				// System.out.println(result);
+
 				JSONParser parser = new JSONParser();
 				JSONObject obj = (JSONObject) parser.parse(result);
 				JSONObject response = (JSONObject) obj.get("response");
@@ -116,12 +117,16 @@ public class PlaceDetailController {
 				JSONArray item = (JSONArray) items.get("item");
 				JSONObject item_list = (JSONObject) item.get(0);
 				
-				//	공통정보API - 홈페이지주소, 상세설명 가져오기
+				itemVO.setContentid(item_list.get("contentid").toString());
+				itemVO.setContenttypeid(item_list.get("contenttypeid").toString());
+				itemVO.setTitle(item_list.get("title").toString());
+				itemVO.setAddr1(item_list.get("addr1").toString());
+				itemVO.setMapx(item_list.get("mapx").toString());
+				itemVO.setMapy(item_list.get("mapy").toString());
 				itemVO.setHomepage(item_list.get("homepage").toString());
 				itemVO.setOverview(item_list.get("overview").toString());
+				itemVO.setFirstimage(item_list.get("firstimage").toString());
 
-				//==========================================================
-				
 				// 소개 정보 조회
 				BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
 				String line2 = "";
@@ -130,8 +135,8 @@ public class PlaceDetailController {
 					sb2.append(line2);
 				}
 				String result2 = sb2.toString();
-				
-				//	JSON 정보 파싱하기
+				// System.out.println(result2);
+
 				JSONParser parser2 = new JSONParser();
 				JSONObject obj2 = (JSONObject) parser2.parse(result2);
 				JSONObject response2 = (JSONObject) obj2.get("response");
@@ -139,12 +144,11 @@ public class PlaceDetailController {
 				JSONObject items2 = (JSONObject) body2.get("items");
 				JSONArray item2 = (JSONArray) items2.get("item");
 				JSONObject item_list2 = (JSONObject) item2.get(0);
-
-				//	소개정보API - 관광지, 행사/공연/축제, 음식점에 따라 필요한 정보 가져오기
+				
+				//	테마별로 가져오는 정보가 다름
 				switch (item_list.get("contenttypeid").toString()) {
 				//	관광지
 				case "12":
-					itemVO.setExpguide(item_list2.get("expguide").toString());
 					itemVO.setInfocenter(item_list2.get("infocenter").toString());
 					itemVO.setParking(item_list2.get("parking").toString());
 					itemVO.setRestdate(item_list2.get("restdate").toString());
@@ -169,6 +173,7 @@ public class PlaceDetailController {
 					itemVO.setRestdatefood(item_list2.get("restdatefood").toString());
 					break;
 				}
+				
 				//	해당 장소의 상세 정보들
 				mv.addObject("itemVO", itemVO);
 				

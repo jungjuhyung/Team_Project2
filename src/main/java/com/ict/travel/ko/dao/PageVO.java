@@ -4,8 +4,6 @@ public class PageVO {
 	private String search;
 	private int offset, limit;
 	
-	
-	
 	public PageVO(String search, int offset, int limit) {
 		this.search = search;
 		this.offset = offset;

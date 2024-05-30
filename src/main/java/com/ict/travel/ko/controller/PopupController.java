@@ -108,12 +108,10 @@ public class PopupController {
 				UUID uuid = UUID.randomUUID();
 				String f_name = uuid + "_" + file.getOriginalFilename();
 				popvo.setF_name(f_name);
-
 				byte[] in = file.getBytes();
 				File out = new File(path, f_name);
 				FileCopyUtils.copy(in, out);
 			}
-
 			int result = popupService.popupInsert(popvo);
 			if (result > 0) {
 				return mv;
@@ -124,6 +122,7 @@ public class PopupController {
 		}
 		return new ModelAndView("common_view/error");
 	}
+	
 
 	// 팝업창 바꾸기
 	@RequestMapping("popup_img_change.do")
