@@ -102,6 +102,157 @@ function closeModal() {
     modal.style.display = "none";
 }
 
+function formatDate(date) {
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
+    let day = date.getDate().toString().padStart(2, '0');
+    return year + month + day;
+}
+
+function addDays(date, days) {
+    let result = new Date(date);
+    result.setDate(date.getDate() + days);
+    return result;
+}
+
+function translateSky(value) {
+    if (value === '1') return '맑음';
+    else if (value === '3') return '구름 많음';
+    else if (value === '4') return '흐림';
+    else return '알 수 없음';
+}
+
+$(document).ready(function() {
+	$(".img-title").click(function() {
+		let title = $(this).text();
+		console.log(title)
+		let ajax_x = $(this).find('input[type="hidden"][name="ajax_x"]').val();
+		let ajax_y = $(this).find('input[type="hidden"][name="ajax_y"]').val();
+		$.ajax({
+		    url: 'weather?ajax_x='+ajax_x+"&ajax_y="+ajax_y,
+		    type: 'POST',
+			dataType : "json",
+		    success: function(data) {
+		    	$("#weather_box").empty();
+		    	let item = data.response.body.items.item;
+		    	let f_now = new Date();
+		    	let now = formatDate(f_now)
+				let tomorrow = formatDate(addDays(f_now, 1))
+				let toTomorrow = formatDate(addDays(f_now, 2))
+				
+				let todayWeather = [];
+			    let tomorrowWeather = [];
+			    let toTomorrowWeather = [];
+				/* 오늘날씨 */
+		    	if (item[0].baseTime <= 800) {
+		    		let now01 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		let now02 = item.filter(function(k) {
+		    		    return  k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		let now03 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		
+		    		todayWeather.push(now01)
+		    		todayWeather.push(now02)
+		    		todayWeather.push(now03)
+				}else if (item[0].baseTime > 800 & item[0].baseTime <= 1400) {
+		    		let now01 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+		    		})
+					let now02 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		let now03 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		todayWeather.push(now01)
+		    		todayWeather.push(now02)
+		    		todayWeather.push(now03)
+				}else if (item[0].baseTime > 1400) {
+		    		let now01 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+		    		})
+					let now02 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		let now03 = item.filter(function(k) {
+		    		    return k.fcstDate === now && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+		    		})
+		    		todayWeather.push(now01)
+		    		todayWeather.push(now02)
+		    		todayWeather.push(now03)
+				}
+		    	/* 내일 날씨 */
+		    	let tomorrow01 = item.filter(function(k) {
+	    		    return k.fcstDate === tomorrow && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+		    	let tomorrow02 = item.filter(function(k) {
+	    		    return k.fcstDate === tomorrow && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+	    		})
+		    	let tomorrow03 = item.filter(function(k) {
+	    		    return k.fcstDate === tomorrow && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+			    tomorrowWeather.push(tomorrow01)
+		    	tomorrowWeather.push(tomorrow02)
+		    	tomorrowWeather.push(tomorrow03)
+	    		/* 모레 날씨 */
+		    	let toTomorrow01 = item.filter(function(k) {
+	    		    return k.fcstDate === toTomorrow && k.fcstTime === "0900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+		    	let toTomorrow02 = item.filter(function(k) {
+	    		    return k.fcstDate === toTomorrow && k.fcstTime === "1400" && (k.category === "POP" || k.category === "SKY");
+	    		})
+		    	let toTomorrow03 = item.filter(function(k) {
+	    		    return k.fcstDate === toTomorrow && k.fcstTime === "1900" && (k.category === "POP" || k.category === "SKY");
+	    		})
+	    		toTomorrowWeather.push(toTomorrow01)
+		    	toTomorrowWeather.push(toTomorrow02)
+		    	toTomorrowWeather.push(toTomorrow03)
+		    	
+				
+				let div = "<table class='table_style'>";
+				div += "<tr><th colspan='4' class='table_title'>"+title+"</th></tr>";
+				div += "<tr><th class='table_th'>날짜</th><th class='table_th'>오전</th><th class='table_th'>오후</th><th class='table_th'>저녁</th></tr>";
+				div += "<tr><td>당일</td>";
+				todayWeather.forEach(function(k) {
+					if (k.length === 0) {
+						div += "<td>지난 시간</td>";
+					}else {
+						div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
+					}
+				})
+				div += "</tr>";
+				div += "<tr><td>내일</td>";
+				tomorrowWeather.forEach(function(k) {
+					if (k.length === 0) {
+						div += "<td>지난 시간</td>";
+					}else {
+						div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
+					}
+				})
+				div += "</tr>";
+				div += "<tr><td>모레</td>";
+				toTomorrowWeather.forEach(function(k) {
+					if (k.length === 0) {
+						div += "<td>지난 시간</td>";
+					}else {
+						div += "<td>강수확률 : "+k[1].fcstValue+"%, 하늘 : "+translateSky(k[0].fcstValue)+"</td>";
+					}
+				})
+				div += "</tr></table>";
+		    	$("#weather_box").append(div)
+		    },
+		    error: function(xhr, status, error) {
+		        alert("실패")
+		    }
+		});
+		
+	})
+})
+
 </script>
 </head>
 <body>
@@ -133,7 +284,10 @@ function closeModal() {
 	                                <img class="div_img" src="${img.image_name}" onclick="openModal(this.src)">
 	                            </c:otherwise>
 	                        </c:choose>
-	                        <div class="img-title">${img.title}</div>
+	                        <div class="img-title">${img.title}
+	                        	<input type="hidden" name="ajax_x" value="${img.mapx}">
+	                        	<input type="hidden" name="ajax_y" value="${img.mapy}">
+	                        </div>
 	                    </div>
 	                </c:forEach>
 	            </c:forEach>
@@ -152,9 +306,8 @@ function closeModal() {
         <span class="rboxclose" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="rbimg01">
     </div>
-
+	<div id="weather_box"></div>
     <script src="scripts.js"></script>
-		
 		<div class="empty-area"></div>
 		<div id="summer">
 			<textarea rows="10" cols="60" id="summernote" name="content">${kpostvo.path_post_content}</textarea>

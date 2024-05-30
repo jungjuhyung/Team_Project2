@@ -1,7 +1,10 @@
 package com.ict.travel.kim.controller;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.service.ChoService;
+import com.ict.travel.common.MapConverter;
+import com.ict.travel.common.WeatherAPI;
+import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
 import com.ict.travel.kim.dao.TourtestVO;
@@ -62,7 +68,6 @@ public class PathrvController {
 			
 			for (TourtestVO marker : tourtestvoimg) {
 			    List<TourtestVO> imgList = tourtestService.getImageListByMarkerId(marker.getPath_marker_idx());
-			    
 			    marker.setImgList(imgList);
 			}
 			mv.addObject("tourtestvoimg", tourtestvoimg);
@@ -97,6 +102,7 @@ public class PathrvController {
 	            mv.addObject("mapxList", mapxList);
 	            mv.addObject("marktitle", new Gson().toJson(marktitle));
 				mv.addObject("imglist", imglist);
+				
 	            return mv;
 	        }
 	    } catch (Exception e) {
