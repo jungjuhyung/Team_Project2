@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostDAO;
 import com.ict.travel.kim.dao.KpostVO;
@@ -66,7 +67,10 @@ public class KpostServiceImpl implements KpostService{
 		return kpostDAO.pathDelete(path_post_idx);
 	}
 
-	
+	@Override
+	public List<PathWishVO> getpathWishList(String u_idx) {
+		return kpostDAO.getpathWishList(u_idx);
+	}
 
 
 	
