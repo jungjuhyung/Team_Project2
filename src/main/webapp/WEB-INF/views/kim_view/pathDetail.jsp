@@ -36,8 +36,8 @@ function ilikethis() {
         u_idx: "${kpostvo.u_idx}",
         firstimage: "${kpostvo.firstimage}",
         r_contenttypeid: "${kpostvo.r_contenttypeid}",
-        path_post_title: "${kpostvo.path_post_title}"
-        path_post_title: "${kpostvo.img_status}"
+        path_post_title: "${kpostvo.path_post_title}",
+        img_status: "${kpostvo.img_status}"
     };
 
     $.ajax({
