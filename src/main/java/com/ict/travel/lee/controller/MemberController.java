@@ -171,32 +171,6 @@ public class MemberController {
 				session.setAttribute("u_id", mvo2.getU_id());
 				session.setAttribute("u_idx", mvo2.getU_idx());
 				
-				// 유저의 wish별 gpt의 추천 내용을 세션에 넣기
-				// GPT 계속 돈이 나가기 때문에 주석처리
-				/*
-				List<GptCountVO> areaCount = gptService.getAreaCount(mvo2.getU_idx());
-				List<GptCountVO> contentTypeCount = gptService.getContentTypeCount(mvo2.getU_idx());
-				StringBuffer sb = new StringBuffer();
-				sb.append("Areacode that the user has saved ");
-				for (GptCountVO k : areaCount) {
-					String content = "areacode : "+k.getAreacode()+"("+k.getAreacode_count()+")";
-					sb.append(content);
-				} 
-				sb.append("contenttypeid that the user has saved ");
-				for (GptCountVO k : contentTypeCount) {
-					String content = "contenttypeid : "+k.getContenttypeid()+"("+k.getContenttypeid_count()+")";
-					sb.append(content);
-				}
-				sb.append("Recommend travel locations to the user based on the information and previously saved user messages in the Thread.");
-				
-				String message = sb.toString();
-				System.out.println(message);
-				perTools.perMessageAdd(mvo2.getU_thread_id(), message);
-				String test1 = perTools.perAnswerCreate(mvo2.getU_thread_id());
-				String test2 = perTools.perMessagesList(mvo2.getU_thread_id());
-				System.out.println(test1);
-				System.out.println(test2);
-				*/
 				
 				return new ModelAndView("redirect:main_page.do"); 
 				

@@ -17,27 +17,27 @@ public class MailHandler {
 	}
 	
 	// 제목
-		public void setSubject(String subject) throws Exception{
-			messageHelper.setSubject(subject);
-		}
-		// 내용
-		public void setText(String text) throws Exception{
-			messageHelper.setText(text, true);
-		} 
-		// 보낸 사람의 이메일과 제목
-		public void setFrom(String email, String name) throws Exception{
-			messageHelper.setFrom(email, name);
-		}
-		// 받는 이메일
-		public void setTo(String email) throws Exception{
-			messageHelper.setTo(email);
-		}
-		// 보내기
-		public void send() {
-			mailSender.send(message);
-		}
-		
-		public void setTo2(String email) throws Exception {
-			messageHelper.setTo(email);
-		}
+	public void setSubject(String subject) throws Exception{
+		messageHelper.setSubject(subject);
+	}
+	// 내용
+	public void setText(String text) throws Exception{
+		messageHelper.setText(text, true);
+	} 
+	// 보낸 사람의 이메일과 제목
+	public void setFrom(String email, String name) throws Exception{
+		messageHelper.setFrom(email, name);
+	}
+	// 받는 이메일
+	public void setTo(String email) throws Exception{
+		messageHelper.setTo(email);
+	}
+	// 보내기
+	public void send() {
+		mailSender.send(message);
+	}
+	
+	public void setTo2(String email) throws Exception {
+		messageHelper.setTo(email);
+	}
 }

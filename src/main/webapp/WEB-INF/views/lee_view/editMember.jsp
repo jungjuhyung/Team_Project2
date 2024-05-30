@@ -10,6 +10,7 @@
 <link rel="icon" href="/resources/ko_images/favicon.png">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
+
 	$(document).ready(function () {
 		$("#u_nickname").keyup(function () {
 			let u_nickname = $("#u_nickname").val();

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${path}/resources/lee_css/agreement.css">
+<link rel="icon" href="/resources/ko_images/favicon.png">
 <script src="${path}/resources/lee_js/agreement.js" defer></script>
 <script type="text/javascript">
 	function agreeUse(f) {

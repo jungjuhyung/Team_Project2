@@ -18,7 +18,7 @@
 		f.action = "agree_go.do";
 		f.submit();
 	}
-	// 로그인 시
+	
 	function sign_in_go(f) {
 		if(f.u_id.value == ""){
 			alert("아이디를 입력해주세요.");
