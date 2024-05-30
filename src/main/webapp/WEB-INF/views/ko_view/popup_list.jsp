@@ -62,10 +62,8 @@
 					<tr><th>제목</th><td><input class="pop_title" type="text" name="subject" /></td></tr>
 					<tr><th>사진</th><td><input type="file" name="file" /></td></tr>
 					<tr><td colspan="2" style="text-align: center;">
-						<input class="pop_btn" type="button" value="추가하기"
-						onclick="save_go(this.form)"> 
-						<input class="pop_btn" type="reset"
-						value="취소"></td></tr>
+						<input class="pop_btn" type="button" value="추가하기" onclick="save_go(this.form)"> 
+						<input class="pop_btn" type="reset" value="취소"></td></tr>
 				</table>
 			</form>
 		</div>

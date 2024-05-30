@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +29,14 @@
 	function stop_go(u_idx, vs) {
 		let stop_days = $('input[name=stop_days'+vs+']:checked').val();
 		let stop_note = $('input[name=stop_note'+vs+']').val();
-		console.log(stop_note)
-		location.href = "stop_update.do?u_idx="+u_idx+"&stop_days="+stop_days+"&stop_note="+stop_note;
+		if (stop_note == '') {
+			alert('정지사유를 입력해주세요');
+			$('input[name=stop_note'+vs+']').focus();
+		}else {
+			location.href = "stop_update.do?u_idx="+u_idx
+							+"&stop_days="+stop_days
+							+"&stop_note="+stop_note;
+		}
 	}
 
 	function board_go(u_idx) {
@@ -63,11 +72,11 @@
 		<div class="user_search">
 			<h2>유저 관리 게시판</h2>
 			<ul>
-				<li>이름(아이디) : <input type="text" id="search" name="search"
-					onkeypress="if(event.keyCode==13){search_go();}" /> <input
-					type="button" class="user_btn" value="검색" onclick="search_go()">
-					<input type="button" class="user_btn" value="전체보기"
-					onclick="show_total()">
+				<li>이름(아이디) : 
+					<input type="text" id="search" name="search" 
+							onkeypress="if(event.keyCode==13){search_go();}" /> 
+					<input type="button" class="user_btn" value="검색" onclick="search_go()">
+					<input type="button" class="user_btn" value="전체보기" onclick="show_total()">
 				</li>
 			</ul>
 		</div>
@@ -102,37 +111,45 @@
 											</c:when>
 											<c:otherwise>원활</c:otherwise>
 										</c:choose></td>
-									<td><c:choose>
+									<td>
+										<c:choose>
 											<c:when test="${empty k.u_stopdate}">
-										없음
-									</c:when>
+												없음
+											</c:when>
 											<c:otherwise>
 												<%-- 참고사이트 https://blog.naver.com/javaking75/220033235370 --%>
 												<%-- 참고사이트 https://cofs.tistory.com/261 --%>
+												
+												
 												<!-- 현재날짜 -->
 												<jsp:useBean id="now" class="java.util.Date" />
 												<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
-													integerOnly="true" var="nowDate"></fmt:parseNumber>
+																	integerOnly="true" var="nowDate" />
 												<!-- 정지만료날짜 -->
-												<fmt:parseDate value="${k.u_stopdate}" pattern="yyyy-MM-dd"
-													var="stop"></fmt:parseDate>
+												<fmt:parseDate value="${k.u_stopdate}" pattern="yyyy-MM-dd" var="stop" />
 												<fmt:parseNumber value="${stop.time / (1000*60*60*24)}"
-													integerOnly="true" var="stopDate"></fmt:parseNumber>
-										${stopDate - nowDate}일
-									</c:otherwise>
-										</c:choose></td>
-									<td><c:choose>
+																	integerOnly="true" var="stopDate" />
+												<span style="color: red;">${stopDate - nowDate}일</span>
+												
+												
+												
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+										<c:choose>
 											<c:when test="${k.u_state == '1'}">
 												정지관리자 : ${k.admin_id}
 											</c:when>
 											<c:otherwise>
-												<input type="radio" name="stop_days${vs.count}" value="30"
-													checked>30일
-										<input type="radio" name="stop_days${vs.count}" value="90">90일
-										<input type="radio" name="stop_days${vs.count}" value="9999">영구정지
-									</c:otherwise>
-										</c:choose></td>
-									<td><c:choose>
+												<input type="radio" name="stop_days${vs.count}" value="30" checked>30일
+												<input type="radio" name="stop_days${vs.count}" value="90">90일
+												<input type="radio" name="stop_days${vs.count}" value="9999">영구정지
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+										<c:choose>
 											<c:when test="${k.u_state == '1'}">
 												${k.stop_note}
 											</c:when>
@@ -140,18 +157,29 @@
 												<input type="text" name="stop_note${vs.count}" />
 											</c:otherwise>
 										</c:choose>
-										
 									</td>
-									<td><c:choose>
+									<td>
+										<c:choose>
 											<c:when test="${k.u_state == '1'}">
+											
+											
 												<input type="button" class="user_btn2" value="해제하기"
 													onclick="reset_go(${k.u_idx}, ${k.ustop_idx})">
+													
+													
 											</c:when>
+											
 											<c:otherwise>
+											
+											
 												<input type="button" class="user_btn" value="정지하기"
 													onclick="stop_go(${k.u_idx}, ${vs.count})">
+													
+													
+													
 											</c:otherwise>
-										</c:choose></td>
+										</c:choose>
+									</td>
 									<td><input type="button" class="user_btn" value="작성글로 이동"
 										onclick="board_go(${k.u_idx})"></td>
 								</tr>
@@ -172,9 +200,9 @@
 						<li class="disable">이전</li>
 					</c:when>
 					<c:otherwise>
-						<li><a
-							href="user_list.do?cPage=${paging.beginBlock - paging.pagePerBlock}">
-								이전</a></li>
+						<li>
+						<a href="user_list.do?cPage=${paging.beginBlock - paging.pagePerBlock}">
+						이전</a></li>
 					</c:otherwise>
 				</c:choose>
 				<!-- 페이지번호들 -->
