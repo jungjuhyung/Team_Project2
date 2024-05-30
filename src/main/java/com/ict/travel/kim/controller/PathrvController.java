@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 import com.ict.travel.cho.dao.PathWishVO;
 import com.ict.travel.cho.service.ChoService;
 import com.ict.travel.common.MapConverter;
-import com.ict.travel.common.WeatherAPI;
 import com.ict.travel.kim.dao.BoardVO;
 import com.ict.travel.kim.dao.CommentVO;
 import com.ict.travel.kim.dao.KpostVO;
