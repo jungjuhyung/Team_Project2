@@ -22,7 +22,7 @@
 </script>
 </head>
 <body>
- <%@ include file="/WEB-INF/views/common_view/header.jsp"%>
+<%@ include file="/WEB-INF/views/common_view/header.jsp"%>
 <div class="pw-container" style="width: 1300px; height:900px; margin: 0 auto;">
 	<div class="pw_sub_1">
 		<div class="sendpw_form">

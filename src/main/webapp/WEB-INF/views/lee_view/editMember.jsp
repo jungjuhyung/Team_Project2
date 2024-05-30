@@ -80,6 +80,7 @@
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common_view/header.jsp" %>
 <div class="edit-container" style="width: 1300px; height:900px; margin: 0 auto;">
 	<div class="edit_sub">
         <form class="edit-form" method="post">
