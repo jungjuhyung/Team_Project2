@@ -200,7 +200,14 @@
 			<c:forEach var="k" items="${area_list}">
 				<div class="path_box" onclick="detail_go(${k.path_post_idx})">
 					<div class="path_image">
-						<img alt="" src="/resources/rc_main_img/${k.firstimage}">
+						<c:choose>
+							<c:when test="${k.img_status==0}">
+								<img src="resources/rc_main_img/${k.firstimage}">								
+							</c:when>
+							<c:otherwise>
+								<img src="${k.firstimage}">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<c:choose>
 						<c:when test="${fn:length(k.path_post_title) >= 12}">
@@ -228,7 +235,14 @@
 			<c:forEach var="k" items="${tema_list}">
 				<div class="path_box" onclick="detail_go(${k.path_post_idx})">
 					<div class="path_image">
-						<img alt="" src="/resources/rc_main_img/${k.firstimage}">
+						<c:choose>
+							<c:when test="${k.img_status==0}">
+								<img src="resources/rc_main_img/${k.firstimage}">								
+							</c:when>
+							<c:otherwise>
+								<img src="${k.firstimage}">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<c:choose>
 						<c:when test="${fn:length(k.path_post_title) >= 12}">

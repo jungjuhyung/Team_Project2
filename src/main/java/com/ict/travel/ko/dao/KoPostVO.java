@@ -2,7 +2,15 @@ package com.ict.travel.ko.dao;
 
 public class KoPostVO {
 	private String path_post_idx, u_idx, u_id, firstimage, path_post_title, path_post_contnet, 
-					heart, r_areacode, r_contenttypeid;
+					heart, r_areacode, r_contenttypeid, img_status;
+	
+	public String getImg_status() {
+		return img_status;
+	}
+
+	public void setImg_status(String img_status) {
+		this.img_status = img_status;
+	}
 
 	public String getPath_post_idx() {
 		return path_post_idx;
