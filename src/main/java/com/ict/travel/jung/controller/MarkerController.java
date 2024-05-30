@@ -60,9 +60,6 @@ public class MarkerController {
 		String[] contenttypeid = rcmvo.getContenttypeid();
 		String[] title = rcmvo.getTitle();
 		String[] ex_img = rcmvo.getEx_img();
-		for (String k : ex_img) {
-			System.out.println("img:"+k);
-		}
 		MemberVO uvo = (MemberVO) session.getAttribute("memberUser");
 		for (int i = 8; i < field.length; i++) {
 			try {

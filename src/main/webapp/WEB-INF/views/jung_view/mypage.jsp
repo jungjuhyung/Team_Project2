@@ -22,6 +22,7 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
 <section id="mypage">
 	<article id="mypage_article">
 		<div class="my_profile_box">

@@ -7,16 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resources/common_css/reset.css">
 <link rel="stylesheet" href="resources/jung_css/recommend_write.css">
-<!-- 서머노트를 위해 추가해야할 부분 -->
-<script src="resources/jung_summernote/summernote-lite.js"></script>
-<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="resources/jung_summernote/summernote-lite.css">
 <!-- 슬라이드 이벤트 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <style type="text/css">
 	/* summernote toolbar 수정 */
     .note-btn-group{width: auto;}
@@ -24,7 +19,13 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/cho_views/sideBar.jsp"%>
 <%@ include file="/WEB-INF/views/common_view/header.jsp" %>
+<!-- 서머노트를 위해 추가해야할 부분 -->
+<script src="resources/jung_summernote/summernote-lite.js"></script>
+<script src="resources/jung_summernote/summernote-ko-KR.js"></script>
+<!-- 슬라이드 이벤트 -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <section id="recommend">
 	<article class="map_total">
 		<div class="wish_title">
@@ -34,6 +35,11 @@
 			<div id="map"></div>
 			<input id="map_reset" type="button" value="경로 초기화" onclick="path_del()">
 		</div>
+		<div class="map_footer">
+			<div id="total_info">
+			
+			</div>
+		</div>	
 	</article>
 	<article class="wish_list_box swiper mySwiper">
 		<div class="wish_title">
@@ -52,7 +58,7 @@
 							<div>
 								<input class="chk_box" type="checkbox" name="chk" value="0">
 								<img src="${k.firstimage}">
-								<p>${k.place_title}</p>
+								<p class="place_title">${k.place_title}</p>
 								<input type="hidden" name="place_title" value="${k.place_title}">
 								<input type="hidden" name="mapx" value="${k.mapx}">
 								<input type="hidden" name="mapy" value="${k.mapy}">
@@ -404,9 +410,7 @@ kakao.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
 
             var distance = Math.round(clickLine.getLength()), // 선의 총 거리를 계산합니다
                 content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
-                
-            // 그려진 선의 거리정보를 지도에 표시합니다
-            showDistance(content, path[path.length-1]);  
+                $("#total_info").append(content);
              
         } else {
 
@@ -437,7 +441,8 @@ function path_del() {
 	index = 0;
 	drawingFlag = false;
 	upload_idx = 0;
-	$("#upload_box").empty()	
+	$("#upload_box").empty()
+	$("#total_info").empty()
 }
 
 // 클릭으로 그려진 선을 지도에서 제거하는 함수입니다
@@ -502,29 +507,7 @@ function displayCircleDot(position, distance) {
  dots.push({circle:circleOverlay, distance: distanceOverlay});
 }
 
-//마우스 드래그로 그려지고 있는 선의 총거리 정보를 표시하거
-//마우스 오른쪽 클릭으로 선 그리가 종료됐을 때 선의 정보를 표시하는 커스텀 오버레이를 생성하고 지도에 표시하는 함수입니다
-function showDistance(content, position) {
- 
- if (distanceOverlay) { // 커스텀오버레이가 생성된 상태이면
-     
-     // 커스텀 오버레이의 위치와 표시할 내용을 설정합니다
-     distanceOverlay.setPosition(position);
-     distanceOverlay.setContent(content);
-     
- } else { // 커스텀 오버레이가 생성되지 않은 상태이면
-     
-     // 커스텀 오버레이를 생성하고 지도에 표시합니다
-     distanceOverlay = new kakao.maps.CustomOverlay({
-         map: map, // 커스텀오버레이를 표시할 지도입니다
-         content: content,  // 커스텀오버레이에 표시할 내용입니다
-         position: position, // 커스텀오버레이를 표시할 위치입니다.
-         xAnchor: 0,
-         yAnchor: 0,
-         zIndex: 10  
-     });      
- }
-}
+
 
 // 마우스 우클릭 하여 선 그리기가 종료됐을 때 호출하여 
 // 그려진 선의 총거리 정보와 거리에 대한 도보, 자전거 시간을 계산하여
@@ -542,7 +525,7 @@ function getTimeHTML(distance) {
     walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
 
     // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
-    var bycicleTime = distance / 227 | 0;
+    var bycicleTime = distance / 267 | 0;
     var bycicleHour = '', bycicleMin = '';
 
     // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
@@ -550,19 +533,32 @@ function getTimeHTML(distance) {
         bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
     }
     bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
+   
+    // 자동차
+    var carTime = distance / 1500 | 0;
+    var carHour = '', carMin = '';
+
+    // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
+    if (carTime > 60) {
+        carHour = '<span class="number">' + Math.floor(carTime / 60) + '</span>시간 '
+    }
+    carMin = '<span class="number">' + carTime % 60 + '</span>분'
 
     // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
-    var content = '<ul class="dotOverlay distanceInfo">';
-    content += '    <li>';
-    content += '        <span class="label">총거리</span><span class="number">' + distance + '</span>m';
-    content += '    </li>';
-    content += '    <li>';
-    content += '        <span class="label">도보</span>' + walkHour + walkMin;
-    content += '    </li>';
-    content += '    <li>';
-    content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
-    content += '    </li>';
-    content += '</ul>'
+    var content = '<div class="dotOverlay_distanceInfo">';
+    content += '    <div class="km">';
+    content += '        <span class="label">총거리 :</span><mark>' + distance + '</mark>m';
+    content += '    </div>';
+    content += '    <div class="work">';
+    content += '        <span class="label">도보 :</span><mark>'+ walkHour + walkMin+'</mark>';
+    content += '    </div>';
+    content += '    <div class="rider">';
+    content += '        <span class="label">자전거 :</span><mark>' + bycicleHour + bycicleMin+'</mark>';
+    content += '    </div>';
+    content += '    <div class="rider">';
+    content += '        <span class="label">자동차 :</span><mark>' + carHour + carMin+'</mark>';
+    content += '    </div>';
+    content += '</div>'
 
     return content;
 }

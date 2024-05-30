@@ -29,7 +29,7 @@
 	</select>
 
 	<select id="markerImgList" parameterType="String" resultType="tourtestvo">
-	    SELECT pi.*, pt.title
+	    SELECT pi.*, pt.title, pt.mapx, pt.mapy
 	    FROM pathmarker_img_t pi
 	    INNER JOIN pathmarker_t pt ON pi.path_marker_idx = pt.path_marker_idx
 	    WHERE pi.path_marker_idx = #{path_marker_idx}
