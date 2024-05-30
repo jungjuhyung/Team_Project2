@@ -43,6 +43,10 @@
 	function board_detail(board_idx) {
 		location.href = "boardDetail?board_idx=" + board_idx + "&cPage=1";  
 	}
+	
+	function path_detail(path_post_idx) {
+		location.href = "pathReviewDetail?path_post_idx=" + path_post_idx;  
+	}
 
 </script>
 
@@ -104,8 +108,18 @@
 									<td>${k.regdate.substring(0,10)}</td>
 									<td><input type="button" class="user_btn" value="삭제하기"
 												onclick="comment_delete(${k.comment_idx}, ${u_idx})"></td>
-									<td><input type="button" class="user_btn" value="상세보기"
-												onclick="board_detail(${k.board_idx})"></td>
+									<td>
+										<c:choose>
+											<c:when test="${empty k.board_idx}">
+												<input type="button" class="user_btn" value="상세보기"
+														onclick="path_detail(${k.path_post_idx})">
+											</c:when>
+											<c:otherwise>
+												<input type="button" class="user_btn" value="상세보기"
+														onclick="board_detail(${k.board_idx})">
+											</c:otherwise>
+										</c:choose>
+									</td>
 								<tr>
 							</c:forEach>
 						</c:otherwise>

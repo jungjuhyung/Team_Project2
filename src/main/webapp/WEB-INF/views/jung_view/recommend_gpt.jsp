@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/jung_css/recommend_gpt.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function per_gpt() {
@@ -19,15 +20,18 @@
 	        	console.log(data);
 	            let container = $('#gpt_res');
 	            data.forEach(function(item) {
-	                let div = $('<div class="item"></div>');
+	            	let div = $('<div class="item" onclick="gpt_detail(' + item.contentid + ', ' + item.contenttypeid + ')"></div>');
+	                let div_img = $('<div class="path_image"></div>');
 	                let img = $('<img>').attr('src', item.firstimage);
-	                let areaCode = $('<p></p>').text('Area Code: ' + item.areacode);
-	                let contentTypeId = $('<p></p>').text('Content Type ID: ' + item.contenttypeid);
-	                let title = $('<p></p>').text('Title: ' + item.title);
+	                let title = '';
+	                if (item.title.length >= 12) {
+						title = '<div class="path_text">' + item.title.substring(0,12) + '...</div>';
+					}else {
+						title = '<div class="path_text">' + item.title + '</div>';
+					}
 	                
-	                div.append(img);
-	                div.append(areaCode);
-	                div.append(contentTypeId);
+	                div_img.append(img);
+	                div.append(div_img);
 	                div.append(title);
 	                
 	                container.append(div);
@@ -52,15 +56,18 @@
 	            let container = $('#gpt_res');
 	            container.empty()
 	            data.forEach(function(item) {
-	                let div = $('<div class="item"></div>');
+	                let div = $('<div class="item" onclick="gpt_detail(' + item.contentid + ', ' + item.contenttypeid + ')"></div>');
+	                let div_img = $('<div class="path_image"></div>');
 	                let img = $('<img>').attr('src', item.firstimage);
-	                let areaCode = $('<p></p>').text('Area Code: ' + item.areacode);
-	                let contentTypeId = $('<p></p>').text('Content Type ID: ' + item.contenttypeid);
-	                let title = $('<p></p>').text('Title: ' + item.title);
+	                let title = '';
+	                if (item.title.length >= 12) {
+						title = '<div class="path_text">' + item.title.substring(0,12) + '...</div>';
+					}else {
+						title = '<div class="path_text">' + item.title + '</div>';
+					}
 	                
-	                div.append(img);
-	                div.append(areaCode);
-	                div.append(contentTypeId);
+	                div_img.append(img);
+	                div.append(div_img);
 	                div.append(title);
 	                
 	                container.append(div);
@@ -77,26 +84,22 @@
 	}
 	per_gpt()
 </script>
-<style>
-#gpt_res {
-    display: flex;
-    flex-wrap: wrap;
-}
-.item {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    width: 200px;
-    box-sizing: border-box;
-}
-.item img {
-    max-width: 100%;
-    height: auto;
-}
-</style>
+
+<script type="text/javascript">
+	
+	function gpt_detail(contentid, contenttypeid) {
+		location.href = "ko_detail.do?contentid=" + contentid + "&contenttypeid=" + contenttypeid;
+	}
+	
+</script>
+
 </head>
 <body>
+	<div class="main_text">
+		<h2>AI 맞춤 추천 지역
+			<button class="gpt_btn" onclick="re_recommend()">다시 추천받기</button>
+		</h2>
+	</div>
 	<div id="gpt_res"></div>
-	<button onclick="re_recommend()">다시 추천받기</button>
 </body>
 </html>

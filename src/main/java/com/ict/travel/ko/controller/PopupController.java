@@ -38,9 +38,11 @@ public class PopupController {
 		// 전체 게시물의 수를 구하자
 		int count = popupService.getTotalCount();
 		paging.setTotalRecord(count);
-
-		// 전체페이지의 수
+		
+		// 한페이지 당 게시물 설정 : 3개
 		paging.setNumPerPage(3);
+		
+		// 전체페이지의 수
 		// 한페이지 당 게시물의 수보다 작으면 항상 1페이지
 		if (paging.getTotalRecord() <= paging.getNumPerPage()) {
 			paging.setTotalPage(1);
@@ -123,7 +125,7 @@ public class PopupController {
 		return new ModelAndView("common_view/error");
 	}
 
-	// 팝업 이미지 변경
+	// 팝업창 바꾸기
 	@RequestMapping("popup_img_change.do")
 	public ModelAndView popImageChange(String popup_idx) {
 		ModelAndView mv = new ModelAndView("redirect:main_page.do");

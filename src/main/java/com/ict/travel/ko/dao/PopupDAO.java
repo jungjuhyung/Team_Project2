@@ -17,11 +17,13 @@ public class PopupDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-
+	
+	//	팝업 추가
 	public int popupInsert(PopupVO popvo) {
 		return sqlSessionTemplate.insert("ko_popup.insert", popvo);
 	}
-
+	
+	//	팝업 리스트
 	public List<PopupVO> popupList(int offset, int limit) {
 		try {
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -33,10 +35,11 @@ public class PopupDAO {
 		}
 		return null;
 	}
-
+	
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
-
+	
+	//	팝업 바꾸기
 	public int popupUpdate(String popup_idx) {
 		int result = 0;
 		TransactionDefinition def = new DefaultTransactionDefinition();
@@ -53,7 +56,8 @@ public class PopupDAO {
 		}
 		return -1;
 	}
-
+	
+	//	팝
 	public int popupDelete(String popup_idx) {
 		return sqlSessionTemplate.delete("ko_popup.delete", popup_idx);
 	}

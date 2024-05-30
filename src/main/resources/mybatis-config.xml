@@ -17,7 +17,6 @@
 		<typeAlias type="com.ict.travel.jung.vo.BoardVO" alias="bdvo"/>
 		<typeAlias type="com.ict.travel.jung.vo.GptCountVO" alias="gptcvo"/>
 		<typeAlias type="com.ict.travel.jung.vo.GptAwsVO" alias="gptavo"/>
-		<typeAlias type="com.ict.travel.ko.dao.KoVO" alias="kovo"/>
 		<typeAlias type="com.ict.travel.ko.dao.ItemVO" alias="ivo"/>
 		<typeAlias type="com.ict.travel.ko.dao.KoPostVO" alias="kopost"/>
 		<typeAlias type="com.ict.travel.ko.dao.PopupVO" alias="popvo"/>
@@ -46,7 +45,6 @@
  		<mapper resource="mappers/cho-mapper.xml" />
  		<mapper resource="mappers/jung-mapper.xml" />
  		<mapper resource="mappers/jung-gpt-mapper.xml" />
- 		<mapper resource="mappers/ko-mapper.xml" />
  		<mapper resource="mappers/ko-main-mapper.xml" />
  		<mapper resource="mappers/ko-place-detail-mapper.xml" />
  		<mapper resource="mappers/ko-popup-mapper.xml" />

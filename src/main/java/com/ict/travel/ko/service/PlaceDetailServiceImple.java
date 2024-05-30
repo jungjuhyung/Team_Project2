@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ict.travel.cho.dao.PlaceWishVO;
 import com.ict.travel.ko.dao.ItemVO;
 import com.ict.travel.ko.dao.KoPostVO;
 import com.ict.travel.ko.dao.PlaceDetailDAO;
@@ -23,6 +24,11 @@ public class PlaceDetailServiceImple implements PlaceDetailService{
 	@Override
 	public ItemVO getPlaceDetail(String contentid) {
 		return placeDetailDAO.getPlaceDetail(contentid);
+	}
+	
+	@Override
+	public List<PlaceWishVO> getPlaceWishList(String u_idx) {
+		return placeDetailDAO.getPlaceWishList(u_idx);
 	}
 	
 	@Override
