@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/ko_css/main_page.css"> 
 <link rel="stylesheet" type="text/css" href="resources/lee_css/loginForm.css">
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <script type="text/javascript">
 	// 회원가입 폼으로 이동
 	function sign_up_go(f) {

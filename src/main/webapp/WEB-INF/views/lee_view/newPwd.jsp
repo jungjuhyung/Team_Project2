@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="resources/lee_css/newPwd.css">
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <script type="text/javascript">
 	function pwd_up(f) {
 		if(f.u_pwd.value != f.pwdchk.value){

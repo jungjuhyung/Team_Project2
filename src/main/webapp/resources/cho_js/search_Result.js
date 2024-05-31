@@ -472,7 +472,7 @@ function addPath(pathPost) {
     ')">' +
     '<img alt="' +
     pathPost.title +
-    '" src="' +
+    '" src="resources/rc_main_img/' +
     pathPost.firstimage +
     '">' +
     "</div>" +

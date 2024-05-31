@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/userBoard.css">
 <script
@@ -93,7 +93,7 @@
 							<c:forEach var="k" items="${path_list}" >
 								<tr>
 									<td>
-										<img alt="" src="/resources/rc_main_img/${k.firstimage}" width="100px">
+										<img alt="" src="resources/rc_main_img/${k.firstimage}" width="100px">
 									</td>
 									<td>
 										<c:choose>

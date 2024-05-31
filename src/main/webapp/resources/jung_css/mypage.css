@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body{
-	background-image: url(/resources/ko_images/bg.png);
+	background-image: url(resources/ko_images/bg.png);
 }
 #mypage{
 	margin: 0 auto; 

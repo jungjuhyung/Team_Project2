@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상세페이지</title>
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/place_detail.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
 				$(tag).addClass("wish-added");
 				$(tag).text("찜해제하기");
 				$('.heart_icon').empty();
-				let content = '<img alt="" src="/resources/ko_images/heart_on3.png" width="40px;">';
+				let content = '<img alt="" src="resources/ko_images/heart_on3.png" width="40px;">';
 				$('.heart_icon').append(content);
 				$('.heart-state').css('background', 'pink');
 				alert("좋아요를 눌렀습니다.")
@@ -71,7 +71,7 @@
 				$(tag).text("찜추가하기");
 				$(tag).removeClass("wish-added");
 				$('.heart_icon').empty();
-				let content = '<img alt="" src="/resources/ko_images/heart_off2.png" width="40px;">';
+				let content = '<img alt="" src="resources/ko_images/heart_off2.png" width="40px;">';
 				$('.heart_icon').append(content);
 				$('.heart-state').css('background', 'black');
 				alert("좋아요를 취소하셨습니다.")
@@ -231,14 +231,14 @@
 					<div class="wish_btn">
 						<c:choose>
 							<c:when test="${itemVO.uheart == 1}">
-								<i class="heart_icon"><img alt="" src="/resources/ko_images/heart_on3.png" width="40px;"></i>
+								<i class="heart_icon"><img alt="" src="resources/ko_images/heart_on3.png" width="40px;"></i>
 								<button type="button" class="heart-state wish-added"
 									value="${itemVO.contentid}">
 									찜해제하기
 								</button>
 							</c:when>
 							<c:otherwise>
-								<i class="heart_icon"><img alt="" src="/resources/ko_images/heart_off2.png" width="40px;"></i>
+								<i class="heart_icon"><img alt="" src="resources/ko_images/heart_off2.png" width="40px;"></i>
 								<button type="button" class="heart-state"
 									value="${itemVO.contentid}">
 									찜추가하기
@@ -247,7 +247,7 @@
 						</c:choose>
 					</div>
 					<div class="like_count">
-						<img alt="" src="/resources/ko_images/like.png" width="50px">
+						<img alt="" src="resources/ko_images/like.png" width="50px">
 						<div class="heart-count">좋아요  ${itemVO.heart}</div>
 					</div>
 					<input type="hidden" id="userLogin" value="${userLogin}">
@@ -284,7 +284,7 @@
 								<c:forEach var="k" items="${path_list}">
 									<div class="path_box" onclick="path_detail(${k.path_post_idx})">
 										<div class="path_image">
-											<img alt="" src="/resources/rc_main_img/${k.firstimage}">
+											<img alt="" src="resources/rc_main_img/${k.firstimage}">
 										</div>
 										<div class="path_text">${k.path_post_title}</div>
 									</div>

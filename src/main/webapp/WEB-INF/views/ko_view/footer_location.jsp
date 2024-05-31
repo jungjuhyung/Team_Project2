@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>위치정보이용약관</title>
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/footer_terms.css">
 </head>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이메일무단수집거부</title>
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/footer_terms.css">
 </head>

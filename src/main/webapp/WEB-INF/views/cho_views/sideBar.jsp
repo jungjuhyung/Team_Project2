@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="resources/cho_css/side_bar.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	
-<script src="/resources/cho_js/side_bar.js" defer></script>
+<script src="resources/cho_js/side_bar.js" defer></script>
 </head>
 <body>
 	<div id="side-btn-wrap">

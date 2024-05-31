@@ -9,7 +9,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/cho_css/category.css">
-<script src="/resources/cho_js/search_Result.js" defer></script>
+<script src="resources/cho_js/search_Result.js" defer></script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common_view/header.jsp"%>

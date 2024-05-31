@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import "../common_css/reset.css";
 body {
-  background-image: url(/resources/ko_images/bg.png);
+  background-image: url(resources/ko_images/bg.png);
 }
 * {
   box-sizing: border-box;

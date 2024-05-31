@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Five Guys Travel Guide</title>
-<link rel="icon" href="/resources/ko_images/favicon.png">
+<link rel="icon" href="resources/ko_images/favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="resources/ko_css/main_page.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,7 @@
 					content += '<div class="path_box" onclick="detail_go(' 
 								+ value.path_post_idx + ')">' 
 								+ '<div class="path_image">' 
-								+ '<img alt="" src="/resources/rc_main_img/' 
+								+ '<img alt="" src="resources/rc_main_img/' 
 								+ value.firstimage + '"></div>';
 								
 					if (value.path_post_title.length >= 12) {
@@ -79,7 +79,7 @@
 					content += '<div class="path_box" onclick="detail_go(' 
 								+ value.path_post_idx + ')">' 
 								+ '<div class="path_image">' 
-								+ '<img alt="" src="/resources/rc_main_img/' 
+								+ '<img alt="" src="resources/rc_main_img/' 
 								+ value.firstimage + '"></div>';
 						if (value.path_post_title.length >= 12) {
 							content += '<div class="path_text">' 
@@ -143,7 +143,7 @@
 		<!-- 팝업창 -->
 	    <div id="popup">
 	        <div class="popup_img">
-	        	<img alt="" src="/resources/popup_img/${popvo.f_name}">
+	        	<img alt="" src="resources/popup_img/${popvo.f_name}">
 	        </div>         
 	        <div class="popup_btn">
 	        	<button type="button" onclick="close_today()">오늘하루보지않기</button>
@@ -164,7 +164,7 @@
 				<c:forEach var="k" begin="1" end="10">
 					<div class="slider fade">
 						<img class="slide_show" alt=""
-							src="/resources/ko_images/main_image/${k}.jpg">
+							src="resources/ko_images/main_image/${k}.jpg">
 					</div>
 				</c:forEach>
 			</div>
@@ -172,7 +172,7 @@
 				<c:forEach var="k" begin="1" end="10">
 					<div class="slider_bg fade_bg">
 						<img class="slide_show_bg" alt=""
-							src="/resources/ko_images/main_image/${k}.jpg">
+							src="resources/ko_images/main_image/${k}.jpg">
 					</div>
 				</c:forEach>
 			</div>
